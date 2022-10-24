@@ -3,7 +3,9 @@ using ChatNetWork;
 using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Text;
 using UnityEngine;
+using WebSocketSharp;
 
 
 /// <summary>
@@ -35,6 +37,15 @@ public class ChatNetworkManager : MonoBehaviour {
     /// <summary>
     /// connect to the server
     /// </summary>
+    ///
+
+    // send socket server made by sm
+    public IPAddress ip;
+    public int sttTcpPort= 5100;
+    public int sttUdpPort;
+    public string sttServer= "192.168.0.37";
+    WebSocket ws;
+
     public void ConnectServer()
     {
         IPAddress ipAddress;
@@ -44,7 +55,20 @@ public class ChatNetworkManager : MonoBehaviour {
             return;
         }
         client.ConnectServer(Config.Instance.ServerIP, Config.Instance.TcpPort);
+
+        print("들어");
+        if (!IPAddress.TryParse(sttServer, out ip) || sttUdpPort < 0 || sttUdpPort > 65535)
+        {
+            Debug.LogError("ip 문제");
+            return;
+        }
+        client.ConnectServer(sttServer, sttTcpPort);
+
+        byte[] StrByte = Encoding.UTF8.GetBytes("Fool");
+        client.Send(StrByte);
     }
+
+
     /// <summary>
     /// disconnect to the server
     /// </summary>
