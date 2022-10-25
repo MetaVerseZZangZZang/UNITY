@@ -12,17 +12,33 @@ using UnityEngine.UI;
 public class NetManager : MonoBehaviourPunCallbacks
 {
     public static NetManager Instance;
-    public GameObject map;
+    //public GameObject map;
     public List<RoomInfo> m_roomList = new List<RoomInfo>();
-    public Transform ChatPeersContent;
+    //public Transform ChatPeersContent;
 
-    public List<int> idList = new List<int>();
+    public List<string> nameList = new List <string>();
 
     void Awake()
     {
         Instance = this;
     }
 
+
+    void Start()
+    {
+        Login();
+    }
+    
+    public void Login()
+    {
+        if (string.IsNullOrEmpty(UI_StartPanel.Instance.userName))
+        {
+            MessageManager.Instance.ShowMessage("please input username!");
+            return;
+        } 
+        ChatManager.Instance.Login(UI_StartPanel.Instance.userName);
+    }
+    
     public void Connect()
     {
         PhotonNetwork.ConnectUsingSettings();
@@ -39,7 +55,6 @@ public class NetManager : MonoBehaviourPunCallbacks
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
-        Debug.Log("in");
         int roomCount = roomList.Count;
         for (int i = 0; i < roomCount; i++)
         {
@@ -63,17 +78,16 @@ public class NetManager : MonoBehaviourPunCallbacks
         //for (int i = 0; i < ChatText.Length; i++) ChatText[i].text = "";
 
         //룸에 있는 사람들만 통화가 가능하게 만들거니까 그거를 플레이어 닉네임이 같은 사람으로만 해서 토글을 볼수 있게 해주면 되어요
-        //roomNameList.Add(PhotonNetwork.LocalPlayer.NickName);
 
         //if (PhotonNetwork.LocalPlayer.NickName!=PhotonNetwork.MasterClient.NickName)
         //    roomNameList.Add(PhotonNetwork.MasterClient.NickName);
-
+        
         foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
         {
-            idList.Add(Int32.Parse(p.UserId));
+            nameList.Add(p.NickName);
         }
 
-//        ChatManager.Instance.Login(PhotonNetwork.LocalPlayer.NickName);
+        ChatManager.Instance.Login(PhotonNetwork.LocalPlayer.NickName);
     }
 
     public void roomSelect(RoomInfo room)
@@ -84,13 +98,13 @@ public class NetManager : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
         //ChatRPC("<color=yellow>" + newPlayer.NickName + "님이 참가하셨습니다</color>");
-        idList.Add(Int32.Parse(newPlayer.UserId));
+        nameList.Add(newPlayer.NickName);
 
     }
 
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
     {
-        idList.Remove(Int32.Parse(otherPlayer.UserId));
+        nameList.Remove(otherPlayer.NickName);
         //ChatRPC("<color=yellow>" + otherPlayer.NickName + "님이 퇴장하셨습니다</color>");
     }
     

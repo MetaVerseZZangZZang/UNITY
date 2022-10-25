@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -69,7 +70,7 @@ public class MainUIManager : MonoBehaviour
             MessageManager.Instance.ShowMessage("please input username!");
             return;
         }
-        ChatManager.Instance.Login(UsernamInputField.text);
+        ChatManager.Instance.Login(PhotonNetwork.LocalPlayer.NickName);
     }
     /// <summary>
     /// Get the list of online users
@@ -91,7 +92,7 @@ public class MainUIManager : MonoBehaviour
         {
             if (!useSelfTest && ChatManager.Instance.OnlineUserList[i].UserID == UserInfo.UserID) continue;
 
-            if (NetManager.Instance.idList.Contains(UserInfo.UserID))
+            if (NetManager.Instance.nameList.Contains(ChatManager.Instance.OnlineUserList[i].UserName))
             {
                 GameObject go = Instantiate(FriendItemPrefab, FriendContent);
                 FriendToggleList.Add(go.GetComponent<Toggle>());
