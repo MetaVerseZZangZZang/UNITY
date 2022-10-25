@@ -22,9 +22,10 @@ public class MainUIManager : MonoBehaviour
 
     public UserInfo UserInfo { get; internal set; }
     public List<UserInfo> SelectedFriendList = new List<UserInfo>();
-
-    public Toggle AllFriendToggle;
-    List<Toggle> FriendToggleList = new List<Toggle>();
+    
+    public List<UserInfo> UserInRoomList = new List<UserInfo>();
+    //public Toggle AllFriendToggle;
+    //List<Toggle> FriendToggleList = new List<Toggle>();
 
     public Text DelayText;
 
@@ -80,20 +81,27 @@ public class MainUIManager : MonoBehaviour
         ChatManager.Instance.GetOnlineUserList();
     }
     //Update online user list
+    
+    
     public void UpdateUserList()
     {
+        /*
         foreach (var child in FriendContent.GetComponentsInChildren<FriendItem>())
         {
             DestroyImmediate(child.gameObject);
         }
-        FriendToggleList.Clear();
+        */
+        
+        //FriendToggleList.Clear();
         SelectedFriendList.Clear();
         for (int i = 0; i < ChatManager.Instance.OnlineUserList.Count; i++)
         {
-            if (!useSelfTest && ChatManager.Instance.OnlineUserList[i].UserID == UserInfo.UserID) continue;
+            if (ChatManager.Instance.OnlineUserList[i].UserID == UserInfo.UserID) continue;
 
             if (NetManager.Instance.nameList.Contains(ChatManager.Instance.OnlineUserList[i].UserName))
             {
+                UserInRoomList.Add(ChatManager.Instance.OnlineUserList[i]);
+                /*
                 GameObject go = Instantiate(FriendItemPrefab, FriendContent);
                 FriendToggleList.Add(go.GetComponent<Toggle>());
                 FriendItem item = go.GetComponent<FriendItem>();
@@ -101,11 +109,15 @@ public class MainUIManager : MonoBehaviour
                 item.FriendID = ChatManager.Instance.OnlineUserList[i].UserID;
                 item.FriendName = ChatManager.Instance.OnlineUserList[i].UserName;
                 go.transform.Find("Text").GetComponent<Text>().text = item.FriendName;
+                */
+                
+                
             }
         }
-        AllFriendToggle.isOn = false;
+        //AllFriendToggle.isOn = true;
     }
 
+    /*
     public void OnAllFriendToggleChanged()
     {
         for (int i = 0; i < FriendToggleList.Count; i++)
@@ -115,12 +127,13 @@ public class MainUIManager : MonoBehaviour
     }
 
     bool useSelfTest; 
+  
     public void OnSelfTestToggleChanged(Toggle tog)
     {
         useSelfTest = tog.isOn;
         UpdateUserList();
     }
-
+  */
     public void SendMessage(int type,byte[]data)
     {
         if (SelectedFriendList.Count == 0 && ChatManager.Instance.ChatPeers.Count == 0)
