@@ -22,22 +22,6 @@ public class NetManager : MonoBehaviourPunCallbacks
     {
         Instance = this;
     }
-
-
-    void Start()
-    {
-        Login();
-    }
-    
-    public void Login()
-    {
-        if (string.IsNullOrEmpty(UI_StartPanel.Instance.userName))
-        {
-            MessageManager.Instance.ShowMessage("please input username!");
-            return;
-        } 
-        ChatManager.Instance.Login(UI_StartPanel.Instance.userName);
-    }
     
     public void Connect()
     {

@@ -16,13 +16,14 @@ public class MainUIManager : MonoBehaviour
     public static MainUIManager Instance;
 
     public Transform FriendContent;
-    public GameObject FriendItemPrefab;
+    //public GameObject FriendItemPrefab;
 
     public UserInfo UserInfo { get; internal set; }
     public List<UserInfo> SelectedFriendList = new List<UserInfo>();
 
-    public Toggle AllFriendToggle;
-    List<Toggle> FriendToggleList = new List<Toggle>();
+    public List<UserInfo> UserInRoomList = new List<UserInfo>();
+    //public Toggle AllFriendToggle;
+    //List<Toggle> FriendToggleList = new List<Toggle>();
 
     public Text DelayText;
     public Text UserListText;
@@ -33,8 +34,8 @@ public class MainUIManager : MonoBehaviour
     }
     void Start()
     {
-        UpdateUserList();
         UserListText.text = "";
+        UpdateUserList();
         ChatNetworkManager.Instance.OnDisconnectAction += OnDisconnectAction;
         ChatNetworkManager.Instance.OnConnectResultAction += OnConnectResultAction;
     }
@@ -86,46 +87,42 @@ public class MainUIManager : MonoBehaviour
     //Update online user list
     public void UpdateUserList()
     {
+        /*
         foreach (var child in FriendContent.GetComponentsInChildren<FriendItem>())
         {
             DestroyImmediate(child.gameObject);
         }
-<<<<<<< Updated upstream
+
         FriendToggleList.Clear();
         SelectedFriendList.Clear();
-        for (int i = 0; i < ChatManager.Instance.OnlineUserList.Count; i++)
-        {
-            if (!useSelfTest && ChatManager.Instance.OnlineUserList[i].UserID == UserInfo.UserID) continue;
-=======
         */
         
-        //FriendToggleList.Clear();
-        //SelectedFriendList.Clear();
         for (int i = 0; i < ChatManager.Instance.OnlineUserList.Count; i++)
         {
             //if (ChatManager.Instance.OnlineUserList[i].UserID == UserInfo.UserID) continue;
->>>>>>> Stashed changes
 
+           
             if (NetManager.Instance.nameList.Contains(ChatManager.Instance.OnlineUserList[i].UserName))
             {
-                GameObject go = Instantiate(FriendItemPrefab, FriendContent);
-                FriendToggleList.Add(go.GetComponent<Toggle>());
-                FriendItem item = go.GetComponent<FriendItem>();
-                item.UserInfo = ChatManager.Instance.OnlineUserList[i];
-                item.FriendID = ChatManager.Instance.OnlineUserList[i].UserID;
-                item.FriendName = ChatManager.Instance.OnlineUserList[i].UserName;
-                go.transform.Find("Text").GetComponent<Text>().text = item.FriendName;
-<<<<<<< Updated upstream
-=======
-                */
+                /*
+               GameObject go = Instantiate(FriendItemPrefab, FriendContent);
+               FriendToggleList.Add(go.GetComponent<Toggle>());
+               FriendItem item = go.GetComponent<FriendItem>();
+               item.UserInfo = ChatManager.Instance.OnlineUserList[i];
+               item.FriendID = ChatManager.Instance.OnlineUserList[i].UserID;
+               item.FriendName = ChatManager.Instance.OnlineUserList[i].UserName;
+               go.transform.Find("Text").GetComponent<Text>().text = item.FriendName;
+
+               */
                 UserListText.text += "\n" + ChatManager.Instance.OnlineUserList[i].UserName;
 
->>>>>>> Stashed changes
+
             }
         }
-        AllFriendToggle.isOn = false;
+        //AllFriendToggle.isOn = false;
     }
 
+    /*
     public void OnAllFriendToggleChanged()
     {
         for (int i = 0; i < FriendToggleList.Count; i++)
@@ -133,20 +130,15 @@ public class MainUIManager : MonoBehaviour
             FriendToggleList[i].isOn = AllFriendToggle.isOn;
         }
     }
-
+    
     bool useSelfTest; 
     public void OnSelfTestToggleChanged(Toggle tog)
     {
         useSelfTest = tog.isOn;
         UpdateUserList();
     }
-<<<<<<< Updated upstream
+    */
 
-=======
-  */
-    
-    
->>>>>>> Stashed changes
     public void SendMessage(int type,byte[]data)
     {
         if (SelectedFriendList.Count == 0 && ChatManager.Instance.ChatPeers.Count == 0)
