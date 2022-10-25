@@ -141,18 +141,20 @@ public class ChatUIManager : MonoBehaviour {
     }
     void Call(ChatType type)
     {
+        /*
         if (MainUIManager.Instance.SelectedFriendList.Count == 0)
         {
             MessageManager.Instance.ShowMessage("please select a user!");
             return;
         }
         print("Call:" + type);
+        */
         UnityChatSDK.Instance.ChatType = type;
         ChatManager.Instance.ChatPeers.Clear();
         ChatManager.Instance.ChatPeers.Add(MainUIManager.Instance.UserInfo);
-        for (int i = 0; i < MainUIManager.Instance.SelectedFriendList.Count; i++)
+        for (int i = 0; i < MainUIManager.Instance.UserInRoomList.Count; i++)
         {
-            ChatManager.Instance.ChatPeers.Add(MainUIManager.Instance.SelectedFriendList[i]);
+            ChatManager.Instance.ChatPeers.Add(MainUIManager.Instance.UserInRoomList[i]);
         }
         long callID = BitConverter.ToInt64(Guid.NewGuid().ToByteArray(), 0);
         print("callID:" + callID);
