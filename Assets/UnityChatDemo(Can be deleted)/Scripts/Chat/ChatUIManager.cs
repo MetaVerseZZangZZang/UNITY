@@ -162,6 +162,7 @@ public class ChatUIManager : MonoBehaviour {
         ChatManager.Instance.ChatPeers.Add(MainUIManager.Instance.UserInfo);
         for (int i = 0; i < MainUIManager.Instance.UserInRoomList.Count; i++)
         {
+            Debug.Log("USER : "+MainUIManager.Instance.UserInRoomList[i]);
             ChatManager.Instance.ChatPeers.Add(MainUIManager.Instance.UserInRoomList[i]);
         }
         long callID = BitConverter.ToInt64(Guid.NewGuid().ToByteArray(), 0);

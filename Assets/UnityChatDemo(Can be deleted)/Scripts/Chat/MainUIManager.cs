@@ -114,6 +114,7 @@ public class MainUIManager : MonoBehaviour
                go.transform.Find("Text").GetComponent<Text>().text = item.FriendName;
 
                */
+                UserInRoomList.Add(ChatManager.Instance.OnlineUserList[i]);
                 UserListText.text += "\n" + ChatManager.Instance.OnlineUserList[i].UserName;
 
 

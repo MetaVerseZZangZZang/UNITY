@@ -1120,7 +1120,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &113560834
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1804,7 +1804,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &197893497
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2135,7 +2135,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &247209996
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4003,7 +4003,7 @@ GameObject:
   - component: {fileID: 372160845}
   - component: {fileID: 372160846}
   m_Layer: 5
-  m_Name: MessagegPanl
+  m_Name: MessagePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8374,12 +8374,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83009596b04e5cf488f0a9a72bfa20a7, type: 3}
---- !u!1 &695842988 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4086085849637307708, guid: 83009596b04e5cf488f0a9a72bfa20a7,
-    type: 3}
-  m_PrefabInstance: {fileID: 695842987}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &695842989 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4086085849637307711, guid: 83009596b04e5cf488f0a9a72bfa20a7,
@@ -8642,7 +8636,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &751974685
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12062,7 +12056,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1090851027
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12856,7 +12850,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FriendContent: {fileID: 2019402857}
-  FriendItemPrefab: {fileID: 695842988}
   DelayText: {fileID: 1093470738}
   UserListText: {fileID: 1031405125}
 --- !u!1 &1195551695
