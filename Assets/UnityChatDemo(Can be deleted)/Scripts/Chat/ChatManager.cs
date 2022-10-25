@@ -110,7 +110,7 @@ public class ChatManager : MonoBehaviour {
         ChatPeers.Clear();
         ChatPeers.AddRange(info.UserList);
         CallID = info.CallID;
-        ChatUIManager.Instance.OnPeerCall((ChatType)info.Type);
+        //ChatUIManager.Instance.OnPeerCall((ChatType)info.Type);
     }
     /// <summary>
     /// Accept call invitation

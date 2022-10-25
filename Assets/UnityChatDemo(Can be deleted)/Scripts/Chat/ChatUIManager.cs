@@ -99,6 +99,8 @@ public class ChatUIManager : MonoBehaviour {
         //start udp transmission
         ChatDataHandler.Instance.StartChat();
     }
+    
+    /*
     public void OnPeerCall(ChatType type)
     {
         CallPanel.SetActive(false);
@@ -122,6 +124,8 @@ public class ChatUIManager : MonoBehaviour {
         }
         SoundManager._instance.PlayEffect("Call");
     }
+    
+    */
     public void VoiceCall()
     {
         Call(ChatType.Audio);
@@ -130,6 +134,8 @@ public class ChatUIManager : MonoBehaviour {
     {
         Call(ChatType.Video);
     }
+    
+    /*
     public void SendChatMessage() 
     {
         if (MainUIManager.Instance.SelectedFriendList.Count == 0 && ChatManager.Instance.ChatPeers.Count == 0)
@@ -139,6 +145,8 @@ public class ChatUIManager : MonoBehaviour {
         }
         SendChatMessagePanel.SetActive(true);
     }
+    */
+    
     void Call(ChatType type)
     {
         if (MainUIManager.Instance.SelectedFriendList.Count == 0)
