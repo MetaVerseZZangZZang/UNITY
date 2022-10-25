@@ -75,12 +75,15 @@ public class ChatUIManager : MonoBehaviour {
     void Update () {
 
     }
+    
+    //전화 걸었는데 상대가 받았을 때
     public void OnPeerAccept()
     {
         //InvitePanel.SetActive(false);
         //CallPanel.SetActive(false);
         ChatPanel.SetActive(true);
 
+        /*
         //start joining the chat
         if (ChatManager.Instance.ChatPeers.Count == 2)
         {
@@ -96,11 +99,12 @@ public class ChatUIManager : MonoBehaviour {
             }
             ChatFriendText.text = "In group call(" + ChatManager.Instance.ChatPeers.Count + "):" + group;
         }
+        */
         //start udp transmission
         ChatDataHandler.Instance.StartChat();
     }
     
-    
+    //전화 왔을 때
     public void OnPeerCall(ChatType type)
     {
         
@@ -126,7 +130,7 @@ public class ChatUIManager : MonoBehaviour {
         }
         SoundManager._instance.PlayEffect("Call");
         */
-        
+        ChatPanel.SetActive(true);
         ChatDataHandler.Instance.StartChat();
     }
     
@@ -209,7 +213,7 @@ public class ChatUIManager : MonoBehaviour {
     {
         ChatManager.Instance.Accept(ChatManager.Instance.UserID, ChatManager.Instance.ChatPeers);
         //InvitePanel.SetActive(false);
-        //ChatPanel.SetActive(true);
+        ChatPanel.SetActive(true);
 
         if (ChatManager.Instance.ChatPeers.Count == 2)
         {

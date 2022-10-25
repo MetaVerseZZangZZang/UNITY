@@ -11373,8 +11373,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e231440364bfbfa40a3ec178f62abfbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InvitePanel: {fileID: 1757167845}
-  CallPanel: {fileID: 717676025}
   ChatPanel: {fileID: 1593470046}
   SendChatMessagePanel: {fileID: 60879921}
   ChatPeersContent: {fileID: 2019402857}
@@ -16701,7 +16699,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1593470047
 MonoBehaviour:
   m_ObjectHideFlags: 0
