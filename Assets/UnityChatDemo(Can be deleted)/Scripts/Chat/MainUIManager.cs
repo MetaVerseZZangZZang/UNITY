@@ -90,13 +90,17 @@ public class MainUIManager : MonoBehaviour
         for (int i = 0; i < ChatManager.Instance.OnlineUserList.Count; i++)
         {
             if (!useSelfTest && ChatManager.Instance.OnlineUserList[i].UserID == UserInfo.UserID) continue;
-            GameObject go = Instantiate(FriendItemPrefab, FriendContent);
-            FriendToggleList.Add(go.GetComponent<Toggle>());
-            FriendItem item = go.GetComponent<FriendItem>();
-            item.UserInfo = ChatManager.Instance.OnlineUserList[i];
-            item.FriendID = ChatManager.Instance.OnlineUserList[i].UserID;
-            item.FriendName = ChatManager.Instance.OnlineUserList[i].UserName;
-            go.transform.Find("Text").GetComponent<Text>().text = item.FriendName;
+
+            if (NetManager.Instance.idList.Contains(UserInfo.UserID))
+            {
+                GameObject go = Instantiate(FriendItemPrefab, FriendContent);
+                FriendToggleList.Add(go.GetComponent<Toggle>());
+                FriendItem item = go.GetComponent<FriendItem>();
+                item.UserInfo = ChatManager.Instance.OnlineUserList[i];
+                item.FriendID = ChatManager.Instance.OnlineUserList[i].UserID;
+                item.FriendName = ChatManager.Instance.OnlineUserList[i].UserName;
+                go.transform.Find("Text").GetComponent<Text>().text = item.FriendName;
+            }
         }
         AllFriendToggle.isOn = false;
     }

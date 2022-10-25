@@ -39,15 +39,17 @@ public class ChatNetworkManager : MonoBehaviour {
     /// </summary>
     ///
 
+    /*
     // send socket server made by sm
     public IPAddress ip;
     public int sttTcpPort= 5100;
     public int sttUdpPort;
     public string sttServer= "192.168.0.37";
     WebSocket ws;
-
+*/
     public void ConnectServer()
     {
+        
         IPAddress ipAddress;
         if (!IPAddress.TryParse(Config.Instance.ServerIP, out ipAddress) || Config.Instance.TcpPort < 0 || Config.Instance.TcpPort > 65535)
         {
@@ -56,6 +58,7 @@ public class ChatNetworkManager : MonoBehaviour {
         }
         client.ConnectServer(Config.Instance.ServerIP, Config.Instance.TcpPort);
 
+        /*
         print("들어");
         if (!IPAddress.TryParse(sttServer, out ip) || sttUdpPort < 0 || sttUdpPort > 65535)
         {
@@ -66,6 +69,7 @@ public class ChatNetworkManager : MonoBehaviour {
 
         byte[] StrByte = Encoding.UTF8.GetBytes("Fool");
         client.Send(StrByte);
+        */
     }
 
 

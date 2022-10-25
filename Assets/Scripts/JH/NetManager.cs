@@ -16,7 +16,7 @@ public class NetManager : MonoBehaviourPunCallbacks
     public List<RoomInfo> m_roomList = new List<RoomInfo>();
     public Transform ChatPeersContent;
 
-    public List<string> roomNameList = new List<string>();
+    public List<int> idList = new List<int>();
 
     void Awake()
     {
@@ -34,7 +34,7 @@ public class NetManager : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinLobby();
 
         PhotonNetwork.LocalPlayer.NickName = UI_StartPanel.Instance.nameInput.text;
-
+        
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
@@ -70,7 +70,7 @@ public class NetManager : MonoBehaviourPunCallbacks
 
         foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
         {
-            roomNameList.Add(p.NickName);
+            idList.Add(Int32.Parse(p.UserId));
         }
 
 //        ChatManager.Instance.Login(PhotonNetwork.LocalPlayer.NickName);
@@ -79,21 +79,18 @@ public class NetManager : MonoBehaviourPunCallbacks
     public void roomSelect(RoomInfo room)
     {
         PhotonNetwork.JoinRoom(room.Name);
-        Debug.Log(room.ToString());
     }
 
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
         //ChatRPC("<color=yellow>" + newPlayer.NickName + "님이 참가하셨습니다</color>");
-        Debug.Log(PhotonNetwork.LocalPlayer.NickName);
-        Debug.Log("newPlayer.ID " + newPlayer.UserId);
-        roomNameList.Add(newPlayer.NickName);
+        idList.Add(Int32.Parse(newPlayer.UserId));
 
     }
 
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
     {
-        roomNameList.Remove(otherPlayer.NickName);
+        idList.Remove(Int32.Parse(otherPlayer.UserId));
         //ChatRPC("<color=yellow>" + otherPlayer.NickName + "님이 퇴장하셨습니다</color>");
     }
     
