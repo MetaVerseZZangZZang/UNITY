@@ -27,6 +27,7 @@ public class MainUIManager : MonoBehaviour
 
     public Text DelayText;
     public Text UserListText;
+    public Text RoomName;
     
     private void Awake()
     {

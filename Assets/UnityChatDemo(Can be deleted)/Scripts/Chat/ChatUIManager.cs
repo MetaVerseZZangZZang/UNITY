@@ -33,10 +33,13 @@ public class ChatUIManager : MonoBehaviour {
     }
     void Start () {
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
-        UnityChatSDK.Instance.OnPeerJoin += OnPeerJoin;
+        //UnityChatSDK.Instance.OnPeerJoin += OnPeerJoin;
+        ChatPanel.SetActive(false);
     }
 
     List<GameObject> peerImageList = new List<GameObject>();
+    
+    /*
     public void OnPeerJoin(int uid)
     {
         if (ChatManager.Instance.CallID == 0) return;
@@ -46,8 +49,8 @@ public class ChatUIManager : MonoBehaviour {
         if (go!=null) return;
 
         GameObject peer = Instantiate(PeerImagePrefab, ChatPeersContent);
-        Toggle tog = peer.GetComponent<Toggle>();
-        tog.group = ChatPeersContent.GetComponent<ToggleGroup>();
+        //Toggle tog = peer.GetComponent<Toggle>();
+        //tog.group = ChatPeersContent.GetComponent<ToggleGroup>();
 
         peer.name = uid.ToString();
         VideoTexure video = peer.transform.Find("RawImage").gameObject.GetComponent<VideoTexure>();
@@ -60,6 +63,7 @@ public class ChatUIManager : MonoBehaviour {
             tog.isOn = true;
         }
     }
+    */
 
     public void OnUserLeave(int uid)
     {
@@ -166,6 +170,8 @@ public class ChatUIManager : MonoBehaviour {
         }
         print("Call:" + type);
         */
+        ChatPanel.SetActive(true);
+        
         UnityChatSDK.Instance.ChatType = type;
         ChatManager.Instance.ChatPeers.Clear();
         ChatManager.Instance.ChatPeers.Add(MainUIManager.Instance.UserInfo);
@@ -177,7 +183,8 @@ public class ChatUIManager : MonoBehaviour {
         long callID = BitConverter.ToInt64(Guid.NewGuid().ToByteArray(), 0);
         print("callID:" + callID);
         ChatManager.Instance.Call(callID, type, ChatManager.Instance.UserID, ChatManager.Instance.ChatPeers);
-
+       
+        
         /*
          CallPanel.SetActive(true);
         if (ChatManager.Instance.ChatPeers.Count == 2)
@@ -195,14 +202,14 @@ public class ChatUIManager : MonoBehaviour {
             }
             CallFriendText.text = "Calling group(" + ChatManager.Instance.ChatPeers.Count + "):" + group;
         }
-        */
+        
         
         if (ChatManager.Instance.ChatPeers.Count <= 2)
         {
             ChatPeersContent.transform.localScale = Vector3.zero;
         }
         else { ChatPeersContent.transform.localScale = Vector3.one; }
-
+*/
         Accept();
     }
 
@@ -215,6 +222,7 @@ public class ChatUIManager : MonoBehaviour {
         //InvitePanel.SetActive(false);
         ChatPanel.SetActive(true);
 
+        /*
         if (ChatManager.Instance.ChatPeers.Count == 2)
         {
             UserInfo info = ChatManager.Instance.ChatPeers.Find((UserInfo u) => { return u.UserID == ChatManager.Instance.ChatPeers[0].UserID; });
@@ -229,7 +237,7 @@ public class ChatUIManager : MonoBehaviour {
             }
             ChatFriendText.text = "In group call(" + ChatManager.Instance.ChatPeers.Count + "):" + group;
         }
-
+*/
         if (ChatManager.Instance.ChatPeers.Count <= 2)
         {
             ChatPeersContent.transform.localScale = Vector3.zero;
@@ -250,8 +258,10 @@ public class ChatUIManager : MonoBehaviour {
         //InvitePanel.SetActive(false);
         //CallPanel.SetActive(false);
         ChatPanel.SetActive(false);
+        UI_MainPanel.Instance.Hide();
+        UI_CharPanel.Instance.Show();
 
         ChatManager.Instance.Hang();
-        SoundManager._instance.PlayEffect("Hang");
+        //SoundManager._instance.PlayEffect("Hang");
     }
 }

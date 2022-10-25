@@ -142,7 +142,7 @@ public class ChatManager : MonoBehaviour {
         if (isChatting)
         {
             ChatUIManager.Instance.OnPeerAccept();
-            ChatUIManager.Instance.OnPeerJoin(info.UserID);
+            //ChatUIManager.Instance.OnPeerJoin(info.UserID);
             OnChatAcceptgDg?.Invoke();
         }
     }
