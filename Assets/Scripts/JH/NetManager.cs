@@ -12,17 +12,17 @@ using UnityEngine.UI;
 public class NetManager : MonoBehaviourPunCallbacks
 {
     public static NetManager Instance;
-    public GameObject map;
+    //public GameObject map;
     public List<RoomInfo> m_roomList = new List<RoomInfo>();
-    public Transform ChatPeersContent;
+    //public Transform ChatPeersContent;
 
-    public List<string> roomNameList = new List<string>();
+    public List<string> nameList = new List <string>();
 
     void Awake()
     {
         Instance = this;
     }
-
+    
     public void Connect()
     {
         PhotonNetwork.ConnectUsingSettings();
@@ -34,12 +34,11 @@ public class NetManager : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinLobby();
 
         PhotonNetwork.LocalPlayer.NickName = UI_StartPanel.Instance.nameInput.text;
-
+        
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
-        Debug.Log("in");
         int roomCount = roomList.Count;
         for (int i = 0; i < roomCount; i++)
         {
@@ -63,37 +62,35 @@ public class NetManager : MonoBehaviourPunCallbacks
         //for (int i = 0; i < ChatText.Length; i++) ChatText[i].text = "";
 
         //룸에 있는 사람들만 통화가 가능하게 만들거니까 그거를 플레이어 닉네임이 같은 사람으로만 해서 토글을 볼수 있게 해주면 되어요
-        //roomNameList.Add(PhotonNetwork.LocalPlayer.NickName);
 
-        //if (PhotonNetwork.LocalPlayer.NickName!=PhotonNetwork.MasterClient.NickName)
-        //    roomNameList.Add(PhotonNetwork.MasterClient.NickName);
 
+        
         foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
         {
-            roomNameList.Add(p.NickName);
+            nameList.Add(p.NickName);
         }
 
-//        ChatManager.Instance.Login(PhotonNetwork.LocalPlayer.NickName);
+        ChatManager.Instance.Login(PhotonNetwork.LocalPlayer.NickName);
+
+        if (PhotonNetwork.LocalPlayer.NickName == PhotonNetwork.MasterClient.NickName)
+            ChatUIManager.Instance.VideoCall();
     }
 
     public void roomSelect(RoomInfo room)
     {
         PhotonNetwork.JoinRoom(room.Name);
-        Debug.Log(room.ToString());
+        MainUIManager.Instance.RoomName.text = "Welcome to\n"+room.Name;
     }
 
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
         //ChatRPC("<color=yellow>" + newPlayer.NickName + "님이 참가하셨습니다</color>");
-        Debug.Log(PhotonNetwork.LocalPlayer.NickName);
-        Debug.Log("newPlayer.ID " + newPlayer.UserId);
-        roomNameList.Add(newPlayer.NickName);
-
+        nameList.Add(newPlayer.NickName);
     }
 
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
     {
-        roomNameList.Remove(otherPlayer.NickName);
+        nameList.Remove(otherPlayer.NickName);
         //ChatRPC("<color=yellow>" + otherPlayer.NickName + "님이 퇴장하셨습니다</color>");
     }
     

@@ -15,7 +15,8 @@ public class FriendItem : MonoBehaviour
 
     void Start()
     {
-        gameObject.GetComponent<Toggle>().onValueChanged.AddListener(OnValueChanged);
+        MainUIManager.Instance.SelectedFriendList.Add(UserInfo);
+        //gameObject.GetComponent<Toggle>().onValueChanged.AddListener(OnValueChanged);
     }
     void OnValueChanged(bool isOn)
     {

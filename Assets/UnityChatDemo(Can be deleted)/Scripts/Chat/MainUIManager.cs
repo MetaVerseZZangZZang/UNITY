@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,28 +16,29 @@ public class MainUIManager : MonoBehaviour
     public static MainUIManager Instance;
 
     public Transform FriendContent;
-    public GameObject FriendItemPrefab;
-    public InputField UsernamInputField;
-
+    //public GameObject FriendItemPrefab;
 
     public UserInfo UserInfo { get; internal set; }
     public List<UserInfo> SelectedFriendList = new List<UserInfo>();
 
-    public Toggle AllFriendToggle;
-    List<Toggle> FriendToggleList = new List<Toggle>();
+    public List<UserInfo> UserInRoomList = new List<UserInfo>();
+    //public Toggle AllFriendToggle;
+    //List<Toggle> FriendToggleList = new List<Toggle>();
 
     public Text DelayText;
-
+    public Text UserListText;
+    public Text RoomName;
+    
     private void Awake()
     {
         Instance = this;
     }
     void Start()
     {
+        UserListText.text = "";
         UpdateUserList();
         ChatNetworkManager.Instance.OnDisconnectAction += OnDisconnectAction;
         ChatNetworkManager.Instance.OnConnectResultAction += OnConnectResultAction;
-        UsernamInputField.text = SystemInfo.deviceName;
     }
 
     private void OnConnectResultAction(bool result)
@@ -62,6 +64,10 @@ public class MainUIManager : MonoBehaviour
     /// <summary>
     /// deom login just upload the user name and uid(If you don’t set uid, the server will set automatically)
     /// </summary>
+    ///
+    ///
+    //
+    /*
     public void Login()
     {
         if (string.IsNullOrEmpty(UsernamInputField.text))
@@ -69,8 +75,9 @@ public class MainUIManager : MonoBehaviour
             MessageManager.Instance.ShowMessage("please input username!");
             return;
         }
-        ChatManager.Instance.Login(UsernamInputField.text);
+        ChatManager.Instance.Login(PhotonNetwork.LocalPlayer.NickName);
     }
+    */
     /// <summary>
     /// Get the list of online users
     /// </summary>
@@ -81,26 +88,43 @@ public class MainUIManager : MonoBehaviour
     //Update online user list
     public void UpdateUserList()
     {
+        /*
         foreach (var child in FriendContent.GetComponentsInChildren<FriendItem>())
         {
             DestroyImmediate(child.gameObject);
         }
+
         FriendToggleList.Clear();
         SelectedFriendList.Clear();
+        */
+        
         for (int i = 0; i < ChatManager.Instance.OnlineUserList.Count; i++)
         {
-            if (!useSelfTest && ChatManager.Instance.OnlineUserList[i].UserID == UserInfo.UserID) continue;
-            GameObject go = Instantiate(FriendItemPrefab, FriendContent);
-            FriendToggleList.Add(go.GetComponent<Toggle>());
-            FriendItem item = go.GetComponent<FriendItem>();
-            item.UserInfo = ChatManager.Instance.OnlineUserList[i];
-            item.FriendID = ChatManager.Instance.OnlineUserList[i].UserID;
-            item.FriendName = ChatManager.Instance.OnlineUserList[i].UserName;
-            go.transform.Find("Text").GetComponent<Text>().text = item.FriendName;
+            //if (ChatManager.Instance.OnlineUserList[i].UserID == UserInfo.UserID) continue;
+
+           
+            if (NetManager.Instance.nameList.Contains(ChatManager.Instance.OnlineUserList[i].UserName))
+            {
+                /*
+               GameObject go = Instantiate(FriendItemPrefab, FriendContent);
+               FriendToggleList.Add(go.GetComponent<Toggle>());
+               FriendItem item = go.GetComponent<FriendItem>();
+               item.UserInfo = ChatManager.Instance.OnlineUserList[i];
+               item.FriendID = ChatManager.Instance.OnlineUserList[i].UserID;
+               item.FriendName = ChatManager.Instance.OnlineUserList[i].UserName;
+               go.transform.Find("Text").GetComponent<Text>().text = item.FriendName;
+
+               */
+                UserInRoomList.Add(ChatManager.Instance.OnlineUserList[i]);
+                UserListText.text += "\n" + ChatManager.Instance.OnlineUserList[i].UserName;
+
+
+            }
         }
-        AllFriendToggle.isOn = false;
+        //AllFriendToggle.isOn = false;
     }
 
+    /*
     public void OnAllFriendToggleChanged()
     {
         for (int i = 0; i < FriendToggleList.Count; i++)
@@ -108,13 +132,14 @@ public class MainUIManager : MonoBehaviour
             FriendToggleList[i].isOn = AllFriendToggle.isOn;
         }
     }
-
+    
     bool useSelfTest; 
     public void OnSelfTestToggleChanged(Toggle tog)
     {
         useSelfTest = tog.isOn;
         UpdateUserList();
     }
+    */
 
     public void SendMessage(int type,byte[]data)
     {

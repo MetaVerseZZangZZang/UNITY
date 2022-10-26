@@ -54,6 +54,7 @@ public class VideoTexure : MonoBehaviour
             lastVideoTime = video.LastTime;
         }
 
+        
         if ((DateTime.Now - video.LastTime).TotalSeconds > 2)
         {
             SetBlack();
