@@ -56,16 +56,16 @@ public class ChatNetworkManager : MonoBehaviour {
         }
         client.ConnectServer(Config.Instance.ServerIP, Config.Instance.TcpPort);
 
-        print("들어");
-        if (!IPAddress.TryParse(sttServer, out ip) || sttUdpPort < 0 || sttUdpPort > 65535)
-        {
-            Debug.LogError("ip 문제");
-            return;
-        }
-        client.ConnectServer(sttServer, sttTcpPort);
+        //print("들어");
+        //if (!IPAddress.TryParse(sttServer, out ip) || sttUdpPort < 0 || sttUdpPort > 65535)
+        //{
+        //    Debug.LogError("ip 문제");
+        //    return;
+        //}
+        //client.ConnectServer(sttServer, sttTcpPort);
 
-        byte[] StrByte = Encoding.UTF8.GetBytes("Fool");
-        client.Send(StrByte);
+        //byte[] StrByte = Encoding.UTF8.GetBytes("Fool");
+        //client.Send(StrByte);
     }
 
 

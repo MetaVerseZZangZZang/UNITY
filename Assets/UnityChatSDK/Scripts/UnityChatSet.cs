@@ -66,7 +66,8 @@ public class UnityChatSet: MonoBehaviour {
         UnityChatSDK.Instance.AudioSample = 8;
         UnityChatSDK.Instance.AudioLatency = 125;
         UnityChatSDK.Instance.EchoCancellation = EchoCancellation;
-        //初始化音频(麦克风Index)
+
+
         UnityChatSDK.Instance.InitMic(0);
         UnityChatSDK.Instance.ToggleSpeakerAction += ChatSDKDevice.ToggleSpeaker;
         print("InitAudio OK");
