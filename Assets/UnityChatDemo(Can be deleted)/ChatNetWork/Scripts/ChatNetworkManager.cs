@@ -58,31 +58,6 @@ public class ChatNetworkManager : MonoBehaviour {
         }
         client.ConnectServer(Config.Instance.ServerIP, Config.Instance.TcpPort);
 
-<<<<<<< HEAD
-        //print("들어");
-        //if (!IPAddress.TryParse(sttServer, out ip) || sttUdpPort < 0 || sttUdpPort > 65535)
-        //{
-        //    Debug.LogError("ip 문제");
-        //    return;
-        //}
-        //client.ConnectServer(sttServer, sttTcpPort);
-
-        //byte[] StrByte = Encoding.UTF8.GetBytes("Fool");
-        //client.Send(StrByte);
-=======
-        /*
-        print("들어");
-        if (!IPAddress.TryParse(sttServer, out ip) || sttUdpPort < 0 || sttUdpPort > 65535)
-        {
-            Debug.LogError("ip 문제");
-            return;
-        }
-        client.ConnectServer(sttServer, sttTcpPort);
-
-        byte[] StrByte = Encoding.UTF8.GetBytes("Fool");
-        client.Send(StrByte);
-        */
->>>>>>> f4dda1898801515cfe645b8d4cd17c3e81410d68
     }
 
 
