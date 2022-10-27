@@ -20,8 +20,8 @@ public class Server : MonoBehaviour
     public AudioClip micClip;
 
 
-    public string receive_Name;
-    public string receieveSTT_Word;
+
+    public string receieveSTT;
     private void Start()
     {
         mic = transform.GetComponent<AudioSource>();
@@ -36,7 +36,6 @@ public class Server : MonoBehaviour
 
         m_Socket.On("connection", (response) =>
         {
-            m_Socket.Emit("userInfo", "이승민");
             Debug.LogError("연결 완");
             Debug.LogError(response.GetValue<string>());
 
@@ -47,8 +46,6 @@ public class Server : MonoBehaviour
                 Debug.Log(response.GetValue<string>());
 
             });
-
-            
 
             m_Socket.On("receiveVoice", (response) =>
             {
@@ -72,13 +69,9 @@ public class Server : MonoBehaviour
             m_Socket.On("receiveSTT", (response) =>
             {
                 Debug.Log("receive STT");
+                receieveSTT = response.GetValue<string>();
+                Debug.Log(receieveSTT);
 
-
-                receive_Name = response.GetValue<string>().Substring(0,response.GetValue<string>().IndexOf("/|*^"));
-                receieveSTT_Word = response.GetValue<string>().Substring(response.GetValue<string>().IndexOf("/|*^")+4).Trim();
-
-                print(receive_Name);
-                print(receieveSTT_Word);
             });
             
         });
@@ -105,8 +98,6 @@ public class Server : MonoBehaviour
         test = GetClipData(mic.clip);
         print("Send");
         m_Socket.Emit("message", test);
-        //m_Socket.Emit("userInfo",UI_StartPanel.Instance.userName);
-        
     }
 
 
