@@ -19,9 +19,10 @@ public class Server : MonoBehaviour
     public AudioSource mic;
     public AudioClip micClip;
 
-
     public string receive_Name;
     public string receieveSTT_Word;
+
+
     private void Start()
     {
         mic = transform.GetComponent<AudioSource>();
@@ -53,19 +54,7 @@ public class Server : MonoBehaviour
             m_Socket.On("receiveVoice", (response) =>
             {
                 Debug.LogError("receive");
-                //Debug.LogError(response.GetValue<byte>());
-                //var data = response.GetType()
                 test1 = response.GetValue<byte[]>();
-
-                //AudioClip recieveClip = ByteToAudio(test1);
-
-                //mic.clip = recieveClip;
-                //mic.Play();
-                //print(receiveVoice.GetType());
-
-
-                //마이크 녹음 재생
-                //mic.Play();
 
 
             });
@@ -76,6 +65,9 @@ public class Server : MonoBehaviour
 
                 receive_Name = response.GetValue<string>().Substring(0,response.GetValue<string>().IndexOf("/|*^"));
                 receieveSTT_Word = response.GetValue<string>().Substring(response.GetValue<string>().IndexOf("/|*^")+4).Trim();
+
+
+                UI_ChatManager.Instance.ChatRPC("<color=blue>" + receive_Name + "</color>"+"     "+ receieveSTT_Word);
 
                 print(receive_Name);
                 print(receieveSTT_Word);
@@ -190,6 +182,8 @@ public class Server : MonoBehaviour
         }
 
     }
+
+
 
     // audioclip to byte
     public static byte[] GetClipData(AudioClip _clip)
