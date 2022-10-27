@@ -9,9 +9,9 @@ using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class NetManager : MonoBehaviourPunCallbacks
+public class PhotonManager : MonoBehaviourPunCallbacks
 {
-    public static NetManager Instance;
+    public static PhotonManager Instance;
     //public GameObject map;
     public List<RoomInfo> m_roomList = new List<RoomInfo>();
     //public Transform ChatPeersContent;
@@ -70,16 +70,18 @@ public class NetManager : MonoBehaviourPunCallbacks
             nameList.Add(p.NickName);
         }
 
+        /*
         ChatManager.Instance.Login(PhotonNetwork.LocalPlayer.NickName);
-
+        
         if (PhotonNetwork.LocalPlayer.NickName == PhotonNetwork.MasterClient.NickName)
             ChatUIManager.Instance.VideoCall();
+        */
     }
 
     public void roomSelect(RoomInfo room)
     {
         PhotonNetwork.JoinRoom(room.Name);
-        MainUIManager.Instance.RoomName.text = "Welcome to\n"+room.Name;
+        //MainUIManager.Instance.RoomName.text = "Welcome to\n"+room.Name;
     }
 
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)

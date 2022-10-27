@@ -16,9 +16,9 @@ namespace Agora.Rtc
     public sealed class VideoSurface : MonoBehaviour
     {
         [SerializeField] private VideoSurfaceType VideoSurfaceType = VideoSurfaceType.Renderer;
-        [SerializeField] private bool Enable = true;
+        [SerializeField] public bool Enable = true;
    
-        [SerializeField] private uint Uid = 0;
+        [SerializeField] public uint Uid = 0;
         [SerializeField] private string ChannelId = "";
         [SerializeField] private VIDEO_SOURCE_TYPE SourceType = VIDEO_SOURCE_TYPE.VIDEO_SOURCE_CAMERA_PRIMARY;
 
