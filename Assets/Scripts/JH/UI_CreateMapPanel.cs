@@ -21,12 +21,10 @@ public class UI_CreateMapPanel : MonoBehaviour
     public void Hide()
     {
         this.gameObject.SetActive(false);
-        RoomNameInputField.text = "";
     }
 
     public void Show()
     {
-        RoomNameInputField.text = "";
         this.gameObject.SetActive(true);
     }
 
@@ -37,7 +35,5 @@ public class UI_CreateMapPanel : MonoBehaviour
         Hide();
         UI_CharPanel.Instance.Hide();
         UI_MainPanel.Instance.Show();
-
-        AgoraManager.Instance.AgoraStart();
     }
 }

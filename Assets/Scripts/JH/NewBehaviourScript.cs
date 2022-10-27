@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using Agora.Rtc;
 using ClipperLib;
 using System.Runtime.Remoting.Lifetime;
-using ExitGames.Client.Photon.StructWrapping;
 
 
 #if (UNITY_2018_3_OR_NEWER && UNITY_ANDROID)
@@ -13,7 +12,7 @@ using UnityEngine.Android;
 #endif
 
 
-public class AgoraManager : MonoBehaviour
+public class NewBehaviourScript : MonoBehaviour
 {
 #if (UNITY_2018_3_OR_NEWER && UNITY_ANDROID)
     private ArrayList permissionList = new ArrayList() { Permission.Camera, Permission.Microphone };
@@ -27,23 +26,16 @@ public class AgoraManager : MonoBehaviour
     // A variable to save the remote user uid.
     private uint remoteUid;
     internal VideoSurface LocalView;
-    //internal VideoSurface RemoteView;
+    internal VideoSurface RemoteView;
     internal IRtcEngine RtcEngine;
 
-    public GameObject myCam;
-    public GameObject friendCam;
 
-    public static List<VideoSurface> FriendCamList=new List<VideoSurface>();
-    
-    public GameObject FriendCams;
-    
     // Start is called before the first frame update
     void Start()
     {
         SetupVideoSDKEngine();
         InitEventHandler();
         SetupUI();
-        Join();
     }
 
     // Update is called once per frame
@@ -67,32 +59,16 @@ public class AgoraManager : MonoBehaviour
 
     private void SetupUI()
     {
-        //GameObject go = GameObject.Find("LocalView");
-        LocalView = myCam.AddComponent<VideoSurface>();
-        LocalView.transform.Rotate(0.0f, 0.0f, 180f);
-        //go = GameObject.Find("RemoteView");
-
-        for (int i = 0; i < FriendCams.transform.childCount; i++)
-        {
-            FriendCams.transform.GetChild(i).GetComponent<VideoSurface>().transform.Rotate(0.0f, 0.0f, 0f);
-            FriendCamList.Add(FriendCams.transform.GetChild(i).GetComponent<VideoSurface>());
-        }
-        
-        
-        /*
-        foreach (GameObject cam in friendCamPosList)
-        {
-            RemoteView = cam.AddComponent<VideoSurface>();
-            RemoteView.transform.Rotate(0.0f, 0.0f, 180.0f);
-        }*/
-        
-        //go = GameObject.Find("Leave");
-        //go.GetComponent<Button>().onClick.AddListener(Leave);
-        
-        //go = GameObject.Find("Join");
-        //go.GetComponent<Button>().onClick.AddListener(Join);
-
-        
+        GameObject go = GameObject.Find("LocalView");
+        LocalView = go.AddComponent<VideoSurface>();
+        go.transform.Rotate(0.0f, 0.0f, 90.0f);
+        go = GameObject.Find("RemoteView");
+        RemoteView = go.AddComponent<VideoSurface>();
+        go.transform.Rotate(0.0f, 0.0f, 90.0f);
+        go = GameObject.Find("Leave");
+        go.GetComponent<Button>().onClick.AddListener(Leave);
+        go = GameObject.Find("Join");
+        go.GetComponent<Button>().onClick.AddListener(Join);
     }
 
 
@@ -138,22 +114,18 @@ public class AgoraManager : MonoBehaviour
         RtcEngine.DisableVideo();
         RtcEngine.DisableAudio();
         // Stops rendering the remote video.
-        
-        foreach(VideoSurface RemoteView in FriendCamList)
-            RemoteView.SetEnable(false);
+        RemoteView.SetEnable(false);
         // Stops rendering the local video.
         LocalView.SetEnable(false);
-        UI_MainPanel.Instance.Hide();
-        UI_CharPanel.Instance.Show();
     }
 
 
 
     internal class UserEventHandler : IRtcEngineEventHandler
     {
-        private readonly AgoraManager _videoSample;
-        
-        internal UserEventHandler(AgoraManager videoSample)
+        private readonly NewBehaviourScript _videoSample;
+
+        internal UserEventHandler(NewBehaviourScript videoSample)
         {
             _videoSample = videoSample;
         }
@@ -166,13 +138,8 @@ public class AgoraManager : MonoBehaviour
         public override void OnUserJoined(RtcConnection connection, uint uid, int elapsed)
         {
             // Setup remote view.
-            GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
-            newFriendCam.transform.SetParent(_videoSample.FriendCams.transform);
-            newFriendCam.transform.localScale=new Vector3(1, 1, 1);
-            FriendCamList.Add(newFriendCam.GetComponent<VideoSurface>());
-            
-            FriendCamList[FriendCamList.Count-1].SetEnable(true);
-            FriendCamList[FriendCamList.Count-1].SetForUser(uid, connection.channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
+            _videoSample.RemoteView.SetEnable(true);
+            _videoSample.RemoteView.SetForUser(uid, connection.channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
             // Save the remote user ID in a variable.
             _videoSample.remoteUid = uid;
         }
@@ -180,14 +147,7 @@ public class AgoraManager : MonoBehaviour
         // This callback is triggered when a remote user leaves the channel or drops offline.
         public override void OnUserOffline(RtcConnection connection, uint uid, USER_OFFLINE_REASON_TYPE reason)
         {
-            foreach (VideoSurface RemoteView in FriendCamList)
-            {
-                if (RemoteView.Uid==uid)
-                {
-                    RemoteView.SetEnable(false);
-                    Destroy(RemoteView.gameObject);
-                }
-            }
+            _videoSample.RemoteView.SetEnable(false);
         }
 
 
