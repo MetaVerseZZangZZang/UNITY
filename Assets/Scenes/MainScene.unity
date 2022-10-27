@@ -1038,7 +1038,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
 <<<<<<< HEAD
-<<<<<<< HEAD
 --- !u!114 &99675122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1053,8 +1052,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myCam: {fileID: 2055122013}
   FriendCams: {fileID: 167813667}
-=======
->>>>>>> parent of fc1103c7 (다중 접속 완료)
 =======
 >>>>>>> parent of fc1103c7 (다중 접속 완료)
 --- !u!1 &103136282
@@ -1750,7 +1747,6 @@ RectTransform:
   m_SizeDelta: {x: 0, y: 40}
   m_Pivot: {x: 0.5, y: 1}
 <<<<<<< HEAD
-<<<<<<< HEAD
 --- !u!1 &167813667
 GameObject:
   m_ObjectHideFlags: 0
@@ -1814,8 +1810,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
-=======
->>>>>>> parent of fc1103c7 (다중 접속 완료)
 =======
 >>>>>>> parent of fc1103c7 (다중 접속 완료)
 --- !u!1 &197893496
@@ -15466,7 +15460,6 @@ CanvasRenderer:
   m_GameObject: {fileID: 1535699087}
   m_CullTransparentMesh: 1
 <<<<<<< HEAD
-<<<<<<< HEAD
 --- !u!1 &1535851656
 GameObject:
   m_ObjectHideFlags: 0
@@ -15601,8 +15594,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1535851656}
   m_CullTransparentMesh: 0
-=======
->>>>>>> parent of fc1103c7 (다중 접속 완료)
 =======
 >>>>>>> parent of fc1103c7 (다중 접속 완료)
 --- !u!1 &1567606781
@@ -20649,7 +20640,6 @@ CanvasRenderer:
   m_GameObject: {fileID: 2038426771}
   m_CullTransparentMesh: 0
 <<<<<<< HEAD
-<<<<<<< HEAD
 --- !u!1 &2055122013
 GameObject:
   m_ObjectHideFlags: 0
@@ -20741,8 +20731,6 @@ MonoBehaviour:
   Uid: 0
   ChannelId: 
   SourceType: 0
-=======
->>>>>>> parent of fc1103c7 (다중 접속 완료)
 =======
 >>>>>>> parent of fc1103c7 (다중 접속 완료)
 --- !u!1 &2061605263
@@ -20897,12 +20885,9 @@ RectTransform:
   - {fileID: 304046278}
   - {fileID: 428127087}
 <<<<<<< HEAD
-<<<<<<< HEAD
   - {fileID: 167813668}
   - {fileID: 1535851657}
   - {fileID: 2055122014}
-=======
->>>>>>> parent of fc1103c7 (다중 접속 완료)
 =======
 >>>>>>> parent of fc1103c7 (다중 접속 완료)
   m_Father: {fileID: 3746751487539468822}

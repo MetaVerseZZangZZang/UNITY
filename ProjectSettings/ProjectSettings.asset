@@ -914,17 +914,10 @@ PlayerSettings:
       RecordedCallsFolder: False
       Contacts: False
 <<<<<<< HEAD
-<<<<<<< HEAD
       Proximity: False
       InternetClient: True
       CodeGeneration: False
       BackgroundMediaPlayback: False
-=======
-      InternetClient: True
-      CodeGeneration: False
-      BackgroundMediaPlayback: False
-      Proximity: False
->>>>>>> parent of fc1103c7 (다중 접속 완료)
 =======
       InternetClient: True
       CodeGeneration: False
