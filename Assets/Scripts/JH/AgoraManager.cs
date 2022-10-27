@@ -31,14 +31,19 @@ public class AgoraManager : MonoBehaviour
     internal IRtcEngine RtcEngine;
 
     public GameObject myCam;
-    public GameObject friendCam;
 
     public static List<VideoSurface> FriendCamList=new List<VideoSurface>();
     
     public GameObject FriendCams;
+
+    public static AgoraManager Instance;
     
+    void Awake()
+    {
+        Instance = this;
+    }
     // Start is called before the first frame update
-    void Start()
+    public void AgoraStart()
     {
         SetupVideoSDKEngine();
         InitEventHandler();
@@ -68,8 +73,8 @@ public class AgoraManager : MonoBehaviour
     private void SetupUI()
     {
         //GameObject go = GameObject.Find("LocalView");
-        LocalView = myCam.AddComponent<VideoSurface>();
-        LocalView.transform.Rotate(0.0f, 0.0f, 180f);
+        LocalView = myCam.GetComponent<VideoSurface>();
+        LocalView.transform.Rotate(0.0f, 0.0f, 0);
         //go = GameObject.Find("RemoteView");
 
         for (int i = 0; i < FriendCams.transform.childCount; i++)
@@ -180,6 +185,7 @@ public class AgoraManager : MonoBehaviour
         // This callback is triggered when a remote user leaves the channel or drops offline.
         public override void OnUserOffline(RtcConnection connection, uint uid, USER_OFFLINE_REASON_TYPE reason)
         {
+            Debug.Log("uid   "+uid);
             foreach (VideoSurface RemoteView in FriendCamList)
             {
                 if (RemoteView.Uid==uid)
