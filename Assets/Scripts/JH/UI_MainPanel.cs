@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Photon.Pun;
 using UnityEngine;
 using Photon.Realtime;
 
@@ -16,14 +15,6 @@ public class UI_MainPanel : MonoBehaviour
         Hide();
     }
 
-    public void Leave()
-    {
-        AgoraManager.Instance.Leave();
-        PhotonNetwork.LeaveRoom();
-        Hide();
-        UI_CharPanel.Instance.Show();
-    }
-    
     public void Hide()
     {
         this.gameObject.SetActive(false);
@@ -31,8 +22,8 @@ public class UI_MainPanel : MonoBehaviour
 
     public void Show()
     {
-        this.gameObject.SetActive(true);
         UI_CharPanel.Instance.StopCam();
+        this.gameObject.SetActive(true);
         AgoraManager.Instance.Join();
     }
 }
