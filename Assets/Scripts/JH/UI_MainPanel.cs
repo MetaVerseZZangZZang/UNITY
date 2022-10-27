@@ -21,6 +21,7 @@ public class UI_MainPanel : MonoBehaviour
         AgoraManager.Instance.Leave();
         PhotonNetwork.LeaveRoom();
         Hide();
+        UI_CharPanel.Instance.Show();
     }
     
     public void Hide()
@@ -30,8 +31,8 @@ public class UI_MainPanel : MonoBehaviour
 
     public void Show()
     {
-        UI_CharPanel.Instance.StopCam();
         this.gameObject.SetActive(true);
-        
+        UI_CharPanel.Instance.StopCam();
+        AgoraManager.Instance.Join();
     }
 }
