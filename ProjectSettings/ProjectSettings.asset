@@ -913,17 +913,10 @@ PlayerSettings:
       PointOfService: False
       RecordedCallsFolder: False
       Contacts: False
-<<<<<<< HEAD
       Proximity: False
       InternetClient: True
       CodeGeneration: False
       BackgroundMediaPlayback: False
-=======
-      InternetClient: True
-      CodeGeneration: False
-      BackgroundMediaPlayback: False
-      Proximity: False
->>>>>>> parent of fc1103c7 (다중 접속 완료)
   metroTargetDeviceFamilies:
     Desktop: False
     Holographic: False

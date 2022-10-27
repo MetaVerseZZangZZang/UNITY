@@ -40,12 +40,6 @@ public class UI_StartPanel : MonoBehaviour
     
     public void StartBtn()
     {
-<<<<<<< HEAD
-=======
-        Hide();
-        //NetManager.Instance.Connect();
-        UI_CharPanel.Instance.Show();
->>>>>>> parent of fc1103c7 (다중 접속 완료)
         userName = nameInput.text;
         if (userName == "")
         {

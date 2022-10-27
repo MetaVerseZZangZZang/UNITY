@@ -103,7 +103,7 @@ public class MainUIManager : MonoBehaviour
             //if (ChatManager.Instance.OnlineUserList[i].UserID == UserInfo.UserID) continue;
 
            
-            if (NetManager.Instance.nameList.Contains(ChatManager.Instance.OnlineUserList[i].UserName))
+            if (PhotonManager.Instance.nameList.Contains(ChatManager.Instance.OnlineUserList[i].UserName))
             {
                 /*
                GameObject go = Instantiate(FriendItemPrefab, FriendContent);
