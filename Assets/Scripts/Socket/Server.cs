@@ -19,15 +19,14 @@ public class Server : MonoBehaviour
     public AudioSource mic;
     public AudioClip micClip;
 
-
+    public string receive_Name;
+    public string receieveSTT_Word;
 
 
     private void Start()
     {
-
-
         mic = transform.GetComponent<AudioSource>();
-        mic.clip = Microphone.Start(Microphone.devices[0].ToString(), true, 5, AudioSettings.outputSampleRate);
+        //mic.clip = Microphone.Start(Microphone.devices[0].ToString(), true, 5, AudioSettings.outputSampleRate);
         var uri = new Uri("http://192.168.0.37:5100");
         m_Socket = new SocketIOUnity(uri, new SocketIOOptions()
         {
@@ -38,61 +37,68 @@ public class Server : MonoBehaviour
 
         m_Socket.On("connection", (response) =>
         {
+            m_Socket.Emit("userInfo", "이승민");
             Debug.LogError("연결 완");
             Debug.LogError(response.GetValue<string>());
 
             m_Connected = true;
+
+            m_Socket.On("message", (response) =>
+            {
+                Debug.Log(response.GetValue<string>());
+
+            });
+
+            
+
+            m_Socket.On("receiveVoice", (response) =>
+            {
+                Debug.LogError("receive");
+                test1 = response.GetValue<byte[]>();
+
+
+            });
+            m_Socket.On("receiveSTT", (response) =>
+            {
+                Debug.Log("receive STT");
+
+
+                receive_Name = response.GetValue<string>().Substring(0,response.GetValue<string>().IndexOf("/|*^"));
+                receieveSTT_Word = response.GetValue<string>().Substring(response.GetValue<string>().IndexOf("/|*^")+4).Trim();
+
+
+                UI_ChatManager.Instance.ChatRPC("<color=blue>" + receive_Name + "</color>"+"     "+ receieveSTT_Word);
+
+                print(receive_Name);
+                print(receieveSTT_Word);
+            });
+            
         });
 
-        m_Socket.On("message", (response) =>
-        {
-            Debug.Log(response.GetValue<string>());
-
-        });
-
-        m_Socket.On("receiveVoice", (response) =>
-        {
-            Debug.LogError("receive");
-            //Debug.LogError(response.GetValue<byte>());
-            //var data = response.GetType()
-            test1 = response.GetValue<byte[]>();
-
-            //AudioClip recieveClip = ByteToAudio(test1);
-
-            //mic.clip = recieveClip;
-            //mic.Play();
-            //print(receiveVoice.GetType());
-
-
-            //마이크 녹음 재생
-            //mic.Play();
-
-
-        });
-        //StartCoroutine(Record());
-
-
-
+        
+        StartCoroutine(Record());
     }
-
-
 
     public IEnumerator Record()
     {
         yield return null;
         StartCoroutine(ConvertAudio());
-        mic.clip = Microphone.Start(Microphone.devices[0].ToString(), true, 4, AudioSettings.outputSampleRate);
+        mic.clip = Microphone.Start(Microphone.devices[0].ToString(), true, 5, AudioSettings.outputSampleRate);
+        print("Record");
 
     }
 
 
     IEnumerator ConvertAudio()
     {
-        yield return new WaitForSeconds(2f);
-        mic.clip = Microphone.Start(Microphone.devices[0].ToString(), true, 100, AudioSettings.outputSampleRate);
-        //StartCoroutine(Record());
+        yield return new WaitForSeconds(5f);
+        //mic.clip = Microphone.Start(Microphone.devices[0].ToString(), true, 100, AudioSettings.outputSampleRate);
+        StartCoroutine(Record());
         test = GetClipData(mic.clip);
+        print("Send");
         m_Socket.Emit("message", test);
+        //m_Socket.Emit("userInfo",UI_StartPanel.Instance.userName);
+        
     }
 
 
@@ -108,17 +114,16 @@ public class Server : MonoBehaviour
     float time;
     private void Update()
     {
-        time += Time.deltaTime;
-        
-        if (time >= 5)
-        {
-            time = 0;
-            //print(Microphone.IsRecording(null));
-            print(mic.clip.length);
-            test = GetClipData(mic.clip);
-            m_Socket.Emit("message", test);
-        }
+        //time += Time.deltaTime;
 
+        //if (time >= 5)
+        //{
+        //    time = 0;
+        //    //print(Microphone.IsRecording(null));
+        //    print(mic.clip.length);
+        //    test = GetClipData(mic.clip);
+        //    m_Socket.Emit("message", test);
+        //}
 
         if (Input.GetKeyDown(KeyCode.A))
         {
@@ -177,6 +182,8 @@ public class Server : MonoBehaviour
         }
 
     }
+
+
 
     // audioclip to byte
     public static byte[] GetClipData(AudioClip _clip)
