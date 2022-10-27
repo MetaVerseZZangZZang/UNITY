@@ -29,7 +29,7 @@ public class UI_StartPanel : MonoBehaviour
     public void StartBtn()
     {
         Hide();
-        NetManager.Instance.Connect();
+        //NetManager.Instance.Connect();
         UI_CharPanel.Instance.Show();
         userName = nameInput.text;
     }
