@@ -26,8 +26,8 @@ public class Server : MonoBehaviour
     {
 
 
-
         mic = transform.GetComponent<AudioSource>();
+        mic.clip = Microphone.Start(Microphone.devices[0].ToString(), true, 5, AudioSettings.outputSampleRate);
         var uri = new Uri("http://192.168.0.37:5100");
         m_Socket = new SocketIOUnity(uri, new SocketIOOptions()
         {
@@ -55,7 +55,7 @@ public class Server : MonoBehaviour
             Debug.LogError("receive");
             //Debug.LogError(response.GetValue<byte>());
             //var data = response.GetType()
-            //test1 = response.GetValue<byte[]>();
+            test1 = response.GetValue<byte[]>();
 
             //AudioClip recieveClip = ByteToAudio(test1);
 
@@ -69,31 +69,28 @@ public class Server : MonoBehaviour
 
 
         });
-        StartCoroutine(Record());
+        //StartCoroutine(Record());
+
+
+
     }
 
-
-
-    public void SendBox()
-    {
-        test = GetClipData(mic.clip);
-        m_Socket.Emit("message", test);
-    }
 
 
     public IEnumerator Record()
     {
         yield return null;
-        mic.clip = Microphone.Start(Microphone.devices[0].ToString(), true, 5, AudioSettings.outputSampleRate);
         StartCoroutine(ConvertAudio());
+        mic.clip = Microphone.Start(Microphone.devices[0].ToString(), true, 4, AudioSettings.outputSampleRate);
 
     }
 
 
     IEnumerator ConvertAudio()
     {
-        yield return new WaitForSeconds(5f);
-        StartCoroutine(Record());
+        yield return new WaitForSeconds(2f);
+        mic.clip = Microphone.Start(Microphone.devices[0].ToString(), true, 100, AudioSettings.outputSampleRate);
+        //StartCoroutine(Record());
         test = GetClipData(mic.clip);
         m_Socket.Emit("message", test);
     }
@@ -108,9 +105,20 @@ public class Server : MonoBehaviour
     public byte[] receiveVoice;
 
 
-
+    float time;
     private void Update()
     {
+        time += Time.deltaTime;
+        
+        if (time >= 5)
+        {
+            time = 0;
+            //print(Microphone.IsRecording(null));
+            print(mic.clip.length);
+            test = GetClipData(mic.clip);
+            m_Socket.Emit("message", test);
+        }
+
 
         if (Input.GetKeyDown(KeyCode.A))
         {
