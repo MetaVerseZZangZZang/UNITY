@@ -20,7 +20,7 @@ public class UI_JoinRoom : MonoBehaviour
     
     public void Refresh()
     {
-        var dataList = PhotonManager.Instance.m_roomList;
+        var dataList = NetManager.Instance.m_roomList;
         int dataCount = dataList.Count;
 
         int itemCount = Items.Count;
