@@ -38,5 +38,6 @@ public class UI_CreateMapPanel : MonoBehaviour
         UI_CharPanel.Instance.Hide();
         UI_MainPanel.Instance.Show();
 
+        AgoraManager.Instance.AgoraStart();
     }
 }

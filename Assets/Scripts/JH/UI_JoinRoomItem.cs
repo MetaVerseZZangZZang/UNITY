@@ -39,5 +39,6 @@ public class UI_JoinRoomItem : MonoBehaviour
         UI_JoinRoom.Instance.Hide();
         UI_CharPanel.Instance.Hide();
         UI_MainPanel.Instance.Show();
+        AgoraManager.Instance.AgoraStart();
     }
 }

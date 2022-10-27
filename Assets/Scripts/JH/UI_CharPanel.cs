@@ -62,26 +62,24 @@ public class UI_CharPanel : MonoBehaviour
     {
         this.gameObject.SetActive(true);
         Name.text = inputName.text;
-        ShowCam();
+        showCam();
+
     }
 
-    private void ShowCam()
+    private void showCam()
     {
         WebCamDevice device = WebCamTexture.devices[currentIndex];
         camTexture = new WebCamTexture(device.name);
+        //camTexture = new Vector2(-1, 1);
         myCam.texture = camTexture;
         camTexture.Play();
     }
 
-    
     public void StopCam()
     {
-        if (camFlag && camTexture.isPlaying)
-        {
-            myCam.texture = null;
-            camTexture.Stop();
-            camTexture = null;
-        }
+        myCam.texture = null;
+        camTexture.Stop();
+        camTexture = null;
     }
     
     public void CreateBtn()
@@ -99,7 +97,7 @@ public class UI_CharPanel : MonoBehaviour
         if (toggle.isOn)
         {
             camFlag = true;
-            ShowCam();
+            showCam();
         }
         else
         {

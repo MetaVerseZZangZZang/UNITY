@@ -43,12 +43,12 @@ public class AgoraManager : MonoBehaviour
         Instance = this;
     }
     // Start is called before the first frame update
-
-    void Start()
+    public void AgoraStart()
     {
         SetupVideoSDKEngine();
         InitEventHandler();
         SetupUI();
+        Join();
     }
 
     // Update is called once per frame
@@ -82,7 +82,22 @@ public class AgoraManager : MonoBehaviour
             FriendCams.transform.GetChild(i).GetComponent<VideoSurface>().transform.Rotate(0.0f, 0.0f, 0f);
             FriendCamList.Add(FriendCams.transform.GetChild(i).GetComponent<VideoSurface>());
         }
+        
+        
+        /*
+        foreach (GameObject cam in friendCamPosList)
+        {
+            RemoteView = cam.AddComponent<VideoSurface>();
+            RemoteView.transform.Rotate(0.0f, 0.0f, 180.0f);
+        }*/
+        
+        //go = GameObject.Find("Leave");
+        //go.GetComponent<Button>().onClick.AddListener(Leave);
+        
+        //go = GameObject.Find("Join");
+        //go.GetComponent<Button>().onClick.AddListener(Join);
 
+        
     }
 
 
@@ -133,14 +148,8 @@ public class AgoraManager : MonoBehaviour
             RemoteView.SetEnable(false);
         // Stops rendering the local video.
         LocalView.SetEnable(false);
-        
-        for (int i = 0; i < FriendCams.transform.childCount; i++)
-        {
-            Destroy(FriendCams.transform.GetChild(i));
-        }
-        
-        FriendCamList.Clear();
-        
+        UI_MainPanel.Instance.Hide();
+        UI_CharPanel.Instance.Show();
     }
 
 
