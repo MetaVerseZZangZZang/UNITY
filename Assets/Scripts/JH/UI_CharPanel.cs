@@ -10,11 +10,17 @@ public class UI_CharPanel : MonoBehaviour
     
     public static UI_CharPanel Instance;
 
-    public InputField inputName;
-
     public Text Name;
+    
+    public RawImage myCam;
+    
+    public Sprite cameraOff;
+    
+    private WebCamTexture camTexture;
 
-    public Text info;
+    public static bool camFlag=true;
+
+    public static bool voiceFlag=true;
     // Start is called before the first frame update
     //public void Connect() => PhotonNetwork.ConnectUsingSettings();
     //public override void OnConnectedToMaster() => PhotonNetwork.JoinLobby();
@@ -52,12 +58,27 @@ public class UI_CharPanel : MonoBehaviour
     public void Show()
     {
         this.gameObject.SetActive(true);
-        
-        Name.text = inputName.text;
-        
-        
+        Name.text = UI_StartPanel.Instance.userName;
+        ShowCam();
     }
+
+    private void ShowCam()
+    {
+        WebCamDevice device = WebCamTexture.devices[0];
+        camTexture = new WebCamTexture(device.name);
+        myCam.texture = camTexture;
+        camTexture.Play();
+    }
+
     
+    public void StopCam()
+    {
+        if (camTexture != null)
+        {
+            myCam.texture = null;
+            camTexture.Stop();
+        }
+    }
     
     public void CreateBtn()
     {
@@ -67,5 +88,25 @@ public class UI_CharPanel : MonoBehaviour
     public void JoinBtn()
     {
         UI_JoinRoom.Instance.Show();
+    }
+
+    public void CamToggle(Toggle toggle)
+    {
+        if (toggle.isOn)
+        {
+            ShowCam();
+        }
+        else
+        {
+            StopCam();
+            myCam.texture = cameraOff.texture;
+        }
+        
+        camFlag = toggle.isOn;
+    }
+
+    public void VoiceToggle(Toggle toggle)
+    {
+        voiceFlag = toggle.isOn;
     }
 }

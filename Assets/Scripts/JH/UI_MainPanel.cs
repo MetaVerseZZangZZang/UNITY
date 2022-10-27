@@ -22,6 +22,8 @@ public class UI_MainPanel : MonoBehaviour
 
     public void Show()
     {
+        UI_CharPanel.Instance.StopCam();
         this.gameObject.SetActive(true);
+        AgoraManager.Instance.Join();
     }
 }

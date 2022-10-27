@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using Agora.Rtc;
 using ClipperLib;
 using System.Runtime.Remoting.Lifetime;
@@ -23,7 +22,7 @@ public class AgoraManager : MonoBehaviour
     // Fill in your channel name.
     private string _channelName = "zzang";
     // Fill in the temporary token you obtained from Agora Console.
-    private string _token = "007eJxTYHiTrye9Smlu5PZLHmEv2UIYTuq9qGYw3dJ+7FMAT8CdWE4FBtPU5ERLy5QUUwNDY5Nkw6QkszRjY4Ok5FQzILZMMrITi0xuCGRkOHKtmZWRAQJBfFaGqqrEvHQGBgAUSR8A";
+    private string _token = "007eJxTYNhaMlXyqKLOCjfjrouzLpkfOMuYUXeV69uG0LZHBhI3Nc4qMJimJidaWqakmBoYGpskGyYlmaUZGxskJaeaAbFlkpFFcVRyQyAjgyCHHRMjAwSC+KwMVVWJeekMDABs+B8j";
     // A variable to save the remote user uid.
     private uint remoteUid;
     internal VideoSurface LocalView;
@@ -31,19 +30,24 @@ public class AgoraManager : MonoBehaviour
     internal IRtcEngine RtcEngine;
 
     public GameObject myCam;
-    public GameObject friendCam;
 
     public static List<VideoSurface> FriendCamList=new List<VideoSurface>();
     
     public GameObject FriendCams;
+
+    public static AgoraManager Instance;
     
+    void Awake()
+    {
+        Instance = this;
+    }
     // Start is called before the first frame update
+
     void Start()
     {
         SetupVideoSDKEngine();
         InitEventHandler();
         SetupUI();
-        Join();
     }
 
     // Update is called once per frame
@@ -68,31 +72,17 @@ public class AgoraManager : MonoBehaviour
     private void SetupUI()
     {
         //GameObject go = GameObject.Find("LocalView");
-        LocalView = myCam.AddComponent<VideoSurface>();
-        LocalView.transform.Rotate(0.0f, 0.0f, 180f);
+        LocalView = myCam.GetComponent<VideoSurface>();
+        LocalView.transform.Rotate(0.0f, 0.0f, 0);
         //go = GameObject.Find("RemoteView");
 
         for (int i = 0; i < FriendCams.transform.childCount; i++)
         {
             FriendCams.transform.GetChild(i).GetComponent<VideoSurface>().transform.Rotate(0.0f, 0.0f, 0f);
             FriendCamList.Add(FriendCams.transform.GetChild(i).GetComponent<VideoSurface>());
-        }
-        
-        
-        /*
-        foreach (GameObject cam in friendCamPosList)
-        {
-            RemoteView = cam.AddComponent<VideoSurface>();
-            RemoteView.transform.Rotate(0.0f, 0.0f, 180.0f);
-        }*/
-        
-        //go = GameObject.Find("Leave");
-        //go.GetComponent<Button>().onClick.AddListener(Leave);
-        
-        //go = GameObject.Find("Join");
-        //go.GetComponent<Button>().onClick.AddListener(Join);
 
-        
+        }
+
     }
 
 
@@ -128,6 +118,7 @@ public class AgoraManager : MonoBehaviour
         LocalView.SetEnable(true);
         // Join a channel.
         RtcEngine.JoinChannel(_token, _channelName);
+
     }
 
     public void Leave()
@@ -143,11 +134,16 @@ public class AgoraManager : MonoBehaviour
             RemoteView.SetEnable(false);
         // Stops rendering the local video.
         LocalView.SetEnable(false);
-        UI_MainPanel.Instance.Hide();
-        UI_CharPanel.Instance.Show();
+        
+        for (int i = 0; i < FriendCams.transform.childCount; i++)
+        {
+            Destroy(FriendCams.transform.GetChild(i));
+        }
+        
+        FriendCamList.Clear();
+        
     }
-
-
+    
 
     internal class UserEventHandler : IRtcEngineEventHandler
     {
@@ -180,6 +176,7 @@ public class AgoraManager : MonoBehaviour
         // This callback is triggered when a remote user leaves the channel or drops offline.
         public override void OnUserOffline(RtcConnection connection, uint uid, USER_OFFLINE_REASON_TYPE reason)
         {
+            Debug.Log("uid   "+uid);
             foreach (VideoSurface RemoteView in FriendCamList)
             {
                 if (RemoteView.Uid==uid)
