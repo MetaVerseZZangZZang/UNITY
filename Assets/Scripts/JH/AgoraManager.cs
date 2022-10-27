@@ -5,6 +5,7 @@ using Agora.Rtc;
 using ClipperLib;
 using System.Runtime.Remoting.Lifetime;
 using ExitGames.Client.Photon.StructWrapping;
+using Photon.Pun;
 
 
 #if (UNITY_2018_3_OR_NEWER && UNITY_ANDROID)
@@ -141,7 +142,9 @@ public class AgoraManager : MonoBehaviour
         }
         
         FriendCamList.Clear();
-        
+        PhotonNetwork.LeaveRoom();
+        UI_MainPanel.Instance.Hide();
+        UI_CharPanel.Instance.Show();
     }
     
 
