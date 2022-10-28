@@ -74,22 +74,22 @@ public class Server : MonoBehaviour
                 Debug.Log("receiveKeyword");
                 string jsonText = response.GetValue<string>();
                 Debug.Log(jsonText);
-                ChatKeywardData chatKeyward = JsonConvert.DeserializeObject<ChatKeywardData>(jsonText);
+                ChatKeywordData chatKeyword = JsonConvert.DeserializeObject<ChatKeywordData>(jsonText);
                 
-                foreach (string i in chatKeyward.subkey1)
+                foreach (string i in chatKeyword.subkey1)
                 {
-                    proto1 += i;
+                    proto1 += i+", ";
                 }
                 Debug.Log(proto1);
-                foreach (string i in chatKeyward.subkey2)
+                foreach (string i in chatKeyword.subkey2)
                 {
-                    proto2 += i;
+                    proto2 += i+", ";
                 }
                 Debug.Log(proto2);
 
                 m_keyActions.Add(() =>
                 {
-                    ReceiveKeyword.Instance.ReceiveJson(chatKeyward.mainkey[0], chatKeyward.mainkey[1], proto1, proto2);
+                    ReceiveKeyword.Instance.ReceiveJson(chatKeyword.mainkey[0], chatKeyword.mainkey[1], proto1, proto2);
                 });
 
             });
@@ -231,7 +231,7 @@ public class Server : MonoBehaviour
 }
 
 [Serializable]
-public class ChatKeywardData
+public class ChatKeywordData
 {
     public List<string> mainkey;
     public List<string> subkey1;
