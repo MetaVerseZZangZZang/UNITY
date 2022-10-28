@@ -211,8 +211,6 @@ public class AgoraManager : MonoBehaviour
                     {
                         UI_MainPanel.Instance.friendCamON(RemoteView);
                     }
-                    
-                    
                 }
             }
             

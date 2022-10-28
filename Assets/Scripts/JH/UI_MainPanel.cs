@@ -5,6 +5,7 @@ using ExitGames.Client.Photon.StructWrapping;
 using Photon.Pun;
 using UnityEngine;
 using Photon.Realtime;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 
@@ -18,6 +19,13 @@ public class UI_MainPanel : MonoBehaviour
     public GameObject chatTextParent;
     public RawImage myCam;
     //public Text newText;
+    public Text keyword1;
+    public Text keyword2;
+
+
+    public Text recommendkeyword1;
+    public Text recommendKeyword2;
+    
     private void Awake()
     {
         Instance = this;
@@ -97,6 +105,34 @@ public class UI_MainPanel : MonoBehaviour
     public void friendCamON(VideoSurface RemoteView)
     {
         RemoteView.transform.GetChild(0).gameObject.SetActive(false);
+    }
+    
+    
+    
+    /*
+    IEnumerator GetTexture(RawImage img)
+    {
+        //var url = 
+        UnityWebRequest www = UnityWebRequestTexture.GetTexture(url);
+        yield return www.SendWebRequest();
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            img.texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
+        }
+    }*/
+
+    public void ReceiveJson(string key1, string key2, string recomkey1, string recomkey2)
+    {
+        keyword1.text = key1;
+        keyword2.text = key2;
+
+        recommendkeyword1.text = recomkey1;
+        recommendKeyword2.text = recomkey2;
+
     }
 
 }

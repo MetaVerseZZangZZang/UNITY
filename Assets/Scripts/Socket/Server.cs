@@ -89,7 +89,7 @@ public class Server : MonoBehaviour
 
                 m_keyActions.Add(() =>
                 {
-                    ReceiveKeyword.Instance.ReceiveJson(chatKeyword.mainkey[0], chatKeyword.mainkey[1], proto1, proto2);
+                    UI_MainPanel.Instance.ReceiveJson(chatKeyword.mainkey[0], chatKeyword.mainkey[1], proto1, proto2);
                 });
 
             });

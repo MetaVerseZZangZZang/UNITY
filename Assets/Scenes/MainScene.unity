@@ -6000,6 +6000,8 @@ MonoBehaviour:
   micClip: {fileID: 0}
   receive_Name: 
   receieveSTT_Word: 
+  proto1: 
+  proto2: 
   calling: 0
   test: 
   test1: 
@@ -17319,7 +17321,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.3921569, g: 0.8941177, b: 0.3372549, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -19858,7 +19860,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.3921569, g: 0.8941177, b: 0.3372549, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -20270,7 +20272,6 @@ GameObject:
   - component: {fileID: 2065408806}
   - component: {fileID: 2065408805}
   - component: {fileID: 2065408807}
-  - component: {fileID: 2065408808}
   m_Layer: 5
   m_Name: MainPanel
   m_TagString: Untagged
@@ -20357,21 +20358,9 @@ MonoBehaviour:
     type: 3}
   chatTextParent: {fileID: 477781572}
   myCam: {fileID: 2055122015}
---- !u!114 &2065408808
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2065408803}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2d159c72d950427b9bf3a33fc960ccb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   keyword1: {fileID: 2029898875}
-  keyword2: {fileID: 1735018149}
-  recommendkeyword1: {fileID: 1835696270}
+  keyword2: {fileID: 1835696270}
+  recommendkeyword1: {fileID: 1735018149}
   recommendKeyword2: {fileID: 1525874135}
 --- !u!1 &2066045789
 GameObject:
