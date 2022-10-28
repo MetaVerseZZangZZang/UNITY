@@ -56,8 +56,6 @@ public class Server : MonoBehaviour
         m_Socket.On("connection", (response) =>
         {
             m_Socket.Emit("userInfo", UI_StartPanel.Instance.userName);
-            Debug.LogError("연결 완");
-            Debug.LogError(response.GetValue<string>());
 
             m_Connected = true;
 
@@ -80,7 +78,6 @@ public class Server : MonoBehaviour
 
             m_Socket.On("receiveVoice", (response) =>
             {
-                Debug.LogError("receive");
                 test1 = response.GetValue<byte[]>();
 
 

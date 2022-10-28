@@ -12,8 +12,9 @@ public class UI_MainPanel : MonoBehaviour
 
     //public Text m_Text;
     public static UI_MainPanel Instance;
-
+    public Sprite cameraOff;
     public GameObject chatTextParent;
+    public RawImage myCam;
     //public Text newText;
     private void Awake()
     {
@@ -52,4 +53,36 @@ public class UI_MainPanel : MonoBehaviour
         newText.transform.localScale=new Vector3(1,1,1);
         newText.GetComponent<Text>().text = msg;
     }
+    
+    public void CamToggle(Toggle toggle)
+    {
+        
+        AgoraManager.camFlag = toggle.isOn;
+        
+        if (toggle.isOn)
+        {
+            AgoraManager.Instance.RtcEngine.EnableLocalVideo(true);
+        }
+        else
+        {
+            AgoraManager.Instance.RtcEngine.EnableLocalVideo(false);
+            //myCam.texture= cameraOff.texture;EnableLocalVideo
+        }
+        
+    }
+
+    public void VoiceToggle(Toggle toggle)
+    {
+        AgoraManager.voiceFlag = toggle.isOn;
+        if (toggle.isOn)
+        {
+            AgoraManager.Instance.RtcEngine.EnableLocalAudio(true);
+        }
+        else
+        {
+            AgoraManager.Instance.RtcEngine.EnableLocalAudio(false);
+        }
+    }
+        
+
 }

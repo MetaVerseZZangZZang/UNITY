@@ -18,9 +18,7 @@ public class UI_CharPanel : MonoBehaviour
     
     private WebCamTexture camTexture;
 
-    public static bool camFlag=true;
 
-    public static bool voiceFlag=true;
     // Start is called before the first frame update
     //public void Connect() => PhotonNetwork.ConnectUsingSettings();
     //public override void OnConnectedToMaster() => PhotonNetwork.JoinLobby();
@@ -70,8 +68,6 @@ public class UI_CharPanel : MonoBehaviour
         camTexture.Play();
     }
     
-
-    
     public void StopCam()
     {
         if (camTexture != null)
@@ -103,11 +99,11 @@ public class UI_CharPanel : MonoBehaviour
             myCam.texture = cameraOff.texture;
         }
         
-        camFlag = toggle.isOn;
+        AgoraManager.camFlag = toggle.isOn;
     }
 
     public void VoiceToggle(Toggle toggle)
     {
-        voiceFlag = toggle.isOn;
+        AgoraManager.voiceFlag = toggle.isOn;
     }
 }
