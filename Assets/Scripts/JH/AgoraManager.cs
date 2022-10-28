@@ -181,7 +181,7 @@ public class AgoraManager : MonoBehaviour
         // This callback is triggered when a remote user leaves the channel or drops offline.
         public override void OnUserOffline(RtcConnection connection, uint uid, USER_OFFLINE_REASON_TYPE reason)
         {
-            Debug.Log("uid   "+uid);
+            
             foreach (VideoSurface RemoteView in FriendCamList)
             {
                 if (RemoteView.Uid==uid)
@@ -190,6 +190,31 @@ public class AgoraManager : MonoBehaviour
                     Destroy(RemoteView.gameObject);
                 }
             }
+        }
+
+        public override void OnRemoteVideoStateChanged(RtcConnection connection, uint remoteUid,
+            REMOTE_VIDEO_STATE state, REMOTE_VIDEO_STATE_REASON reason, int elapsed)
+        {
+            Debug.Log("uid: "+remoteUid);
+            Debug.Log("state "+state);
+            
+            foreach (VideoSurface RemoteView in FriendCamList)
+            {
+                if (RemoteView.Uid==remoteUid)
+                {
+                    if (state == 0)
+                    {
+                        UI_MainPanel.Instance.friendCamOff(RemoteView);
+                    }
+                    else if (state==REMOTE_VIDEO_STATE.REMOTE_VIDEO_STATE_STARTING)
+                    {
+                        UI_MainPanel.Instance.friendCamON(RemoteView);
+                    }
+                    
+                    
+                }
+            }
+            
         }
 
 
