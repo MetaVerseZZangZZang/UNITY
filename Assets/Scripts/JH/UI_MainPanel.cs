@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Agora.Rtc;
 using Photon.Pun;
 using UnityEngine;
 using Photon.Realtime;
@@ -58,17 +59,18 @@ public class UI_MainPanel : MonoBehaviour
     {
         
         AgoraManager.camFlag = toggle.isOn;
-        
         if (toggle.isOn)
         {
             AgoraManager.Instance.RtcEngine.EnableLocalVideo(true);
+            
         }
         else
         {
             AgoraManager.Instance.RtcEngine.EnableLocalVideo(false);
-            //myCam.texture= cameraOff.texture;EnableLocalVideo
+
         }
-        
+
+
     }
 
     public void VoiceToggle(Toggle toggle)
@@ -83,6 +85,15 @@ public class UI_MainPanel : MonoBehaviour
             AgoraManager.Instance.RtcEngine.EnableLocalAudio(false);
         }
     }
-        
+
+    public void friendCamOff(VideoSurface RemoteView)
+    {
+        RemoteView.transform.GetChild(0).gameObject.SetActive(true);
+    }
+    
+    public void friendCamON(VideoSurface RemoteView)
+    {
+        RemoteView.transform.GetChild(0).gameObject.SetActive(false);
+    }
 
 }
