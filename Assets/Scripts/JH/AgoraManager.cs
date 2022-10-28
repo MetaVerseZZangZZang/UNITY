@@ -188,6 +188,7 @@ public class AgoraManager : MonoBehaviour
                 {
                     RemoteView.SetEnable(false);
                     Destroy(RemoteView.gameObject);
+                    FriendCamList.Remove(RemoteView);
                 }
             }
         }
@@ -216,13 +217,6 @@ public class AgoraManager : MonoBehaviour
             }
             
         }
-        
-        public override void OnLocalVideoStateChanged(RtcConnection connection, LOCAL_VIDEO_STREAM_STATE state, LOCAL_VIDEO_STREAM_ERROR errorCode) 
-        {
-            Debug.Log("state "+state);
-
-        }
-
 
     }
 
