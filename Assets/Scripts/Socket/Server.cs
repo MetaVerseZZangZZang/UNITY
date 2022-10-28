@@ -11,6 +11,9 @@ using ChatNetWork;
 using System.Runtime.InteropServices;
 using SocketIOClient;
 using System.IO;
+using System.Text.Json.Serialization;
+//using System.Text.Json;
+using Newtonsoft.Json;
 
 public class Server : MonoBehaviour
 {
@@ -25,6 +28,7 @@ public class Server : MonoBehaviour
     public string receieveSTT_Word;
 
 
+    //json
     private List<Action> m_Actions = new List<Action>();
     
     private void Awake()
@@ -63,7 +67,16 @@ public class Server : MonoBehaviour
 
             });
 
-            
+
+            m_Socket.On("getKeylist", (response) =>
+            {
+                Debug.Log("receiveKeyword");
+                string jsonText = response.GetValue<string>();
+                Debug.Log(jsonText);
+                ChatKeywardData chatKeyward = JsonConvert.DeserializeObject<ChatKeywardData>(jsonText);
+                Debug.Log("chatkeyward"+chatKeyward.mainkey[0]);
+            });
+
 
             m_Socket.On("receiveVoice", (response) =>
             {
@@ -190,6 +203,15 @@ public class Server : MonoBehaviour
         return clip;
     }
 
+
+}
+
+[Serializable]
+public class ChatKeywardData
+{
+    public List<string> mainkey;
+    public List<string> subkey1;
+    public List<string> subkey2;
 
 }
 
