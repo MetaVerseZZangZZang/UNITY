@@ -23,15 +23,22 @@ public class Server : MonoBehaviour
 
     public string receive_Name;
     public string receieveSTT_Word;
-    
+
+
+    private List<Action> m_Actions = new List<Action>();
     
     private void Awake()
     {
         Instance = this;
+        
+        DontDestroyOnLoad (this);
+
     }
 
     public void ChatStart()
     {
+        Debug.LogError(222);
+
         mic = transform.GetComponent<AudioSource>();
         //mic.clip = Microphone.Start(Microphone.devices[0].ToString(), true, 5, AudioSettings.outputSampleRate);
         var uri = new Uri("http://192.168.0.37:5100");
@@ -44,7 +51,7 @@ public class Server : MonoBehaviour
 
         m_Socket.On("connection", (response) =>
         {
-            m_Socket.Emit("userInfo", "이승민");
+            m_Socket.Emit("userInfo", UI_StartPanel.Instance.userName);
             Debug.LogError("연결 완");
             Debug.LogError(response.GetValue<string>());
 
@@ -67,21 +74,22 @@ public class Server : MonoBehaviour
             });
             m_Socket.On("receiveSTT", (response) =>
             {
-                Debug.Log("receive STT");
+                m_Actions.Add(() =>
+                {
+                    string text = response.GetValue<string>();
+                    var spilttedText = text.Split("/|*^");
+                    receive_Name = spilttedText[0];
+                    receieveSTT_Word = spilttedText.Length > 1 ? spilttedText[1] : string.Empty;
+                    UI_MainPanel.Instance.ChatRPC($"{receive_Name}: {receieveSTT_Word}");
 
+                    print(receive_Name);
+                    print(receieveSTT_Word);
+                });
+                
 
-                receive_Name = response.GetValue<string>().Substring(0,response.GetValue<string>().IndexOf("/|*^"));
-                receieveSTT_Word = response.GetValue<string>().Substring(response.GetValue<string>().IndexOf("/|*^")+4).Trim();
-
-
-                UI_MainPanel.Instance.ChatRPC("<color=blue>" + receive_Name + "</color>"+"     "+ receieveSTT_Word);
-
-                print(receive_Name);
-                print(receieveSTT_Word);
             });
             
         });
-
         
         StartCoroutine(Record());
     }
@@ -127,6 +135,13 @@ public class Server : MonoBehaviour
     float time;
     private void Update()
     {
+        foreach (var a in m_Actions)
+        {
+            a.Invoke();
+        }
+        
+        m_Actions.Clear();
+        ;
         //time += Time.deltaTime;
 
         //if (time >= 5)
@@ -137,67 +152,6 @@ public class Server : MonoBehaviour
         //    test = GetClipData(mic.clip);
         //    m_Socket.Emit("message", test);
         //}
-
-        if (m_Connected)
-        {
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                print(1);
-                mic.clip = Microphone.Start(Microphone.devices[0].ToString(), true, 100, 44100);
-                test = GetClipData(mic.clip);
-                m_Socket.Emit("message", test);
-                //test = GetClipData(mic.clip);
-                //floatTest = Send2(mic.clip);
-            }
-
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                print(2);
-                test = GetClipData(mic.clip);
-                m_Socket.Emit("message", test);
-                m_Socket.Emit("receiveSTT", test);
-                //mic.Play();
-            }
-
-            if (Input.GetKeyDown(KeyCode.D))
-            {
-                // byte to audioclip
-                float[] samples = new float[test.Length / 4]; //size of a float is 4 bytes
-
-                Buffer.BlockCopy(test, 0, samples, 0, test.Length);
-
-                int channels = 1; //Assuming audio is mono because microphone input usually is
-                int sampleRate =
-                    44100; //Assuming your samplerate is 44100 or change to 48000 or whatever is appropriate
-
-
-                //print(samples.Length);
-                AudioClip clip = AudioClip.Create("ClipName", samples.Length, channels, sampleRate, false);
-                clip.SetData(samples, 0);
-                mic.clip = clip;
-                mic.Play();
-            }
-
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                float[] samples = new float[test1.Length / 4]; //size of a float is 4 bytes
-
-                Buffer.BlockCopy(test1, 0, samples, 0, test1.Length);
-
-                int channels = 1; //Assuming audio is mono because microphone input usually is
-                int sampleRate =
-                    44100; //Assuming your samplerate is 44100 or change to 48000 or whatever is appropriate
-
-
-                print(samples.Length);
-                AudioClip clip = AudioClip.Create("ClipName", samples.Length, channels, sampleRate, false);
-                clip.SetData(samples, 0);
-
-
-                mic.clip = clip;
-                mic.Play();
-            }
-        }
 
     }
 

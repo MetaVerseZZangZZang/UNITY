@@ -8,11 +8,13 @@ using UnityEngine.UI;
 
 public class UI_MainPanel : MonoBehaviour
 {
+    public GameObject m_Prefab;
 
+    //public Text m_Text;
     public static UI_MainPanel Instance;
 
     public GameObject chatTextParent;
-    public Text newText;
+    //public Text newText;
     private void Awake()
     {
         Instance = this;
@@ -30,7 +32,7 @@ public class UI_MainPanel : MonoBehaviour
         this.gameObject.SetActive(true);
         AgoraManager.Instance.Join();
         Server.Instance.ChatStart();
-        
+        Debug.LogError(111);
     }
 
     public void Leave()
@@ -42,15 +44,12 @@ public class UI_MainPanel : MonoBehaviour
         Server.Instance.ChatEnd();
         
     }
+    
     public void ChatRPC(string msg)
     {
-        Debug.Log("in");
-        //Text newText=Instantiate(Resources.Load<Text>("Prefabs/ChatText"));
-        //Debug.Log(newText);
-        //newText.transform.SetParent(chatTextParent.transform);
-        //newText.transform.localScale=new Vector3(1,1,1);
-        newText.text = msg;
-
-
+        GameObject newText=Instantiate<GameObject>(m_Prefab);
+        newText.transform.SetParent(chatTextParent.transform);
+        newText.transform.localScale=new Vector3(1,1,1);
+        newText.GetComponent<Text>().text = msg;
     }
 }
