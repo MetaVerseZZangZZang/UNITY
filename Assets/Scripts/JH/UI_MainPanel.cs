@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Agora.Rtc;
+using ExitGames.Client.Photon.StructWrapping;
 using Photon.Pun;
 using UnityEngine;
 using Photon.Realtime;
@@ -13,7 +14,7 @@ public class UI_MainPanel : MonoBehaviour
 
     //public Text m_Text;
     public static UI_MainPanel Instance;
-    public Sprite cameraOff;
+    
     public GameObject chatTextParent;
     public RawImage myCam;
     //public Text newText;
@@ -61,12 +62,14 @@ public class UI_MainPanel : MonoBehaviour
         AgoraManager.camFlag = toggle.isOn;
         if (toggle.isOn)
         {
+            myCam.transform.GetChild(0).gameObject.SetActive(false);
             AgoraManager.Instance.RtcEngine.EnableLocalVideo(true);
             
         }
         else
         {
             AgoraManager.Instance.RtcEngine.EnableLocalVideo(false);
+            myCam.transform.GetChild(0).gameObject.SetActive(true);
 
         }
 
