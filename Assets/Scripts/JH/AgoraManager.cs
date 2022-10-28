@@ -38,6 +38,10 @@ public class AgoraManager : MonoBehaviour
 
     public static AgoraManager Instance;
     
+    public static bool camFlag=true;
+
+    public static bool voiceFlag=true;
+    
     void Awake()
     {
         Instance = this;
@@ -121,6 +125,7 @@ public class AgoraManager : MonoBehaviour
         RtcEngine.JoinChannel(_token, _channelName);
 
     }
+
 
     public void Leave()
     {
