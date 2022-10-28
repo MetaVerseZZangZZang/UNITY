@@ -27,7 +27,8 @@ public class Server : MonoBehaviour
     public string receive_Name;
     public string receieveSTT_Word;
 
-
+    public string proto1;
+    public string proto2;
     //json
     private List<Action> m_Actions = new List<Action>();
 
@@ -74,11 +75,21 @@ public class Server : MonoBehaviour
                 string jsonText = response.GetValue<string>();
                 Debug.Log(jsonText);
                 ChatKeywardData chatKeyward = JsonConvert.DeserializeObject<ChatKeywardData>(jsonText);
-                Debug.Log("chatkeyward"+chatKeyward.mainkey[0]);
-                Debug.Log(chatKeyward.subkey1);
+                
+                foreach (string i in chatKeyward.subkey1)
+                {
+                    proto1 += i;
+                }
+                Debug.Log(proto1);
+                foreach (string i in chatKeyward.subkey2)
+                {
+                    proto2 += i;
+                }
+                Debug.Log(proto2);
+
                 m_keyActions.Add(() =>
                 {
-                    ReceiveKeyword.Instance.ReceiveJson(chatKeyward.mainkey[0], chatKeyward.mainkey[1], chatKeyward.subkey1[1], chatKeyward.subkey2[1]);
+                    ReceiveKeyword.Instance.ReceiveJson(chatKeyward.mainkey[0], chatKeyward.mainkey[1], proto1, proto2);
                 });
 
             });
