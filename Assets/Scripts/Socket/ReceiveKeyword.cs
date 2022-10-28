@@ -2,10 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Text.Json.Nodes;
+using UnityEngine.UI;
 
 public class ReceiveKeyword : MonoBehaviour
 {
     public static ReceiveKeyword Instance;
+
+
+    public Text keyword1;
+    public Text keyword2;
+
+
+    public Text recommendkeyword1;
+    public Text recommendKeyword2;
 
 
     private void Awake()
@@ -14,9 +23,14 @@ public class ReceiveKeyword : MonoBehaviour
     }
 
 
-    public void ReceiveJson(System.Text.Json.JsonElement jd)
+    public void ReceiveJson(string key1, string key2, string recomkey1, string recomkey2)
     {
-        Debug.Log(jd);
+        keyword1.text = key1;
+        keyword2.text = key2;
+
+        recommendkeyword1.text = recomkey1;
+        recommendKeyword2.text = recomkey2;
+
     }
 
 

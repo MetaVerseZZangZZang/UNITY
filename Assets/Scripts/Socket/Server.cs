@@ -30,6 +30,8 @@ public class Server : MonoBehaviour
 
     //json
     private List<Action> m_Actions = new List<Action>();
+
+    private List<Action> m_keyActions = new List<Action>();
     
     private void Awake()
     {
@@ -73,6 +75,12 @@ public class Server : MonoBehaviour
                 Debug.Log(jsonText);
                 ChatKeywardData chatKeyward = JsonConvert.DeserializeObject<ChatKeywardData>(jsonText);
                 Debug.Log("chatkeyward"+chatKeyward.mainkey[0]);
+                Debug.Log(chatKeyward.subkey1);
+                m_keyActions.Add(() =>
+                {
+                    ReceiveKeyword.Instance.ReceiveJson(chatKeyward.mainkey[0], chatKeyward.mainkey[1], chatKeyward.subkey1[1], chatKeyward.subkey2[1]);
+                });
+
             });
 
 
@@ -151,7 +159,15 @@ public class Server : MonoBehaviour
         }
         
         m_Actions.Clear();
-        ;
+
+
+        foreach (var a in m_keyActions)
+        {
+            a.Invoke();
+        }
+
+        m_keyActions.Clear();
+
         //time += Time.deltaTime;
 
         //if (time >= 5)
