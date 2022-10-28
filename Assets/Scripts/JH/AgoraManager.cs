@@ -142,9 +142,6 @@ public class AgoraManager : MonoBehaviour
         }
         
         FriendCamList.Clear();
-        PhotonNetwork.LeaveRoom();
-        UI_MainPanel.Instance.Hide();
-        UI_CharPanel.Instance.Show();
     }
     
 
