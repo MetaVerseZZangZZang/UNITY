@@ -69,6 +69,7 @@ public class UI_CharPanel : MonoBehaviour
         myCam.texture = camTexture;
         camTexture.Play();
     }
+    
 
     
     public void StopCam()
