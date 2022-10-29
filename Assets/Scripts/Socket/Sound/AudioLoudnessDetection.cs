@@ -10,6 +10,9 @@ public class AudioLoudnessDetection : MonoBehaviour
 
     private void Start()
     {
+        MicrophoneToAudioClip();
+        foreach (string device in Microphone.devices) { Debug.Log("Name: " + device); }
+
     }
     void Update()
     {
