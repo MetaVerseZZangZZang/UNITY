@@ -18,11 +18,30 @@ public class UI_MainPanel : MonoBehaviour
     public GameObject chatTextParent;
     public RawImage myCam;
     //public Text newText;
+
+
+
+    // sm이 수정했다 선언
+    public GameObject keyWord;
+    public GameObject keywordPanel;
+
+
+
     private void Awake()
     {
         Instance = this;
         Hide();
     }
+
+    public void InstantiateKeywordText(string msg)
+    {
+        GameObject keywordText = Instantiate<GameObject>(keyWord);
+        keywordText.transform.SetParent(keywordPanel.transform);
+        keywordText.transform.localScale = new Vector3(1, 1, 1);
+        //keywordText.transform.position = new Vector3(0, 0, 0);
+        keywordText.GetComponent<Text>().text = msg;
+    }
+
 
     public void Hide()
     {

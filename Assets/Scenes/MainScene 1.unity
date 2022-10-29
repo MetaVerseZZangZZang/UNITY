@@ -6005,6 +6005,8 @@ MonoBehaviour:
   micClip: {fileID: 0}
   receive_Name: 
   receieveSTT_Word: 
+  proto1: 
+  proto2: 
   calling: 0
   test: 
   test1: 
@@ -20252,7 +20254,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Prefab: {fileID: 6793377050428860621, guid: 45ceb7fabeb14d94b9c2f675cb8c088f,
     type: 3}
-  cameraOff: {fileID: 21300000, guid: b1235ce50a7e39748aa7066b078951e0, type: 3}
   chatTextParent: {fileID: 477781572}
   myCam: {fileID: 2055122015}
 --- !u!114 &2065408808

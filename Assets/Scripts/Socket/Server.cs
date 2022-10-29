@@ -2,13 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Net;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading;
-using System.Net.WebSockets;
-using ChatNetWork;
-using System.Runtime.InteropServices;
 using SocketIOClient;
 using System.IO;
 using System.Text.Json.Serialization;
@@ -48,7 +41,7 @@ public class Server : MonoBehaviour
 
         mic = transform.GetComponent<AudioSource>();
         //mic.clip = Microphone.Start(Microphone.devices[0].ToString(), true, 5, AudioSettings.outputSampleRate);
-        var uri = new Uri("http://192.168.0.37:5100");
+        var uri = new Uri("http://192.168.0.103:5100");
         m_Socket = new SocketIOUnity(uri, new SocketIOOptions()
         {
             Query = new Dictionary<string, string> { { "token", "UNITY" } },
@@ -69,27 +62,68 @@ public class Server : MonoBehaviour
             });
 
 
+            //img 리스트 받
+            m_Socket.On("getImagelist", (response) =>
+            {
+                Debug.Log(response.GetValue());
+
+            });
+
             m_Socket.On("getKeylist", (response) =>
             {
                 Debug.Log("receiveKeyword");
                 string jsonText = response.GetValue<string>();
                 Debug.Log(jsonText);
-                ChatKeywordData chatKeyword = JsonConvert.DeserializeObject<ChatKeywordData>(jsonText);
-                
-                foreach (string i in chatKeyword.subkey1)
-                {
-                    proto1 += i+", ";
-                }
-                Debug.Log(proto1);
-                foreach (string i in chatKeyword.subkey2)
-                {
-                    proto2 += i+", ";
-                }
-                Debug.Log(proto2);
+                //ChatKeywordData chatKeyword = JsonConvert.DeserializeObject<ChatKeywordData>(jsonText);
+
+
+                List<ChatKeywordData2> data = JsonConvert.DeserializeObject<List<ChatKeywordData2>>(jsonText);
+
+                //foreach (string i in chatKeyword.subkey1)
+                //{
+                //    proto1 += i+", ";
+                //}
+                //Debug.Log(proto1);
+                //foreach (string i in chatKeyword.subkey2)
+                //{
+                //    proto2 += i+", ";
+                //}
+                //Debug.Log(proto2);
+
+
+                //ReceiveKeyword.Instance.ReceiveJson(chatKeyword.mainkey[0], chatKeyword.mainkey[1], proto1, proto2);
+               
+                Debug.LogError("으/");
 
                 m_keyActions.Add(() =>
                 {
-                    ReceiveKeyword.Instance.ReceiveJson(chatKeyword.mainkey[0], chatKeyword.mainkey[1], proto1, proto2);
+                    int count = data.Count;
+                    Debug.LogError($"count: {count}");
+                    for (int i = 0; i < count; ++i)
+                    {
+                        //Debug.LogError("----------------");
+                        //Debug.LogError(data[i].Keyword);
+
+                        //ReceiveKeyword.Instance.InstantiateKeywordText(data[i].Keyword);
+                        UI_MainPanel.Instance.InstantiateKeywordText(data[i].Keyword);
+                        foreach (var d in data[i].Elements)
+                        {
+                            UI_MainPanel.Instance.InstantiateKeywordText(d.Key);
+                            //Debug.LogError($"Key: {d.Key}");
+                            int c = d.Value.Count;
+
+                            for (int k = 0; k < c; ++k)
+                            {
+                                //UI_MainPanel.Instance.InstantiateKeywordText(d.Value[k].Title);
+                                //UI_MainPanel.Instance.InstantiateKeywordText(d.Value[k].Content);
+                                //UI_MainPanel.Instance.InstantiateKeywordText(d.Value[k].Url);
+                                Debug.LogError(d.Value[k].Title);
+                                Debug.LogError(d.Value[k].Content);
+                                Debug.LogError(d.Value[k].Url);
+                            }
+                        }
+                    }
+                    
                 });
 
             });
@@ -237,5 +271,20 @@ public class ChatKeywordData
     public List<string> subkey1;
     public List<string> subkey2;
 
+}
+
+public class ChatKeywordData2
+{
+    public string Keyword;
+
+    public Dictionary<string, List<KeywordDataElement>> Elements;
+}
+
+
+public class KeywordDataElement
+{
+    public string Title;
+    public string Content;
+    public string Url;
 }
 
