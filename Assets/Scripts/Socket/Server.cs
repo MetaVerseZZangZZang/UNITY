@@ -28,7 +28,8 @@ public class Server : MonoBehaviour
 
     private List<Action> m_keyActions = new List<Action>();
     private List<Action> m_ImageDownloadActions = new List<Action>();
-
+    private List<Action> m_SummaryDownload = new List<Action>();
+    private List<Action> m_NetworkGraphDownload = new List<Action>();
     private void Awake()
     {
         Instance = this;
@@ -40,8 +41,9 @@ public class Server : MonoBehaviour
     }
     private void Start()
     {
-        
-        
+    
+
+
     }
     public void ChatStart()
     {
@@ -84,14 +86,34 @@ public class Server : MonoBehaviour
                         Debug.Log(data[i].keyword);
                         foreach (var c in data[i].Elements)
                         {
-                            Debug.Log(c);
+                            //Debug.Log(c);
                             StartCoroutine(ImageManager.Instance.GetTexture(c));
-
                         }
                     }
-                });
-                    
+                }); 
             });
+
+
+            m_Socket.On("getGraph", (response) =>
+            {
+                m_NetworkGraphDownload.Add(() =>
+                {
+                    Debug.LogError(response.GetValue());
+                    Debug.LogError("http://192.168.0.103:5100/" + response.GetValue<string>());
+                    StartCoroutine(ImageManager.Instance.GetNetworkGraph("http://192.168.0.103:5100/static/network/network_XucQRD7ywOalsJKCAAAB_1.png"));
+                });
+            });
+
+
+
+            m_Socket.On("getSummary",(response)=>
+            {
+                m_SummaryDownload.Add(() =>
+                {
+                    ImageManager.Instance.SummaryResult(response.GetValue<string>());
+                });
+            });
+
 
 
 
@@ -226,6 +248,21 @@ public class Server : MonoBehaviour
 
         m_ImageDownloadActions.Clear();
 
+
+        foreach (var a in m_SummaryDownload)
+        {
+            a.Invoke();
+        }
+
+        m_SummaryDownload.Clear();
+
+
+        foreach (var a in m_NetworkGraphDownload)
+        {
+            a.Invoke();
+        }
+
+        m_NetworkGraphDownload.Clear();
 
 
         //time += Time.deltaTime;

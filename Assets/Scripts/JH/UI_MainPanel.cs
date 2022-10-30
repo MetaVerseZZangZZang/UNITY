@@ -27,7 +27,6 @@ public class UI_MainPanel : MonoBehaviour
     //public GameObject keywordPanel;
 
 
-
     private void Awake()
     {
         Instance = this;
@@ -107,6 +106,7 @@ public class UI_MainPanel : MonoBehaviour
 
 
     }
+
 
     public void VoiceToggle(Toggle toggle)
     {
