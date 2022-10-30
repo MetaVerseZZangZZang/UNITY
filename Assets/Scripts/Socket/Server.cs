@@ -7,7 +7,6 @@ using System.IO;
 using System.Text.Json.Serialization;
 //using System.Text.Json;
 using Newtonsoft.Json;
-using Unity.RenderStreaming;
 
 public class Server : MonoBehaviour
 {
@@ -33,8 +32,6 @@ public class Server : MonoBehaviour
         Instance = this;
         
         DontDestroyOnLoad (this);
-
-        
 
     }
 
