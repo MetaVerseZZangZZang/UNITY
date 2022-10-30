@@ -21,7 +21,7 @@ public class ImageManager : MonoBehaviour
         //StartCoroutine(GetTexture(downloadImage));
     }
 
-    public IEnumerator GetTexture(RawImage img, string url)
+    public IEnumerator GetTexture(string url)
     {
         UnityWebRequest www = UnityWebRequestTexture.GetTexture(url);
         yield return www.SendWebRequest();

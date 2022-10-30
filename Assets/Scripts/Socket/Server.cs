@@ -83,6 +83,8 @@ public class Server : MonoBehaviour
                     foreach (var c in data[i].Elements)
                     {
                         Debug.Log(c);
+                        StartCoroutine(ImageManager.Instance.GetTexture(c));
+                        
                     }
                 }
             });
@@ -233,7 +235,7 @@ public class Server : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.Z))
         {
-            Debug.LogError("녹화 종료");
+            Debug.LogError("녹화 종");
 
             byte[] sendByte =GetClipData(mic.clip);
 
