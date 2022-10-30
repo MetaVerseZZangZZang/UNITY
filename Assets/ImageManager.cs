@@ -8,63 +8,26 @@ public class ImageManager : MonoBehaviour
 {
     public static ImageManager Instance;
 
-
-    public GameObject summaryGameObject;
-    public GameObject networkGraphObject;
-
     private void Awake()
     {
         Instance = this;
     }
 
-
-    public RawImage downloadImage;
-    public List<RawImage> downloadImageList = new List<RawImage>();
-
-
-    public void SummaryResult(string summary)
+    public IEnumerator GetTexture(RawImage img, string url)
     {
-        summaryGameObject.SetActive(true);
-        Text summaryText = summaryGameObject.GetComponent<Text>();
-        summaryText.text = summary;
-    }
-
-
-    public IEnumerator GetTexture(string url)
-    {
+        Debug.LogError($"요청: {url}");
         UnityWebRequest www = UnityWebRequestTexture.GetTexture(url);
         yield return www.SendWebRequest();
         if (www.result != UnityWebRequest.Result.Success)
         {
+            Debug.LogError("실패");
+            Debug.LogError(url);
             Debug.Log(www.error);
         }
         else
         {
             Debug.Log("imageDownload");
-            downloadImage.texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
-            downloadImageList.Add(downloadImage);
+            img.texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
         }
     }
-
-
-    public IEnumerator GetNetworkGraph(string url)
-    {
-        UnityWebRequest www = UnityWebRequestTexture.GetTexture(url);
-        yield return www.SendWebRequest();
-        if (www.result != UnityWebRequest.Result.Success)
-        {
-            Debug.Log(www.error);
-        }
-        else
-        {
-            networkGraphObject.SetActive(true);
-            RawImage networkGraph = networkGraphObject.GetComponent<RawImage>();
-            Debug.Log("1111111123421431+imageDownload");
-
-            networkGraph.texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
-
-        }
-    }
-
-
 }
