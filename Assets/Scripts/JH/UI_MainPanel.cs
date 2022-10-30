@@ -90,9 +90,11 @@ public class UI_MainPanel : MonoBehaviour
         chatParent.gameObject.SetActive(false);
         chatParent.gameObject.SetActive(true);
         
-        m_ScrollRect.verticalNormalizedPosition = 0;
+        chatParent.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, chatParent.GetComponent<RectTransform>().anchoredPosition.y + 100);
 
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)chatParent.transform);
+        
+
     }
 
     public void AddAIChatWithImage(List<KeywordDict> data)
@@ -102,10 +104,11 @@ public class UI_MainPanel : MonoBehaviour
         newObject.transform.SetParent(chatParent.transform);
         newObject.transform.localScale=new Vector3(1,1,1);
         
-        m_ScrollRect.verticalNormalizedPosition = 0;
+        chatParent.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, chatParent.GetComponent<RectTransform>().anchoredPosition.y + 100);
 
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)chatParent.transform);
-        
+        chatParent.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, chatParent.GetComponent<RectTransform>().anchoredPosition.y + 100);
+
         var rawImages = newObject.GetComponentsInChildren<RawImage>();
 
         int count = 0;
@@ -140,10 +143,10 @@ public class UI_MainPanel : MonoBehaviour
         newObject.transform.SetParent(chatParent.transform);
         newObject.transform.localScale=new Vector3(1,1,1);
         
-        m_ScrollRect.verticalNormalizedPosition = 0;
+        chatParent.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, chatParent.GetComponent<RectTransform>().anchoredPosition.y + 100);
 
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)chatParent.transform);
-        
+
         var rawImage = newObject.GetComponentInChildren<RawImage>();
         
         StartCoroutine(ImageManager.Instance.GetTexture(rawImage, url));
@@ -172,8 +175,11 @@ public class UI_MainPanel : MonoBehaviour
         chatParent.gameObject.SetActive(false);
         chatParent.gameObject.SetActive(true);
 
-        m_ScrollRect.verticalNormalizedPosition = 0;
+        chatParent.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, chatParent.GetComponent<RectTransform>().anchoredPosition.y + 100);
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)chatParent.transform);
+        
+        chatParent.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, chatParent.GetComponent<RectTransform>().anchoredPosition.y + 100);
+
     }
     public void AddAIChatWithKeyword(List<ChatKeywordData2> data)
     {
@@ -190,6 +196,19 @@ public class UI_MainPanel : MonoBehaviour
 
                 // todo:
                 // 멋지게 텍스트 꾸미기
+                int count = data.Count;
+                for (int i = 0; i < count; ++i)
+                {
+                    text += $"<b>[<color=blue>{data[i].Keyword}</color>]</b>";
+                    text += "\n(";
+                    foreach (var d in data[i].Elements)
+                    {
+                        text += $"{d.Key} ";
+                    }
+                    text += ")";
+                    
+                    text += "\n\n";
+                }
 
                 txtComponent.text = text;
             }
@@ -200,9 +219,12 @@ public class UI_MainPanel : MonoBehaviour
         chatParent.gameObject.SetActive(false);
         chatParent.gameObject.SetActive(true);
         
-        m_ScrollRect.verticalNormalizedPosition = 0;
+        chatParent.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, chatParent.GetComponent<RectTransform>().anchoredPosition.y + 100);
 
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)chatParent.transform);
+        
+        chatParent.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, chatParent.GetComponent<RectTransform>().anchoredPosition.y + 100);
+
     }
 
     public void CamToggle(Toggle toggle)
