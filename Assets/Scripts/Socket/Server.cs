@@ -79,13 +79,12 @@ public class Server : MonoBehaviour
 
                 for (int i = 0; i< data.Count; i++)
                 {
+                    Debug.Log(data[i].keyword);
                     foreach (var c in data[i].Elements)
                     {
-                        //Debug.Log("aaaaaaa"+);
+                        Debug.Log(c);
                     }
                 }
-                
-
             });
 
 
@@ -152,7 +151,7 @@ public class Server : MonoBehaviour
 
         });
 
-        StartCoroutine(Record());
+        //StartCoroutine(Record());
     }
 
     public void ChatEnd()
@@ -165,20 +164,18 @@ public class Server : MonoBehaviour
     {
         yield return null;
         StartCoroutine(ConvertAudio());
-        //mic.clip = Microphone.Start(Microphone.devices[0].ToString(), true, 5, AudioSettings.outputSampleRate);
-        print("Record");
-
     }
 
 
     IEnumerator ConvertAudio()
     {
-        yield return new WaitForSeconds(5f);
-        //mic.clip = Microphone.Start(Microphone.devices[0].ToString(), true, 100, AudioSettings.outputSampleRate);
+        yield return null;
+        //mic.clip = Microphone.Start(Microphone.devices[0].ToString(), true, c, AudioSettings.outputSampleRate);
         StartCoroutine(Record());
         test = GetClipData(mic.clip);
         if (ScaleFromMicrophone.Instance.isSaying == true)
         {
+
             print("Send");
             m_Socket.Emit("message", test);
 
@@ -226,6 +223,22 @@ public class Server : MonoBehaviour
         //    m_Socket.Emit("message", test);
         //}
 
+
+
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            Debug.LogError("녹화 시작");
+            mic.clip = Microphone.Start(Microphone.devices[0], false, 3, 44100);
+        }
+
+        if (Input.GetKeyUp(KeyCode.Z))
+        {
+            Debug.LogError("녹화 종료");
+
+            byte[] sendByte =GetClipData(mic.clip);
+
+            m_Socket.Emit("message",sendByte);
+        }
     }
 
 
@@ -294,7 +307,6 @@ public class Server : MonoBehaviour
         return totalLoudness / sampleWindow;
 
     }
-
 
 }
 
