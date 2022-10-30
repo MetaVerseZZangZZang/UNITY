@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ScaleFromMicrophone : MonoBehaviour
 {
+
+    public static ScaleFromMicrophone Instance;
     public AudioSource source;
     public Vector3 minScale;
     public Vector3 maxScale;
@@ -28,5 +30,6 @@ public class ScaleFromMicrophone : MonoBehaviour
 
 
         transform.localScale = Vector3.Lerp(minScale, maxScale, loudness);
+
     }
 }
