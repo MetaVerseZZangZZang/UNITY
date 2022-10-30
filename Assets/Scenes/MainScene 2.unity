@@ -1000,8 +1000,8 @@ MonoBehaviour:
   myCam: {fileID: 2055122013}
   FriendCams: {fileID: 167813667}
   FriendList:
-  - {fileID: 488243254}
   - {fileID: 620326669}
+  - {fileID: 488243254}
   - {fileID: 1534737351}
 --- !u!1 &103136282
 GameObject:
