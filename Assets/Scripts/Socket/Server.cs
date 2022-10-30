@@ -11,6 +11,7 @@ using Unity.RenderStreaming;
 
 public class Server : MonoBehaviour
 {
+    public string HOST = "http://192.168.0.103:5100";
     public static Server Instance;
     
     private SocketIOUnity m_Socket;
@@ -81,15 +82,7 @@ public class Server : MonoBehaviour
                 List<KeywordDict> data = JsonConvert.DeserializeObject<List<KeywordDict>>(jsonText);
                 m_Actions.Add(() =>
                 {
-                    for (int i = 0; i < data.Count; i++)
-                    {
-                        Debug.Log(data[i].keyword);
-                        foreach (var c in data[i].Elements)
-                        {
-                            //Debug.Log(c);
-                            StartCoroutine(ImageManager.Instance.GetTexture(c));
-                        }
-                    }
+                    UI_MainPanel.Instance.AddAIChatWithImage(data);
                 }); 
             });
 
@@ -98,9 +91,13 @@ public class Server : MonoBehaviour
             {
                 m_NetworkGraphDownload.Add(() =>
                 {
+
+                    Debug.LogError("홍");
+                    string url = HOST + response.GetValue<string>();
                     Debug.LogError(response.GetValue());
-                    Debug.LogError("http://192.168.0.103:5100/" + response.GetValue<string>());
-                    StartCoroutine(ImageManager.Instance.GetNetworkGraph("http://192.168.0.103:5100/static/network/network_XucQRD7ywOalsJKCAAAB_1.png"));
+                    Debug.LogError(url);
+                    UI_MainPanel.Instance.AddAIChatWithGraph(url);
+                    //StartCoroutine(ImageManager.Instance.GetNetworkGraph("http://192.168.0.103:5100/static/network/network_XucQRD7ywOalsJKCAAAB_1.png"));
                 });
             });
 
@@ -110,7 +107,8 @@ public class Server : MonoBehaviour
             {
                 m_SummaryDownload.Add(() =>
                 {
-                    ImageManager.Instance.SummaryResult(response.GetValue<string>());
+                    UI_MainPanel.Instance.AddAIChatWithSummary(response.GetValue<string>());
+                  //  ImageManager.Instance.SummaryResult(response.GetValue<string>());
                 });
             });
 
@@ -127,6 +125,10 @@ public class Server : MonoBehaviour
 
                 m_keyActions.Add(() =>
                 {
+                    UI_MainPanel.Instance.AddAIChatWithKeyword(data);
+
+                    return;
+                    
                     int count = data.Count;
                     //Debug.LogError($"count: {count}");
                     for (int i = 0; i < count; ++i)

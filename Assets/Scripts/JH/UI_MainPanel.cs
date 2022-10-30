@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Agora.Rtc;
@@ -7,6 +8,8 @@ using UnityEngine;
 using Photon.Realtime;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
+using Toggle = UnityEngine.UI.Toggle;
 
 
 public class UI_MainPanel : MonoBehaviour
@@ -24,7 +27,7 @@ public class UI_MainPanel : MonoBehaviour
     //public Text newText;
 
 
-
+    public ScrollRect m_ScrollRect;
     // sm이 수정했다 선언
     //public GameObject keyWord;
     //public GameObject keywordPanel;
@@ -87,6 +90,8 @@ public class UI_MainPanel : MonoBehaviour
         chatParent.gameObject.SetActive(false);
         chatParent.gameObject.SetActive(true);
         
+        m_ScrollRect.verticalNormalizedPosition = 0;
+
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)chatParent.transform);
     }
 
@@ -97,6 +102,8 @@ public class UI_MainPanel : MonoBehaviour
         newObject.transform.SetParent(chatParent.transform);
         newObject.transform.localScale=new Vector3(1,1,1);
         
+        m_ScrollRect.verticalNormalizedPosition = 0;
+
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)chatParent.transform);
         
         var rawImages = newObject.GetComponentsInChildren<RawImage>();
@@ -133,26 +140,68 @@ public class UI_MainPanel : MonoBehaviour
         newObject.transform.SetParent(chatParent.transform);
         newObject.transform.localScale=new Vector3(1,1,1);
         
+        m_ScrollRect.verticalNormalizedPosition = 0;
+
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)chatParent.transform);
         
         var rawImage = newObject.GetComponentInChildren<RawImage>();
         
         StartCoroutine(ImageManager.Instance.GetTexture(rawImage, url));
+        // http://192.168.0.103:5100/static/network/network_XucQRD7ywOalsJKCAAAB_1.png
     }
-    
+
+    public void AddAIChatWithSummary(string summaryText)
+    {
+        GameObject newObject =Instantiate<GameObject>(m_AIChatWithKeywordPrefab);
+        newObject.transform.SetParent(chatParent.transform);
+        newObject.transform.localScale=new Vector3(1,1,1);
+        
+        var texts = newObject.GetComponentsInChildren<TextMeshProUGUI>();
+        foreach (var txtComponent in texts)
+        {
+            if (txtComponent.name == "MessageText")
+            {
+                txtComponent.text = summaryText;
+            }
+        }
+
+        
+        //newObject.transform.Find("MessageText").GetComponent<TextMeshProUGUI>().text = summaryText;
+
+
+        chatParent.gameObject.SetActive(false);
+        chatParent.gameObject.SetActive(true);
+
+        m_ScrollRect.verticalNormalizedPosition = 0;
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)chatParent.transform);
+    }
     public void AddAIChatWithKeyword(List<ChatKeywordData2> data)
     {
-        //string[] words = msg.Split(':');
-        /*GameObject newText=Instantiate<GameObject>(m_chatPrefab);
-        newText.transform.SetParent(chatParent.transform);
-        newText.transform.localScale=new Vector3(1,1,1);
-        newText.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = words[0];
-        newText.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = words[1];*/
         GameObject newObject =Instantiate<GameObject>(m_AIChatWithKeywordPrefab);
+        newObject.transform.SetParent(chatParent.transform);
+        newObject.transform.localScale=new Vector3(1,1,1);
+        
+        var texts = newObject.GetComponentsInChildren<TextMeshProUGUI>();
+        foreach (var txtComponent in texts)
+        {
+            if (txtComponent.name == "MessageText")
+            {
+                string text = String.Empty;
+
+                // todo:
+                // 멋지게 텍스트 꾸미기
+
+                txtComponent.text = text;
+            }
+        }
+
+        
 
         chatParent.gameObject.SetActive(false);
         chatParent.gameObject.SetActive(true);
         
+        m_ScrollRect.verticalNormalizedPosition = 0;
+
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)chatParent.transform);
     }
 
