@@ -48,6 +48,7 @@ public class Server : MonoBehaviour
         Debug.LogError(222);
 
         mic = transform.GetComponent<AudioSource>();
+        mic.clip = Microphone.Start(Microphone.devices[0].ToString(), true, 5, AudioSettings.outputSampleRate);
         GetLoudnessFromMicrophone();
         //mic.clip = Microphone.Start(Microphone.devices[0].ToString(), true, 5, AudioSettings.outputSampleRate);
         var uri = new Uri("http://192.168.0.103:5100");
@@ -71,55 +72,38 @@ public class Server : MonoBehaviour
             });
             m_Socket.On("getImglist", (response) =>
             {
-                Debug.Log("11111111111111" + response.GetValue());
 
-
-            });
-
-
-            //img 리스트 받
-            m_Socket.On("getImagelist", (response) =>
-            {
                 Debug.Log(response.GetValue());
+                string jsonText = response.GetValue<string>();
+                List<KeywordDict> data = JsonConvert.DeserializeObject<List<KeywordDict>>(jsonText);
+
+                for (int i = 0; i< data.Count; i++)
+                {
+                    foreach (var c in data[i].Elements)
+                    {
+                        //Debug.Log("aaaaaaa"+);
+                    }
+                }
+                
 
             });
+
+
+
 
             m_Socket.On("getKeylist", (response) =>
             {
                 Debug.Log("receiveKeyword");
                 string jsonText = response.GetValue<string>();
-                Debug.Log(jsonText);
-                //ChatKeywordData chatKeyword = JsonConvert.DeserializeObject<ChatKeywordData>(jsonText);
-
 
                 List<ChatKeywordData2> data = JsonConvert.DeserializeObject<List<ChatKeywordData2>>(jsonText);
-
-                //foreach (string i in chatKeyword.subkey1)
-                //{
-                //    proto1 += i+", ";
-                //}
-                //Debug.Log(proto1);
-                //foreach (string i in chatKeyword.subkey2)
-                //{
-                //    proto2 += i+", ";
-                //}
-                //Debug.Log(proto2);
-
-
-                //ReceiveKeyword.Instance.ReceiveJson(chatKeyword.mainkey[0], chatKeyword.mainkey[1], proto1, proto2);
-               
-                Debug.LogError("으/");
 
                 m_keyActions.Add(() =>
                 {
                     int count = data.Count;
-                    Debug.LogError($"count: {count}");
+                    //Debug.LogError($"count: {count}");
                     for (int i = 0; i < count; ++i)
                     {
-                        //Debug.LogError("----------------");
-                        //Debug.LogError(data[i].Keyword);
-
-                        //ReceiveKeyword.Instance.InstantiateKeywordText(data[i].Keyword);
                         UI_MainPanel.Instance.InstantiateKeywordText(data[i].Keyword);
                         foreach (var d in data[i].Elements)
                         {
@@ -129,9 +113,6 @@ public class Server : MonoBehaviour
 
                             for (int k = 0; k < c; ++k)
                             {
-                                //UI_MainPanel.Instance.InstantiateKeywordText(d.Value[k].Title);
-                                //UI_MainPanel.Instance.InstantiateKeywordText(d.Value[k].Content);
-                                //UI_MainPanel.Instance.InstantiateKeywordText(d.Value[k].Url);
                                 Debug.LogError(d.Value[k].Title);
                                 Debug.LogError(d.Value[k].Content);
                                 Debug.LogError(d.Value[k].Url);
@@ -170,7 +151,7 @@ public class Server : MonoBehaviour
             
 
         });
-        
+
         StartCoroutine(Record());
     }
 
@@ -184,7 +165,7 @@ public class Server : MonoBehaviour
     {
         yield return null;
         StartCoroutine(ConvertAudio());
-        mic.clip = Microphone.Start(Microphone.devices[0].ToString(), true, 5, AudioSettings.outputSampleRate);
+        //mic.clip = Microphone.Start(Microphone.devices[0].ToString(), true, 5, AudioSettings.outputSampleRate);
         print("Record");
 
     }
@@ -196,8 +177,12 @@ public class Server : MonoBehaviour
         //mic.clip = Microphone.Start(Microphone.devices[0].ToString(), true, 100, AudioSettings.outputSampleRate);
         StartCoroutine(Record());
         test = GetClipData(mic.clip);
-        print("Send");
-        m_Socket.Emit("message", test);
+        if (ScaleFromMicrophone.Instance.isSaying == true)
+        {
+            print("Send");
+            m_Socket.Emit("message", test);
+
+        }
         //m_Socket.Emit("userInfo",UI_StartPanel.Instance.userName);
         
     }
@@ -335,5 +320,18 @@ public class KeywordDataElement
     public string Title;
     public string Content;
     public string Url;
+}
+
+
+public class KeywordDict
+{
+    public string keyword;
+    public List<string> Elements;
+    
+}
+
+public class UrlKeyword
+{
+    public string imgURL;
 }
 
