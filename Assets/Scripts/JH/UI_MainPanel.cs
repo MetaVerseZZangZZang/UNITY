@@ -74,11 +74,19 @@ public class UI_MainPanel : MonoBehaviour
     
     public void ChatRPC(string msg)
     {
+        string[] words = msg.Split(':');
         GameObject newText=Instantiate<GameObject>(m_chatPrefab);
         newText.transform.SetParent(chatTextParent.transform);
         newText.transform.localScale=new Vector3(1,1,1);
-        newText.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = msg;
+        newText.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = words[0];
+        newText.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = words[1];
+        
+        chatTextParent.gameObject.SetActive(false);
+        chatTextParent.gameObject.SetActive(true);
+        
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)chatTextParent.transform);
     }
+    
     
     public void CamToggle(Toggle toggle)
     {
@@ -121,6 +129,11 @@ public class UI_MainPanel : MonoBehaviour
     public void friendCamON(VideoSurface RemoteView)
     {
         RemoteView.transform.GetChild(0).gameObject.SetActive(false);
+    }
+
+    public void AddFriendList()
+    {
+        
     }
 
 }

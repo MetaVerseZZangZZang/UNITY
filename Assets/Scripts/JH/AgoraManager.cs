@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -41,6 +42,10 @@ public class AgoraManager : MonoBehaviour
     public static bool camFlag=true;
 
     public static bool voiceFlag=true;
+
+    public List<GameObject> FriendList;
+    private int count = 1;
+    
     
     void Awake()
     {
@@ -53,6 +58,8 @@ public class AgoraManager : MonoBehaviour
         SetupVideoSDKEngine();
         InitEventHandler();
         SetupUI();
+        
+        
     }
 
     // Update is called once per frame
@@ -171,11 +178,15 @@ public class AgoraManager : MonoBehaviour
             newFriendCam.transform.SetParent(_videoSample.FriendCams.transform);
             newFriendCam.transform.localScale=new Vector3(1, 1, 1);
             FriendCamList.Add(newFriendCam.GetComponent<VideoSurface>());
-            
             FriendCamList[FriendCamList.Count-1].SetEnable(true);
+            
             FriendCamList[FriendCamList.Count-1].SetForUser(uid, connection.channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
             // Save the remote user ID in a variable.
             _videoSample.remoteUid = uid;
+
+            _videoSample.FriendList[Math.Min(_videoSample.count, _videoSample.FriendList.Count - 1)].SetActive(true);
+            _videoSample.count += 1;
+            
         }
 
         // This callback is triggered when a remote user leaves the channel or drops offline.
