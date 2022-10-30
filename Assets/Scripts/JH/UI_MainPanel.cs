@@ -13,6 +13,7 @@ public class UI_MainPanel : MonoBehaviour
 {
     public GameObject m_chatPrefab;
     public GameObject m_AIChatWithImagePrefab;
+    public GameObject m_AIChatWithGraphPrefab;
 
     //public Text m_Text;
     public static UI_MainPanel Instance;

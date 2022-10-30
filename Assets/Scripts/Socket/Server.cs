@@ -81,16 +81,6 @@ public class Server : MonoBehaviour
                 m_Actions.Add(() =>
                 {
                     UI_MainPanel.Instance.AddAIChatWithImage(data);
-                    /*for (int i = 0; i < data.Count; i++)
-                    {
-                        Debug.Log(data[i].keyword);
-                        foreach (var c in data[i].Elements)
-                        {
-                            Debug.Log(c);
-                            StartCoroutine(ImageManager.Instance.GetTexture(c));
-
-                        }
-                    }*/
                 });
                     
             });
