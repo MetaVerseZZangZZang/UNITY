@@ -14,6 +14,7 @@ public class UI_MainPanel : MonoBehaviour
     public GameObject m_chatPrefab;
     public GameObject m_AIChatWithImagePrefab;
     public GameObject m_AIChatWithGraphPrefab;
+    public GameObject m_AIChatWithKeywordPrefab;
 
     //public Text m_Text;
     public static UI_MainPanel Instance;
@@ -100,13 +101,6 @@ public class UI_MainPanel : MonoBehaviour
         
         var rawImages = newObject.GetComponentsInChildren<RawImage>();
 
-        int k = 0;
-        for(int i = 0; i < data.Count; ++i)
-        {
-           k += data[i].Elements.Count;
-        }
-        Debug.LogError("url 개수: " + k);
-
         int count = 0;
         bool isBreak = false;
         for (int i = 0; i < data.Count; i++)
@@ -130,26 +124,55 @@ public class UI_MainPanel : MonoBehaviour
             }
         }
 
+    }
 
-}
+    public void AddAIChatWithGraph(string url)
+    {
+        GameObject newObject =Instantiate<GameObject>(m_AIChatWithGraphPrefab);
+            
+        newObject.transform.SetParent(chatParent.transform);
+        newObject.transform.localScale=new Vector3(1,1,1);
+        
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)chatParent.transform);
+        
+        var rawImage = newObject.GetComponentInChildren<RawImage>();
+        
+        StartCoroutine(ImageManager.Instance.GetTexture(rawImage, url));
+    }
+    
+    public void AddAIChatWithKeyword(List<ChatKeywordData2> data)
+    {
+        //string[] words = msg.Split(':');
+        /*GameObject newText=Instantiate<GameObject>(m_chatPrefab);
+        newText.transform.SetParent(chatParent.transform);
+        newText.transform.localScale=new Vector3(1,1,1);
+        newText.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = words[0];
+        newText.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = words[1];*/
+        GameObject newObject =Instantiate<GameObject>(m_AIChatWithKeywordPrefab);
 
+        chatParent.gameObject.SetActive(false);
+        chatParent.gameObject.SetActive(true);
+        
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)chatParent.transform);
+    }
 
-public void CamToggle(Toggle toggle)
-{
+    public void CamToggle(Toggle toggle)
+    {
 
-AgoraManager.camFlag = toggle.isOn;
-if (toggle.isOn)
-{
-myCam.transform.GetChild(0).gameObject.SetActive(false);
-AgoraManager.Instance.RtcEngine.EnableLocalVideo(true);
+        AgoraManager.camFlag = toggle.isOn;
+        if (toggle.isOn)
+        {
+            myCam.transform.GetChild(0).gameObject.SetActive(false);
+            AgoraManager.Instance.RtcEngine.EnableLocalVideo(true);
 
-}
-else
-{
-AgoraManager.Instance.RtcEngine.EnableLocalVideo(false);
-myCam.transform.GetChild(0).gameObject.SetActive(true);
+        }
+        else
+        {
+            AgoraManager.Instance.RtcEngine.EnableLocalVideo(false);
+            myCam.transform.GetChild(0).gameObject.SetActive(true);
 
-}
+        }
+
 
 
 }
