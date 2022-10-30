@@ -5,12 +5,13 @@ using ExitGames.Client.Photon.StructWrapping;
 using Photon.Pun;
 using UnityEngine;
 using Photon.Realtime;
+using TMPro;
 using UnityEngine.UI;
 
 
 public class UI_MainPanel : MonoBehaviour
 {
-    public GameObject m_Prefab;
+    public GameObject m_chatPrefab;
 
     //public Text m_Text;
     public static UI_MainPanel Instance;
@@ -22,8 +23,8 @@ public class UI_MainPanel : MonoBehaviour
 
 
     // sm이 수정했다 선언
-    public GameObject keyWord;
-    public GameObject keywordPanel;
+    //public GameObject keyWord;
+    //public GameObject keywordPanel;
 
 
 
@@ -35,11 +36,13 @@ public class UI_MainPanel : MonoBehaviour
 
     public void InstantiateKeywordText(string msg)
     {
+        /*
         GameObject keywordText = Instantiate<GameObject>(keyWord);
         keywordText.transform.SetParent(keywordPanel.transform);
         keywordText.transform.localScale = new Vector3(1, 1, 1);
         //keywordText.transform.position = new Vector3(0, 0, 0);
         keywordText.GetComponent<Text>().text = msg;
+        */
     }
 
 
@@ -71,10 +74,10 @@ public class UI_MainPanel : MonoBehaviour
     
     public void ChatRPC(string msg)
     {
-        GameObject newText=Instantiate<GameObject>(m_Prefab);
+        GameObject newText=Instantiate<GameObject>(m_chatPrefab);
         newText.transform.SetParent(chatTextParent.transform);
         newText.transform.localScale=new Vector3(1,1,1);
-        newText.GetComponent<Text>().text = msg;
+        newText.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = msg;
     }
     
     public void CamToggle(Toggle toggle)
@@ -121,3 +124,4 @@ public class UI_MainPanel : MonoBehaviour
     }
 
 }
+
