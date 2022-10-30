@@ -1531,6 +1531,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 163616119}
+  - component: {fileID: 163616120}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -1556,6 +1557,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &163616120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163616118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e55bb6b22d69741e2b1251ca814acd36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &167813667
 GameObject:
   m_ObjectHideFlags: 0
@@ -2182,7 +2195,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: RawImage
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7529426240222301015, guid: 5b7e6418bce1e419288d37858a4856b9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 7529426240222301013, guid: 5b7e6418bce1e419288d37858a4856b9, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5b7e6418bce1e419288d37858a4856b9, type: 3}
 --- !u!224 &319656528 stripped
 RectTransform:
@@ -11540,7 +11559,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_chatPrefab: {fileID: 4730941820592481578, guid: b723d1bc586a46345b59e02db30bf31b,
     type: 3}
-  chatTextParent: {fileID: 2409413151979296846}
+  m_AIChatWithImagePrefab: {fileID: 8040828894595355162, guid: 634ee321057af154f88ba8ee74712650,
+    type: 3}
+  chatParent: {fileID: 2409413151979296846}
   myCam: {fileID: 2055122015}
 --- !u!1 &2067884706
 GameObject:

@@ -13,30 +13,21 @@ public class ImageManager : MonoBehaviour
         Instance = this;
     }
 
-
-    public RawImage downloadImage;
-    public List<RawImage> downloadImageList = new List<RawImage>();
-
-
-
-    public void DownloadImage()
+    public IEnumerator GetTexture(RawImage img, string url)
     {
-        //StartCoroutine(GetTexture(downloadImage));
-    }
-
-    public IEnumerator GetTexture(string url)
-    {
+        Debug.LogError($"요청: {url}");
         UnityWebRequest www = UnityWebRequestTexture.GetTexture(url);
         yield return www.SendWebRequest();
         if (www.result != UnityWebRequest.Result.Success)
         {
+            Debug.LogError("실패");
+            Debug.LogError(url);
             Debug.Log(www.error);
         }
         else
         {
             Debug.Log("imageDownload");
-            downloadImage.texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
-            downloadImageList.Add(downloadImage);
+            img.texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
         }
     }
 }

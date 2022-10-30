@@ -74,12 +74,14 @@ public class Server : MonoBehaviour
             m_Socket.On("getImglist", (response) =>
             {
 
+                Debug.LogError("getImagelist");
                 Debug.Log(response.GetValue());
                 string jsonText = response.GetValue<string>();
                 List<KeywordDict> data = JsonConvert.DeserializeObject<List<KeywordDict>>(jsonText);
                 m_Actions.Add(() =>
                 {
-                    for (int i = 0; i < data.Count; i++)
+                    UI_MainPanel.Instance.AddAIChatWithImage(data);
+                    /*for (int i = 0; i < data.Count; i++)
                     {
                         Debug.Log(data[i].keyword);
                         foreach (var c in data[i].Elements)
@@ -88,7 +90,7 @@ public class Server : MonoBehaviour
                             StartCoroutine(ImageManager.Instance.GetTexture(c));
 
                         }
-                    }
+                    }*/
                 });
                     
             });

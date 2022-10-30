@@ -12,11 +12,12 @@ using UnityEngine.UI;
 public class UI_MainPanel : MonoBehaviour
 {
     public GameObject m_chatPrefab;
+    public GameObject m_AIChatWithImagePrefab;
 
     //public Text m_Text;
     public static UI_MainPanel Instance;
     
-    public GameObject chatTextParent;
+    public GameObject chatParent;
     public RawImage myCam;
     //public Text newText;
 
@@ -76,65 +77,109 @@ public class UI_MainPanel : MonoBehaviour
     {
         string[] words = msg.Split(':');
         GameObject newText=Instantiate<GameObject>(m_chatPrefab);
-        newText.transform.SetParent(chatTextParent.transform);
+        newText.transform.SetParent(chatParent.transform);
         newText.transform.localScale=new Vector3(1,1,1);
         newText.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = words[0];
         newText.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = words[1];
         
-        chatTextParent.gameObject.SetActive(false);
-        chatTextParent.gameObject.SetActive(true);
+        chatParent.gameObject.SetActive(false);
+        chatParent.gameObject.SetActive(true);
         
-        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)chatTextParent.transform);
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)chatParent.transform);
     }
-    
-    
-    public void CamToggle(Toggle toggle)
+
+    public void AddAIChatWithImage(List<KeywordDict> data)
     {
-        
-        AgoraManager.camFlag = toggle.isOn;
-        if (toggle.isOn)
-        {
-            myCam.transform.GetChild(0).gameObject.SetActive(false);
-            AgoraManager.Instance.RtcEngine.EnableLocalVideo(true);
+        GameObject newObject =Instantiate<GameObject>(m_AIChatWithImagePrefab);
             
-        }
-        else
-        {
-            AgoraManager.Instance.RtcEngine.EnableLocalVideo(false);
-            myCam.transform.GetChild(0).gameObject.SetActive(true);
-
-        }
-
-
-    }
-
-    public void VoiceToggle(Toggle toggle)
-    {
-        AgoraManager.voiceFlag = toggle.isOn;
-        if (toggle.isOn)
-        {
-            AgoraManager.Instance.RtcEngine.EnableLocalAudio(true);
-        }
-        else
-        {
-            AgoraManager.Instance.RtcEngine.EnableLocalAudio(false);
-        }
-    }
-
-    public void friendCamOff(VideoSurface RemoteView)
-    {
-        RemoteView.transform.GetChild(0).gameObject.SetActive(true);
-    }
-    
-    public void friendCamON(VideoSurface RemoteView)
-    {
-        RemoteView.transform.GetChild(0).gameObject.SetActive(false);
-    }
-
-    public void AddFriendList()
-    {
+        newObject.transform.SetParent(chatParent.transform);
+        newObject.transform.localScale=new Vector3(1,1,1);
         
-    }
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)chatParent.transform);
+        
+        var rawImages = newObject.GetComponentsInChildren<RawImage>();
+
+        int k = 0;
+        for(int i = 0; i < data.Count; ++i)
+        {
+           k += data[i].Elements.Count;
+        }
+        Debug.LogError("url 개수: " + k);
+
+        int count = 0;
+        bool isBreak = false;
+        for (int i = 0; i < data.Count; i++)
+        {
+            foreach (var c in data[i].Elements)
+            {
+                int a = count;
+                StartCoroutine(ImageManager.Instance.GetTexture(rawImages[a], c));
+                count += 1;
+
+                if (count >= 5)
+                {
+                    isBreak = true;
+                    break;
+                }
+            }
+
+            if (isBreak)
+            {
+                break;
+            }
+        }
+
+
+}
+
+
+public void CamToggle(Toggle toggle)
+{
+
+AgoraManager.camFlag = toggle.isOn;
+if (toggle.isOn)
+{
+myCam.transform.GetChild(0).gameObject.SetActive(false);
+AgoraManager.Instance.RtcEngine.EnableLocalVideo(true);
+
+}
+else
+{
+AgoraManager.Instance.RtcEngine.EnableLocalVideo(false);
+myCam.transform.GetChild(0).gameObject.SetActive(true);
+
+}
+
+
+}
+
+public void VoiceToggle(Toggle toggle)
+{
+AgoraManager.voiceFlag = toggle.isOn;
+if (toggle.isOn)
+{
+AgoraManager.Instance.RtcEngine.EnableLocalAudio(true);
+}
+else
+{
+AgoraManager.Instance.RtcEngine.EnableLocalAudio(false);
+}
+}
+
+public void friendCamOff(VideoSurface RemoteView)
+{
+RemoteView.transform.GetChild(0).gameObject.SetActive(true);
+}
+
+public void friendCamON(VideoSurface RemoteView)
+{
+RemoteView.transform.GetChild(0).gameObject.SetActive(false);
+}
+
+public void AddFriendList()
+{
+
+}
 
 }
 
