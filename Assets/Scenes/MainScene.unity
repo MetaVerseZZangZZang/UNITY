@@ -20358,10 +20358,8 @@ MonoBehaviour:
     type: 3}
   chatTextParent: {fileID: 477781572}
   myCam: {fileID: 2055122015}
-  keyword1: {fileID: 2029898875}
-  keyword2: {fileID: 1835696270}
-  recommendkeyword1: {fileID: 1735018149}
-  recommendKeyword2: {fileID: 1525874135}
+  keyWord: {fileID: 2333770381773910016, guid: da2f3e358246a4d1f8102ab19abab1ae, type: 3}
+  keywordPanel: {fileID: 3746751487539468818}
 --- !u!1 &2066045789
 GameObject:
   m_ObjectHideFlags: 0
