@@ -27,25 +27,30 @@ public class ScaleFromMicrophone : MonoBehaviour
     }
 
     public bool isSaying = false;
+    public bool startSaying = false;
     void Update()
     {
-        float loudness = Server.Instance.GetLoudnessFromMicrophone() * loudnessSensibility;
-
-        if (loudness < threshold)
-            loudness = 0;
-
-
-        transform.localScale = Vector3.Lerp(minScale, maxScale, loudness);
-
-
-        if (transform.localScale.x >= 2)
+        if (startSaying == true)
         {
-            isSaying = true;
+            float loudness = Server.Instance.GetLoudnessFromMicrophone() * loudnessSensibility;
+
+            if (loudness < threshold)
+                loudness = 0;
+
+
+            transform.localScale = Vector3.Lerp(minScale, maxScale, loudness);
+
+
+            if (transform.localScale.x >= 2)
+            {
+                isSaying = true;
+            }
+            if (transform.localScale.x < 1.4)
+            {
+                isSaying = false;
+            }
         }
-        if (transform.localScale.x < 1.4)
-        {
-            isSaying = false;
-        }
+        
 
     }
 }

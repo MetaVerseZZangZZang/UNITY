@@ -39,14 +39,16 @@ public class Server : MonoBehaviour
     }
     private void Start()
     {
-        GetLoudnessFromMicrophone();
+        
+        
     }
-
     public void ChatStart()
     {
+
         Debug.LogError(222);
 
         mic = transform.GetComponent<AudioSource>();
+        GetLoudnessFromMicrophone();
         //mic.clip = Microphone.Start(Microphone.devices[0].ToString(), true, 5, AudioSettings.outputSampleRate);
         var uri = new Uri("http://192.168.0.103:5100");
         m_Socket = new SocketIOUnity(uri, new SocketIOOptions()
@@ -65,6 +67,12 @@ public class Server : MonoBehaviour
             m_Socket.On("message", (response) =>
             {
                 Debug.Log(response.GetValue<string>());
+
+            });
+            m_Socket.On("getImglist", (response) =>
+            {
+                Debug.Log("11111111111111" + response.GetValue());
+
 
             });
 
@@ -158,7 +166,9 @@ public class Server : MonoBehaviour
                 
 
             });
+
             
+
         });
         
         StartCoroutine(Record());
@@ -275,6 +285,7 @@ public class Server : MonoBehaviour
     public float GetLoudnessFromMicrophone()
     {
         return GetLoudnessFromAudioClip(Microphone.GetPosition(Microphone.devices[0]), mic.clip);
+        
     }
 
 
