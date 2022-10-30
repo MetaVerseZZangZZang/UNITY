@@ -10,11 +10,8 @@ public class ScaleFromMicrophone : MonoBehaviour
     public AudioLoudnessDetection detector;
 
 
-    public float loudnessSensibility = 20;
+    public float loudnessSensibility = 100;
     public float threshold = 0.1f;
-
-
-    public AudioSource recordAudio;
 
     void Start()
     {
@@ -31,30 +28,5 @@ public class ScaleFromMicrophone : MonoBehaviour
 
 
         transform.localScale = Vector3.Lerp(minScale, maxScale, loudness);
-
-
-        if (3 <=  transform.localScale.x)
-        {
-            Debug.Log("음성 감지");
-
-            recordAudio.clip = Microphone.Start(Microphone.devices[1], true, 5, 46100);
-        }
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            recordAudio.Play();
-        }
-
-        if (2 > transform.localScale.x)
-        {
-
-            float time = 0;
-            time = Time.deltaTime;
-            if (time == 1)
-            {
-                Microphone.End(Microphone.devices[1]);
-                Debug.Log("음성 녹음 중지");
-            }
-        }
     }
 }
