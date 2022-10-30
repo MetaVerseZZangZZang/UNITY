@@ -37,6 +37,10 @@ public class Server : MonoBehaviour
         
 
     }
+    private void Start()
+    {
+        GetLoudnessFromMicrophone();
+    }
 
     public void ChatStart()
     {
@@ -266,12 +270,6 @@ public class Server : MonoBehaviour
 
 
     public int sampleWindow = 64;
-    public void MicrophoneToAudioClip()
-    {
-        //string microphoneName = Microphone.devices[0];
-        //microphoneClip = Microphone.Start(microphoneName, true, 20, AudioSettings.outputSampleRate);
-
-    }
 
 
     public float GetLoudnessFromMicrophone()

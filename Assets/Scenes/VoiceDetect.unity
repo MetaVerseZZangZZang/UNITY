@@ -516,6 +516,7 @@ MonoBehaviour:
   detector: {fileID: 145011743}
   loudnessSensibility: 20
   threshold: 0.1
+  isSaying: 0
 --- !u!65 &852466034
 BoxCollider:
   m_ObjectHideFlags: 0
