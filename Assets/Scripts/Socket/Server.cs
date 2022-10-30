@@ -283,7 +283,7 @@ public class Server : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z))
         {
             Debug.LogError("녹화 시작");
-            mic.clip = Microphone.Start(Microphone.devices[0], false, 3, 44100);
+            mic.clip = Microphone.Start(Microphone.devices[0], false, 6, 44100);
         }
 
         if (Input.GetKeyUp(KeyCode.Z))
