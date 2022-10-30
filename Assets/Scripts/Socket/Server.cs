@@ -27,7 +27,8 @@ public class Server : MonoBehaviour
     private List<Action> m_Actions = new List<Action>();
 
     private List<Action> m_keyActions = new List<Action>();
-    
+    private List<Action> m_ImageDownloadActions = new List<Action>();
+
     private void Awake()
     {
         Instance = this;
@@ -76,17 +77,20 @@ public class Server : MonoBehaviour
                 Debug.Log(response.GetValue());
                 string jsonText = response.GetValue<string>();
                 List<KeywordDict> data = JsonConvert.DeserializeObject<List<KeywordDict>>(jsonText);
-
-                for (int i = 0; i< data.Count; i++)
+                m_Actions.Add(() =>
                 {
-                    Debug.Log(data[i].keyword);
-                    foreach (var c in data[i].Elements)
+                    for (int i = 0; i < data.Count; i++)
                     {
-                        Debug.Log(c);
-                        StartCoroutine(ImageManager.Instance.GetTexture(c));
-                        
+                        Debug.Log(data[i].keyword);
+                        foreach (var c in data[i].Elements)
+                        {
+                            Debug.Log(c);
+                            StartCoroutine(ImageManager.Instance.GetTexture(c));
+
+                        }
                     }
-                }
+                });
+                    
             });
 
 
@@ -213,6 +217,16 @@ public class Server : MonoBehaviour
         }
 
         m_keyActions.Clear();
+
+
+        foreach (var a in m_ImageDownloadActions)
+        {
+            a.Invoke();
+        }
+
+        m_ImageDownloadActions.Clear();
+
+
 
         //time += Time.deltaTime;
 

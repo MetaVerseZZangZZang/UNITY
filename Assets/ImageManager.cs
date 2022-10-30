@@ -15,6 +15,9 @@ public class ImageManager : MonoBehaviour
 
 
     public RawImage downloadImage;
+    public List<RawImage> downloadImageList = new List<RawImage>();
+
+
 
     public void DownloadImage()
     {
@@ -31,7 +34,9 @@ public class ImageManager : MonoBehaviour
         }
         else
         {
+            Debug.Log("imageDownload");
             downloadImage.texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
+            downloadImageList.Add(downloadImage);
         }
     }
 }
