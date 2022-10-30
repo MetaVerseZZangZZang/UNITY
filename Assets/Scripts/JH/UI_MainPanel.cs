@@ -55,6 +55,7 @@ public class UI_MainPanel : MonoBehaviour
         AgoraManager.Instance.Join();
         Server.Instance.ChatStart();
         Debug.LogError(111);
+        ScaleFromMicrophone.Instance.startSaying = true;
     }
 
     public void Leave()
@@ -64,7 +65,8 @@ public class UI_MainPanel : MonoBehaviour
         UI_MainPanel.Instance.Hide();
         UI_CharPanel.Instance.Show();
         Server.Instance.ChatEnd();
-        
+        ScaleFromMicrophone.Instance.startSaying = false;
+
     }
     
     public void ChatRPC(string msg)

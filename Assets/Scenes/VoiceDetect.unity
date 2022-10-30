@@ -514,8 +514,9 @@ MonoBehaviour:
   minScale: {x: 1, y: 1, z: 1}
   maxScale: {x: 3, y: 3, z: 3}
   detector: {fileID: 145011743}
-  loudnessSensibility: 100
+  loudnessSensibility: 20
   threshold: 0.1
+  isSaying: 0
 --- !u!65 &852466034
 BoxCollider:
   m_ObjectHideFlags: 0

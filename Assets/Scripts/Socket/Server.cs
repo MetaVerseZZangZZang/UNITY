@@ -37,12 +37,18 @@ public class Server : MonoBehaviour
         
 
     }
-
+    private void Start()
+    {
+        
+        
+    }
     public void ChatStart()
     {
+
         Debug.LogError(222);
 
         mic = transform.GetComponent<AudioSource>();
+        GetLoudnessFromMicrophone();
         //mic.clip = Microphone.Start(Microphone.devices[0].ToString(), true, 5, AudioSettings.outputSampleRate);
         var uri = new Uri("http://192.168.0.103:5100");
         m_Socket = new SocketIOUnity(uri, new SocketIOOptions()
@@ -61,6 +67,12 @@ public class Server : MonoBehaviour
             m_Socket.On("message", (response) =>
             {
                 Debug.Log(response.GetValue<string>());
+
+            });
+            m_Socket.On("getImglist", (response) =>
+            {
+                Debug.Log("11111111111111" + response.GetValue());
+
 
             });
 
@@ -154,7 +166,9 @@ public class Server : MonoBehaviour
                 
 
             });
+
             
+
         });
         
         StartCoroutine(Record());
@@ -262,6 +276,38 @@ public class Server : MonoBehaviour
 
 
         return clip;
+    }
+
+
+    public int sampleWindow = 64;
+
+
+    public float GetLoudnessFromMicrophone()
+    {
+        return GetLoudnessFromAudioClip(Microphone.GetPosition(Microphone.devices[0]), mic.clip);
+        
+    }
+
+
+    public float GetLoudnessFromAudioClip(int clipPosition, AudioClip clip)
+    {
+        int startPosition = clipPosition - sampleWindow;
+
+        if (startPosition < 0) return 0;
+
+
+        float[] waveData = new float[sampleWindow];
+        clip.GetData(waveData, startPosition);
+
+        float totalLoudness = 0;
+
+        for (int i = 0; i < sampleWindow; i++)
+        {
+            totalLoudness += Mathf.Abs(waveData[i]);
+        }
+
+        return totalLoudness / sampleWindow;
+
     }
 
 
