@@ -11,6 +11,12 @@ public class AudioLoudnessDetection : MonoBehaviour
     public AudioClip microphoneClip;
 
 
+    //마이크 옵션값
+    public bool recording = false;
+    public int inputSoundSensibility = 20;
+    public int stopSoundSensibility = 100;
+
+
     private void Awake()
     {
         Instance = this;
@@ -64,7 +70,7 @@ public class AudioLoudnessDetection : MonoBehaviour
         //Debug.Log(loudness*100);
 
         
-        if (loudness*100 >= 2f && recording == false)
+        if (loudness * inputSoundSensibility >= 1.2f && recording == false)
         {
             recording = true;
             Debug.Log("음성 녹음 해야대");
@@ -72,7 +78,7 @@ public class AudioLoudnessDetection : MonoBehaviour
             
         }
 
-        if (loudness * 100 <= 0.3f && recording == true)
+        if (loudness * stopSoundSensibility <= 0.03f && recording == true)
         {
             //StartCoroutine(Recording());
             recording = false;
@@ -82,13 +88,5 @@ public class AudioLoudnessDetection : MonoBehaviour
         return totalLoudness / sampleWindow;
 
     }
-    public bool recording = false;
 
-
-    IEnumerator Recording()
-    {
-        yield return new WaitForSeconds(2f);
-        
-        
-    }
 }

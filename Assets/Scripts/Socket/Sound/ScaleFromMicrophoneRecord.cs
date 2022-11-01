@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ScaleFromMicrophoneRecord : MonoBehaviour
 {
-    public static ScaleFromMicrophoneRecord Instance;
     public AudioSource source;
     public Vector3 minScale;
     public Vector3 maxScale;
@@ -16,17 +15,10 @@ public class ScaleFromMicrophoneRecord : MonoBehaviour
 
 
 
-    private void Awake()
-    {
-        Instance = this;
-    }
     void Start()
     {
 
     }
-
-    public bool isSaying = false;
-    public bool startSaying = false;
 
     public AudioSource testMic;
     void Update()
