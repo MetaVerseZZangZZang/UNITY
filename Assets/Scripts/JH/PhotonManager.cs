@@ -63,11 +63,11 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
         //룸에 있는 사람들만 통화가 가능하게 만들거니까 그거를 플레이어 닉네임이 같은 사람으로만 해서 토글을 볼수 있게 해주면 되어요
 
-
-        
         foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
         {
             nameList.Add(p.NickName);
+            
+            UI_MainPanel.Instance.AddPlayerSlot(p.NickName);
         }
 
         /*
@@ -88,12 +88,14 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         //ChatRPC("<color=yellow>" + newPlayer.NickName + "님이 참가하셨습니다</color>");
         nameList.Add(newPlayer.NickName);
+        
+        UI_MainPanel.Instance.AddPlayerSlot(newPlayer.NickName);
     }
 
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
     {
         nameList.Remove(otherPlayer.NickName);
-        //ChatRPC("<color=yellow>" + otherPlayer.NickName + "님이 퇴장하셨습니다</color>");
+        UI_MainPanel.Instance.DelPlayerSlot(otherPlayer.NickName);
     }
     
     

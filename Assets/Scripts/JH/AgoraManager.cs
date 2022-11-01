@@ -55,10 +55,6 @@ public class AgoraManager : MonoBehaviour
 
     void Start()
     {
-        SetupVideoSDKEngine();
-        InitEventHandler();
-        SetupUI();
-        
         
     }
 
@@ -84,6 +80,7 @@ public class AgoraManager : MonoBehaviour
     private void SetupUI()
     {
         //GameObject go = GameObject.Find("LocalView");
+        myCam.AddComponent<VideoSurface>();
         LocalView = myCam.GetComponent<VideoSurface>();
         LocalView.transform.Rotate(0.0f, 0.0f, 0);
         //go = GameObject.Find("RemoteView");
@@ -119,6 +116,10 @@ public class AgoraManager : MonoBehaviour
 
     public void Join()
     {
+        SetupVideoSDKEngine();
+        InitEventHandler();
+        SetupUI();
+        
         // Enable the video module.
         RtcEngine.EnableVideo();
         RtcEngine.EnableAudio();
@@ -130,6 +131,8 @@ public class AgoraManager : MonoBehaviour
         LocalView.SetEnable(true);
         // Join a channel.
         RtcEngine.JoinChannel(_token, _channelName);
+
+
 
     }
 
@@ -143,16 +146,14 @@ public class AgoraManager : MonoBehaviour
         RtcEngine.DisableAudio();
         // Stops rendering the remote video.
         
-        foreach(VideoSurface RemoteView in FriendCamList)
-            RemoteView.SetEnable(false);
-        // Stops rendering the local video.
-        LocalView.SetEnable(false);
-        
+                
         for (int i = 0; i < FriendCams.transform.childCount; i++)
         {
-            Destroy(FriendCams.transform.GetChild(i));
+            Destroy(FriendCams.transform.GetChild(i).gameObject);
         }
-        
+        // Stops rendering the local video.
+        LocalView.SetEnable(false);
+
         FriendCamList.Clear();
     }
     

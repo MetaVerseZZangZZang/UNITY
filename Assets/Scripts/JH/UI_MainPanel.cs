@@ -19,10 +19,12 @@ public class UI_MainPanel : MonoBehaviour
     public GameObject m_AIGraphPrefab;
     public GameObject m_AITextPrefab;   //추천, keyword
 
+    public GameObject m_PlayerSlotPrefab;
     //public Text m_Text;
     public static UI_MainPanel Instance;
     
     public GameObject AIParent;
+    public GameObject PlayerSlotParent;
     public RawImage myCam;
     //public Text newText;
 
@@ -70,6 +72,44 @@ public class UI_MainPanel : MonoBehaviour
 
     }
 
+    public void AddPlayerSlot(string playerName)
+    {
+        Debug.Log("AddPlayerSlot");
+        
+        GameObject newPlayer=Instantiate<GameObject>(m_PlayerSlotPrefab);
+        newPlayer.transform.SetParent(PlayerSlotParent.transform);
+        newPlayer.transform.localScale=new Vector3(1,1,1);
+        
+        var texts = newPlayer.GetComponentsInChildren<TextMeshProUGUI>();
+        foreach (var txtComponent in texts)
+        {
+            if (txtComponent.name == "Text_Info")
+            {
+                txtComponent.text = playerName;
+            }
+        }
+    }
+    
+    public void DelPlayerSlot(string playerName)
+    {
+        for (int i = 0; i < PlayerSlotParent.transform.childCount; ++i)
+        {
+            var texts = PlayerSlotParent.transform.GetChild(i).GetComponentsInChildren<TextMeshProUGUI>();
+            foreach (var txtComponent in texts)
+            {
+                if (txtComponent.name == "Text_Info")
+                {
+                    if (txtComponent.text == playerName)
+                    {
+                        Destroy(PlayerSlotParent.transform.GetChild(i).gameObject);
+                    }
+                }
+            }
+        }
+
+    }
+    
+    
     private void scrollUpdate()
     {
         AIParent.SetActive(false);
@@ -210,7 +250,6 @@ public class UI_MainPanel : MonoBehaviour
         }
 
         scrollUpdate();
-        
 
     }
 
