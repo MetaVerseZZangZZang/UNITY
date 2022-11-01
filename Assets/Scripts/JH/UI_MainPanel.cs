@@ -14,15 +14,15 @@ using Toggle = UnityEngine.UI.Toggle;
 
 public class UI_MainPanel : MonoBehaviour
 {
-    public GameObject m_chatPrefab;
-    public GameObject m_AIChatWithImagePrefab;
-    public GameObject m_AIChatWithGraphPrefab;
-    public GameObject m_AIChatWithKeywordPrefab;
+    public GameObject m_ChatTextPrefab;  //stt 결과
+    public GameObject m_AIImagePrefab;
+    public GameObject m_AIGraphPrefab;
+    public GameObject m_AITextPrefab;   //추천, keyword
 
     //public Text m_Text;
     public static UI_MainPanel Instance;
     
-    public GameObject chatParent;
+    public GameObject AIParent;
     public RawImage myCam;
     //public Text newText;
 
@@ -39,19 +39,7 @@ public class UI_MainPanel : MonoBehaviour
         Instance = this;
         Hide();
     }
-
-    public void InstantiateKeywordText(string msg)
-    {
-        /*
-        GameObject keywordText = Instantiate<GameObject>(keyWord);
-        keywordText.transform.SetParent(keywordPanel.transform);
-        keywordText.transform.localScale = new Vector3(1, 1, 1);
-        //keywordText.transform.position = new Vector3(0, 0, 0);
-        keywordText.GetComponent<Text>().text = msg;
-        */
-    }
-
-
+    
     public void Hide()
     {
         this.gameObject.SetActive(false);
@@ -59,11 +47,15 @@ public class UI_MainPanel : MonoBehaviour
 
     public void Show()
     {
-        UI_CharPanel.Instance.StopCam();
+        NetStart();
         this.gameObject.SetActive(true);
+    }
+
+    public void NetStart()
+    {
+        UI_CharPanel.Instance.StopCam();
         AgoraManager.Instance.Join();
         Server.Instance.ChatStart();
-        Debug.LogError(111);
         ScaleFromMicrophone.Instance.startSaying = true;
     }
 
@@ -71,43 +63,46 @@ public class UI_MainPanel : MonoBehaviour
     {
         AgoraManager.Instance.Leave();
         PhotonNetwork.LeaveRoom();
-        UI_MainPanel.Instance.Hide();
+        Hide();
         UI_CharPanel.Instance.Show();
         Server.Instance.ChatEnd();
         ScaleFromMicrophone.Instance.startSaying = false;
 
     }
+
+    private void scrollUpdate()
+    {
+        AIParent.SetActive(false);
+        AIParent.SetActive(true);
+        AIParent.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, AIParent.GetComponent<RectTransform>().anchoredPosition.y + 100);
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)AIParent.transform);
+
+    }
     
-    public void ChatRPC(string msg)
+    public void AddAIText(string msg)
     {
         string[] words = msg.Split(':');
-        GameObject newText=Instantiate<GameObject>(m_chatPrefab);
-        newText.transform.SetParent(chatParent.transform);
+        GameObject newText=Instantiate<GameObject>(m_ChatTextPrefab);
+        newText.transform.SetParent(AIParent.transform);
         newText.transform.localScale=new Vector3(1,1,1);
         newText.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = words[0];
         newText.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = words[1];
         
-        chatParent.gameObject.SetActive(false);
-        chatParent.gameObject.SetActive(true);
-        
-        chatParent.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, chatParent.GetComponent<RectTransform>().anchoredPosition.y + 100);
+        AIParent.gameObject.SetActive(false);
+        AIParent.gameObject.SetActive(true);
+        scrollUpdate();
 
-        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)chatParent.transform);
-        
 
     }
 
-    public void AddAIChatWithImage(List<KeywordDict> data)
+    public void AddAIImage(List<KeywordDict> data)
     {
-        GameObject newObject =Instantiate<GameObject>(m_AIChatWithImagePrefab);
+        GameObject newObject =Instantiate<GameObject>(m_AIImagePrefab);
             
-        newObject.transform.SetParent(chatParent.transform);
+        newObject.transform.SetParent(AIParent.transform);
         newObject.transform.localScale=new Vector3(1,1,1);
-        
-        chatParent.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, chatParent.GetComponent<RectTransform>().anchoredPosition.y + 100);
 
-        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)chatParent.transform);
-        chatParent.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, chatParent.GetComponent<RectTransform>().anchoredPosition.y + 100);
+        scrollUpdate();
 
         var rawImages = newObject.GetComponentsInChildren<RawImage>();
 
@@ -136,16 +131,14 @@ public class UI_MainPanel : MonoBehaviour
 
     }
 
-    public void AddAIChatWithGraph(string url)
+    public void AddAIGraph(string url)
     {
-        GameObject newObject =Instantiate<GameObject>(m_AIChatWithGraphPrefab);
+        GameObject newObject =Instantiate<GameObject>(m_AIGraphPrefab);
             
-        newObject.transform.SetParent(chatParent.transform);
+        newObject.transform.SetParent(AIParent.transform);
         newObject.transform.localScale=new Vector3(1,1,1);
         
-        chatParent.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, chatParent.GetComponent<RectTransform>().anchoredPosition.y + 100);
-
-        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)chatParent.transform);
+        scrollUpdate();
 
         var rawImage = newObject.GetComponentInChildren<RawImage>();
         
@@ -153,10 +146,10 @@ public class UI_MainPanel : MonoBehaviour
         // http://192.168.0.103:5100/static/network/network_XucQRD7ywOalsJKCAAAB_1.png
     }
 
-    public void AddAIChatWithSummary(string summaryText)
+    public void AddAISummary(string summaryText)
     {
-        GameObject newObject =Instantiate<GameObject>(m_AIChatWithKeywordPrefab);
-        newObject.transform.SetParent(chatParent.transform);
+        GameObject newObject =Instantiate<GameObject>(m_AITextPrefab);
+        newObject.transform.SetParent(AIParent.transform);
         newObject.transform.localScale=new Vector3(1,1,1);
         
         var texts = newObject.GetComponentsInChildren<TextMeshProUGUI>();
@@ -170,21 +163,13 @@ public class UI_MainPanel : MonoBehaviour
 
         
         //newObject.transform.Find("MessageText").GetComponent<TextMeshProUGUI>().text = summaryText;
-
-
-        chatParent.gameObject.SetActive(false);
-        chatParent.gameObject.SetActive(true);
-
-        chatParent.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, chatParent.GetComponent<RectTransform>().anchoredPosition.y + 100);
-        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)chatParent.transform);
-        
-        chatParent.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, chatParent.GetComponent<RectTransform>().anchoredPosition.y + 100);
+        scrollUpdate();
 
     }
-    public void AddAIChatWithKeyword(List<ChatKeywordData2> data)
+    public void AddAIKeyword(List<ChatKeywordData2> data)
     {
-        GameObject newObject =Instantiate<GameObject>(m_AIChatWithKeywordPrefab);
-        newObject.transform.SetParent(chatParent.transform);
+        GameObject newObject =Instantiate<GameObject>(m_AITextPrefab);
+        newObject.transform.SetParent(AIParent.transform);
         newObject.transform.localScale=new Vector3(1,1,1);
         
         var texts = newObject.GetComponentsInChildren<TextMeshProUGUI>();
@@ -214,16 +199,8 @@ public class UI_MainPanel : MonoBehaviour
             }
         }
 
+        scrollUpdate();
         
-
-        chatParent.gameObject.SetActive(false);
-        chatParent.gameObject.SetActive(true);
-        
-        chatParent.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, chatParent.GetComponent<RectTransform>().anchoredPosition.y + 100);
-
-        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)chatParent.transform);
-        
-        chatParent.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, chatParent.GetComponent<RectTransform>().anchoredPosition.y + 100);
 
     }
 
@@ -243,38 +220,31 @@ public class UI_MainPanel : MonoBehaviour
             myCam.transform.GetChild(0).gameObject.SetActive(true);
 
         }
+    }
+    
+    public void VoiceToggle(Toggle toggle)
+    {
+        AgoraManager.voiceFlag = toggle.isOn;
+        if (toggle.isOn)
+        {
+            AgoraManager.Instance.RtcEngine.EnableLocalAudio(true);
+        }
+        else
+        {
+            AgoraManager.Instance.RtcEngine.EnableLocalAudio(false);
+        }
+    }
 
+    public void friendCamOff(VideoSurface RemoteView)
+    {
+        RemoteView.transform.GetChild(0).gameObject.SetActive(true);
+    }
 
+    public void friendCamON(VideoSurface RemoteView)
+    {
+        RemoteView.transform.GetChild(0).gameObject.SetActive(false);
+    }
 
-}
-
-public void VoiceToggle(Toggle toggle)
-{
-AgoraManager.voiceFlag = toggle.isOn;
-if (toggle.isOn)
-{
-AgoraManager.Instance.RtcEngine.EnableLocalAudio(true);
-}
-else
-{
-AgoraManager.Instance.RtcEngine.EnableLocalAudio(false);
-}
-}
-
-public void friendCamOff(VideoSurface RemoteView)
-{
-RemoteView.transform.GetChild(0).gameObject.SetActive(true);
-}
-
-public void friendCamON(VideoSurface RemoteView)
-{
-RemoteView.transform.GetChild(0).gameObject.SetActive(false);
-}
-
-public void AddFriendList()
-{
-
-}
 
 }
 
