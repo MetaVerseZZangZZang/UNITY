@@ -11,7 +11,7 @@ using Unity.RenderStreaming;
 
 public class Server : MonoBehaviour
 {
-    public string HOST = "http://192.168.0.103:5100";
+    public string HOST = "http://192.168.0.37:5100";
     public static Server Instance;
     
     private SocketIOUnity m_Socket;
@@ -82,7 +82,7 @@ public class Server : MonoBehaviour
                 List<KeywordDict> data = JsonConvert.DeserializeObject<List<KeywordDict>>(jsonText);
                 m_Actions.Add(() =>
                 {
-                    UI_MainPanel.Instance.AddAIChatWithImage(data);
+                    UI_MainPanel.Instance.AddAIImage(data);
                 }); 
             });
 
@@ -96,7 +96,7 @@ public class Server : MonoBehaviour
                     string url = HOST + response.GetValue<string>();
                     Debug.LogError(response.GetValue());
                     Debug.LogError(url);
-                    UI_MainPanel.Instance.AddAIChatWithGraph(url);
+                    UI_MainPanel.Instance.AddAIGraph(url);
                     //StartCoroutine(ImageManager.Instance.GetNetworkGraph("http://192.168.0.103:5100/static/network/network_XucQRD7ywOalsJKCAAAB_1.png"));
                 });
             });
@@ -107,7 +107,7 @@ public class Server : MonoBehaviour
             {
                 m_SummaryDownload.Add(() =>
                 {
-                    UI_MainPanel.Instance.AddAIChatWithSummary(response.GetValue<string>());
+                    UI_MainPanel.Instance.AddAISummary(response.GetValue<string>());
                   //  ImageManager.Instance.SummaryResult(response.GetValue<string>());
                 });
             });
@@ -125,30 +125,7 @@ public class Server : MonoBehaviour
 
                 m_keyActions.Add(() =>
                 {
-                    UI_MainPanel.Instance.AddAIChatWithKeyword(data);
-
-                    return;
-                    
-                    int count = data.Count;
-                    //Debug.LogError($"count: {count}");
-                    for (int i = 0; i < count; ++i)
-                    {
-                        UI_MainPanel.Instance.InstantiateKeywordText(data[i].Keyword);
-                        foreach (var d in data[i].Elements)
-                        {
-                            UI_MainPanel.Instance.InstantiateKeywordText(d.Key);
-                            //Debug.LogError($"Key: {d.Key}");
-                            int c = d.Value.Count;
-
-                            for (int k = 0; k < c; ++k)
-                            {
-                                Debug.LogError(d.Value[k].Title);
-                                Debug.LogError(d.Value[k].Content);
-                                Debug.LogError(d.Value[k].Url);
-                            }
-                        }
-                    }
-                    
+                    UI_MainPanel.Instance.AddAIKeyword(data);
                 });
 
             });
@@ -168,7 +145,7 @@ public class Server : MonoBehaviour
                     var spilttedText = text.Split("/|*^");
                     receive_Name = spilttedText[0];
                     receieveSTT_Word = spilttedText.Length > 1 ? spilttedText[1] : string.Empty;
-                    UI_MainPanel.Instance.ChatRPC($"{receive_Name}: {receieveSTT_Word}");
+                    UI_MainPanel.Instance.AddAIText($"{receive_Name}: {receieveSTT_Word}");
 
                     print(receive_Name);
                     print(receieveSTT_Word);
@@ -288,7 +265,7 @@ public class Server : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.Z))
         {
-            Debug.LogError("녹화 종");
+            Debug.LogError("녹화 중");
 
             byte[] sendByte =GetClipData(mic.clip);
 
