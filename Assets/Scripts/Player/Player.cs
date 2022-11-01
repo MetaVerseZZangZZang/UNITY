@@ -43,14 +43,14 @@ public class Player : MonoBehaviour, IPunObservable
     public GameObject sayingObject;
     void Update()
     {
-        if (ScaleFromMicrophone.Instance.isSaying == true)
-        {
-            sayingObject.SetActive(true);
-        }
-        if (ScaleFromMicrophone.Instance.isSaying == false)
-        {
-            sayingObject.SetActive(false);
-        }
+        //if (ScaleFromMicrophone.Instance.isSaying == true)
+        //{
+        //    sayingObject.SetActive(true);
+        //}
+        //if (ScaleFromMicrophone.Instance.isSaying == false)
+        //{
+        //    sayingObject.SetActive(false);
+        //}
 
 
         if (pv.IsMine)

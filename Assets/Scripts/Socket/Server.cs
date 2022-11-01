@@ -11,8 +11,8 @@ using Unity.RenderStreaming;
 
 public class Server : MonoBehaviour
 {
-    private string HOST = "http://192.168.0.37:5100";
     public static Server Instance;
+    private string HOST = "http://192.168.0.37:5100";
     
     private SocketIOUnity m_Socket;
     private bool m_Connected = false;
@@ -31,30 +31,25 @@ public class Server : MonoBehaviour
     private List<Action> m_ImageDownloadActions = new List<Action>();
     private List<Action> m_SummaryDownload = new List<Action>();
     private List<Action> m_NetworkGraphDownload = new List<Action>();
+
+
     private void Awake()
     {
         Instance = this;
         
         DontDestroyOnLoad (this);
-
-        
-
     }
-    private void Start()
+
+
+    public void Start()
     {
-    
-
-
-    }
-    public void ChatStart()
-    {
-
-        Debug.LogError(222);
-
         mic = transform.GetComponent<AudioSource>();
         mic.clip = Microphone.Start(Microphone.devices[0].ToString(), true, 5, AudioSettings.outputSampleRate);
-        GetLoudnessFromMicrophone();
-        //mic.clip = Microphone.Start(Microphone.devices[0].ToString(), true, 5, AudioSettings.outputSampleRate);
+    }
+
+
+    public void ChatStart()
+    {
         var uri = new Uri(HOST);
         m_Socket = new SocketIOUnity(uri, new SocketIOOptions()
         {
@@ -65,6 +60,8 @@ public class Server : MonoBehaviour
 
         m_Socket.On("connection", (response) =>
         {
+            Debug.LogWarning("Enter Socket Server");
+
             m_Socket.Emit("userInfo", UI_StartPanel.Instance.userName);
 
             m_Connected = true;
@@ -76,8 +73,7 @@ public class Server : MonoBehaviour
             });
             m_Socket.On("getImglist", (response) =>
             {
-
-                Debug.Log(response.GetValue());
+                //Debug.Log(response.GetValue());
                 string jsonText = response.GetValue<string>();
                 List<KeywordDict> data = JsonConvert.DeserializeObject<List<KeywordDict>>(jsonText);
                 m_Actions.Add(() =>
@@ -91,29 +87,20 @@ public class Server : MonoBehaviour
             {
                 m_NetworkGraphDownload.Add(() =>
                 {
-
                     string url = HOST + response.GetValue<string>();
                     Debug.LogError(response.GetValue());
                     Debug.LogError(url);
                     UI_MainPanel.Instance.AddAIGraph(url);
-                    //StartCoroutine(ImageManager.Instance.GetNetworkGraph("http://192.168.0.103:5100/static/network/network_XucQRD7ywOalsJKCAAAB_1.png"));
                 });
             });
-
-
 
             m_Socket.On("getSummary",(response)=>
             {
                 m_SummaryDownload.Add(() =>
                 {
                     UI_MainPanel.Instance.AddAISummary(response.GetValue<string>());
-                  //  ImageManager.Instance.SummaryResult(response.GetValue<string>());
                 });
             });
-
-
-
-
 
             m_Socket.On("getKeylist", (response) =>
             {
@@ -127,7 +114,6 @@ public class Server : MonoBehaviour
                 });
 
             });
-
 
             m_Socket.On("receiveVoice", (response) =>
             {
@@ -145,16 +131,10 @@ public class Server : MonoBehaviour
 
                     print(receive_Name);
                     print(receieveSTT_Word);
-                });
-                
+                });  
 
-            });
-
-            
-
+            });            
         });
-
-        //StartCoroutine(Record());
     }
 
     public void ChatEnd()
@@ -163,36 +143,12 @@ public class Server : MonoBehaviour
         m_Connected = false;
     }
     
-    public IEnumerator Record()
-    {
-        yield return null;
-        StartCoroutine(ConvertAudio());
-    }
 
-
-    IEnumerator ConvertAudio()
-    {
-        yield return null;
-        //mic.clip = Microphone.Start(Microphone.devices[0].ToString(), true, c, AudioSettings.outputSampleRate);
-        StartCoroutine(Record());
-        test = GetClipData(mic.clip);
-        if (ScaleFromMicrophone.Instance.isSaying == true)
-        {
-
-            print("Send");
-            m_Socket.Emit("message", test);
-
-        }
-        //m_Socket.Emit("userInfo",UI_StartPanel.Instance.userName);
-        
-    }
 
 
     public bool calling = false;
     public byte[] test;
-    //public bool recording = false;
     public byte[] test1;
-
     public float[] floatTest;
     public byte[] receiveVoice;
 
@@ -200,6 +156,7 @@ public class Server : MonoBehaviour
     float time;
     private void Update()
     {
+        #region multiThreadManager
         foreach (var a in m_Actions)
         {
             a.Invoke();
@@ -238,21 +195,7 @@ public class Server : MonoBehaviour
         }
 
         m_NetworkGraphDownload.Clear();
-
-
-        //time += Time.deltaTime;
-
-        //if (time >= 5)
-        //{
-        //    time = 0;
-        //    //print(Microphone.IsRecording(null));
-        //    print(mic.clip.length);
-        //    test = GetClipData(mic.clip);
-        //    m_Socket.Emit("message", test);
-        //}
-
-
-
+        #endregion 
         if (Input.GetKeyDown(KeyCode.Z))
         {
             Debug.LogError("녹화 시작");
@@ -263,78 +206,15 @@ public class Server : MonoBehaviour
         {
             Debug.LogError("녹화 중");
 
-            byte[] sendByte =GetClipData(mic.clip);
+            //byte[] sendByte = GetClipData(mic.clip);
 
-            m_Socket.Emit("message",sendByte);
+            //m_Socket.Emit("message",sendByte);
         }
     }
 
 
 
-    // audioclip to byte
-    public static byte[] GetClipData(AudioClip _clip)
-    {
-        //Get data
-        float[] floatData = new float[_clip.samples * _clip.channels];
-        _clip.GetData(floatData, 0);
-
-        //convert to byte array
-        byte[] byteData = new byte[floatData.Length * 4];
-        Buffer.BlockCopy(floatData, 0, byteData, 0, byteData.Length);
-
-        return (byteData);
-    }
-
-
-    public static AudioClip ByteToAudio(byte[] vs)
-    {
-        float[] samples = new float[vs.Length / 4]; //size of a float is 4 bytes
-
-        Buffer.BlockCopy(vs, 0, samples, 0, vs.Length);
-
-        int channels = 1; //Assuming audio is mono because microphone input usually is
-        int sampleRate = 44100; //Assuming your samplerate is 44100 or change to 48000 or whatever is appropriate
-
-
-        print(samples.Length);
-        AudioClip clip = AudioClip.Create("ClipName", samples.Length, channels, sampleRate, false);
-        clip.SetData(samples, 0);
-
-
-        return clip;
-    }
-
-
-    public int sampleWindow = 64;
-
-
-    public float GetLoudnessFromMicrophone()
-    {
-        return GetLoudnessFromAudioClip(Microphone.GetPosition(Microphone.devices[0]), mic.clip);
-        
-    }
-
-
-    public float GetLoudnessFromAudioClip(int clipPosition, AudioClip clip)
-    {
-        int startPosition = clipPosition - sampleWindow;
-
-        if (startPosition < 0) return 0;
-
-
-        float[] waveData = new float[sampleWindow];
-        clip.GetData(waveData, startPosition);
-
-        float totalLoudness = 0;
-
-        for (int i = 0; i < sampleWindow; i++)
-        {
-            totalLoudness += Mathf.Abs(waveData[i]);
-        }
-
-        return totalLoudness / sampleWindow;
-
-    }
+      
 
 }
 
@@ -354,14 +234,12 @@ public class ChatKeywordData2
     public Dictionary<string, List<KeywordDataElement>> Elements;
 }
 
-
 public class KeywordDataElement
 {
     public string Title;
     public string Content;
     public string Url;
 }
-
 
 public class KeywordDict
 {
