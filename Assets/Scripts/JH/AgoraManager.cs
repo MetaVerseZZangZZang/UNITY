@@ -145,15 +145,14 @@ public class AgoraManager : MonoBehaviour
         RtcEngine.DisableVideo();
         RtcEngine.DisableAudio();
         // Stops rendering the remote video.
-        
-                
+        PhotonManager.Instance.LeaveRoom();         
         for (int i = 0; i < FriendCams.transform.childCount; i++)
         {
             Destroy(FriendCams.transform.GetChild(i).gameObject);
         }
         // Stops rendering the local video.
         LocalView.SetEnable(false);
-
+        UI_MainPanel.Instance.DelPlayerSlot(UI_StartPanel.Instance.name);
         FriendCamList.Clear();
     }
     

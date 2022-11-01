@@ -92,8 +92,10 @@ public class UI_MainPanel : MonoBehaviour
     
     public void DelPlayerSlot(string playerName)
     {
+        Debug.Log("PlayerSlotParent.transform.childCount "+PlayerSlotParent.transform.childCount);
         for (int i = 0; i < PlayerSlotParent.transform.childCount; ++i)
         {
+            Debug.Log("PlayerSlotParent.transform.childCount");
             var texts = PlayerSlotParent.transform.GetChild(i).GetComponentsInChildren<TextMeshProUGUI>();
             foreach (var txtComponent in texts)
             {
@@ -101,14 +103,25 @@ public class UI_MainPanel : MonoBehaviour
                 {
                     if (txtComponent.text == playerName)
                     {
+                        Debug.Log("txtComponent.text == playerName");
                         Destroy(PlayerSlotParent.transform.GetChild(i).gameObject);
                     }
                 }
             }
         }
-
     }
     
+    public void DelMe()
+    {
+        var texts = PlayerSlotParent.transform.GetChild(0).GetComponentsInChildren<TextMeshProUGUI>();
+        foreach (var txtComponent in texts)
+        {
+            if (txtComponent.name == "Text_Info")
+            {
+                Destroy(PlayerSlotParent.transform.GetChild(0).gameObject);
+            }
+        }
+    }
     
     private void scrollUpdate()
     {

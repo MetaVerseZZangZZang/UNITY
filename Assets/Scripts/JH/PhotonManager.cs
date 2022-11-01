@@ -78,6 +78,15 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         */
     }
 
+    public void LeaveRoom()
+    {
+        foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
+        {
+            nameList.Remove(p.NickName);
+            UI_MainPanel.Instance.DelPlayerSlot(p.NickName);
+        }
+    }
+    
     public void roomSelect(RoomInfo room)
     {
         PhotonNetwork.JoinRoom(room.Name);
