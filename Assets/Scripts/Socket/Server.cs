@@ -11,7 +11,7 @@ using Unity.RenderStreaming;
 
 public class Server : MonoBehaviour
 {
-    public string HOST = "http://192.168.0.37:5100";
+    private string HOST = "http://192.168.0.37:5100";
     public static Server Instance;
     
     private SocketIOUnity m_Socket;
@@ -55,7 +55,7 @@ public class Server : MonoBehaviour
         mic.clip = Microphone.Start(Microphone.devices[0].ToString(), true, 5, AudioSettings.outputSampleRate);
         GetLoudnessFromMicrophone();
         //mic.clip = Microphone.Start(Microphone.devices[0].ToString(), true, 5, AudioSettings.outputSampleRate);
-        var uri = new Uri("http://192.168.0.103:5100");
+        var uri = new Uri(HOST);
         m_Socket = new SocketIOUnity(uri, new SocketIOOptions()
         {
             Query = new Dictionary<string, string> { { "token", "UNITY" } },
@@ -92,7 +92,6 @@ public class Server : MonoBehaviour
                 m_NetworkGraphDownload.Add(() =>
                 {
 
-                    Debug.LogError("홍");
                     string url = HOST + response.GetValue<string>();
                     Debug.LogError(response.GetValue());
                     Debug.LogError(url);
@@ -118,7 +117,6 @@ public class Server : MonoBehaviour
 
             m_Socket.On("getKeylist", (response) =>
             {
-                Debug.Log("receiveKeyword");
                 string jsonText = response.GetValue<string>();
 
                 List<ChatKeywordData2> data = JsonConvert.DeserializeObject<List<ChatKeywordData2>>(jsonText);
@@ -134,8 +132,6 @@ public class Server : MonoBehaviour
             m_Socket.On("receiveVoice", (response) =>
             {
                 test1 = response.GetValue<byte[]>();
-
-
             });
             m_Socket.On("receiveSTT", (response) =>
             {

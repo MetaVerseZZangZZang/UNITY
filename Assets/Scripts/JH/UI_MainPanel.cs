@@ -85,11 +85,21 @@ public class UI_MainPanel : MonoBehaviour
         GameObject newText=Instantiate<GameObject>(m_ChatTextPrefab);
         newText.transform.SetParent(AIParent.transform);
         newText.transform.localScale=new Vector3(1,1,1);
-        newText.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = words[0];
-        newText.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = words[1];
         
-        AIParent.gameObject.SetActive(false);
-        AIParent.gameObject.SetActive(true);
+        var texts = newText.GetComponentsInChildren<TextMeshProUGUI>();
+        foreach (var txtComponent in texts)
+        {
+            if (txtComponent.name == "NameText")
+            {
+                txtComponent.text = words[0];
+            }
+            else if (txtComponent.name == "MessageText")
+            {
+                txtComponent.text = words[1];
+            }
+        }
+        
+        
         scrollUpdate();
 
 
