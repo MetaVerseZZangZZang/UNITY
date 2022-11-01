@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
 public class ScaleFromMicrophone : MonoBehaviour
 {
 
@@ -63,3 +64,4 @@ public class ScaleFromMicrophone : MonoBehaviour
 
     }
 }
+*/

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
 public class ScaleFromAudioClip : MonoBehaviour
 {
     public AudioSource source;
@@ -30,3 +31,4 @@ public class ScaleFromAudioClip : MonoBehaviour
         transform.localScale = Vector3.Lerp(minScale,maxScale,loudness);
     }
 }
+*/

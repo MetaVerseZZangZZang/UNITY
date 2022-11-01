@@ -58,7 +58,7 @@ public class UI_MainPanel : MonoBehaviour
         UI_CharPanel.Instance.StopCam();
         AgoraManager.Instance.Join();
         Server.Instance.ChatStart();
-        ScaleFromMicrophone.Instance.startSaying = true;
+        //ScaleFromMicrophone.Instance.startSaying = true;
     }
 
     public void Leave()
@@ -68,7 +68,7 @@ public class UI_MainPanel : MonoBehaviour
         Hide();
         UI_CharPanel.Instance.Show();
         Server.Instance.ChatEnd();
-        ScaleFromMicrophone.Instance.startSaying = false;
+        //ScaleFromMicrophone.Instance.startSaying = false;
 
     }
 

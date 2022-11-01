@@ -41,51 +41,51 @@ public class AudioLoudnessDetection : MonoBehaviour
 
     }
 
-
+/*
     public float GetLoudnessFromMicrophone()
     {
-        return GetLoudnessFromAudioClip(Microphone.GetPosition(Microphone.devices[0]), microphoneClip);
+       return GetLoudnessFromAudioClip(Microphone.GetPosition(Microphone.devices[0]), microphoneClip);
     }
+*/
 
-
-    public float GetLoudnessFromAudioClip(int clipPosition, AudioClip clip)
-    {
-        int startPosition = clipPosition - sampleWindow;
-
-
-        //Debug.Log(startPosition);
-        if (startPosition < 0) return 0;
-
-
-        float[] waveData = new float[sampleWindow];
-        clip.GetData(waveData, startPosition);
-  
-        float totalLoudness = 0;
-
-        for (int i = 0; i < sampleWindow; i++)
-        {
-            totalLoudness += Mathf.Abs(waveData[i]);
-        }
-
-        float loudness = totalLoudness / sampleWindow;
-        //Debug.Log(loudness*100);
-
-        
-        if (loudness * inputSoundSensibility >= 1.2f && recording == false)
-        {
-            recording = true;
-            Debug.Log("음성 녹음 해야대");
-        }
-
-        if (loudness * stopSoundSensibility <= 0.03f && recording == true)
-        {
-            recording = false;
-            Debug.Log("녹음 중지");
-        }
-
-        return ;
-
-    }
+    // public float GetLoudnessFromAudioClip(int clipPosition, AudioClip clip)
+    // {
+    //     int startPosition = clipPosition - sampleWindow;
+    //
+    //
+    //     //Debug.Log(startPosition);
+    //     if (startPosition < 0) return 0;
+    //
+    //
+    //     float[] waveData = new float[sampleWindow];
+    //     clip.GetData(waveData, startPosition);
+    //
+    //     float totalLoudness = 0;
+    //
+    //     for (int i = 0; i < sampleWindow; i++)
+    //     {
+    //         totalLoudness += Mathf.Abs(waveData[i]);
+    //     }
+    //
+    //     float loudness = totalLoudness / sampleWindow;
+    //     //Debug.Log(loudness*100);
+    //
+    //     
+    //     if (loudness * inputSoundSensibility >= 1.2f && recording == false)
+    //     {
+    //         recording = true;
+    //         Debug.Log("음성 녹음 해야대");
+    //     }
+    //
+    //     if (loudness * stopSoundSensibility <= 0.03f && recording == true)
+    //     {
+    //         recording = false;
+    //         Debug.Log("녹음 중지");
+    //     }
+    //
+    //     return ;
+    //
+    // }
 
 
     // audioclip to byte
