@@ -33,6 +33,7 @@ public class Server : MonoBehaviour
     private List<Action> m_NetworkGraphDownload = new List<Action>();
 
 
+
     private void Awake()
     {
         Instance = this;
@@ -43,8 +44,9 @@ public class Server : MonoBehaviour
 
     public void Start()
     {
-        mic = transform.GetComponent<AudioSource>();
-        mic.clip = Microphone.Start(Microphone.devices[0].ToString(), true, 5, AudioSettings.outputSampleRate);
+        //mic = transform.GetComponent<AudioSource>();
+        //mic.clip = Microphone.Start(Microphone.devices[0].ToString(), true, 5, AudioSettings.outputSampleRate);
+        
     }
 
 

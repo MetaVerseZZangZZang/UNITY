@@ -11,11 +11,18 @@ public class AudioLoudnessDetection : MonoBehaviour
     public AudioSource mic;
     public AudioClip microphoneClip;
 
+    public AudioSource sendAudio;
+    public AudioClip sendClip;
+
 
     //마이크 옵션
     public bool recording = false;
     public int inputSoundSensibility = 20;
     public int stopSoundSensibility = 100;
+
+
+
+    private SocketIOUnity m_Socket;
 
 
     private void Awake()
@@ -31,61 +38,106 @@ public class AudioLoudnessDetection : MonoBehaviour
 
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            sendAudio.clip = sendClip;
+            sendAudio.Play();
+        }
     }
 
     public void MicrophoneToAudioClip()
     {
         string microphoneName = Microphone.devices[0];
-        microphoneClip = Microphone.Start(microphoneName, true,20,AudioSettings.outputSampleRate);
+        microphoneClip = Microphone.Start(microphoneName, true , 20, AudioSettings.outputSampleRate);
 
     }
 
-/*
+    
     public float GetLoudnessFromMicrophone()
     {
-       return GetLoudnessFromAudioClip(Microphone.GetPosition(Microphone.devices[0]), microphoneClip);
+        return GetLoudnessFromAudioClip(Microphone.GetPosition(Microphone.devices[0]), microphoneClip);
     }
-*/
 
-    // public float GetLoudnessFromAudioClip(int clipPosition, AudioClip clip)
-    // {
-    //     int startPosition = clipPosition - sampleWindow;
-    //
-    //
-    //     //Debug.Log(startPosition);
-    //     if (startPosition < 0) return 0;
-    //
-    //
-    //     float[] waveData = new float[sampleWindow];
-    //     clip.GetData(waveData, startPosition);
-    //
-    //     float totalLoudness = 0;
-    //
-    //     for (int i = 0; i < sampleWindow; i++)
-    //     {
-    //         totalLoudness += Mathf.Abs(waveData[i]);
-    //     }
-    //
-    //     float loudness = totalLoudness / sampleWindow;
-    //     //Debug.Log(loudness*100);
-    //
-    //     
-    //     if (loudness * inputSoundSensibility >= 1.2f && recording == false)
-    //     {
-    //         recording = true;
-    //         Debug.Log("음성 녹음 해야대");
-    //     }
-    //
-    //     if (loudness * stopSoundSensibility <= 0.03f && recording == true)
-    //     {
-    //         recording = false;
-    //         Debug.Log("녹음 중지");
-    //     }
-    //
-    //     return ;
-    //
-    // }
+
+    public float GetLoudnessFromAudioClip(int clipPosition, AudioClip clip)
+    {
+        int startPosition = clipPosition - sampleWindow;
+
+
+        //Debug.Log(startPosition);
+        if (startPosition < 0) return 0;
+
+
+        float[] waveData = new float[sampleWindow];
+        clip.GetData(waveData, startPosition);
+
+        float totalLoudness = 0;
+
+        for (int i = 0; i < sampleWindow; i++)
+        {
+            totalLoudness += Mathf.Abs(waveData[i]);
+        }
+
+        float loudness = totalLoudness / sampleWindow;
+        //Debug.Log(loudness*100);
+
+
+        if (loudness * inputSoundSensibility >= 1.2f && recording == false)
+        {
+            recording = true;
+            Debug.Log("음성 녹음 해야대");
+
+            AudioDetect(Microphone.GetPosition(Microphone.devices[0]),clip);
+            
+        }
+
+        if (loudness * stopSoundSensibility <= 0.03f && recording == true)
+        {
+            recording = false;
+            Debug.Log("녹음 중지");
+        }
+
+        return loudness;
+
+    }
+
+
+
+    public void AudioDetect(int clipPosition, AudioClip clip)
+    {
+        int startPosition = clipPosition - sampleWindow;
+
+
+        //Debug.Log(startPosition);
+        if (startPosition < 0)
+        {
+            //return null;
+            startPosition = 0;
+        }
+
+
+        //float[] waveData = new float[sampleWindow];
+        //clip.GetData(waveData, startPosition);
+
+        float[] samples = new float[clip.samples];
+
+        clip.GetData(samples, 0);
+
+        float[] cutSamples = new float[clipPosition];
+
+        //test
+        float[] endPosition = new float[Microphone.GetPosition(Microphone.devices[0])];
+        
+
+        //end test
+
+        Array.Copy(samples, cutSamples, cutSamples.Length - 1);
+
+        sendClip = AudioClip.Create("Notice", cutSamples.Length, 1, 44100, false);
+
+        sendClip.SetData(cutSamples, 0);
+    }
+
 
 
     // audioclip to byte
@@ -105,7 +157,7 @@ public class AudioLoudnessDetection : MonoBehaviour
 
 
 
-    //Byte to audioclip (바이트가 변환이 이상하다 싶을때 쓰는 확인 코)
+    //Byte to audioclip (바이트가 변환이 이상하다 싶을때 쓰는 확인 코드)
     public static AudioClip ByteToAudio(byte[] vs)
     {
         float[] samples = new float[vs.Length / 4]; //size of a float is 4 bytes
