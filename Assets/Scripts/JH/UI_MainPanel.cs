@@ -111,17 +111,6 @@ public class UI_MainPanel : MonoBehaviour
         }
     }
     
-    public void DelMe()
-    {
-        var texts = PlayerSlotParent.transform.GetChild(0).GetComponentsInChildren<TextMeshProUGUI>();
-        foreach (var txtComponent in texts)
-        {
-            if (txtComponent.name == "Text_Info")
-            {
-                Destroy(PlayerSlotParent.transform.GetChild(0).gameObject);
-            }
-        }
-    }
     
     private void scrollUpdate()
     {
@@ -307,6 +296,10 @@ public class UI_MainPanel : MonoBehaviour
         RemoteView.transform.GetChild(0).gameObject.SetActive(false);
     }
 
+    public void HeartClick(int num)
+    {
+        
+    }
 
 }
 
