@@ -121,6 +121,8 @@ public class Server : MonoBehaviour
             {
                 test1 = response.GetValue<byte[]>();
             });
+
+
             m_Socket.On("receiveSTT", (response) =>
             {
                 m_Actions.Add(() =>
@@ -139,15 +141,18 @@ public class Server : MonoBehaviour
         });
     }
 
+
+    public void VoiceEmit(byte[] a)
+    {
+        m_Socket.Emit("message",a);
+    }
+
     public void ChatEnd()
     {
         m_Socket.Disconnect();
         m_Connected = false;
     }
     
-
-
-
     public bool calling = false;
     public byte[] test;
     public byte[] test1;
@@ -155,7 +160,7 @@ public class Server : MonoBehaviour
     public byte[] receiveVoice;
 
 
-    float time;
+
     private void Update()
     {
         #region multiThreadManager
@@ -198,20 +203,20 @@ public class Server : MonoBehaviour
 
         m_NetworkGraphDownload.Clear();
         #endregion 
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            Debug.LogError("녹화 시작");
-            mic.clip = Microphone.Start(Microphone.devices[0], false, 6, 44100);
-        }
+        //if (Input.GetKeyDown(KeyCode.Z))
+        //{
+        //    Debug.LogError("녹화 시작");
+        //    mic.clip = Microphone.Start(Microphone.devices[0], false, 6, 44100);
+        //}
 
-        if (Input.GetKeyUp(KeyCode.Z))
-        {
-            Debug.LogError("녹화 중");
+        //if (Input.GetKeyUp(KeyCode.Z))
+        //{
+        //    Debug.LogError("녹화 중");
 
-            //byte[] sendByte = GetClipData(mic.clip);
+        //    //byte[] sendByte = GetClipData(mic.clip);
 
-            //m_Socket.Emit("message",sendByte);
-        }
+        //    //m_Socket.Emit("message",sendByte);
+        //}
     }
 
 

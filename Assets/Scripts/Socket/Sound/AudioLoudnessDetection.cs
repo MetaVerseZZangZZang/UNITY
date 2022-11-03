@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using SocketIOClient;
+
 public class AudioLoudnessDetection : MonoBehaviour
 {
 
@@ -14,6 +16,8 @@ public class AudioLoudnessDetection : MonoBehaviour
     public AudioSource sendAudio;
     public AudioClip sendClip;
 
+    byte[] sendByte;
+
 
     //마이크 옵션
     public bool recording = false;
@@ -23,11 +27,32 @@ public class AudioLoudnessDetection : MonoBehaviour
 
 
     private SocketIOUnity m_Socket;
+    private string HOST = "http://192.168.0.21:5100";
+
 
 
     private void Awake()
     {
         Instance = this;
+        var uri = new Uri(HOST);
+        m_Socket = new SocketIOUnity(uri, new SocketIOOptions()
+        {
+            Query = new Dictionary<string, string> { { "token", "UNITY" } },
+            Transport = SocketIOClient.Transport.TransportProtocol.WebSocket
+        });
+        m_Socket.Connect();
+        m_Socket.On("connection", (response) =>
+        {
+            Debug.LogWarning("Enter Socket Server");
+
+        });
+
+        m_Socket.On("receiveSTT", (response) =>
+        {
+            string text = response.GetValue<string>();
+            Debug.Log(text);
+
+        });
     }
 
     private void Start()
@@ -36,14 +61,20 @@ public class AudioLoudnessDetection : MonoBehaviour
     }
 
 
-    void Update()
+
+    public float loudnessSensibility = 100;
+    public float threshold = 0.1f;
+    public Vector3 minScale;
+    public Vector3 maxScale;
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            sendAudio.clip = sendClip;
-            sendAudio.Play();
-        }
+        float loudness = GetLoudnessFromMicrophone();
+        if (loudness < threshold)
+            loudness = 0;
+
+        transform.localScale = Vector3.Lerp(minScale, maxScale, loudness);
     }
+
 
     public void MicrophoneToAudioClip()
     {
@@ -59,6 +90,9 @@ public class AudioLoudnessDetection : MonoBehaviour
     }
 
 
+
+    int startPosition1;
+    int stopPosition;
     public float GetLoudnessFromAudioClip(int clipPosition, AudioClip clip)
     {
         int startPosition = clipPosition - sampleWindow;
@@ -84,17 +118,23 @@ public class AudioLoudnessDetection : MonoBehaviour
 
         if (loudness * inputSoundSensibility >= 1.2f && recording == false)
         {
+
             recording = true;
             Debug.Log("음성 녹음 해야대");
+            sendClip = null;
+            startPosition1 = Microphone.GetPosition(Microphone.devices[0]);
 
-            AudioDetect(Microphone.GetPosition(Microphone.devices[0]),clip);
-            
+
         }
 
         if (loudness * stopSoundSensibility <= 0.03f && recording == true)
         {
             recording = false;
+            stopPosition = Microphone.GetPosition(Microphone.devices[0]);
             Debug.Log("녹음 중지");
+            AudioDetect(startPosition1, clip);
+
+            
         }
 
         return loudness;
@@ -105,37 +145,37 @@ public class AudioLoudnessDetection : MonoBehaviour
 
     public void AudioDetect(int clipPosition, AudioClip clip)
     {
+        //Microphone.End(Microphone.devices[0]);
         int startPosition = clipPosition - sampleWindow;
 
-
-        //Debug.Log(startPosition);
         if (startPosition < 0)
         {
             //return null;
             startPosition = 0;
         }
 
-
-        //float[] waveData = new float[sampleWindow];
-        //clip.GetData(waveData, startPosition);
-
         float[] samples = new float[clip.samples];
 
         clip.GetData(samples, 0);
 
-        float[] cutSamples = new float[clipPosition];
+        float[] cutSamples = new float[startPosition];
 
-        //test
-        float[] endPosition = new float[Microphone.GetPosition(Microphone.devices[0])];
-        
 
-        //end test
+        Array.Copy(samples, cutSamples, cutSamples.Length);
 
-        Array.Copy(samples, cutSamples, cutSamples.Length - 1);
+        sendClip = AudioClip.Create("Notice", cutSamples.Length , 1, 44100, false);
 
-        sendClip = AudioClip.Create("Notice", cutSamples.Length, 1, 44100, false);
+        Debug.Log(cutSamples.Length - 1);
 
         sendClip.SetData(cutSamples, 0);
+
+        sendByte = GetClipData(sendClip);
+
+        //Server.Instance.VoiceEmit(sendByte);
+        m_Socket.Emit("userInfo", "이승민");
+        m_Socket.Emit("message", sendByte);
+        Debug.Log("emit byte");
+        //microphoneClip = Microphone.Start(Microphone.devices[0], true, 20, AudioSettings.outputSampleRate);
     }
 
 
