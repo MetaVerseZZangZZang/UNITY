@@ -12,7 +12,7 @@ using Unity.RenderStreaming;
 public class Server : MonoBehaviour
 {
     public static Server Instance;
-    private string HOST = "http://192.168.0.37:5100";
+    private string HOST = "http://192.168.0.21:5100";
     
     private SocketIOUnity m_Socket;
     private bool m_Connected = false;
@@ -21,7 +21,8 @@ public class Server : MonoBehaviour
 
     public string receive_Name;
     public string receieveSTT_Word;
-
+    public string receive_id;
+    
     public string proto1;
     public string proto2;
     //json
@@ -40,15 +41,6 @@ public class Server : MonoBehaviour
         
         DontDestroyOnLoad (this);
     }
-
-
-    public void Start()
-    {
-        //mic = transform.GetComponent<AudioSource>();
-        //mic.clip = Microphone.Start(Microphone.devices[0].ToString(), true, 5, AudioSettings.outputSampleRate);
-        
-    }
-
 
     public void ChatStart()
     {
@@ -129,9 +121,10 @@ public class Server : MonoBehaviour
                 {
                     string text = response.GetValue<string>();
                     var spilttedText = text.Split("/|*^");
-                    receive_Name = spilttedText[0];
-                    receieveSTT_Word = spilttedText.Length > 1 ? spilttedText[1] : string.Empty;
-                    UI_Chat.Instance.AddAIText($"{receive_Name}: {receieveSTT_Word}");
+                    receive_id=spilttedText[0];
+                    receive_Name = spilttedText[1];
+                    receieveSTT_Word = spilttedText.Length > 2 ? spilttedText[2] : string.Empty;
+                    UI_Chat.Instance.AddChatText($"{receive_id}:{receive_Name}: {receieveSTT_Word}");
 
                     print(receive_Name);
                     print(receieveSTT_Word);
@@ -147,6 +140,11 @@ public class Server : MonoBehaviour
         m_Socket.Emit("message",a);
     }
 
+    public void HeartEmit(int num, string id)
+    {
+        m_Socket.Emit("heart",num,id);
+    }
+    
     public void ChatEnd()
     {
         m_Socket.Disconnect();

@@ -14,7 +14,12 @@ public class UI_Chat : MonoBehaviour
     public GameObject m_AITextPrefab;
     
     public GameObject AIParent;
+    public GameObject HeartParent;
+    
     public static UI_Chat Instance;
+    public Sprite Heart_filled;
+    public Sprite Heart_unfilled;
+    
     private void Awake()
     {
         Instance = this;
@@ -29,30 +34,30 @@ public class UI_Chat : MonoBehaviour
 
     }
     
-    public void AddAIText(string msg)
+    public void AddChatText(string msg)
     {
+        string id;
         string[] words = msg.Split(':');
         GameObject newText=Instantiate<GameObject>(m_ChatTextPrefab);
         newText.transform.SetParent(AIParent.transform);
         newText.transform.localScale=new Vector3(1,1,1);
         
+        id = words[0];
         var texts = newText.GetComponentsInChildren<TextMeshProUGUI>();
         foreach (var txtComponent in texts)
         {
             if (txtComponent.name == "NameText")
             {
-                txtComponent.text = words[0];
+                txtComponent.text = words[1];
             }
             else if (txtComponent.name == "MessageText")
             {
-                txtComponent.text = words[1];
+                txtComponent.text = words[2];
             }
         }
         
-        
+        Debug.Log(id);
         scrollUpdate();
-
-
     }
 
     public void AddAIImage(List<KeywordDict> data)
@@ -163,9 +168,19 @@ public class UI_Chat : MonoBehaviour
 
     }
     
-    
     public void HeartClick(int num)
     {
-        
+        for (int i = 0; i < num; ++i)
+        {
+            HeartParent.transform.GetChild(i).GetComponent<Image>().sprite = Heart_filled;
+        }
+
+        for (int i = num; i <= HeartParent.transform.childCount; ++i)
+        {
+            HeartParent.transform.GetChild(i).GetComponent<Image>().sprite = Heart_unfilled;
+        }
+
+        //Server.Instance.HeartEmit(num,);
+
     }
 }

@@ -19,7 +19,7 @@ public class AudioLoudnessDetection : MonoBehaviour
     byte[] sendByte;
 
 
-    public AudioSource test;
+    //public AudioSource test;
 
     //마이크 옵션
     public bool recording = false;
@@ -48,10 +48,13 @@ public class AudioLoudnessDetection : MonoBehaviour
             loudness = 0;
 
         transform.localScale = Vector3.Lerp(minScale, maxScale, loudness);
+        
+        /*
         if (Input.GetKeyDown(KeyCode.A))
         {
             test.Play();
         }
+        */
     }
 
     public float GetLoudnessFromMicrophone()
@@ -135,7 +138,7 @@ public class AudioLoudnessDetection : MonoBehaviour
 
         sendClip = AudioClip.Create("Notice", cutSamples.Length, 1, 44100, false);
         sendClip.SetData(cutSamples, 0);
-        test.clip = sendClip;
+        //test.clip = sendClip;
         //SaveWave.Save(@"D:\voice", sendClip);
 
         sendByte = GetClipData(sendClip);
