@@ -82,8 +82,6 @@ public class Server : MonoBehaviour
                 m_NetworkGraphDownload.Add(() =>
                 {
                     string url = HOST + response.GetValue<string>();
-                    Debug.LogError(response.GetValue());
-                    Debug.LogError(url);
                     UI_Chat.Instance.AddAIGraph(url);
                 });
             });
@@ -121,6 +119,10 @@ public class Server : MonoBehaviour
                 {
                     string text = response.GetValue<string>();
                     var spilttedText = text.Split("/|*^");
+                    foreach(string s in spilttedText)
+                    {
+                        Debug.Log("spilttedText "+s);
+                    }
                     receive_id=spilttedText[0];
                     receive_Name = spilttedText[1];
                     receieveSTT_Word = spilttedText.Length > 2 ? spilttedText[2] : string.Empty;
@@ -140,9 +142,9 @@ public class Server : MonoBehaviour
         m_Socket.Emit("message",a);
     }
 
-    public void HeartEmit(int num, string id)
+    public void HeartEmit(string text)
     {
-        m_Socket.Emit("heart",num,id);
+        m_Socket.Emit("heart",text);
     }
     
     public void ChatEnd()

@@ -37,10 +37,8 @@ public class UI_PlayerSlot : MonoBehaviour
     
     public void DelPlayerSlot(string playerName)
     {
-        Debug.Log("PlayerSlotParent.transform.childCount "+PlayerSlotParent.transform.childCount);
         for (int i = 0; i < PlayerSlotParent.transform.childCount; ++i)
         {
-            Debug.Log("PlayerSlotParent.transform.childCount");
             var texts = PlayerSlotParent.transform.GetChild(i).GetComponentsInChildren<TextMeshProUGUI>();
             foreach (var txtComponent in texts)
             {
@@ -48,7 +46,6 @@ public class UI_PlayerSlot : MonoBehaviour
                 {
                     if (txtComponent.text == playerName)
                     {
-                        Debug.Log("txtComponent.text == playerName");
                         Destroy(PlayerSlotParent.transform.GetChild(i).gameObject);
                     }
                 }

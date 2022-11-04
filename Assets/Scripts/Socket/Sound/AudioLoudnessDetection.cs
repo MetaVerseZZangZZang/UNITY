@@ -26,6 +26,11 @@ public class AudioLoudnessDetection : MonoBehaviour
     public int inputSoundSensibility = 20;
     public int stopSoundSensibility = 100;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     private void Start()
     {
         MicrophoneToAudioClip();
@@ -41,14 +46,19 @@ public class AudioLoudnessDetection : MonoBehaviour
     public Vector3 minScale;
     public Vector3 maxScale;
 
+    public bool joined = false;
     private void Update()
     {
-        float loudness = GetLoudnessFromMicrophone();
-        if (loudness < threshold)
-            loudness = 0;
+        if (joined)
+        {
 
-        transform.localScale = Vector3.Lerp(minScale, maxScale, loudness);
-        
+            float loudness = GetLoudnessFromMicrophone();
+            if (loudness < threshold)
+                loudness = 0;
+
+            transform.localScale = Vector3.Lerp(minScale, maxScale, loudness);
+
+        }
         /*
         if (Input.GetKeyDown(KeyCode.A))
         {
