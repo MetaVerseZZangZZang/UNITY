@@ -33,7 +33,7 @@ public class AudioLoudnessDetection : MonoBehaviour
     public void MicrophoneToAudioClip()
     {
         string microphoneName = Microphone.devices[0];
-        microphoneClip = Microphone.Start(microphoneName, true, 20, 44100);
+        microphoneClip = Microphone.Start(microphoneName, true, 400, 44100);
     }
 
     public float loudnessSensibility = 100;
@@ -140,7 +140,7 @@ public class AudioLoudnessDetection : MonoBehaviour
 
         sendByte = GetClipData(sendClip);
 
-        //Server.Instance.VoiceEmit(sendByte);
+        Server.Instance.VoiceEmit(sendByte);
 
         Debug.Log("emit byte");
         //microphoneClip = Microphone.Start(Microphone.devices[0], true, 20, AudioSettings.outputSampleRate);
