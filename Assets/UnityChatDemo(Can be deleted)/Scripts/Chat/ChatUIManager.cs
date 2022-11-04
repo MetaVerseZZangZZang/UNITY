@@ -259,7 +259,7 @@ public class ChatUIManager : MonoBehaviour {
         //CallPanel.SetActive(false);
         ChatPanel.SetActive(false);
         UI_MainPanel.Instance.Hide();
-        UI_CharPanel.Instance.Show();
+        UI_LobbyPanel.Instance.Show();
 
         ChatManager.Instance.Hang();
         //SoundManager._instance.PlayEffect("Hang");

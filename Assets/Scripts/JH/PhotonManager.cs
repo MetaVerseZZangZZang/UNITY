@@ -67,7 +67,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         {
             nameList.Add(p.NickName);
             
-            UI_MainPanel.Instance.AddPlayerSlot(p.NickName);
+            UI_PlayerSlot.Instance.AddPlayerSlot(p.NickName);
         }
 
         /*
@@ -83,7 +83,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
         {
             nameList.Remove(p.NickName);
-            UI_MainPanel.Instance.DelPlayerSlot(p.NickName);
+            UI_PlayerSlot.Instance.DelPlayerSlot(p.NickName);
         }
     }
     
@@ -98,13 +98,13 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         //ChatRPC("<color=yellow>" + newPlayer.NickName + "님이 참가하셨습니다</color>");
         nameList.Add(newPlayer.NickName);
         
-        UI_MainPanel.Instance.AddPlayerSlot(newPlayer.NickName);
+        UI_PlayerSlot.Instance.AddPlayerSlot(newPlayer.NickName);
     }
 
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
     {
         nameList.Remove(otherPlayer.NickName);
-        UI_MainPanel.Instance.DelPlayerSlot(otherPlayer.NickName);
+        UI_PlayerSlot.Instance.DelPlayerSlot(otherPlayer.NickName);
     }
     
     

@@ -37,7 +37,7 @@ public class UI_JoinRoomItem : MonoBehaviour
     {
         PhotonManager.Instance.roomSelect(m_Data);
         UI_JoinRoom.Instance.Hide();
-        UI_CharPanel.Instance.Hide();
+        UI_LobbyPanel.Instance.Hide();
         UI_MainPanel.Instance.Show();
     }
 }

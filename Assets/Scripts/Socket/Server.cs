@@ -80,7 +80,7 @@ public class Server : MonoBehaviour
                 List<KeywordDict> data = JsonConvert.DeserializeObject<List<KeywordDict>>(jsonText);
                 m_Actions.Add(() =>
                 {
-                    UI_MainPanel.Instance.AddAIImage(data);
+                    UI_Chat.Instance.AddAIImage(data);
                 }); 
             });
 
@@ -92,7 +92,7 @@ public class Server : MonoBehaviour
                     string url = HOST + response.GetValue<string>();
                     Debug.LogError(response.GetValue());
                     Debug.LogError(url);
-                    UI_MainPanel.Instance.AddAIGraph(url);
+                    UI_Chat.Instance.AddAIGraph(url);
                 });
             });
 
@@ -100,7 +100,7 @@ public class Server : MonoBehaviour
             {
                 m_SummaryDownload.Add(() =>
                 {
-                    UI_MainPanel.Instance.AddAISummary(response.GetValue<string>());
+                    UI_Chat.Instance.AddAISummary(response.GetValue<string>());
                 });
             });
 
@@ -112,7 +112,7 @@ public class Server : MonoBehaviour
 
                 m_keyActions.Add(() =>
                 {
-                    UI_MainPanel.Instance.AddAIKeyword(data);
+                    UI_Chat.Instance.AddAIKeyword(data);
                 });
 
             });
@@ -131,7 +131,7 @@ public class Server : MonoBehaviour
                     var spilttedText = text.Split("/|*^");
                     receive_Name = spilttedText[0];
                     receieveSTT_Word = spilttedText.Length > 1 ? spilttedText[1] : string.Empty;
-                    UI_MainPanel.Instance.AddAIText($"{receive_Name}: {receieveSTT_Word}");
+                    UI_Chat.Instance.AddAIText($"{receive_Name}: {receieveSTT_Word}");
 
                     print(receive_Name);
                     print(receieveSTT_Word);

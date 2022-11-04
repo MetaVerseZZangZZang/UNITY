@@ -5,10 +5,10 @@ using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_CharPanel : MonoBehaviour
+public class UI_LobbyPanel : MonoBehaviour
 {
     
-    public static UI_CharPanel Instance;
+    public static UI_LobbyPanel Instance;
 
     public Text Name;
     

@@ -4809,7 +4809,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c81e29d07ab90af4a94401bae34b13bc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 041c271782001e44ea87c6b0d778f069, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5137,8 +5137,9 @@ GameObject:
   - component: {fileID: 983919553}
   - component: {fileID: 983919555}
   - component: {fileID: 983919554}
+  - component: {fileID: 983919556}
   m_Layer: 5
-  m_Name: UI_Player
+  m_Name: UI_PlayerSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5204,6 +5205,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 983919552}
   m_CullTransparentMesh: 0
+--- !u!114 &983919556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 983919552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 493d303ca007b904d98363d762471324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlayerSlotPrefab: {fileID: 2490254759800364008, guid: 83b969a02c70eab4fbf8a6b753c47e9a,
+    type: 3}
+  PlayerSlotParent: {fileID: 1991909211}
 --- !u!1 &994025751
 GameObject:
   m_ObjectHideFlags: 0
@@ -9939,7 +9955,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c81e29d07ab90af4a94401bae34b13bc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 041c271782001e44ea87c6b0d778f069, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -11373,20 +11389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8991e578ebc9f46318e13ba54e512f53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ChatTextPrefab: {fileID: 4730941820592481578, guid: b723d1bc586a46345b59e02db30bf31b,
-    type: 3}
-  m_AIImagePrefab: {fileID: 8040828894595355162, guid: 634ee321057af154f88ba8ee74712650,
-    type: 3}
-  m_AIGraphPrefab: {fileID: 4844533452464394305, guid: d2a92b09644063144a55e2957b73888f,
-    type: 3}
-  m_AITextPrefab: {fileID: 2774793011135761244, guid: 4c08da8ee3d47fb43bde324388d3ee34,
-    type: 3}
-  m_PlayerSlotPrefab: {fileID: 2490254759800364008, guid: 83b969a02c70eab4fbf8a6b753c47e9a,
-    type: 3}
-  AIParent: {fileID: 2409413151979296846}
-  PlayerSlotParent: {fileID: 1991909211}
   myCam: {fileID: 2055122015}
-  m_ScrollRect: {fileID: 2409413153610672582}
 --- !u!1 &2104801658
 GameObject:
   m_ObjectHideFlags: 0
@@ -14125,6 +14128,7 @@ GameObject:
   - component: {fileID: 2409413152277800714}
   - component: {fileID: 2409413152277800712}
   - component: {fileID: 2409413152277800713}
+  - component: {fileID: 2409413152277800716}
   m_Layer: 5
   m_Name: UI_Chat
   m_TagString: Untagged
@@ -14132,6 +14136,27 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &2409413152277800716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2409413152277800715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05da5b05659840c4dad970d4dca79b6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ChatTextPrefab: {fileID: 4730941820592481578, guid: b723d1bc586a46345b59e02db30bf31b,
+    type: 3}
+  m_AIImagePrefab: {fileID: 8040828894595355162, guid: 634ee321057af154f88ba8ee74712650,
+    type: 3}
+  m_AIGraphPrefab: {fileID: 4844533452464394305, guid: d2a92b09644063144a55e2957b73888f,
+    type: 3}
+  m_AITextPrefab: {fileID: 2774793011135761244, guid: 4c08da8ee3d47fb43bde324388d3ee34,
+    type: 3}
+  AIParent: {fileID: 2409413151979296846}
 --- !u!222 &2409413152453929307
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -20619,8 +20644,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 344, y: 0}
+  m_SizeDelta: {x: 688, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5221908702355939016
 MonoBehaviour:
@@ -20738,8 +20763,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 344, y: 0}
+  m_SizeDelta: {x: 688, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5221908702509578759
 MonoBehaviour:
