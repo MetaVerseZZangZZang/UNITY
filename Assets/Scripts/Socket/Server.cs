@@ -119,17 +119,17 @@ public class Server : MonoBehaviour
                 {
                     string text = response.GetValue<string>();
                     var spilttedText = text.Split("/|*^");
-                    foreach(string s in spilttedText)
-                    {
-                        Debug.Log("spilttedText "+s);
-                    }
-                    receive_id=spilttedText[0];
-                    receive_Name = spilttedText[1];
-                    receieveSTT_Word = spilttedText.Length > 2 ? spilttedText[2] : string.Empty;
-                    UI_Chat.Instance.AddChatText($"{receive_id}:{receive_Name}: {receieveSTT_Word}");
 
-                    print(receive_Name);
-                    print(receieveSTT_Word);
+                    if (spilttedText.Length > 0)
+                    {
+                        receive_id=spilttedText[0];
+                        receive_Name = spilttedText[1];
+                        receieveSTT_Word = spilttedText.Length > 2 ? spilttedText[2] : string.Empty;
+                        UI_Chat.Instance.AddChatText($"{receive_id}:{receive_Name}: {receieveSTT_Word}");
+
+                        print(receive_Name);
+                        print(receieveSTT_Word);
+                    }
                 });  
 
             });            
@@ -147,6 +147,7 @@ public class Server : MonoBehaviour
         m_Socket.Emit("heart",text);
     }
     
+    
     public void ChatEnd()
     {
         m_Socket.Disconnect();
@@ -158,9 +159,8 @@ public class Server : MonoBehaviour
     public byte[] test1;
     public float[] floatTest;
     public byte[] receiveVoice;
-
-
-
+    
+    
     private void Update()
     {
         #region multiThreadManager
@@ -220,8 +220,6 @@ public class Server : MonoBehaviour
     }
 
 
-
-      
 
 }
 

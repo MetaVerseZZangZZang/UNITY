@@ -19,15 +19,17 @@ public class UI_Chat : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        
+        AIParent.SetActive(false);
+        AIParent.SetActive(true);
     }
     
     private void scrollUpdate()
     {
-        AIParent.SetActive(false);
-        AIParent.SetActive(true);
         AIParent.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, AIParent.GetComponent<RectTransform>().anchoredPosition.y + 100);
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)AIParent.transform);
-
+        AIParent.SetActive(false);
+        AIParent.SetActive(true);
     }
     
     public void AddChatText(string msg)
