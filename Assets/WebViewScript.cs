@@ -36,9 +36,6 @@ public class WebViewScript : MonoBehaviour
     {
         string strUrl = "http://www.naver.com";
 
-        
-
-
         webViewObject =
         (new GameObject("WebViewObject")).AddComponent<WebViewObject>();
         webViewObject.Init((msg) => {
@@ -47,7 +44,6 @@ public class WebViewScript : MonoBehaviour
 
         webViewObject.LoadURL(strUrl);
         webViewObject.SetVisibility(true);
-        webViewObject.SetCameraAccess(true);
         webViewObject.SetMargins(50, 50, 50, 50);
 
     }
