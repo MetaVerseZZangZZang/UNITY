@@ -157,10 +157,11 @@ MonoBehaviour:
   microphoneClip: {fileID: 0}
   sendAudio: {fileID: 965149300}
   sendClip: {fileID: 0}
+  test: {fileID: 965149300}
   recording: 0
   inputSoundSensibility: 20
   stopSoundSensibility: 20
-  loudnessSensibility: 20
+  loudnessSensibility: 100
   threshold: 0.1
   minScale: {x: 1, y: 1, z: 1}
   maxScale: {x: 3, y: 3, z: 3}
