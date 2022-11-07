@@ -2230,7 +2230,7 @@ namespace Photon.Pun
         /// (use this to cache properties to be sent when joining a room).
         /// Otherwise, returns if this operation could be sent to the server.
         /// </returns>
-        public static bool SetPlayerCustomProperties(Hashtable customProperties)
+        public static bool SetCustomProperties(Hashtable customProperties)
         {
             if (customProperties == null)
             {

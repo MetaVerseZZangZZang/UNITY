@@ -57,11 +57,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        //PhotonView.Instantiate(map, new Vector3(0, 0, 0), Quaternion.identity);
         PhotonNetwork.Instantiate("Prefabs/Player", Vector3.zero, Quaternion.identity);
-        //for (int i = 0; i < ChatText.Length; i++) ChatText[i].text = "";
-
-        //룸에 있는 사람들만 통화가 가능하게 만들거니까 그거를 플레이어 닉네임이 같은 사람으로만 해서 토글을 볼수 있게 해주면 되어요
+        
 
         foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
         {
