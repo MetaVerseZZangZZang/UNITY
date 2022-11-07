@@ -38,7 +38,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.JoinLobby();
 
-        //PhotonNetwork.LocalPlayer.NickName = UI_StartPanel.Instance.nameInput.text;
+        PhotonNetwork.LocalPlayer.NickName = UI_StartPanel.Instance.nameInput.text;
         
     }
 

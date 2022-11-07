@@ -21,11 +21,12 @@ public class PlayerItem : MonoBehaviourPunCallbacks
     {
         playerName.text = _player.NickName;
         player = _player;
+        SetPlayer();
     }
 
     public void SetPlayer()
     {
-        //playerProperties["shirts"] = Array.IndexOf(shirtsSprites, item.sprite);
+        playerProperties["shirts"] = 2;
         PhotonNetwork.SetCustomProperties(playerProperties);
     }
 
@@ -41,6 +42,7 @@ public class PlayerItem : MonoBehaviourPunCallbacks
     {
         if (player.CustomProperties.ContainsKey("shirts"))
         {
+            Debug.Log("in updateplayerItem");
             shirts.sprite = shirtsSprites[(int)player.CustomProperties["shirts"]];
             playerProperties["shirts"] = (int)player.CustomProperties["shirts"];
         }
