@@ -47,10 +47,6 @@ public class AudioLoudnessDetection : MonoBehaviour
     public Vector3 maxScale;
 
     public bool joined = false;
-
-    public float currentDesibel;
-    public float stopDesibel;
-
     private void Update()
     {
         if (joined)
@@ -102,8 +98,7 @@ public class AudioLoudnessDetection : MonoBehaviour
         float loudness = totalLoudness / sampleWindow;
         //Debug.Log(loudness*100);
 
-        currentDesibel = loudness * inputSoundSensibility;
-        stopDesibel = loudness * stopSoundSensibility;
+
         if (loudness * inputSoundSensibility >= 2f && recording == false)
         {
             Debug.Log($"Start input sensibility:  {loudness * inputSoundSensibility}");

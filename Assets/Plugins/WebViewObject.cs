@@ -70,7 +70,7 @@ public class WebViewObject : MonoBehaviour
     float mMarginRightComputed;
     float mMarginBottomComputed;
     bool mMarginRelativeComputed;
-
+    
     public RawImage tx;
 #if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
     IntPtr webView;
@@ -207,7 +207,7 @@ public class WebViewObject : MonoBehaviour
         mMarginTopComputed = -9999;
         mMarginRightComputed = -9999;
         mMarginBottomComputed = -9999;
-
+        
     }
 
     private void Start()
@@ -298,9 +298,9 @@ public class WebViewObject : MonoBehaviour
     [DllImport("WebView")]
     private static extern void _CWebViewPlugin_ClearCustomHeader(IntPtr instance);
     [DllImport("WebView")]
-    private static extern void _CWebViewPlugin_ClearCookies();
+    private static extern void   _CWebViewPlugin_ClearCookies();
     [DllImport("WebView")]
-    private static extern void _CWebViewPlugin_SaveCookies();
+    private static extern void   _CWebViewPlugin_SaveCookies();
     [DllImport("WebView")]
     private static extern string _CWebViewPlugin_GetCookies(string url);
     [DllImport("WebView")]
@@ -412,9 +412,9 @@ public class WebViewObject : MonoBehaviour
         string ua = "",
         // android
         int androidForceDarkMode = 0,  // 0: follow system setting, 1: force dark off, 2: force dark on
-                                       // ios
+        // ios
         bool enableWKWebView = true,
-        int wkContentMode = 0,  // 0: recommended, 1: mobile, 2: desktop
+        int  wkContentMode = 0,  // 0: recommended, 1: mobile, 2: desktop
         bool wkAllowsLinkPreview = true,
         // editor
         bool separated = false)
@@ -444,8 +444,7 @@ public class WebViewObject : MonoBehaviour
             var uri = new Uri(_CWebViewPlugin_GetAppPath());
             var info = File.ReadAllText(uri.LocalPath + "Contents/Info.plist");
             if (Regex.IsMatch(info, @"<key>CFBundleGetInfoString</key>\s*<string>Unity version [5-9]\.[3-9]")
-                && !Regex.IsMatch(info, @"<key>NSAppTransportSecurity</key>\s*<dict>\s*<key>NSAllowsArbitraryLoads</key>\s*<true/>\s*</dict>"))
-            {
+                && !Regex.IsMatch(info, @"<key>NSAppTransportSecurity</key>\s*<dict>\s*<key>NSAllowsArbitraryLoads</key>\s*<true/>\s*</dict>")) {
                 Debug.LogWarning("<color=yellow>WebViewObject: NSAppTransportSecurity isn't configured to allow HTTP. If you need to allow any HTTP access, please shutdown Unity and invoke:</color>\n/usr/libexec/PlistBuddy -c \"Add NSAppTransportSecurity:NSAllowsArbitraryLoads bool true\" /Applications/Unity/Unity.app/Contents/Info.plist");
             }
         }
@@ -1110,7 +1109,7 @@ public class WebViewObject : MonoBehaviour
 #elif UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX || UNITY_IPHONE
         if (webView == IntPtr.Zero)
             return null;
-        return _CWebViewPlugin_GetCustomHeaderValue(webView, headerKey);
+        return _CWebViewPlugin_GetCustomHeaderValue(webView, headerKey);  
 #elif UNITY_ANDROID
         if (webView == null)
             return null;
@@ -1271,55 +1270,49 @@ public class WebViewObject : MonoBehaviour
 
     void Update()
     {
-        if (hasFocus)
-        {
+        if (hasFocus) {
             inputString += Input.inputString;
         }
-        for (; ; )
-        {
+        for (;;) {
             if (webView == IntPtr.Zero)
                 break;
             string s = _CWebViewPlugin_GetMessage(webView);
             if (s == null)
                 break;
-            switch (s[0])
-            {
-                case 'E':
-                    CallOnError(s.Substring(1));
-                    break;
-                case 'S':
-                    CallOnStarted(s.Substring(1));
-                    break;
-                case 'L':
-                    CallOnLoaded(s.Substring(1));
-                    break;
-                case 'J':
-                    CallFromJS(s.Substring(1));
-                    break;
-                case 'H':
-                    CallOnHooked(s.Substring(1));
-                    break;
+            switch (s[0]) {
+            case 'E':
+                CallOnError(s.Substring(1));
+                break;
+            case 'S':
+                CallOnStarted(s.Substring(1));
+                break;
+            case 'L':
+                CallOnLoaded(s.Substring(1));
+                break;
+            case 'J':
+                CallFromJS(s.Substring(1));
+                break;
+            case 'H':
+                CallOnHooked(s.Substring(1));
+                break;
             }
         }
         if (webView == IntPtr.Zero || !visibility)
             return;
         bool refreshBitmap = (Time.frameCount % bitmapRefreshCycle == 0);
         _CWebViewPlugin_Update(webView, refreshBitmap);
-        if (refreshBitmap)
-        {
+        if (refreshBitmap) {
             {
                 var w = _CWebViewPlugin_BitmapWidth(webView);
                 var h = _CWebViewPlugin_BitmapHeight(webView);
-                if (texture == null || texture.width != w || texture.height != h)
-                {
+                if (texture == null || texture.width != w || texture.height != h) {
                     texture = new Texture2D(w, h, TextureFormat.RGBA32, false, true);
                     texture.filterMode = FilterMode.Bilinear;
                     texture.wrapMode = TextureWrapMode.Clamp;
                     textureDataBuffer = new byte[w * h * 4];
                 }
             }
-            if (textureDataBuffer.Length > 0)
-            {
+            if (textureDataBuffer.Length > 0) {
                 var gch = GCHandle.Alloc(textureDataBuffer, GCHandleType.Pinned);
                 _CWebViewPlugin_Render(webView, gch.AddrOfPinnedObject());
                 gch.Free();
@@ -1335,72 +1328,61 @@ public class WebViewObject : MonoBehaviour
     {
         if (webView == IntPtr.Zero || !visibility)
             return;
-        switch (Event.current.type)
-        {
-            case EventType.MouseDown:
-            case EventType.MouseUp:
-                hasFocus = rect.Contains(Input.mousePosition);
-                break;
+        switch (Event.current.type) {
+        case EventType.MouseDown:
+        case EventType.MouseUp:
+            hasFocus = rect.Contains(Input.mousePosition);
+            break;
         }
-        switch (Event.current.type)
-        {
-            case EventType.MouseMove:
-            case EventType.MouseDown:
-            case EventType.MouseDrag:
-            case EventType.MouseUp:
-            case EventType.ScrollWheel:
-                if (hasFocus)
+        switch (Event.current.type) {
+        case EventType.MouseMove:
+        case EventType.MouseDown:
+        case EventType.MouseDrag:
+        case EventType.MouseUp:
+        case EventType.ScrollWheel:
+            if (hasFocus) {
+                Vector3 p;
+                p.x = Input.mousePosition.x - rect.x;
+                p.y = Input.mousePosition.y - rect.y;
                 {
+                    int mouseState = 0;
+                    if (Input.GetButtonDown("Fire1")) {
+                        mouseState = 1;
+                    } else if (Input.GetButton("Fire1")) {
+                        mouseState = 2;
+                    } else if (Input.GetButtonUp("Fire1")) {
+                        mouseState = 3;
+                    }
+                    //_CWebViewPlugin_SendMouseEvent(webView, (int)p.x, (int)p.y, Input.GetAxis("Mouse ScrollWheel"), mouseState);
+                    _CWebViewPlugin_SendMouseEvent(webView, (int)p.x, (int)p.y, Input.mouseScrollDelta.y, mouseState);
+                }
+            }
+            break;
+        case EventType.Repaint:
+            while (!string.IsNullOrEmpty(inputString)) {
+                var keyChars = inputString.Substring(0, 1);
+                var keyCode = (ushort)inputString[0];
+                inputString = inputString.Substring(1);
+                if (!string.IsNullOrEmpty(keyChars) || keyCode != 0) {
                     Vector3 p;
                     p.x = Input.mousePosition.x - rect.x;
                     p.y = Input.mousePosition.y - rect.y;
-                    {
-                        int mouseState = 0;
-                        if (Input.GetButtonDown("Fire1"))
-                        {
-                            mouseState = 1;
-                        }
-                        else if (Input.GetButton("Fire1"))
-                        {
-                            mouseState = 2;
-                        }
-                        else if (Input.GetButtonUp("Fire1"))
-                        {
-                            mouseState = 3;
-                        }
-                        //_CWebViewPlugin_SendMouseEvent(webView, (int)p.x, (int)p.y, Input.GetAxis("Mouse ScrollWheel"), mouseState);
-                        _CWebViewPlugin_SendMouseEvent(webView, (int)p.x, (int)p.y, Input.mouseScrollDelta.y, mouseState);
-                    }
+                    _CWebViewPlugin_SendKeyEvent(webView, (int)p.x, (int)p.y, keyChars, keyCode, 1);
                 }
-                break;
-            case EventType.Repaint:
-                while (!string.IsNullOrEmpty(inputString))
-                {
-                    var keyChars = inputString.Substring(0, 1);
-                    var keyCode = (ushort)inputString[0];
-                    inputString = inputString.Substring(1);
-                    if (!string.IsNullOrEmpty(keyChars) || keyCode != 0)
-                    {
-                        Vector3 p;
-                        p.x = Input.mousePosition.x - rect.x;
-                        p.y = Input.mousePosition.y - rect.y;
-                        _CWebViewPlugin_SendKeyEvent(webView, (int)p.x, (int)p.y, keyChars, keyCode, 1);
-                    }
-                }
-                if (texture != null)
-                {
-                    Matrix4x4 m = GUI.matrix;
-                    GUI.matrix
-                        = Matrix4x4.TRS(
-                            new Vector3(0, Screen.height, 0),
-                            Quaternion.identity,
-                            new Vector3(1, -1, 1));
-                    //GUI.DrawTexture(rect, texture);
-                    
-                    tx.texture = texture;
-                    GUI.matrix = m;
-                }
-                break;
+            }
+            if (texture != null) {
+                Matrix4x4 m = GUI.matrix;
+                GUI.matrix
+                    = Matrix4x4.TRS(
+                        new Vector3(0, Screen.height, 0),
+                        Quaternion.identity,
+                        new Vector3(1, -1, 1));
+                //GUI.DrawTexture(rect, texture);
+                //
+                tx.texture = texture;
+                GUI.matrix = m;
+            }
+            break;
         }
     }
 #endif
