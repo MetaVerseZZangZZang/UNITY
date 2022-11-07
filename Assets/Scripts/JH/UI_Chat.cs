@@ -35,6 +35,7 @@ public class UI_Chat : MonoBehaviour
     public void AddChatText(string msg)
     {
         string[] words = msg.Split(':');
+        
         GameObject newText=Instantiate<GameObject>(m_ChatTextPrefab);
         newText.transform.SetParent(AIParent.transform);
         newText.transform.localScale=new Vector3(1,1,1);
@@ -51,14 +52,15 @@ public class UI_Chat : MonoBehaviour
             {
                 txtComponent.text = words[2];
             }
-            else if (txtComponent.name == "IdText")
-            {
-                txtComponent.text = words[0];
-            }
         }
+
+        newText.GetComponent<ChatPlayer>().id= words[0];
+        newText.GetComponent<ChatPlayer>().name= words[1];
+        newText.GetComponent<ChatPlayer>().message= words[2];
         
         scrollUpdate();
     }
+
 
     public void AddAIImage(List<KeywordDict> data)
     {
@@ -116,7 +118,6 @@ public class UI_Chat : MonoBehaviour
         GameObject newObject =Instantiate<GameObject>(m_AITextPrefab);
         newObject.transform.SetParent(AIParent.transform);
         newObject.transform.localScale=new Vector3(1,1,1);
-        
         var texts = newObject.GetComponentsInChildren<TextMeshProUGUI>();
         foreach (var txtComponent in texts)
         {

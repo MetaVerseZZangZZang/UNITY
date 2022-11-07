@@ -533,6 +533,7 @@ GameObject:
   - component: {fileID: 579288007578266167}
   - component: {fileID: 579288007578266168}
   - component: {fileID: 579288007578266169}
+  - component: {fileID: 6809324535474192252}
   m_Layer: 5
   m_Name: UI_ChatPlayer_
   m_TagString: Untagged
@@ -640,6 +641,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!114 &6809324535474192252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579288007578266121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ded8f0234f076d42b5efaadd6f1c25a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
+  name: 
+  message: 
+  heart: 0
 --- !u!1 &579288008557319912
 GameObject:
   m_ObjectHideFlags: 0
@@ -1449,6 +1466,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fb9fe1903a82d74fb19dc6a9e5fd554, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ChatPlayer: {fileID: 6809324535474192252}
   Heart_filled: {fileID: 21300000, guid: c81e29d07ab90af4a94401bae34b13bc, type: 3}
   Heart_unfilled: {fileID: 21300000, guid: 041c271782001e44ea87c6b0d778f069, type: 3}
 --- !u!1 &6994667932657890970

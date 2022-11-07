@@ -12,28 +12,23 @@ using Unity.RenderStreaming;
 public class Server : MonoBehaviour
 {
     public static Server Instance;
-    private string HOST = "http://192.168.0.21:5100";
+    private string HOST = "http://52.79.150.224:5100/";
     
     private SocketIOUnity m_Socket;
     private bool m_Connected = false;
     public AudioSource mic;
     public AudioClip micClip;
-
-    public string receive_Name;
-    public string receieveSTT_Word;
-    public string receive_id;
     
     public string proto1;
     public string proto2;
     //json
     private List<Action> m_Actions = new List<Action>();
-
     private List<Action> m_keyActions = new List<Action>();
     private List<Action> m_ImageDownloadActions = new List<Action>();
     private List<Action> m_SummaryDownload = new List<Action>();
     private List<Action> m_NetworkGraphDownload = new List<Action>();
 
-
+    private List<ChatPlayer> ChatPlayerList = new List<ChatPlayer>();
 
     private void Awake()
     {
@@ -119,16 +114,15 @@ public class Server : MonoBehaviour
                 {
                     string text = response.GetValue<string>();
                     var spilttedText = text.Split("/|*^");
-
-                    if (spilttedText.Length > 0)
+                    if (spilttedText.Length >=3)
                     {
-                        receive_id=spilttedText[0];
-                        receive_Name = spilttedText[1];
-                        receieveSTT_Word = spilttedText.Length > 2 ? spilttedText[2] : string.Empty;
+                        
+                        string receive_id=spilttedText[0];
+                        string receive_Name = spilttedText[1];
+                        string receieveSTT_Word = spilttedText.Length > 2 ? spilttedText[2] : string.Empty;
+                        
                         UI_Chat.Instance.AddChatText($"{receive_id}:{receive_Name}: {receieveSTT_Word}");
 
-                        print(receive_Name);
-                        print(receieveSTT_Word);
                     }
                 });  
 
@@ -218,10 +212,9 @@ public class Server : MonoBehaviour
         //    //m_Socket.Emit("message",sendByte);
         //}
     }
-
-
-
 }
+
+
 
 [Serializable]
 public class ChatKeywordData
@@ -257,4 +250,7 @@ public class UrlKeyword
 {
     public string imgURL;
 }
+
+
+
 
