@@ -14,7 +14,11 @@ public class UI_Character : MonoBehaviour
     public Toggle ShirtsToggle;
     public Toggle PantsToggle;
     public Toggle SetToggle;
-
+    
+    public GameObject HairParent;
+    public GameObject ShirtsParent;
+    public GameObject PantsParent;
+    public GameObject SetParent;
 
     void Start()
     {
@@ -58,6 +62,20 @@ public class UI_Character : MonoBehaviour
             SetItem.SetActive(true);
         }
     }
-    
+
+    public void SetCloths(Image item)
+    {
+        Sprite itemSprite = item.sprite;
+        
+        if (item.tag == "Hair")
+        {
+            HairParent.GetComponent<Image>().sprite = itemSprite;
+        }
+        
+        if (item.tag == "Shirts")
+        {
+            ShirtsParent.GetComponent<Image>().sprite = itemSprite;
+        }
+    }
     
 }

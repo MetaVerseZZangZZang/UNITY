@@ -23,15 +23,10 @@ public class PlayerItem : MonoBehaviourPunCallbacks
         player = _player;
     }
 
-    public void SetPlayer(Image item)
+    public void SetPlayer()
     {
-        if (item.tag == "Shirts")
-        {
-            shirts.sprite = item.sprite;
-            playerProperties["shirts"] = Array.IndexOf(shirtsSprites, item.sprite);
-            PhotonNetwork.SetCustomProperties(playerProperties);
-        }
-        
+        //playerProperties["shirts"] = Array.IndexOf(shirtsSprites, item.sprite);
+        PhotonNetwork.SetCustomProperties(playerProperties);
     }
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer,ExitGames.Client.Photon.Hashtable playerProperties)
