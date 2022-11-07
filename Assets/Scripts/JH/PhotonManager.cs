@@ -135,16 +135,18 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
         foreach (KeyValuePair<int, Player> player in PhotonNetwork.CurrentRoom.Players)
         {
-            PlayerItem newPlayerItem = Instantiate(playerItemPrefab, playerItemParent);
+            GameObject newPlayerItem = PhotonNetwork.Instantiate("Prefabs/Player", Vector3.zero, Quaternion.identity);
             /*
             if (player.Value == PhotonNetwork.LocalPlayer)
             {
                 newPlayerItem.ApplyLocalChanges();
             }
             */
-            
-            newPlayerItem.SetPlayerInfo(player.Value);
-            playerItemList.Add(newPlayerItem);
+            newPlayerItem.transform.SetParent(playerItemParent);
+            newPlayerItem.transform.localScale = new Vector3(1, 1, 1);
+            PlayerItem newPlayer = newPlayerItem.GetComponent<PlayerItem>();
+            newPlayer.SetPlayerInfo(player.Value);
+            playerItemList.Add(newPlayer);
         }
     }
 }
