@@ -23,7 +23,11 @@ public class PlayerItem : MonoBehaviourPunCallbacks
         playerName.text = _player.NickName;
         player = _player;
         playerProperties["shirts"] = Array.IndexOf(shirtsSprites, UI_Character.Instance.SelectedShirts);
-        UpdatePlayerItem(player);
+        Debug.Log("UI_Character.Instance.SelectedShirts "+UI_Character.Instance.SelectedShirts);
+        Debug.Log("shirtsSprites "+shirtsSprites);
+        Debug.Log("Array.IndexOf(shirtsSprites, UI_Character.Instance.SelectedShirts)"+Array.IndexOf(shirtsSprites, UI_Character.Instance.SelectedShirts));
+        PhotonNetwork.SetCustomProperties(playerProperties);
+        //UpdatePlayerItem(player);
     }
 
 

@@ -2145,12 +2145,12 @@ PrefabInstance:
     - target: {fileID: 2983070843548473655, guid: f6e1d0a28258cff48822c3d0419c0494,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 688
       objectReference: {fileID: 0}
     - target: {fileID: 2983070843548473655, guid: f6e1d0a28258cff48822c3d0419c0494,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 344
       objectReference: {fileID: 0}
     - target: {fileID: 2983070843696905718, guid: f6e1d0a28258cff48822c3d0419c0494,
         type: 3}
@@ -2165,7 +2165,7 @@ PrefabInstance:
     - target: {fileID: 2983070843696905718, guid: f6e1d0a28258cff48822c3d0419c0494,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 688
       objectReference: {fileID: 0}
     - target: {fileID: 2983070843696905718, guid: f6e1d0a28258cff48822c3d0419c0494,
         type: 3}
@@ -2175,7 +2175,7 @@ PrefabInstance:
     - target: {fileID: 2983070843696905718, guid: f6e1d0a28258cff48822c3d0419c0494,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 344
       objectReference: {fileID: 0}
     - target: {fileID: 2983070843696905718, guid: f6e1d0a28258cff48822c3d0419c0494,
         type: 3}
@@ -2938,6 +2938,148 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 208468203}
   m_CullTransparentMesh: 1
+--- !u!1001 &232117774
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2065408804}
+    m_Modifications:
+    - target: {fileID: 6645650848602108522, guid: ab2a630112c5147439a9bb9220bc22a9,
+        type: 3}
+      propertyPath: m_Name
+      value: Player_JH
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645650848602108530, guid: ab2a630112c5147439a9bb9220bc22a9,
+        type: 3}
+      propertyPath: sceneViewId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645650848602108532, guid: ab2a630112c5147439a9bb9220bc22a9,
+        type: 3}
+      propertyPath: shirtsSprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 482770666, guid: 8d97189fec3f875419aaaddfec03eb4c,
+        type: 3}
+    - target: {fileID: 6645650848602108532, guid: ab2a630112c5147439a9bb9220bc22a9,
+        type: 3}
+      propertyPath: shirtsSprites.Array.data[2]
+      value: 
+      objectReference: {fileID: 1236534970, guid: 8d97189fec3f875419aaaddfec03eb4c,
+        type: 3}
+    - target: {fileID: 6645650848602108533, guid: ab2a630112c5147439a9bb9220bc22a9,
+        type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645650848602108533, guid: ab2a630112c5147439a9bb9220bc22a9,
+        type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645650848602108533, guid: ab2a630112c5147439a9bb9220bc22a9,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645650848602108533, guid: ab2a630112c5147439a9bb9220bc22a9,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645650848602108533, guid: ab2a630112c5147439a9bb9220bc22a9,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645650848602108533, guid: ab2a630112c5147439a9bb9220bc22a9,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645650848602108533, guid: ab2a630112c5147439a9bb9220bc22a9,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645650848602108533, guid: ab2a630112c5147439a9bb9220bc22a9,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645650848602108533, guid: ab2a630112c5147439a9bb9220bc22a9,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645650848602108533, guid: ab2a630112c5147439a9bb9220bc22a9,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645650848602108533, guid: ab2a630112c5147439a9bb9220bc22a9,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645650848602108533, guid: ab2a630112c5147439a9bb9220bc22a9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645650848602108533, guid: ab2a630112c5147439a9bb9220bc22a9,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645650848602108533, guid: ab2a630112c5147439a9bb9220bc22a9,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645650848602108533, guid: ab2a630112c5147439a9bb9220bc22a9,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645650848602108533, guid: ab2a630112c5147439a9bb9220bc22a9,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645650848602108533, guid: ab2a630112c5147439a9bb9220bc22a9,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -583
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645650848602108533, guid: ab2a630112c5147439a9bb9220bc22a9,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645650848602108533, guid: ab2a630112c5147439a9bb9220bc22a9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645650848602108533, guid: ab2a630112c5147439a9bb9220bc22a9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645650848602108533, guid: ab2a630112c5147439a9bb9220bc22a9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ab2a630112c5147439a9bb9220bc22a9, type: 3}
+--- !u!224 &232117775 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6645650848602108533, guid: ab2a630112c5147439a9bb9220bc22a9,
+    type: 3}
+  m_PrefabInstance: {fileID: 232117774}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &258341166
 GameObject:
   m_ObjectHideFlags: 0
@@ -3391,10 +3533,8 @@ MonoBehaviour:
   ShirtsToggle: {fileID: 29413207}
   PantsToggle: {fileID: 1537798994}
   SetToggle: {fileID: 2010897895}
-  HairParent: {fileID: 170314641}
+  SelectedShirts: {fileID: 0}
   ShirtsParent: {fileID: 16094664}
-  PantsParent: {fileID: 618411979}
-  SetParent: {fileID: 353169845}
 --- !u!1 &338190702
 GameObject:
   m_ObjectHideFlags: 0
@@ -3973,6 +4113,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 409248253}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UI_Character, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -5157,6 +5309,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 542767961}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UI_Character, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -6460,6 +6624,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UI_Character, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &685577046
 GameObject:
   m_ObjectHideFlags: 0
@@ -7099,6 +7275,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UI_Character, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &779657801
 GameObject:
   m_ObjectHideFlags: 0
@@ -7227,6 +7415,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 779657803}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UI_Character, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -8164,6 +8364,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 939290332}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UI_Character, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -10644,6 +10856,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UI_Character, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1268286378
 GameObject:
   m_ObjectHideFlags: 0
@@ -11744,6 +11968,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UI_Character, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1488295458
 GameObject:
   m_ObjectHideFlags: 0
@@ -12370,6 +12606,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 1530688781}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UI_Character, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -13822,6 +14070,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 1652600482}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UI_Character, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -16115,6 +16375,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UI_Character, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1946618960
 GameObject:
   m_ObjectHideFlags: 0
@@ -17846,6 +18118,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UI_Character, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2058837350
 GameObject:
   m_ObjectHideFlags: 0
@@ -18044,6 +18328,7 @@ RectTransform:
   - {fileID: 904751122}
   - {fileID: 983919553}
   - {fileID: 1102497329}
+  - {fileID: 232117775}
   m_Father: {fileID: 3746751487539468822}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

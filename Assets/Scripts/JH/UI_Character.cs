@@ -31,6 +31,8 @@ public class UI_Character : MonoBehaviour
         ShirtsItem.SetActive(false);
         PantsItem.SetActive(false);
         SetItem.SetActive(false);
+        
+        SelectedShirts=ShirtsParent.GetComponent<Image>().sprite;
     }
     
     public void CharRadio()
