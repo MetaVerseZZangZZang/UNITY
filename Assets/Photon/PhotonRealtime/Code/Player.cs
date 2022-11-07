@@ -450,5 +450,16 @@ namespace Photon.Realtime
 
             return false;
         }
+
+        /*
+        private int m_ClothIndex;
+        public Animator m_ClothAnimator;
+        public void SetCloth(int clothIndex)
+        {
+            m_ClothIndex = clothIndex;
+            m_ClothAnimator.runtimeAnimatorController = ClothControllerList[m_ColothIndex];
+        }
+        
+        */
     }
 }

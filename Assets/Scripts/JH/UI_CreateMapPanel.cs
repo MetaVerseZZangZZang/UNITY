@@ -30,7 +30,7 @@ public class UI_CreateMapPanel : MonoBehaviour
 
     public void CreateRoom()
     {
-        PhotonNetwork.CreateRoom(RoomNameInputField.text == "" ? "Room" + Random.Range(0, 100) : RoomNameInputField.text, new RoomOptions { MaxPlayers = 6 });
+        PhotonNetwork.CreateRoom(RoomNameInputField.text == "" ? "Room" + Random.Range(0, 100) : RoomNameInputField.text, new RoomOptions { MaxPlayers = 6,BroadcastPropsChangeToAll = true});
         Hide();
         UI_LobbyPanel.Instance.Hide();
         UI_MainPanel.Instance.Show();
