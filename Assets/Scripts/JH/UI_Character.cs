@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class UI_Character : MonoBehaviour
 {
+    public static UI_Character Instance;
     public GameObject HairItem;
     public GameObject ShirtsItem;
     public GameObject PantsItem;
@@ -15,11 +16,15 @@ public class UI_Character : MonoBehaviour
     public Toggle PantsToggle;
     public Toggle SetToggle;
     
-    public GameObject HairParent;
-    public GameObject ShirtsParent;
-    public GameObject PantsParent;
-    public GameObject SetParent;
+    public Sprite SelectedShirts;
 
+    public GameObject ShirtsParent;
+
+    void Awake()
+    {
+        Instance = this;
+    }
+    
     void Start()
     {
         HairItem.SetActive(true);
@@ -66,16 +71,15 @@ public class UI_Character : MonoBehaviour
     public void SetCloths(Image item)
     {
         Sprite itemSprite = item.sprite;
-        
-        if (item.tag == "Hair")
-        {
-            HairParent.GetComponent<Image>().sprite = itemSprite;
-        }
+
         
         if (item.tag == "Shirts")
         {
             ShirtsParent.GetComponent<Image>().sprite = itemSprite;
+
+            SelectedShirts = itemSprite;
         }
+        
     }
     
 }

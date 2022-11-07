@@ -15,20 +15,17 @@ public class PlayerItem : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     
     private ExitGames.Client.Photon.Hashtable playerProperties = new ExitGames.Client.Photon.Hashtable();
+    
     private Player player;
     
     public void SetPlayerInfo(Player _player)
     {
         playerName.text = _player.NickName;
         player = _player;
-        SetPlayer();
+        playerProperties["shirts"] = Array.IndexOf(shirtsSprites, UI_Character.Instance.SelectedShirts);
+        UpdatePlayerItem(player);
     }
 
-    public void SetPlayer()
-    {
-        playerProperties["shirts"] = 2;
-        PhotonNetwork.SetCustomProperties(playerProperties);
-    }
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer,ExitGames.Client.Photon.Hashtable playerProperties)
     {
@@ -42,7 +39,6 @@ public class PlayerItem : MonoBehaviourPunCallbacks
     {
         if (player.CustomProperties.ContainsKey("shirts"))
         {
-            Debug.Log("in updateplayerItem");
             shirts.sprite = shirtsSprites[(int)player.CustomProperties["shirts"]];
             playerProperties["shirts"] = (int)player.CustomProperties["shirts"];
         }
