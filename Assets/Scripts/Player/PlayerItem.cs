@@ -24,10 +24,15 @@ public class PlayerItem : MonoBehaviourPunCallbacks
         player = _player;
         playerProperties["shirts"] = Array.IndexOf(shirtsSprites, UI_Character.Instance.SelectedShirts);
         Debug.Log("UI_Character.Instance.SelectedShirts "+UI_Character.Instance.SelectedShirts);
-        Debug.Log("shirtsSprites "+shirtsSprites);
+
+        foreach (Sprite i in shirtsSprites)
+        {
+            
+            Debug.Log("shirtsSprites "+i);
+        }
         Debug.Log("Array.IndexOf(shirtsSprites, UI_Character.Instance.SelectedShirts)"+Array.IndexOf(shirtsSprites, UI_Character.Instance.SelectedShirts));
         PhotonNetwork.SetCustomProperties(playerProperties);
-        //UpdatePlayerItem(player);
+        UpdatePlayerItem(player);
     }
 
 
@@ -45,6 +50,10 @@ public class PlayerItem : MonoBehaviourPunCallbacks
         {
             shirts.sprite = shirtsSprites[(int)player.CustomProperties["shirts"]];
             playerProperties["shirts"] = (int)player.CustomProperties["shirts"];
+        }
+        else
+        {
+            playerProperties["shirts"] = 0;
         }
     }
 }

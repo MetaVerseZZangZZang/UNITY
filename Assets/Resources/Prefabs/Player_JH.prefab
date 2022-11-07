@@ -232,8 +232,8 @@ MonoBehaviour:
   shirts: {fileID: 6645650849992056776}
   shirtsSprites:
   - {fileID: -488238541, guid: 8d97189fec3f875419aaaddfec03eb4c, type: 3}
-  - {fileID: -1148273039, guid: 8d97189fec3f875419aaaddfec03eb4c, type: 3}
-  - {fileID: -353063294, guid: 8d97189fec3f875419aaaddfec03eb4c, type: 3}
+  - {fileID: 482770666, guid: 8d97189fec3f875419aaaddfec03eb4c, type: 3}
+  - {fileID: 1236534970, guid: 8d97189fec3f875419aaaddfec03eb4c, type: 3}
 --- !u!1 &6645650848990551068
 GameObject:
   m_ObjectHideFlags: 0
