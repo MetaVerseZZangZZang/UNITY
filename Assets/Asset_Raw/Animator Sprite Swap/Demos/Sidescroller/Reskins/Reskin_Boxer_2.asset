@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e84a00acbd8792542b658c5c476fd9a6, type: 3}
+  m_Name: Reskin_Boxer_2
+  m_EditorClassIdentifier: 
+  animatorName: Demo_Boxer
+  animatorController: {fileID: 9100000, guid: 25a3621bafa94e140ac6ad8a28fbacc7, type: 2}
+  states:
+  - name: Base Layer.Idle
+    hash: 1432961145
+    keyframes:
+    - sprite: {fileID: 21300000, guid: 9083f85e94702c54d943f62699b5ae7d, type: 3}
+      frameNumber: 0
+      normalizedTime: 0
+    - sprite: {fileID: 21300002, guid: 9083f85e94702c54d943f62699b5ae7d, type: 3}
+      frameNumber: 1
+      normalizedTime: 0.25
+    - sprite: {fileID: 21300004, guid: 9083f85e94702c54d943f62699b5ae7d, type: 3}
+      frameNumber: 2
+      normalizedTime: 0.5
+    - sprite: {fileID: 21300006, guid: 9083f85e94702c54d943f62699b5ae7d, type: 3}
+      frameNumber: 3
+      normalizedTime: 0.75
+    isLooping: 1
+  - name: Base Layer.Walking
+    hash: -2010423537
+    keyframes:
+    - sprite: {fileID: 21300008, guid: 9083f85e94702c54d943f62699b5ae7d, type: 3}
+      frameNumber: 0
+      normalizedTime: 0
+    - sprite: {fileID: 21300010, guid: 9083f85e94702c54d943f62699b5ae7d, type: 3}
+      frameNumber: 1
+      normalizedTime: 0.25
+    - sprite: {fileID: 21300012, guid: 9083f85e94702c54d943f62699b5ae7d, type: 3}
+      frameNumber: 2
+      normalizedTime: 0.5
+    - sprite: {fileID: 21300014, guid: 9083f85e94702c54d943f62699b5ae7d, type: 3}
+      frameNumber: 3
+      normalizedTime: 0.75
+    isLooping: 1
+  - name: Base Layer.Attack
+    hash: 1130333774
+    keyframes:
+    - sprite: {fileID: 21300016, guid: 9083f85e94702c54d943f62699b5ae7d, type: 3}
+      frameNumber: 0
+      normalizedTime: 0
+    - sprite: {fileID: 21300018, guid: 9083f85e94702c54d943f62699b5ae7d, type: 3}
+      frameNumber: 1
+      normalizedTime: 0.25
+    - sprite: {fileID: 21300020, guid: 9083f85e94702c54d943f62699b5ae7d, type: 3}
+      frameNumber: 2
+      normalizedTime: 0.5
+    - sprite: {fileID: 21300022, guid: 9083f85e94702c54d943f62699b5ae7d, type: 3}
+      frameNumber: 3
+      normalizedTime: 0.75
+    isLooping: 0

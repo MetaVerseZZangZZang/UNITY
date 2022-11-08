@@ -30,6 +30,6 @@ public class UI_ChatInputField : MonoBehaviour
 
         }
         
-        GetComponent<InputField>().text = "";
+        GetComponent<TMP_InputField>().text = "";
     }
 }
