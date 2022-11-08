@@ -61,6 +61,7 @@ public class PlayerItem : MonoBehaviourPunCallbacks
     //public GameObject sayingObject;
     void Update()
     {
+        
         if (pv.IsMine)
         {
             float axis_X = Input.GetAxisRaw("Horizontal");
