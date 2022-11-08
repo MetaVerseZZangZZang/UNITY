@@ -100,6 +100,12 @@ public class UI_Chat : MonoBehaviour
 
     }
 
+    public void AddImage()
+    {
+
+    }
+
+
     public void AddAIGraph(string url)
     {
         GameObject newObject =Instantiate<GameObject>(m_AIGraphPrefab);

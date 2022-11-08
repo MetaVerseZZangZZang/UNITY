@@ -1,10 +1,18 @@
-﻿using UnityEngine;
+﻿using System;
+using System.IO;
+using UnityEngine;
 using UnityEngine.UI;
+using System.Net.Http;
+using System.Net;
+using UnityEngine.Networking;
+using System.Collections;
 
 namespace FrostweepGames.Plugins.WebGLFileBrowser.Examples
 {
     public class Example : MonoBehaviour
     {
+        public static Example Instance;
+
         public Image contentImage;
 
         public Button openFileDialogButton;
@@ -22,8 +30,14 @@ namespace FrostweepGames.Plugins.WebGLFileBrowser.Examples
 
         private File[] _loadedFiles;
 
+
+        public byte[] fileBytes;
+
+        public GameObject fileImage;
+
         private void Start()
         {
+            Instance = this;
             openFileDialogButton.onClick.AddListener(OpenFileDialogButtonOnClickHandler);
             saveOpenedFileButton.onClick.AddListener(SaveOpenedFileButtonOnClickHandler);
             cleanupButton.onClick.AddListener(CleanupButtonOnClickHandler);
@@ -95,8 +109,16 @@ namespace FrostweepGames.Plugins.WebGLFileBrowser.Examples
                 var file = _loadedFiles[0];
 
                 fileNameText.text = file.fileInfo.name;
+                Debug.Log(file.fileInfo.path);
                 fileInfoText.text = $"File name: {file.fileInfo.name}\nFile extension: {file.fileInfo.extension}\nFile size: {file.fileInfo.SizeToString()}";
                 fileInfoText.text += $"\nLoaded files amount: {files.Length}";
+                fileBytes = System.IO.File.ReadAllBytes(file.fileInfo.path);
+
+                SendFile(fileBytes,file.fileInfo.name,file.fileInfo.extension);
+
+
+                //forring.name = 
+
 
                 saveOpenedFileButton.gameObject.SetActive(true);
                 cleanupButton.gameObject.SetActive(true);
@@ -121,7 +143,26 @@ namespace FrostweepGames.Plugins.WebGLFileBrowser.Examples
             }
         }
 
-		private void FilePopupWasClosedEventHandler()
+        
+
+        public string url = "http://192.168.0.21:5100/uploadfiles";
+        public void SendFile(byte[] fileByte,string fileName,string extention)
+        {
+            WWWForm form = new WWWForm();
+            Debug.Log(extention);
+            form.AddBinaryData("file", fileByte,fileName+extention);
+            Debug.Log(fileName + extention);
+           
+           
+            UnityWebRequest w = UnityWebRequest.Post(url, form);
+            w.SetRequestHeader("x-nickname", "handsomehongil");
+
+            w.SendWebRequest();
+            Debug.Log("보내졌다ㄷ");
+
+        }
+
+        private void FilePopupWasClosedEventHandler()
         {
             if(_loadedFiles == null)
                 saveOpenedFileButton.gameObject.SetActive(false);
@@ -129,7 +170,7 @@ namespace FrostweepGames.Plugins.WebGLFileBrowser.Examples
 
         private void FileWasSavedEventHandler(File file)
 		{
-            Debug.Log($"file {file.fileInfo.fullName} was saved");
+            Debug.Log($"file {file.fileInfo.path} was saved");
 		}
 
         private void FileSaveFailedEventHandler(string error)
@@ -146,5 +187,12 @@ namespace FrostweepGames.Plugins.WebGLFileBrowser.Examples
         {
             _enteredFileExtensions = value;
         }
+
+        
     }
+
+
+
+
+        
 }
