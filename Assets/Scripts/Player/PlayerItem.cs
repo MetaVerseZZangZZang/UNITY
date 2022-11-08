@@ -37,14 +37,9 @@ public class PlayerItem : MonoBehaviourPunCallbacks
         playerName.text = _player.NickName;
         playerName.color = pv.IsMine ? Color.green : Color.red;
         player = _player;
-
-        if (pv.IsMine)
-        {
-            playerProperties["shirts"] = Array.IndexOf(shirtsSprites, UI_Character.Instance.SelectedShirts);
-            PhotonNetwork.SetCustomProperties(playerProperties);
-        }
-        
-        UpdatePlayerItem(player);
+        //playerProperties["shirts"] = Array.IndexOf(shirtsSprites, UI_Character.Instance.SelectedShirts);
+        //PhotonNetwork.SetCustomProperties(playerProperties);
+        //UpdatePlayerItem(player);
     }
 
 

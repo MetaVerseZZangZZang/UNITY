@@ -124,6 +124,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         foreach (PlayerItem item in playerItemList)
         {
+            Debug.Log("ITEM "+item);
             Destroy(item.gameObject);
         }
         playerItemList.Clear();
