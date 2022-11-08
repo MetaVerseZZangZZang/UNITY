@@ -3306,7 +3306,12 @@ namespace Photon.Pun
             }
         }
 
-        #endif
+        public static void SetCustomProperties(Hashtable playerProperties)
+        {
+            throw new NotImplementedException();
+        }
+
+#endif
 
     }
 }

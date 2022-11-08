@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 //using ChatProto;
 using Photon.Pun;
 using Photon.Pun.Demo.Cockpit;
@@ -16,13 +17,17 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public List<RoomInfo> m_roomList = new List<RoomInfo>();
     //public Transform ChatPeersContent;
 
-    public List<string> nameList = new List <string>();
+    public List<string> nameList = new List<string>();
+    public List<PlayerItem> playerItemList = new List<PlayerItem>();
+
+    public PlayerItem playerItemPrefab;
+    public Transform playerItemParent;
 
     void Awake()
     {
         Instance = this;
     }
-    
+
     public void Connect()
     {
         PhotonNetwork.ConnectUsingSettings();
@@ -34,7 +39,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinLobby();
 
         PhotonNetwork.LocalPlayer.NickName = UI_StartPanel.Instance.nameInput.text;
-        
+
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
@@ -57,16 +62,12 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        //PhotonView.Instantiate(map, new Vector3(0, 0, 0), Quaternion.identity);
-        PhotonNetwork.Instantiate("Prefabs/Player", Vector3.zero, Quaternion.identity);
-        //for (int i = 0; i < ChatText.Length; i++) ChatText[i].text = "";
-
-        //룸에 있는 사람들만 통화가 가능하게 만들거니까 그거를 플레이어 닉네임이 같은 사람으로만 해서 토글을 볼수 있게 해주면 되어요
-
+        //GameObject player=PhotonNetwork.Instantiate("Prefabs/UI_Character", Vector3.zero, Quaternion.identity);
+        UpdatePlayerList();
         foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
         {
-            nameList.Add(p.NickName);
-            
+            //nameList.Add(p.NickName);
+
             UI_PlayerSlot.Instance.AddPlayerSlot(p.NickName);
         }
 
@@ -80,13 +81,24 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public void LeaveRoom()
     {
+        foreach (PlayerItem item in playerItemList)
+        {
+            Destroy(item.gameObject);
+        }
+        playerItemList.Clear();
+
+        if (PhotonNetwork.CurrentRoom == null)
+        {
+            return;
+        }
+
         foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
         {
-            nameList.Remove(p.NickName);
+            //nameList.Remove(p.NickName);
             UI_PlayerSlot.Instance.DelPlayerSlot(p.NickName);
         }
     }
-    
+
     public void roomSelect(RoomInfo room)
     {
         PhotonNetwork.JoinRoom(room.Name);
@@ -96,17 +108,45 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
         //ChatRPC("<color=yellow>" + newPlayer.NickName + "님이 참가하셨습니다</color>");
-        nameList.Add(newPlayer.NickName);
-        
+        //nameList.Add(newPlayer.NickName);
+        UpdatePlayerList();
         UI_PlayerSlot.Instance.AddPlayerSlot(newPlayer.NickName);
     }
 
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
     {
-        nameList.Remove(otherPlayer.NickName);
+        //nameList.Remove(otherPlayer.NickName);
+        UpdatePlayerList();
         UI_PlayerSlot.Instance.DelPlayerSlot(otherPlayer.NickName);
     }
-    
-    
-}
 
+    void UpdatePlayerList()
+    {
+        foreach (PlayerItem item in playerItemList)
+        {
+            Destroy(item.gameObject);
+        }
+        playerItemList.Clear();
+
+        if (PhotonNetwork.CurrentRoom == null)
+        {
+            return;
+        }
+
+        foreach (KeyValuePair<int, Player> player in PhotonNetwork.CurrentRoom.Players)
+        {
+            GameObject newPlayerItem = PhotonNetwork.Instantiate("Prefabs/Player", Vector3.zero, Quaternion.identity);
+            /*
+            if (player.Value == PhotonNetwork.LocalPlayer)
+            {
+                newPlayerItem.ApplyLocalChanges();
+            }
+            */
+            newPlayerItem.transform.SetParent(playerItemParent);
+            newPlayerItem.transform.localScale = new Vector3(1, 1, 1);
+            PlayerItem newPlayer = newPlayerItem.GetComponent<PlayerItem>();
+            newPlayer.SetPlayerInfo(player.Value);
+            playerItemList.Add(newPlayer);
+        }
+    }
+}
