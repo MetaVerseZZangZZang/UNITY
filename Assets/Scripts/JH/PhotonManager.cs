@@ -21,7 +21,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public List<PlayerItem> playerItemList = new List<PlayerItem>();
 
     public PlayerItem playerItemPrefab;
-    public Transform playerItemParent;
+    
     
     void Awake()
     {
@@ -142,7 +142,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
                 newPlayerItem.ApplyLocalChanges();
             }
             */
-            newPlayerItem.transform.SetParent(playerItemParent);
             newPlayerItem.transform.localScale = new Vector3(1, 1, 1);
             PlayerItem newPlayer = newPlayerItem.GetComponent<PlayerItem>();
             newPlayer.SetPlayerInfo(player.Value);
