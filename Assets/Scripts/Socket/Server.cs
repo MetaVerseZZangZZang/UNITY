@@ -12,7 +12,7 @@ using Unity.RenderStreaming;
 public class Server : MonoBehaviour
 {
     public static Server Instance;
-    private string HOST = "http://52.79.150.224:5100/";
+    private string HOST = "http://192.168.0.21:5100";
     
     private SocketIOUnity m_Socket;
     private bool m_Connected = false;

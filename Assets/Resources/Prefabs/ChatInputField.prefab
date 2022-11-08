@@ -573,13 +573,7 @@ MonoBehaviour:
   m_CaretColor: {r: 0.15294118, g: 0.8627451, b: 0.58431375, a: 1}
   m_CustomCaretColor: 1
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
-  m_Text: "\uC800\uB294 \uC88B\uC740 \uAC83 \uAC19\uC544\uC694. \u200B\uC800\uB294
-    \uC88B\uC740 \uAC83 \uAC19\uC544\uC694. \u200B\uC800\uB294 \uC88B\uC740 \uAC83
-    \uAC19\uC544\uC694. \u200B\uC800\uB294 \uC88B\uC740 \uAC83 \uAC19\uC544\uC694.
-    \u200B\uC800\uB294 \uC88B\uC740 \uAC83 \uAC19\uC544\uC694. \u200B\uC800\uB294
-    \uC88B\uC740 \uAC83 \uAC19\uC544\uC694. \u200B\uC800\uB294 \uC88B\uC740 \uAC83
-    \uAC19\uC544\uC694. \u200B\uC800\uB294 \uC88B\uC740 \uAC83 \uAC19\uC544\uC694.
-    \u200B"
+  m_Text: 
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 4
   m_ReadOnly: 0
@@ -658,7 +652,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8889728786347967569}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
@@ -807,13 +801,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC800\uB294 \uC88B\uC740 \uAC83 \uAC19\uC544\uC694. \u200B\uC800\uB294
-    \uC88B\uC740 \uAC83 \uAC19\uC544\uC694. \u200B\uC800\uB294 \uC88B\uC740 \uAC83
-    \uAC19\uC544\uC694. \u200B\uC800\uB294 \uC88B\uC740 \uAC83 \uAC19\uC544\uC694.
-    \u200B\uC800\uB294 \uC88B\uC740 \uAC83 \uAC19\uC544\uC694. \u200B\uC800\uB294
-    \uC88B\uC740 \uAC83 \uAC19\uC544\uC694. \u200B\uC800\uB294 \uC88B\uC740 \uAC83
-    \uAC19\uC544\uC694. \u200B\uC800\uB294 \uC88B\uC740 \uAC83 \uAC19\uC544\uC694.
-    \u200B\u200B"
+  m_text: "\u200B"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f5e3f6d4f6b271d4da5829371b97dbaa, type: 2}
   m_sharedMaterial: {fileID: 3166248769196772426, guid: f5e3f6d4f6b271d4da5829371b97dbaa,

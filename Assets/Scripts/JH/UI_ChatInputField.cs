@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI_ChatInputField : MonoBehaviour
 {
@@ -26,6 +27,9 @@ public class UI_ChatInputField : MonoBehaviour
 
             string json = JsonUtility.ToJson(myinput);
             Server.Instance.InputFieldEmit(json);
+
         }
+        
+        GetComponent<InputField>().text = "";
     }
 }
