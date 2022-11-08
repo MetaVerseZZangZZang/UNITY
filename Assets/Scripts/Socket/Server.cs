@@ -58,8 +58,8 @@ public class Server : MonoBehaviour
             m_Socket.On("message", (response) =>
             {
                 Debug.Log(response.GetValue<string>());
-
             });
+            
             m_Socket.On("getImglist", (response) =>
             {
                 //Debug.Log(response.GetValue());
@@ -126,7 +126,9 @@ public class Server : MonoBehaviour
                     }
                 });  
 
-            });            
+            });
+
+
         });
     }
 
@@ -141,6 +143,11 @@ public class Server : MonoBehaviour
         m_Socket.Emit("heart",text);
     }
     
+    public void InputFieldEmit(string text)
+    {
+        m_Socket.Emit("getInputField",text);
+    }
+
     
     public void ChatEnd()
     {
@@ -244,6 +251,13 @@ public class KeywordDict
     public string keyword;
     public List<string> Elements;
     
+}
+
+public class InputFieldText
+{
+    public string nickname;
+    public string context;
+
 }
 
 public class UrlKeyword

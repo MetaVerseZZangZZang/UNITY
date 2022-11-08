@@ -15,6 +15,7 @@ public class UI_Chat : MonoBehaviour
     
     public GameObject AIParent;
     public static UI_Chat Instance;
+
     
     private void Awake()
     {
@@ -22,6 +23,7 @@ public class UI_Chat : MonoBehaviour
         
         AIParent.SetActive(false);
         AIParent.SetActive(true);
+
     }
     
     private void scrollUpdate()
@@ -167,6 +169,7 @@ public class UI_Chat : MonoBehaviour
 
         scrollUpdate();
 
-    }
+    }   
 
 }
+
