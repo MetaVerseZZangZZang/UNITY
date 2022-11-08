@@ -28,9 +28,6 @@ public class UI_Heart : MonoBehaviour
         string json = JsonUtility.ToJson(m_ChatPlayer);
         print(json);
         Server.Instance.HeartEmit(json);
-
-        
-
         
         
 
