@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DownArrow
+  m_Name: walk_DownArrow
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -17,8 +17,29 @@ AnimationClip:
   m_PositionCurves: []
   m_ScaleCurves: []
   m_FloatCurves: []
-  m_PPtrCurves: []
-  m_SampleRate: 12
+  m_PPtrCurves:
+  - curve:
+    - time: 0
+      value: {fileID: -696462215, guid: 4fe61f38fae74364f9fc83ec06c254c0, type: 3}
+    - time: 0.016666668
+      value: {fileID: -105862437, guid: 4fe61f38fae74364f9fc83ec06c254c0, type: 3}
+    - time: 0.033333335
+      value: {fileID: 1828743059, guid: 4fe61f38fae74364f9fc83ec06c254c0, type: 3}
+    - time: 0.05
+      value: {fileID: -948176023, guid: 4fe61f38fae74364f9fc83ec06c254c0, type: 3}
+    - time: 0.06666667
+      value: {fileID: -798130746, guid: 4fe61f38fae74364f9fc83ec06c254c0, type: 3}
+    - time: 0.083333336
+      value: {fileID: -621926002, guid: 4fe61f38fae74364f9fc83ec06c254c0, type: 3}
+    - time: 0.1
+      value: {fileID: -675509496, guid: 4fe61f38fae74364f9fc83ec06c254c0, type: 3}
+    - time: 0.11666667
+      value: {fileID: -1572972394, guid: 4fe61f38fae74364f9fc83ec06c254c0, type: 3}
+    attribute: m_Sprite
+    path: 
+    classID: 212
+    script: {fileID: 0}
+  m_SampleRate: 60
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -31,7 +52,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1
+    m_StopTime: 0.13333334
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

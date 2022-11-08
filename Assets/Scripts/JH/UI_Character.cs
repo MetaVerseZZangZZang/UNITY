@@ -9,17 +9,19 @@ public class UI_Character : MonoBehaviour
     public GameObject HairItem;
     public GameObject ShirtsItem;
     public GameObject PantsItem;
-    public GameObject SetItem;
     
     public Toggle HairToggle;
     public Toggle ShirtsToggle;
     public Toggle PantsToggle;
-    public Toggle SetToggle;
     
     public Sprite SelectedShirts;
+    public Sprite SelectedPants;
+    public Sprite SelectedHair;
 
     public GameObject ShirtsParent;
-
+    public GameObject HairParent;
+    public GameObject PantsParent;
+    
     void Awake()
     {
         Instance = this;
@@ -30,7 +32,6 @@ public class UI_Character : MonoBehaviour
         HairItem.SetActive(true);
         ShirtsItem.SetActive(false);
         PantsItem.SetActive(false);
-        SetItem.SetActive(false);
         
         SelectedShirts=ShirtsParent.GetComponent<Image>().sprite;
     }
@@ -42,7 +43,6 @@ public class UI_Character : MonoBehaviour
             HairItem.SetActive(true);
             ShirtsItem.SetActive(false);
             PantsItem.SetActive(false);
-            SetItem.SetActive(false);
         }
         
         else if (ShirtsToggle.isOn)
@@ -50,7 +50,6 @@ public class UI_Character : MonoBehaviour
             HairItem.SetActive(false);
             ShirtsItem.SetActive(true);
             PantsItem.SetActive(false);
-            SetItem.SetActive(false);
         }
         
         else if (PantsToggle.isOn)
@@ -58,16 +57,8 @@ public class UI_Character : MonoBehaviour
             HairItem.SetActive(false);
             ShirtsItem.SetActive(false);
             PantsItem.SetActive(true);
-            SetItem.SetActive(false);
         }
         
-        else if (SetToggle.isOn)
-        {
-            HairItem.SetActive(false);
-            ShirtsItem.SetActive(false);
-            PantsItem.SetActive(false);
-            SetItem.SetActive(true);
-        }
     }
 
     public void SetCloths(Image item)
@@ -82,6 +73,13 @@ public class UI_Character : MonoBehaviour
             SelectedShirts = itemSprite;
         }
         
+        if (item.tag == "Hair")
+        {
+            HairParent.GetComponent<Image>().sprite = itemSprite;
+
+            SelectedShirts = itemSprite;
+        }
+        
     }
-    
+
 }
