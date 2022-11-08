@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 310468f085ef24732beac714c9bb64fd, type: 3}
   m_Name: AppIdInput
   m_EditorClassIdentifier: 
-  appID: 
-  token: 
-  channelName: unity3d
+  appID: 5eca99dd50134c1bb6f330bce6bce9b2
+  token: 007eJxTYGhK1Vg66dG+z3GW35awXpJy/u3XOXum/veV6yw0Y/TqOawUGExTkxMtLVNSTA0MjU2SDZOSzNKMjQ2SklPNgNgyyej+w4zkhkBGhsT/6xkYoRDEZ2WoqkrMS2dgAAC3ByGV
+  channelName: zzang
