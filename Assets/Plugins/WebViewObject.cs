@@ -51,7 +51,6 @@ public class UnitySendMessageDispatcher
 
 public class WebViewObject : MonoBehaviour
 {
-    public static WebViewObject Instance;
     Callback onJS;
     Callback onError;
     Callback onHttpError;
@@ -202,7 +201,6 @@ public class WebViewObject : MonoBehaviour
 
     void Awake()
     {
-        
         alertDialogEnabled = true;
         scrollBounceEnabled = true;
         mMarginLeftComputed = -9999;
@@ -214,7 +212,6 @@ public class WebViewObject : MonoBehaviour
 
     private void Start()
     {
-        Instance = this;
         tx = GameObject.Find("TVPanel").GetComponent<RawImage>();
         print(tx);
     }
