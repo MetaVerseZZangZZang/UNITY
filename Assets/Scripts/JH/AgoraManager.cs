@@ -4,9 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Agora.Rtc;
 using ClipperLib;
-using System.Runtime.Remoting.Lifetime;
-using ExitGames.Client.Photon.StructWrapping;
-using Photon.Pun;
+using UnityEngine.UI; 
 
 
 #if (UNITY_2018_3_OR_NEWER && UNITY_ANDROID)
@@ -20,18 +18,21 @@ public class AgoraManager : MonoBehaviour
     private ArrayList permissionList = new ArrayList() { Permission.Camera, Permission.Microphone };
 #endif
     // Fill in your app ID.
-    private string _appID = "88a3697b8dcd499f8f01fdcb6cdb6db9";
+    private string _appID = "5eca99dd50134c1bb6f330bce6bce9b2";
     // Fill in your channel name.
     private string _channelName = "zzang";
     // Fill in the temporary token you obtained from Agora Console.
-    private string _token = "007eJxTYFAoT90a08FXLr54ZYLYFsm0S1emJGWETtgqt68z9PUJ198KDBYWicZmluZJFinJKSaWlmkWaQaGaSnJSWbJKUlmKUmWZocSkhsCGRmCfs5gYmSAQBCflaGqKjEvnYEBAGnZIMY==+KwMVVWJeekMDABs+B8j";
+    private string _token = "007eJxTYGhK1Vg66dG+z3GW35awXpJy/u3XOXum/veV6yw0Y/TqOawUGExTkxMtLVNSTA0MjU2SDZOSzNKMjQ2SklPNgNgyyej+w4zkhkBGhsT/6xkYoRDEZ2WoqkrMS2dgAAC3ByGV";
     // A variable to save the remote user uid.
     private uint remoteUid;
     internal VideoSurface LocalView;
+    internal VideoSurface webView;
     //internal VideoSurface RemoteView;
     internal IRtcEngine RtcEngine;
+    internal IRtcEngineEx RtcEngineEx = null;
 
     public GameObject myCam;
+    public GameObject webViewCam;
 
     public static List<VideoSurface> FriendCamList=new List<VideoSurface>();
     
@@ -45,8 +46,11 @@ public class AgoraManager : MonoBehaviour
 
     public List<GameObject> FriendList;
     private int count = 1;
-    
-    
+
+
+    private CameraCapturerConfiguration _config2;
+    public uint UID2 = 456;
+
     void Awake()
     {
         Instance = this;
@@ -62,6 +66,10 @@ public class AgoraManager : MonoBehaviour
     void Update()
     {
         CheckPermissions();
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            OnWebview();
+        }
     }
 
     private void CheckPermissions()
@@ -94,6 +102,92 @@ public class AgoraManager : MonoBehaviour
 
     }
 
+
+    public void OnWebview()
+    {
+        var ret = RtcEngine.StartSecondaryCameraCapture(_config2);
+        ChannelMediaOptions options2 = new ChannelMediaOptions();
+
+        options2.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
+        ret = RtcEngine.JoinChannel(_token, _channelName);
+        Debug.Log(ret);
+    }
+
+
+
+    internal static void MakeVideoView(uint uid, string channelId = "", VIDEO_SOURCE_TYPE videoSourceType = VIDEO_SOURCE_TYPE.VIDEO_SOURCE_CAMERA)
+    {
+        var go = GameObject.Find(uid.ToString());
+        if (!ReferenceEquals(go, null))
+        {
+            return; // reuse
+        }
+
+        // create a GameObject and assign to this new user
+        VideoSurface videoSurface = null;
+
+        if (videoSourceType == VIDEO_SOURCE_TYPE.VIDEO_SOURCE_CAMERA)
+        {
+            videoSurface = MakeImageSurface("MainCameraView");
+        }
+        else if (videoSourceType == VIDEO_SOURCE_TYPE.VIDEO_SOURCE_CAMERA_SECONDARY)
+        {
+            videoSurface = MakeImageSurface("SecondCameraView");
+        }
+        else
+        {
+            videoSurface = MakeImageSurface(uid.ToString());
+        }
+
+        if (ReferenceEquals(videoSurface, null)) return;
+        // configure videoSurface
+        videoSurface.SetForUser(uid, channelId, videoSourceType);
+
+        videoSurface.OnTextureSizeModify += (int width, int height) =>
+        {
+            float scale = (float)height / (float)width;
+            videoSurface.transform.localScale = new Vector3(-5, 5 * scale, 1);
+            Debug.Log("OnTextureSizeModify: " + width + "  " + height);
+        };
+
+        videoSurface.SetEnable(true);
+    }
+
+
+    private static VideoSurface MakeImageSurface(string goName)
+    {
+        GameObject go = new GameObject();
+
+        if (go == null)
+        {
+            return null;
+        }
+
+        go.name = goName;
+        // to be renderered onto
+        go.AddComponent<RawImage>();
+        // make the object draggable
+        //go.AddComponent<UIElementDrag>();
+        var canvas = GameObject.Find("VideoCanvas");
+        if (canvas != null)
+        {
+            go.transform.parent = canvas.transform;
+            Debug.Log("add video view");
+        }
+        else
+        {
+            Debug.Log("Canvas is null video view");
+        }
+
+        // set up transform
+        go.transform.Rotate(0f, 0.0f, 180.0f);
+        go.transform.localPosition = Vector3.zero;
+        go.transform.localScale = new Vector3(2f, 3f, 1f);
+
+        // configure videoSurface
+        var videoSurface = go.AddComponent<VideoSurface>();
+        return videoSurface;
+    }
 
     private void SetupVideoSDKEngine()
     {
@@ -173,6 +267,7 @@ public class AgoraManager : MonoBehaviour
 
         public override void OnUserJoined(RtcConnection connection, uint uid, int elapsed)
         {
+            Debug.Log("inuserjoin");
             // Setup remote view.
             GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
             newFriendCam.transform.SetParent(_videoSample.FriendCams.transform);

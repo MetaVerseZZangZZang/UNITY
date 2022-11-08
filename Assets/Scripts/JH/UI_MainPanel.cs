@@ -94,7 +94,9 @@ public class UI_MainPanel : MonoBehaviour
 
     public void friendCamOff(VideoSurface RemoteView)
     {
-        RemoteView.transform.GetChild(0).gameObject.SetActive(true);
+        //RemoteView.transform.GetChild(0).gameObject.SetActive(true);
+        RawImage webview = RemoteView.GetComponent<RawImage>();
+        webview.texture = WebViewObject.Instance.texture;
     }
 
     public void friendCamON(VideoSurface RemoteView)
