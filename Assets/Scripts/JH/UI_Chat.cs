@@ -15,7 +15,7 @@ public class UI_Chat : MonoBehaviour
     
     public GameObject AIParent;
     public static UI_Chat Instance;
-
+    public GameObject fileImage;
     
     private void Awake()
     {
@@ -100,9 +100,22 @@ public class UI_Chat : MonoBehaviour
 
     }
 
-    public void AddImage()
+    public void AddFile(string Url, string extention)
     {
+        GameObject newObject = Instantiate<GameObject>(fileImage);
+        newObject.transform.SetParent(AIParent.transform);
+        newObject.transform.localScale = new Vector3(1, 1, 1);
 
+
+        Button button = newObject.GetComponent<Button>();
+        button.onClick.AddListener(()=>StartCoroutine(FileUpload.Instance.URLFileSave(Url)));
+
+
+        Text fileExtention = newObject.transform.GetChild(0).GetChild(0).GetComponent<Text>();
+        fileExtention.text = extention.ToUpper();
+        
+        scrollUpdate();
+        
     }
 
 

@@ -446,6 +446,7 @@ namespace FrostweepGames.Plugins.WebGLFileBrowser
         public FileInfo fileInfo;
         public byte[] data;
 
+
         internal static byte[] ReadAllBytes(File file)
         {
             throw new NotImplementedException();

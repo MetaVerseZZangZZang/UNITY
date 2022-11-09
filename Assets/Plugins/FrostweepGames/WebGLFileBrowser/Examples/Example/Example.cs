@@ -13,7 +13,7 @@ namespace FrostweepGames.Plugins.WebGLFileBrowser.Examples
     {
         public static Example Instance;
 
-        public Image contentImage;
+        //public Image contentImage;
 
         public Button openFileDialogButton;
 
@@ -23,8 +23,8 @@ namespace FrostweepGames.Plugins.WebGLFileBrowser.Examples
 
         public InputField filterOfTypesField;
 
-        public Text fileNameText,
-                    fileInfoText;
+        //public Text fileNameText,
+                    //fileInfoText;
 
         private string _enteredFileExtensions;
 
@@ -34,6 +34,8 @@ namespace FrostweepGames.Plugins.WebGLFileBrowser.Examples
         public byte[] fileBytes;
 
         public GameObject fileImage;
+
+        public string sid = "UNKNOWN";
 
         private void Start()
         {
@@ -48,7 +50,7 @@ namespace FrostweepGames.Plugins.WebGLFileBrowser.Examples
             WebGLFileBrowser.FileOpenFailedEvent += FileOpenFailedEventHandler;
             WebGLFileBrowser.FileWasSavedEvent += FileWasSavedEventHandler;
             WebGLFileBrowser.FileSaveFailedEvent += FileSaveFailedEventHandler;
-
+            
             // if you want to set custom localization for file browser popup -> use that function:
             // WebGLFileBrowser.SetLocalization(LocalizationKey.DESCRIPTION_TEXT, "Select file for loading:");
         }
@@ -92,10 +94,10 @@ namespace FrostweepGames.Plugins.WebGLFileBrowser.Examples
             saveOpenedFileButton.gameObject.SetActive(false);
 			cleanupButton.gameObject.SetActive(false);
 
-            fileInfoText.text = string.Empty;
-            fileNameText.text = string.Empty;
-			contentImage.color = new Color(1, 1, 1, 0);
-			contentImage.sprite = null;
+            //fileInfoText.text = string.Empty;
+            //fileNameText.text = string.Empty;
+			//contentImage.color = new Color(1, 1, 1, 0);
+			//contentImage.sprite = null;
 
             WebGLFileBrowser.FreeMemory(); // free used memory and destroy created content
         }
@@ -108,10 +110,10 @@ namespace FrostweepGames.Plugins.WebGLFileBrowser.Examples
             {
                 var file = _loadedFiles[0];
 
-                fileNameText.text = file.fileInfo.name;
+                //fileNameText.text = file.fileInfo.name;
                 Debug.Log(file.fileInfo.path);
-                fileInfoText.text = $"File name: {file.fileInfo.name}\nFile extension: {file.fileInfo.extension}\nFile size: {file.fileInfo.SizeToString()}";
-                fileInfoText.text += $"\nLoaded files amount: {files.Length}";
+                //fileInfoText.text = $"File name: {file.fileInfo.name}\nFile extension: {file.fileInfo.extension}\nFile size: {file.fileInfo.SizeToString()}";
+                //fileInfoText.text += $"\nLoaded files amount: {files.Length}";
                 fileBytes = System.IO.File.ReadAllBytes(file.fileInfo.path);
 
                 SendFile(fileBytes,file.fileInfo.name,file.fileInfo.extension);
@@ -123,22 +125,22 @@ namespace FrostweepGames.Plugins.WebGLFileBrowser.Examples
                 saveOpenedFileButton.gameObject.SetActive(true);
                 cleanupButton.gameObject.SetActive(true);
 
-                if (file.IsImage())
-                {
-                    contentImage.color = new Color(1, 1, 1, 1);
-                    contentImage.sprite = file.ToSprite(); // dont forget to delete unused objects to free memory!
+                //if (file.IsImage())
+                //{
+                //    contentImage.color = new Color(1, 1, 1, 1);
+                //    contentImage.sprite = file.ToSprite(); // dont forget to delete unused objects to free memory!
 
-                    WebGLFileBrowser.RegisterFileObject(contentImage.sprite); // add sprite with texture to cache list. should be used with  WebGLFileBrowser.FreeMemory() when its no need anymore
-                }
-                else
-                {
-                    contentImage.color = new Color(1, 1, 1, 0);
-                }
+                //    WebGLFileBrowser.RegisterFileObject(contentImage.sprite); // add sprite with texture to cache list. should be used with  WebGLFileBrowser.FreeMemory() when its no need anymore
+                //}
+                //else
+                //{
+                //    contentImage.color = new Color(1, 1, 1, 0);
+                //}
 
                 if (file.IsText())
                 {
                     string content = file.ToStringContent();
-                    fileInfoText.text += $"\nFile content: {content.Substring(0, Mathf.Min(30, content.Length))}";
+                    //fileInfoText.text += $"\nFile content: {content.Substring(0, Mathf.Min(30, content.Length))}";
                 }
             }
         }
@@ -149,17 +151,19 @@ namespace FrostweepGames.Plugins.WebGLFileBrowser.Examples
         public void SendFile(byte[] fileByte,string fileName,string extention)
         {
             WWWForm form = new WWWForm();
-            Debug.Log(extention);
+            Debug.Log(extention.ToUpper());
             form.AddBinaryData("file", fileByte,fileName+extention);
             Debug.Log(fileName + extention);
            
            
             UnityWebRequest w = UnityWebRequest.Post(url, form);
-            w.SetRequestHeader("x-nickname", "handsomehongil");
+            //w.SetRequestHeader("x-sid", );
 
             w.SendWebRequest();
             Debug.Log("보내졌다ㄷ");
 
+
+            
         }
 
         private void FilePopupWasClosedEventHandler()

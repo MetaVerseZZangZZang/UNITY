@@ -27,6 +27,7 @@ public class Server : MonoBehaviour
     private List<Action> m_ImageDownloadActions = new List<Action>();
     private List<Action> m_SummaryDownload = new List<Action>();
     private List<Action> m_NetworkGraphDownload = new List<Action>();
+    private List<Action> m_FileUpload = new List<Action>();
 
     private List<ChatPlayer> ChatPlayerList = new List<ChatPlayer>();
 
@@ -59,7 +60,7 @@ public class Server : MonoBehaviour
             {
                 Debug.Log(response.GetValue<string>());
             });
-            
+
             m_Socket.On("getImglist", (response) =>
             {
                 //Debug.Log(response.GetValue());
@@ -68,7 +69,7 @@ public class Server : MonoBehaviour
                 m_Actions.Add(() =>
                 {
                     UI_Chat.Instance.AddAIImage(data);
-                }); 
+                });
             });
 
 
@@ -81,13 +82,13 @@ public class Server : MonoBehaviour
                 });
             });
 
-            m_Socket.On("getSummary",(response)=>
-            {
-                m_SummaryDownload.Add(() =>
-                {
-                    UI_Chat.Instance.AddAISummary(response.GetValue<string>());
-                });
-            });
+            m_Socket.On("getSummary", (response) =>
+             {
+                 m_SummaryDownload.Add(() =>
+                 {
+                     UI_Chat.Instance.AddAISummary(response.GetValue<string>());
+                 });
+             });
 
             m_Socket.On("getKeylist", (response) =>
             {
@@ -107,7 +108,26 @@ public class Server : MonoBehaviour
                 test1 = response.GetValue<byte[]>();
             });
 
+            m_Socket.On("receiveFile", (response) =>
+            {
+                Debug.Log("receiveFile");
+                string test1 = response.GetValue<string>();
+                Debug.Log(test1);
+                //UI_Chat.Instance.AddFile(data);
 
+                var list = JsonConvert.DeserializeObject<Dictionary<string, string>>(test1); 
+                //var data = JsonConvert.DeserializeObject(test1);
+
+                Debug.Log(list["url"]);
+                Debug.Log(list["extension"]);
+
+
+                m_keyActions.Add(() =>
+                {
+                    UI_Chat.Instance.AddFile(list["url"], list["extension"]);
+                });
+                
+            });
             m_Socket.On("receiveSTT", (response) =>
             {
                 m_Actions.Add(() =>
@@ -203,6 +223,14 @@ public class Server : MonoBehaviour
         }
 
         m_NetworkGraphDownload.Clear();
+
+
+        foreach (var a in m_FileUpload)
+        {
+            a.Invoke();
+        }
+
+        m_FileUpload.Clear();
         #endregion 
         //if (Input.GetKeyDown(KeyCode.Z))
         //{
@@ -237,6 +265,13 @@ public class ChatKeywordData2
     public string Keyword;
 
     public Dictionary<string, List<KeywordDataElement>> Elements;
+}
+
+public class FileUrl
+{
+    //public string url;
+    public Dictionary <string,string> url;
+    
 }
 
 public class KeywordDataElement
