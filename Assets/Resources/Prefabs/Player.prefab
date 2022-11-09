@@ -419,7 +419,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 7892747167662085595}
   - {fileID: 6294544683178964687}
-  - {fileID: 694611174}
+  - {fileID: 0}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -606,7 +606,6 @@ GameObject:
   - component: {fileID: 449798843705460524}
   - component: {fileID: 694611172}
   - component: {fileID: 694611173}
-  - component: {fileID: 694611174}
   m_Layer: 0
   m_Name: Shirts
   m_TagString: Untagged
@@ -701,38 +700,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &694611174
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6020857044334029973}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowLayerWeightsInspector: 1
-  ShowParameterInspector: 1
-  m_SynchronizeParameters:
-  - Type: 4
-    SynchronizeType: 1
-    Name: Walk_UpArrow
-  - Type: 4
-    SynchronizeType: 1
-    Name: Walk_DownArrow
-  - Type: 4
-    SynchronizeType: 1
-    Name: Walk_RightArrow
-  - Type: 4
-    SynchronizeType: 1
-    Name: Walk_LeftArrow
-  m_SynchronizeLayers:
-  - SynchronizeType: 0
-    LayerIndex: 0
-  - SynchronizeType: 0
-    LayerIndex: 1
 --- !u!1 &8931296686933200254
 GameObject:
   m_ObjectHideFlags: 0
