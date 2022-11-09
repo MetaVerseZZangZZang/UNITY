@@ -100,7 +100,7 @@ public class UI_Chat : MonoBehaviour
 
     }
 
-    public void AddFile(string Url, string extention)
+    public void AddFile(string Url,string fileName ,string extension )
     {
         GameObject newObject = Instantiate<GameObject>(fileImage);
         newObject.transform.SetParent(AIParent.transform);
@@ -108,11 +108,11 @@ public class UI_Chat : MonoBehaviour
 
 
         Button button = newObject.GetComponent<Button>();
-        button.onClick.AddListener(()=>StartCoroutine(FileUpload.Instance.URLFileSave(Url)));
+        button.onClick.AddListener(()=>StartCoroutine(FileUpload.Instance.URLFileSave(Url,fileName,extension)));
 
 
         Text fileExtention = newObject.transform.GetChild(0).GetChild(0).GetComponent<Text>();
-        fileExtention.text = extention.ToUpper();
+        fileExtention.text = extension.ToUpper();
         
         scrollUpdate();
         

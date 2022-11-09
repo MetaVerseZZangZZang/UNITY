@@ -124,7 +124,7 @@ public class Server : MonoBehaviour
 
                 m_keyActions.Add(() =>
                 {
-                    UI_Chat.Instance.AddFile(list["url"], list["extension"]);
+                    UI_Chat.Instance.AddFile(list["url"], list["fileName"], list["extension"]);
                 });
                 
             });

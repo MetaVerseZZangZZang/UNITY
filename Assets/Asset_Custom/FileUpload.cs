@@ -6,6 +6,7 @@ using UnityEngine.Networking;
 using System.Collections;
 using FrostweepGames.Plugins.WebGLFileBrowser;
 using File = FrostweepGames.Plugins.WebGLFileBrowser.File;
+using FileInfo = FrostweepGames.Plugins.WebGLFileBrowser.FileInfo;
 
 public class FileUpload : MonoBehaviour
 {
@@ -159,7 +160,7 @@ public class FileUpload : MonoBehaviour
         UnityWebRequest w = UnityWebRequest.Post(url, form);
         w.SetRequestHeader("x-sid", UI_StartPanel.Instance.userName);
         w.SetRequestHeader("x-extension",extension);
-
+        w.SetRequestHeader("x-fileName", fileName);
 
         w.SendWebRequest();
         Debug.Log("보내졌다ㄷ");
@@ -194,7 +195,9 @@ public class FileUpload : MonoBehaviour
         _enteredFileExtensions = value;
     }
 
-    public IEnumerator URLFileSave(string url)
+
+
+    public IEnumerator URLFileSave(string url, string fileName,string extension)
     {
         UnityWebRequest request = UnityWebRequest.Get(url);
 
@@ -208,8 +211,31 @@ public class FileUpload : MonoBehaviour
 
         else
         {
+            //string fileName = "test.png";
+            string filePath = Path.Combine(Application.persistentDataPath, fileName+"."+extension);
+            System.IO.File.WriteAllBytes(filePath,request.downloadHandler.data);
+            
+            
+            
+            byte[] fileContent = System.IO.File.ReadAllBytes(filePath);
+
+            File file = new File()
+            {
+                fileInfo = new FileInfo()
+                {
+                    extension = System.IO.Path.GetExtension(filePath),
+                    name = System.IO.Path.GetFileNameWithoutExtension(filePath),
+                    fullName = System.IO.Path.GetFileName(filePath),
+                    length = fileContent.Length,
+                    path = filePath,
+                    size = fileContent.Length
+                },
+                data = fileContent
+            };
+            _loadedFiles = new File[] { file };
+            
+            
             SaveOpenedFileButtonOnClickHandler();
-            System.IO.File.WriteAllBytes("/Users/iseungmin/Desktop/JJANG",request.downloadHandler.data);
         }
     }
 
