@@ -100,7 +100,7 @@ public class UI_Chat : MonoBehaviour
 
     }
 
-    public void AddFile(string Url,string fileName ,string extension )
+    public void AddFile(string Url,string fileName ,string extension)
     {
         GameObject newObject = Instantiate<GameObject>(fileImage);
         newObject.transform.SetParent(AIParent.transform);

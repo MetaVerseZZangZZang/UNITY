@@ -31,6 +31,10 @@ public class Server : MonoBehaviour
 
     private List<ChatPlayer> ChatPlayerList = new List<ChatPlayer>();
 
+
+
+    public string sid;
+
     private void Awake()
     {
         Instance = this;
@@ -50,6 +54,12 @@ public class Server : MonoBehaviour
 
         m_Socket.On("connection", (response) =>
         {
+            
+            string getID = response.GetValue<string>();
+            var getJsonToDictionnary = JsonConvert.DeserializeObject<Dictionary<string, string>>(getID);
+
+            sid = getJsonToDictionnary["sid"];
+
             Debug.LogWarning("Enter Socket Server");
 
             m_Socket.Emit("userInfo", UI_StartPanel.Instance.userName);

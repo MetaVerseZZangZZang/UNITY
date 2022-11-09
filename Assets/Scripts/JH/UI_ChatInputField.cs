@@ -22,7 +22,7 @@ public class UI_ChatInputField : MonoBehaviour
         if (myInputField.text.Length > 0)
         {
             InputFieldText myinput = new InputFieldText();
-            myinput.nickname = myName.text;
+            //myinput.nickname = Server.Instance.sid;
             myinput.context = myInputField.text;
 
             string json = JsonUtility.ToJson(myinput);

@@ -20,11 +20,11 @@ public class AgoraManager : MonoBehaviour
     private ArrayList permissionList = new ArrayList() { Permission.Camera, Permission.Microphone };
 #endif
     // Fill in your app ID.
-    private string _appID = "88a3697b8dcd499f8f01fdcb6cdb6db9";
+    private string _appID = "5eca99dd50134c1bb6f330bce6bce9b2";
     // Fill in your channel name.
     private string _channelName = "zzang";
     // Fill in the temporary token you obtained from Agora Console.
-    private string _token = "007eJxTYFAoT90a08FXLr54ZYLYFsm0S1emJGWETtgqt68z9PUJ198KDBYWicZmluZJFinJKSaWlmkWaQaGaSnJSWbJKUlmKUmWZocSkhsCGRmCfs5gYmSAQBCflaGqKjEvnYEBAGnZIMY==+KwMVVWJeekMDABs+B8j";
+    private string _token = "007eJxTYEj2//Da6oDZY8ZXV91r3/Yq3L4zk1VaaoZZm5eudJW9ebsCg2lqcqKlZUqKqYGhsUmyYVKSWZqxsUFScqoZEFsmGZ1Mzk5uCGRkyD70j4WRAQJBfFaGqqrEvHQGBgBtcyBc";
     // A variable to save the remote user uid.
     private uint remoteUid;
     internal VideoSurface LocalView;
