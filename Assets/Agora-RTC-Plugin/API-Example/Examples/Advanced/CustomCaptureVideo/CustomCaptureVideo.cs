@@ -82,7 +82,7 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.CustomCaptureVideo
             IRtcEngine rtc = Agora.Rtc.RtcEngine.Instance;
             if (rtc != null)
             {
-                _texture.ReadPixels(_rect, 0, 0);
+                _texture.ReadPixels(_rect, 1920, 0);
                 _texture.Apply();
 
 #if UNITY_2018_1_OR_NEWER
