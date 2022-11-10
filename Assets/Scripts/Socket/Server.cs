@@ -164,10 +164,9 @@ public class Server : MonoBehaviour
                 m_ReplyActions.Add(() =>
                 {
                     string text = response.GetValue<string>();
-                    var spilttedText = text.Split("/|*^");
+                    var spilttedText = text.Split("/|*^"); 
                     if (spilttedText.Length >=3)
                     {
-                        
                         string receive_id=spilttedText[0];
                         string receive_Name = spilttedText[1];
                         string receieve_Word = spilttedText.Length > 2 ? spilttedText[2] : string.Empty;

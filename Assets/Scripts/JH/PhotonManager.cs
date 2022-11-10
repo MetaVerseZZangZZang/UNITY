@@ -19,8 +19,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public List<string> nameList = new List <string>();
     public List<PlayerItem> playerItemList = new List<PlayerItem>();
-    
-    
+
     
     void Awake()
     {
@@ -61,8 +60,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        PhotonNetwork.Instantiate("Prefabs/Player", Vector3.zero, Quaternion.identity);
-        //UpdatePlayerList();
+        UpdatePlayerList();
         foreach (Player p in PhotonNetwork.PlayerList)
         {
             //nameList.Add(p.NickName);
@@ -108,23 +106,22 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         //ChatRPC("<color=yellow>" + newPlayer.NickName + "님이 참가하셨습니다</color>");
         //nameList.Add(newPlayer.NickName);
-        //UpdatePlayerList();
+        UpdatePlayerList();
         UI_PlayerSlot.Instance.AddPlayerSlot(newPlayer.NickName);
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         //nameList.Remove(otherPlayer.NickName);
-        //UpdatePlayerList();
+        UpdatePlayerList();
         UI_PlayerSlot.Instance.DelPlayerSlot(otherPlayer.NickName);
     }
 
-    /*
+    
     void UpdatePlayerList()
     {
         foreach (PlayerItem item in playerItemList)
         {
-            Debug.Log("ITEM "+item);
             Destroy(item.gameObject);
         }
         playerItemList.Clear();
@@ -138,10 +135,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         {
             GameObject newPlayerItem = PhotonNetwork.Instantiate("Prefabs/Player", Vector3.zero, Quaternion.identity);
             
-            if (player.Value == PhotonNetwork.LocalPlayer)
-            {
-                newPlayerItem.ApplyLocalChanges();
-            }
             
             newPlayerItem.transform.localScale = new Vector3(1, 1, 1);
             PlayerItem newPlayer = newPlayerItem.GetComponent<PlayerItem>();
@@ -149,6 +142,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             playerItemList.Add(newPlayer);
         }
     }
-    */
+    
 }
 

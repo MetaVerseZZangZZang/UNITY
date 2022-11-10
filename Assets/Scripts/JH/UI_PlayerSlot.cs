@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI_PlayerSlot : MonoBehaviour
 {
@@ -19,8 +21,6 @@ public class UI_PlayerSlot : MonoBehaviour
 
     public void AddPlayerSlot(string playerName)
     {
-        Debug.Log("AddPlayerSlot");
-        
         GameObject newPlayer=Instantiate<GameObject>(m_PlayerSlotPrefab);
         newPlayer.transform.SetParent(PlayerSlotParent.transform);
         newPlayer.transform.localScale=new Vector3(1,1,1);
@@ -33,6 +33,17 @@ public class UI_PlayerSlot : MonoBehaviour
                 txtComponent.text = playerName;
             }
         }
+        
+        var toggles = newPlayer.GetComponentsInChildren<Toggle>();
+        if (playerName == PhotonNetwork.LocalPlayer.NickName)
+        {
+            foreach (var toggle in toggles)
+            {
+                toggle.gameObject.SetActive(false);
+            }
+        }
+            
+        
     }
     
     public void DelPlayerSlot(string playerName)

@@ -59,13 +59,43 @@ public class UI_Chat : MonoBehaviour
             }
         }
 
+        /*
         newText.GetComponent<ChatPlayer>().id= words[0];
         newText.GetComponent<ChatPlayer>().name= words[1];
         newText.GetComponent<ChatPlayer>().message= words[2];
+        */
+
+        ChatPlayer m_ChatPlayer = newText.GetComponent<ChatPlayer>();
+        m_ChatPlayer.id = words[0];
+        m_ChatPlayer.name = words[1];
+        m_ChatPlayer.message = words[2];
+        ChatPlayerManager.Instance.ChatPlayersList.Add(m_ChatPlayer);
         
         scrollUpdate();
     }
 
+    public void AddReplyText(string msg)
+    {
+        string[] words = msg.Split(':');
+        GameObject newReply=Instantiate<GameObject>(m_ReplyTextPrefab);
+        ChatPlayer cp = ChatPlayerManager.Instance.findChatPlayerById(words[0]);
+        
+        newReply.transform.SetParent(cp.gameObject.transform);
+        newReply.transform.localScale=new Vector3(1,1,1);
+        newReply.GetComponent<TextMeshProUGUI>().text=words[1]+" : "+words[2];
+        /*
+        var texts = newReply.GetComponentsInChildren<TextMeshProUGUI>();
+        foreach (var txtComponent in texts)
+        {
+            if (txtComponent.name == "ReplyText")
+            {
+                txtComponent.text = words[1]+" : "+words[2];
+            }
+        }
+        */
+
+        scrollUpdate();
+    }
 
     public void AddAIImage(List<KeywordDict> data)
     {
@@ -192,33 +222,5 @@ public class UI_Chat : MonoBehaviour
 
     }
 
-    public void AddReplyText(string msg)
-    {
-        string[] words = msg.Split(':');
-        GameObject newReply=Instantiate<GameObject>(m_ReplyTextPrefab);
-        
-        /*
-        newReply.transform.SetParent(AIParent.transform);
-        newReply.transform.localScale=new Vector3(1,1,1);
-        
-        var texts = newReply.GetComponentsInChildren<TextMeshProUGUI>();
-        foreach (var txtComponent in texts)
-        {
-            if (txtComponent.name == "NameText")
-            {
-                txtComponent.text = words[1];
-            }
-            else if (txtComponent.name == "MessageText")
-            {
-                txtComponent.text = words[2];
-            }
-        }
-
-        newReply.GetComponent<ChatPlayer>().id= words[0];
-        newReply.GetComponent<ChatPlayer>().name= words[1];
-        newReply.GetComponent<ChatPlayer>().message= words[2];
-        */
-        scrollUpdate();
-    }
 
 }

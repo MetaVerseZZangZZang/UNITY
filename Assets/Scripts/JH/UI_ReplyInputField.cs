@@ -40,7 +40,7 @@ public class UI_ReplyInputField : MonoBehaviour
             myinput.id = id;
             
             string json = JsonUtility.ToJson(myinput);
-            Server.Instance.InputFieldEmit(json);
+            Server.Instance.ReplyFieldEmit(json);
             Debug.Log(json);
         }
         
