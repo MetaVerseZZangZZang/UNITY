@@ -40,23 +40,33 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.CustomCaptureVideo
         private Rect _rect;
         private int i = 0;
         private WebCamTexture _webCameraTexture;
-        public RawImage RawImage;
-        public Vector2 CameraSize = new Vector2(640, 480);
+        //public RawImage RawImage;
+        public Vector2 CameraSize = new Vector2(1280, 960);
         public int CameraFPS = 15;
         private byte[] _shareData;
 
 
+        public RawImage TVPanel;
+
         // Use this for initialization
         private void Start()
         {
+            //Debug.Log(TVPanel.rectTransform.sizeDelta.x);
             LoadAssetData();
             if (CheckAppId())
             {
+                Debug.Log(_rect);
                 InitCameraDevice();
+                Debug.Log(_rect);
                 InitTexture();
+                _rect = new Rect(TVPanel.rectTransform.transform.position.x, TVPanel.rectTransform.transform.position.y, TVPanel.rectTransform.sizeDelta.x, TVPanel.rectTransform.sizeDelta.y);
+                Debug.Log(_rect);
                 InitEngine();
+                Debug.Log(_rect);
                 SetExternalVideoSource();
+                Debug.Log(_rect);
                 JoinChannel();
+                Debug.Log(_rect);
             }
         }
 
@@ -82,7 +92,8 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.CustomCaptureVideo
             IRtcEngine rtc = Agora.Rtc.RtcEngine.Instance;
             if (rtc != null)
             {
-                _texture.ReadPixels(_rect, 1920, 0);
+                
+                _texture.ReadPixels(_rect, 0, 0);
                 _texture.Apply();
 
 #if UNITY_2018_1_OR_NEWER
@@ -109,7 +120,7 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.CustomCaptureVideo
                 externalVideoFrame.rotation = 180;
                 externalVideoFrame.timestamp = System.DateTime.Now.Ticks / 10000;
                 var ret = rtc.PushVideoFrame(externalVideoFrame);
-                Debug.Log("PushVideoFrame ret = " + ret + "time: " + System.DateTime.Now.Millisecond);
+                //Debug.Log("PushVideoFrame ret = " + ret + "time: " + System.DateTime.Now.Millisecond);
             }
         }
 
@@ -146,7 +157,9 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.CustomCaptureVideo
 
         private void InitTexture()
         {
-            _rect = new UnityEngine.Rect(0, 0, Screen.width, Screen.height);
+            
+            //_rect = new Rect(0,0 , TVPanel.rectTransform.sizeDelta.x, TVPanel.rectTransform.sizeDelta.y);
+            _rect.center = new Vector2(0,0);
             _texture = new Texture2D((int)_rect.width, (int)_rect.height, TextureFormat.RGBA32, false);
         }
 
@@ -154,7 +167,7 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.CustomCaptureVideo
         {
             WebCamDevice[] devices = WebCamTexture.devices;
             _webCameraTexture = new WebCamTexture(devices[0].name, (int)CameraSize.x, (int)CameraSize.y, CameraFPS);
-            RawImage.texture = _webCameraTexture;
+            //RawImage.texture = _webCameraTexture;
             _webCameraTexture.Play();
         }
 
