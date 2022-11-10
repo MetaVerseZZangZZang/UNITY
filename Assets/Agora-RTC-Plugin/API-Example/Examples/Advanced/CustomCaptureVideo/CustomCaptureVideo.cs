@@ -59,7 +59,6 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.CustomCaptureVideo
                 InitCameraDevice();
                 Debug.Log(_rect);
                 InitTexture();
-                
                 Debug.Log(_rect);
                 InitEngine();
                 Debug.Log(_rect);
@@ -72,7 +71,7 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.CustomCaptureVideo
 
         private void Update()
         {
-            PermissionHelper.RequestMicrophontPermission();
+            
             StartCoroutine(ShareScreen());
         }
 
@@ -157,9 +156,7 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.CustomCaptureVideo
 
         private void InitTexture()
         {
-            
-            //_rect = new Rect(0,0 , TVPanel.rectTransform.sizeDelta.x, TVPanel.rectTransform.sizeDelta.y);
-            _rect.center = new Vector2(0,0);
+            _rect = new Rect(0,0 ,TVPanel.rectTransform.sizeDelta.x, TVPanel.rectTransform.sizeDelta.y);
             _texture = new Texture2D((int)_rect.width, (int)_rect.height, TextureFormat.RGBA32, false);
         }
 

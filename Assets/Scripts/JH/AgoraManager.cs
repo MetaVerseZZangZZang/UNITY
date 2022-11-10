@@ -7,6 +7,7 @@ using ClipperLib;
 using System.Runtime.Remoting.Lifetime;
 using ExitGames.Client.Photon.StructWrapping;
 using Photon.Pun;
+using Agora.Util;
 
 
 #if (UNITY_2018_3_OR_NEWER && UNITY_ANDROID)
@@ -61,6 +62,7 @@ public class AgoraManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //PermissionHelper.RequestMicrophontPermission();
         CheckPermissions();
     }
 
