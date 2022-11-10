@@ -1474,8 +1474,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameList: []
   playerItemList: []
-  playerItemPrefab: {fileID: 6645650848602108532, guid: ab2a630112c5147439a9bb9220bc22a9,
-    type: 3}
 --- !u!114 &99675122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3655,61 +3653,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 437886911}
   m_CullTransparentMesh: 0
---- !u!1 &439892849
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 439892850}
-  - component: {fileID: 439892851}
-  m_Layer: 5
-  m_Name: InputFields
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &439892850
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 439892849}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 5816339491464317494}
-  - {fileID: 8889728786690246435}
-  m_Father: {fileID: 2409413152277800714}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.6999512, y: -448.50003}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &439892851
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 439892849}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd28985155ab8624d8e02716943d651a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myName: {fileID: 612602041}
-  myInputField: {fileID: 5816339491464317496}
-  replyInputField: {fileID: 8889728786690246432}
-  id: 
 --- !u!1 &443019489
 GameObject:
   m_ObjectHideFlags: 0
@@ -6030,7 +5973,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2065408804}
-  m_RootOrder: 9
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -6332,7 +6275,7 @@ RectTransform:
   - {fileID: 1269523781}
   - {fileID: 1991909212}
   m_Father: {fileID: 2065408804}
-  m_RootOrder: 10
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -13274,6 +13217,8 @@ RectTransform:
   - {fileID: 1616450614}
   - {fileID: 157979364}
   - {fileID: 2409413152277800714}
+  - {fileID: 5816339491464317494}
+  - {fileID: 8889728786690246435}
   - {fileID: 904751122}
   - {fileID: 983919553}
   m_Father: {fileID: 3746751487539468822}
@@ -13834,8 +13779,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 439892851}
-        m_TargetAssemblyTypeName: UI_ChatInputField, Assembly-CSharp
+      - m_Target: {fileID: 8889728786690246439}
+        m_TargetAssemblyTypeName: UI_ReplyInputField, Assembly-CSharp
         m_MethodName: sendReplyBtn
         m_Mode: 1
         m_Arguments:
@@ -16332,7 +16277,6 @@ RectTransform:
   m_Children:
   - {fileID: 9155909390434288906}
   - {fileID: 2409413153610672583}
-  - {fileID: 439892850}
   m_Father: {fileID: 2065408804}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -17087,13 +17031,18 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 439892850}
+    m_TransformParent: {fileID: 2065408804}
     m_Modifications:
     - target: {fileID: 523921234422385327, guid: a3f30846bb173af419035e1d744f6652,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 439892851}
+      objectReference: {fileID: 5816339491464317499}
+    - target: {fileID: 523921234422385327, guid: a3f30846bb173af419035e1d744f6652,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: sendChatBtn
+      objectReference: {fileID: 0}
     - target: {fileID: 8889728785679704420, guid: a3f30846bb173af419035e1d744f6652,
         type: 3}
       propertyPath: m_Pivot.x
@@ -17107,7 +17056,7 @@ PrefabInstance:
     - target: {fileID: 8889728785679704420, guid: a3f30846bb173af419035e1d744f6652,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8889728785679704420, guid: a3f30846bb173af419035e1d744f6652,
         type: 3}
@@ -17177,12 +17126,12 @@ PrefabInstance:
     - target: {fileID: 8889728785679704420, guid: a3f30846bb173af419035e1d744f6652,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 49.30002
+      value: 1550.0001
       objectReference: {fileID: 0}
     - target: {fileID: 8889728785679704420, guid: a3f30846bb173af419035e1d744f6652,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -49.49994
+      value: -998
       objectReference: {fileID: 0}
     - target: {fileID: 8889728785679704420, guid: a3f30846bb173af419035e1d744f6652,
         type: 3}
@@ -23003,18 +22952,19 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 3164166627827542866}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5816339491464317496 stripped
+--- !u!114 &5816339491464317499
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8889728785679704423, guid: a3f30846bb173af419035e1d744f6652,
-    type: 3}
-  m_PrefabInstance: {fileID: 3164166627827542866}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1498668390}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
+  m_Script: {fileID: 11500000, guid: fd28985155ab8624d8e02716943d651a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myName: {fileID: 612602041}
 --- !u!114 &5871610269876481027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25354,6 +25304,7 @@ GameObject:
   - component: {fileID: 8889728786690246438}
   - component: {fileID: 8889728786690246433}
   - component: {fileID: 8889728786690246432}
+  - component: {fileID: 8889728786690246439}
   m_Layer: 5
   m_Name: UI_ReplyInputField
   m_TagString: Untagged
@@ -25376,12 +25327,12 @@ RectTransform:
   - {fileID: 8889728785701375061}
   - {fileID: 523921235432418537}
   - {fileID: 625815207}
-  m_Father: {fileID: 439892850}
-  m_RootOrder: 1
+  m_Father: {fileID: 2065408804}
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 49.30002, y: -49.49994}
+  m_AnchoredPosition: {x: 1550.0001, y: -998}
   m_SizeDelta: {x: 642, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8889728786690246438
@@ -25392,6 +25343,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8889728786690246434}
   m_CullTransparentMesh: 0
+--- !u!114 &8889728786690246439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8889728786690246434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14ea7928c85a79b4eafe3b1887436e38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
 --- !u!114 &8889728787490120212
 MonoBehaviour:
   m_ObjectHideFlags: 0

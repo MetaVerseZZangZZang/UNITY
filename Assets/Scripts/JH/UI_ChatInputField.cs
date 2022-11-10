@@ -10,9 +10,7 @@ public class UI_ChatInputField : MonoBehaviour
     public static UI_ChatInputField Instance;
     
     public TextMeshProUGUI myName;
-    public TMP_InputField  myInputField;
-    public TMP_InputField  replyInputField;
-    public string id;
+    private TMP_InputField  myInputField;
 
     public void Awake()
     {
@@ -22,6 +20,18 @@ public class UI_ChatInputField : MonoBehaviour
     void Start()
     {
         myName.text = UI_StartPanel.Instance.userName;
+        myInputField = GetComponent<TMP_InputField>();
+        Show();
+    }
+
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+    }
+    
+    public void Show()
+    {
+        gameObject.SetActive(true);
     }
 
     // Start is called before the first frame update
@@ -40,23 +50,4 @@ public class UI_ChatInputField : MonoBehaviour
         
         myInputField.text = "";
     }
-
-    public void sendReplyBtn()
-    {
-        if (replyInputField.text.Length > 0)
-        {
-            ReplyInputField myinput = new ReplyInputField();
-            //myinput.nickname = Server.Instance.sid;
-            myinput.context = replyInputField.text;
-            myinput.id = id;
-            
-            string json = JsonUtility.ToJson(myinput);
-            Server.Instance.InputFieldEmit(json);
-            Debug.Log(json);
-        }
-        
-        replyInputField.text = "";
-    }
-    
-
 }

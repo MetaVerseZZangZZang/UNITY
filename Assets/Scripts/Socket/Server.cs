@@ -28,6 +28,7 @@ public class Server : MonoBehaviour
     private List<Action> m_SummaryDownload = new List<Action>();
     private List<Action> m_NetworkGraphDownload = new List<Action>();
     private List<Action> m_FileUpload = new List<Action>();
+    private List<Action> m_ReplyActions = new List<Action>();
 
     private List<ChatPlayer> ChatPlayerList = new List<ChatPlayer>();
 
@@ -157,6 +158,26 @@ public class Server : MonoBehaviour
                 });  
 
             });
+            
+            m_Socket.On("receiveReply", (response) =>
+            {
+                m_ReplyActions.Add(() =>
+                {
+                    string text = response.GetValue<string>();
+                    var spilttedText = text.Split("/|*^");
+                    if (spilttedText.Length >=3)
+                    {
+                        
+                        string receive_id=spilttedText[0];
+                        string receive_Name = spilttedText[1];
+                        string receieve_Word = spilttedText.Length > 2 ? spilttedText[2] : string.Empty;
+                        Debug.Log($"{receive_id}:{receive_Name}: {receieve_Word}");
+                        UI_Chat.Instance.AddReplyText($"{receive_id}:{receive_Name}: {receieve_Word}");
+
+                    }
+                });  
+
+            });
 
 
         });
@@ -243,9 +264,18 @@ public class Server : MonoBehaviour
         {
             a.Invoke();
         }
-
+        
         m_FileUpload.Clear();
-        #endregion 
+        
+        foreach (var a in m_ReplyActions)
+        {
+            a.Invoke();
+        }
+
+        m_ReplyActions.Clear();
+
+        #endregion
+
         //if (Input.GetKeyDown(KeyCode.Z))
         //{
         //    Debug.LogError("녹화 시작");

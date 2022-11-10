@@ -19,8 +19,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public List<string> nameList = new List <string>();
     public List<PlayerItem> playerItemList = new List<PlayerItem>();
-
-    public PlayerItem playerItemPrefab;
+    
     
     
     void Awake()
@@ -62,9 +61,9 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        //GameObject player=PhotonNetwork.Instantiate("Prefabs/UI_Character", Vector3.zero, Quaternion.identity);
-        UpdatePlayerList();
-        foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
+        PhotonNetwork.Instantiate("Prefabs/Player", Vector3.zero, Quaternion.identity);
+        //UpdatePlayerList();
+        foreach (Player p in PhotonNetwork.PlayerList)
         {
             //nameList.Add(p.NickName);
             
@@ -92,7 +91,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             return;
         }
         
-        foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
+        foreach (Player p in PhotonNetwork.PlayerList)
         {
             //nameList.Remove(p.NickName);
             UI_PlayerSlot.Instance.DelPlayerSlot(p.NickName);
@@ -105,21 +104,22 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         //MainUIManager.Instance.RoomName.text = "Welcome to\n"+room.Name;
     }
 
-    public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
+    public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         //ChatRPC("<color=yellow>" + newPlayer.NickName + "님이 참가하셨습니다</color>");
         //nameList.Add(newPlayer.NickName);
-        UpdatePlayerList();
+        //UpdatePlayerList();
         UI_PlayerSlot.Instance.AddPlayerSlot(newPlayer.NickName);
     }
 
-    public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
+    public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         //nameList.Remove(otherPlayer.NickName);
-        UpdatePlayerList();
+        //UpdatePlayerList();
         UI_PlayerSlot.Instance.DelPlayerSlot(otherPlayer.NickName);
     }
 
+    /*
     void UpdatePlayerList()
     {
         foreach (PlayerItem item in playerItemList)
@@ -137,17 +137,18 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         foreach (KeyValuePair<int, Player> player in PhotonNetwork.CurrentRoom.Players)
         {
             GameObject newPlayerItem = PhotonNetwork.Instantiate("Prefabs/Player", Vector3.zero, Quaternion.identity);
-            /*
+            
             if (player.Value == PhotonNetwork.LocalPlayer)
             {
                 newPlayerItem.ApplyLocalChanges();
             }
-            */
+            
             newPlayerItem.transform.localScale = new Vector3(1, 1, 1);
             PlayerItem newPlayer = newPlayerItem.GetComponent<PlayerItem>();
             newPlayer.SetPlayerInfo(player.Value);
             playerItemList.Add(newPlayer);
         }
     }
+    */
 }
 

@@ -12,6 +12,7 @@ public class UI_Chat : MonoBehaviour
     public GameObject m_AIImagePrefab;
     public GameObject m_AIGraphPrefab;
     public GameObject m_AITextPrefab;
+    public GameObject m_ReplyTextPrefab;
     
     public GameObject AIParent;
     public static UI_Chat Instance;
@@ -133,7 +134,6 @@ public class UI_Chat : MonoBehaviour
         var rawImage = newObject.GetComponentInChildren<RawImage>();
         
         StartCoroutine(ImageManager.Instance.GetTexture(rawImage, url));
-        // http://192.168.0.103:5100/static/network/network_XucQRD7ywOalsJKCAAAB_1.png
     }
 
     public void AddAISummary(string summaryText)
@@ -190,7 +190,35 @@ public class UI_Chat : MonoBehaviour
 
         scrollUpdate();
 
-    }   
+    }
+
+    public void AddReplyText(string msg)
+    {
+        string[] words = msg.Split(':');
+        GameObject newReply=Instantiate<GameObject>(m_ReplyTextPrefab);
+        
+        /*
+        newReply.transform.SetParent(AIParent.transform);
+        newReply.transform.localScale=new Vector3(1,1,1);
+        
+        var texts = newReply.GetComponentsInChildren<TextMeshProUGUI>();
+        foreach (var txtComponent in texts)
+        {
+            if (txtComponent.name == "NameText")
+            {
+                txtComponent.text = words[1];
+            }
+            else if (txtComponent.name == "MessageText")
+            {
+                txtComponent.text = words[2];
+            }
+        }
+
+        newReply.GetComponent<ChatPlayer>().id= words[0];
+        newReply.GetComponent<ChatPlayer>().name= words[1];
+        newReply.GetComponent<ChatPlayer>().message= words[2];
+        */
+        scrollUpdate();
+    }
 
 }
-
