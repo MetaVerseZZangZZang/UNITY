@@ -10,29 +10,35 @@ public class UI_Heart : MonoBehaviour
     public Sprite Heart_filled;
     public Sprite Heart_unfilled;
     
+    
     public void HeartClick(int num)
     {
-        
-        for (int i = 0; i < num; ++i)
+        if (m_ChatPlayer.heart == num)
         {
-            this.transform.GetChild(i).GetComponent<Image>().sprite = Heart_filled;
-            m_ChatPlayer.heart = i;
-            
+            for (int i = 0; i < this.transform.childCount; ++i)
+            {
+                this.transform.GetChild(i).GetComponent<Image>().sprite = Heart_unfilled;
+            }
+            m_ChatPlayer.heart = 0;
         }
 
-        for (int i = num; i < this.transform.childCount; ++i)
+        else
         {
-            this.transform.GetChild(i).GetComponent<Image>().sprite = Heart_unfilled;
-            m_ChatPlayer.heart = i;
+            for (int i = 0; i < num; ++i)
+            {
+                this.transform.GetChild(i).GetComponent<Image>().sprite = Heart_filled;
+            }
+
+            for (int i = num; i < this.transform.childCount; ++i)
+            {
+                this.transform.GetChild(i).GetComponent<Image>().sprite = Heart_unfilled;
+            }
+            m_ChatPlayer.heart = num;
         }
 
-
-        Debug.Log(m_ChatPlayer.id);
         string json = JsonUtility.ToJson(m_ChatPlayer);
         print(json);
         Server.Instance.HeartEmit(json);
-        
-        
-
     }
+
 }

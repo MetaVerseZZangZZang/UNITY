@@ -12,7 +12,7 @@ using Unity.RenderStreaming;
 public class Server : MonoBehaviour
 {
     public static Server Instance;
-    private string HOST = "http://192.168.0.21:5100";
+    private string HOST = "http://192.168.0.101:5100";
     
     private SocketIOUnity m_Socket;
     private bool m_Connected = false;
@@ -178,6 +178,10 @@ public class Server : MonoBehaviour
         m_Socket.Emit("getInputField",text);
     }
 
+    public void ReplyFieldEmit(string text)
+    {
+        m_Socket.Emit("getReplyInputField",text);
+    }
     
     public void ChatEnd()
     {
@@ -305,6 +309,13 @@ public class InputFieldText
 
 }
 
+public class ReplyInputField
+{
+    public string id;
+    public string context;
+    public string type = "reply";
+
+}
 public class UrlKeyword
 {
     public string imgURL;

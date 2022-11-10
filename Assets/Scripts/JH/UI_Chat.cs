@@ -16,7 +16,7 @@ public class UI_Chat : MonoBehaviour
     public GameObject AIParent;
     public static UI_Chat Instance;
     public GameObject fileImage;
-    
+
     private void Awake()
     {
         Instance = this;
@@ -25,7 +25,9 @@ public class UI_Chat : MonoBehaviour
         AIParent.SetActive(true);
 
     }
+
     
+
     private void scrollUpdate()
     {
         AIParent.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, AIParent.GetComponent<RectTransform>().anchoredPosition.y + 100);
