@@ -51,6 +51,7 @@ public class UnitySendMessageDispatcher
 
 public class WebViewObject : MonoBehaviour
 {
+    public static WebViewObject Instance;
     Callback onJS;
     Callback onError;
     Callback onHttpError;
@@ -214,6 +215,7 @@ public class WebViewObject : MonoBehaviour
     {
         tx = GameObject.Find("TVPanel").GetComponent<RawImage>();
         print(tx);
+        Instance = this;
     }
 
     public bool IsKeyboardVisible

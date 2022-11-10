@@ -34,7 +34,7 @@ public class WebViewScript : MonoBehaviour
 
     public void StartWebView()
     {
-        string strUrl = "http://www.naver.com";
+        string strUrl = "http://www.youtube.com";
 
         webViewObject =
         (new GameObject("WebViewObject")).AddComponent<WebViewObject>();

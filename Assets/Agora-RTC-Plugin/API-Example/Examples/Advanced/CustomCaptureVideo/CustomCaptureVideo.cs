@@ -59,7 +59,7 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.CustomCaptureVideo
                 InitCameraDevice();
                 Debug.Log(_rect);
                 InitTexture();
-                _rect = new Rect(TVPanel.rectTransform.transform.position.x, TVPanel.rectTransform.transform.position.y, TVPanel.rectTransform.sizeDelta.x, TVPanel.rectTransform.sizeDelta.y);
+                
                 Debug.Log(_rect);
                 InitEngine();
                 Debug.Log(_rect);
