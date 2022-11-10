@@ -6,7 +6,7 @@ using Photon.Realtime;
 using UnityEngine.UI;
 //using Cinemachine;
 
-public class Player_SM : MonoBehaviour, IPunObservable
+public class Player : MonoBehaviour, IPunObservable
 {
     public Rigidbody2D rb;
     public Animator anim;
