@@ -7,7 +7,7 @@ using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerItem : MonoBehaviour, IPunObservable
+public class PlayerItem : MonoBehaviourPunCallbacks
 {
     public Text playerName;
     public SpriteRenderer shirts;
@@ -27,26 +27,28 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     
     private Player player;
 
-    void Awake()
-    {
-        playerName.text = pv.IsMine ? PhotonNetwork.NickName : pv.Owner.NickName;
-        playerName.color = pv.IsMine ? Color.green : Color.red;
-    }
-    
+
     void Start()
     {
         animsList.Add(PlayerAnim);
         animsList.Add(ShirtsAnim);
+        
+        //playerName.text = pv.IsMine ? PhotonNetwork.NickName : pv.Owner.NickName;
+        //playerName.color = pv.IsMine ? Color.green : Color.red;
     }
-    /*
+
+    public void SetItems()
+    {
+        playerProperties["shirts"] = Array.IndexOf(shirtsSprites, UI_Character.Instance.SelectedShirts);
+        PhotonNetwork.SetCustomProperties(playerProperties);
+        UpdatePlayerItem(player);
+    }
+
     public void SetPlayerInfo(Player _player)
     {
-        playerName.text = _player.NickName;
-        playerName.color = pv.IsMine ? Color.green : Color.red;
         player = _player;
-        //playerProperties["shirts"] = Array.IndexOf(shirtsSprites, UI_Character.Instance.SelectedShirts);
-        //PhotonNetwork.SetCustomProperties(playerProperties);
-        //UpdatePlayerItem(player);
+        playerName.text = _player.NickName;
+        SetItems();
     }
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer,ExitGames.Client.Photon.Hashtable playerProperties)
@@ -69,12 +71,11 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             playerProperties["shirts"] = 0;
         }
     }
-*/
+
     //public GameObject sayingObject;
     void Update()
     {
-        
-        if (pv.IsMine)
+        if (player.NickName==UI_StartPanel.Instance.userName)
         {
             float axis_X = Input.GetAxisRaw("Horizontal");
             float axis_Y = Input.GetAxisRaw("Vertical");
@@ -157,7 +158,6 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         else
         {
             curPos = (Vector3)stream.ReceiveNext();
-
         }
     }
 

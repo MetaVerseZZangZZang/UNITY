@@ -23,6 +23,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public List<string> nameList = new List <string>();
     public List<PlayerItem> playerItemList = new List<PlayerItem>();
+    public PlayerItem m_player;
     
     void Awake()
     {
@@ -74,8 +75,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        PhotonNetwork.Instantiate("Prefabs/Player", Vector3.zero, Quaternion.identity);
-;        //UpdatePlayerList();
+        //PhotonNetwork.Instantiate("Prefabs/Player", Vector3.zero, Quaternion.identity);
+;       UpdatePlayerList();
         foreach (Player p in PhotonNetwork.PlayerList)
         {
             //nameList.Add(p.NickName);
@@ -84,8 +85,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         }
 
         Hashtable CP = PhotonNetwork.CurrentRoom.CustomProperties;
-        Debug.Log(CP["Map"]);
-        
         UI_MainPanel.Instance.Show((int)CP["Map"]);
     }
 
@@ -119,14 +118,14 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         //ChatRPC("<color=yellow>" + newPlayer.NickName + "님이 참가하셨습니다</color>");
         //nameList.Add(newPlayer.NickName);
-        //UpdatePlayerList();
+        UpdatePlayerList();
         UI_PlayerSlot.Instance.AddPlayerSlot(newPlayer.NickName);
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         //nameList.Remove(otherPlayer.NickName);
-        //UpdatePlayerList();
+        UpdatePlayerList();
         UI_PlayerSlot.Instance.DelPlayerSlot(otherPlayer.NickName);
     }
 
@@ -146,13 +145,12 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
         foreach (KeyValuePair<int, Player> player in PhotonNetwork.CurrentRoom.Players)
         {
-            GameObject newPlayerItem = PhotonNetwork.Instantiate("Prefabs/Player", Vector3.zero, Quaternion.identity);
-            
-            
+            Debug.Log(player);
+            PlayerItem newPlayerItem = Instantiate(m_player, Vector3.zero, Quaternion.identity);
+            newPlayerItem.SetPlayerInfo(player.Value);
             newPlayerItem.transform.localScale = new Vector3(1, 1, 1);
-            PlayerItem newPlayer = newPlayerItem.GetComponent<PlayerItem>();
-            //newPlayer.SetPlayerInfo(player.Value);
-            playerItemList.Add(newPlayer);
+            //PlayerItem newPlayer = newPlayerItem.GetComponent<PlayerItem>();
+            playerItemList.Add(newPlayerItem);
         }
     }
     
