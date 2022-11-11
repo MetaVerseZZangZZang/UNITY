@@ -85,13 +85,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
         Hashtable CP = PhotonNetwork.CurrentRoom.CustomProperties;
         Debug.Log(CP["Map"]);
-
-        /*
-        ChatManager.Instance.Login(PhotonNetwork.LocalPlayer.NickName);
         
-        if (PhotonNetwork.LocalPlayer.NickName == PhotonNetwork.MasterClient.NickName)
-            ChatUIManager.Instance.VideoCall();
-        */
+        UI_MainPanel.Instance.Show((int)CP["Map"]);
     }
 
     public void LeaveRoom()

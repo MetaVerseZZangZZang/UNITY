@@ -54,6 +54,6 @@ public class UI_CreateMapPanel : MonoBehaviour
         PhotonManager.Instance.CreateRoom();
         Hide();
         UI_LobbyPanel.Instance.Hide();
-        UI_MainPanel.Instance.Show();
+        //UI_MainPanel.Instance.Show();
     }
 }

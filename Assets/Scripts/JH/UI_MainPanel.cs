@@ -35,7 +35,7 @@ public class UI_MainPanel : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
-    public void Show()
+    public void Show(int mapnum)
     {
         NetStart();
         this.gameObject.SetActive(true);
