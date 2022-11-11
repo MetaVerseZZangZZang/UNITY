@@ -3,14 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.NetworkInformation;
-using ExitGames.Client.Photon;
 //using ChatProto;
 using Photon.Pun;
 using Photon.Pun.Demo.Cockpit;
 using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
-using Hashtable = ExitGames.Client.Photon.Hashtable;
+
 public class PhotonManager : MonoBehaviourPunCallbacks
 {
     public static PhotonManager Instance;
@@ -35,14 +34,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
-        RoomOptions roomOption = new RoomOptions();
-        roomOption.MaxPlayers = 6;
-        roomOption.BroadcastPropsChangeToAll = true;
-        roomOption.CustomRoomProperties = new Hashtable() { { "Map", 1 } };
-        string roomname=UI_CreateMapPanel.Instance.RoomNameInputField.text == ""
-            ? "Room" + UnityEngine.Random.Range(0, 100)
-            : UI_CreateMapPanel.Instance.RoomNameInputField.text;
-        PhotonNetwork.CreateRoom(roomname, roomOption, null);
+        PhotonNetwork.JoinLobby();
+
         PhotonNetwork.LocalPlayer.NickName = UI_StartPanel.Instance.nameInput.text;
         
     }
@@ -68,10 +61,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         PhotonNetwork.Instantiate("Prefabs/Player", Vector3.zero, Quaternion.identity);
-        //UpdatePlayerList();
-        Hashtable cp = PhotonNetwork.CurrentRoom.CustomProperties;
-        Debug.Log("MAPPP: "+ cp["Map"]);
-        
+;        //UpdatePlayerList();
         foreach (Player p in PhotonNetwork.PlayerList)
         {
             //nameList.Add(p.NickName);
@@ -107,7 +97,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         }
     }
     
-    
     public void roomSelect(RoomInfo room)
     {
         PhotonNetwork.JoinRoom(room.Name);
@@ -129,7 +118,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         UI_PlayerSlot.Instance.DelPlayerSlot(otherPlayer.NickName);
     }
 
-    /*
+    
     void UpdatePlayerList()
     {
         foreach (PlayerItem item in playerItemList)
@@ -154,6 +143,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             playerItemList.Add(newPlayer);
         }
     }
-    */
+    
 }
 

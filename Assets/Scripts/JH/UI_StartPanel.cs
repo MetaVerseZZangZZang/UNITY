@@ -37,7 +37,7 @@ public class UI_StartPanel : MonoBehaviour
         {
             Hide();
             UI_LobbyPanel.Instance.Show();
-            //PhotonManager.Instance.Connect();
+            PhotonManager.Instance.Connect();
         }
 
     }
