@@ -7,7 +7,7 @@ using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerItem : MonoBehaviourPunCallbacks
+public class PlayerItem : MonoBehaviour, IPunObservable
 {
     public Text playerName;
     public SpriteRenderer shirts;
@@ -42,7 +42,7 @@ public class PlayerItem : MonoBehaviourPunCallbacks
         //UpdatePlayerItem(player);
     }
 
-
+/*
     public override void OnPlayerPropertiesUpdate(Player targetPlayer,ExitGames.Client.Photon.Hashtable playerProperties)
     {
         if (player == targetPlayer)
@@ -63,7 +63,7 @@ public class PlayerItem : MonoBehaviourPunCallbacks
             playerProperties["shirts"] = 0;
         }
     }
-
+*/
     //public GameObject sayingObject;
     void Update()
     {
@@ -172,4 +172,5 @@ public class PlayerItem : MonoBehaviourPunCallbacks
             col.isTrigger = false;
         }
     }
+    
 }
