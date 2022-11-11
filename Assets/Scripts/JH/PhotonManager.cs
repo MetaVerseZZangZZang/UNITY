@@ -60,7 +60,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        UpdatePlayerList();
+        PhotonNetwork.Instantiate("Prefabs/Player", Vector3.zero, Quaternion.identity);
+;        //UpdatePlayerList();
         foreach (Player p in PhotonNetwork.PlayerList)
         {
             //nameList.Add(p.NickName);
@@ -106,14 +107,14 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         //ChatRPC("<color=yellow>" + newPlayer.NickName + "님이 참가하셨습니다</color>");
         //nameList.Add(newPlayer.NickName);
-        UpdatePlayerList();
+        //UpdatePlayerList();
         UI_PlayerSlot.Instance.AddPlayerSlot(newPlayer.NickName);
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         //nameList.Remove(otherPlayer.NickName);
-        UpdatePlayerList();
+        //UpdatePlayerList();
         UI_PlayerSlot.Instance.DelPlayerSlot(otherPlayer.NickName);
     }
 
@@ -138,7 +139,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             
             newPlayerItem.transform.localScale = new Vector3(1, 1, 1);
             PlayerItem newPlayer = newPlayerItem.GetComponent<PlayerItem>();
-            newPlayer.SetPlayerInfo(player.Value);
+            //newPlayer.SetPlayerInfo(player.Value);
             playerItemList.Add(newPlayer);
         }
     }

@@ -27,11 +27,18 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     
     private Player player;
 
+    void Awake()
+    {
+        playerName.text = pv.IsMine ? PhotonNetwork.NickName : pv.Owner.NickName;
+        playerName.color = pv.IsMine ? Color.green : Color.red;
+    }
+    
     void Start()
     {
         animsList.Add(PlayerAnim);
         animsList.Add(ShirtsAnim);
     }
+    /*
     public void SetPlayerInfo(Player _player)
     {
         playerName.text = _player.NickName;
@@ -42,7 +49,6 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         //UpdatePlayerItem(player);
     }
 
-/*
     public override void OnPlayerPropertiesUpdate(Player targetPlayer,ExitGames.Client.Photon.Hashtable playerProperties)
     {
         if (player == targetPlayer)
