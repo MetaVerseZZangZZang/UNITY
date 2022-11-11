@@ -39,11 +39,11 @@ public class UI_MainPanel : MonoBehaviour
     {
         NetStart();
         this.gameObject.SetActive(true);
-        BackGround.transform.GetChild(UI_CreateMapPanel.Instance.mapNum).gameObject.SetActive(true);
+        BackGround.transform.GetChild(mapnum).gameObject.SetActive(true);
         
         for (int i = 0; i < 4; i++)
         {
-            if (i == UI_CreateMapPanel.Instance.mapNum)
+            if (i == mapnum)
                 continue;
             BackGround.transform.GetChild(i).gameObject.SetActive(false);
         }
