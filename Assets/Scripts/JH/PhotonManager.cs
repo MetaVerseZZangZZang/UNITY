@@ -33,7 +33,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LocalPlayer.NickName = UI_StartPanel.Instance.userName;
     }
 
-    public override void OnConnectedToMaster()
+    public void CreateRoom()
     {
         RoomOptions roomOption = new RoomOptions();
         roomOption.MaxPlayers = 6;
@@ -42,7 +42,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         string roomname=UI_CreateMapPanel.Instance.RoomNameInputField.text == ""
             ? "Room" + UnityEngine.Random.Range(0, 100)
             : UI_CreateMapPanel.Instance.RoomNameInputField.text;
-        PhotonNetwork.CreateRoom(roomname, roomOption, null);
+        PhotonNetwork.JoinOrCreateRoom(roomname, roomOption, null);
         PhotonNetwork.LocalPlayer.NickName = UI_StartPanel.Instance.nameInput.text;
         
     }
