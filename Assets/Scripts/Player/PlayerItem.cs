@@ -37,6 +37,14 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     {
         animsList.Add(PlayerAnim);
         animsList.Add(ShirtsAnim);
+
+        Debug.Log(UI_Character.Instance.SelectedShirts);
+        if (pv.IsMine)
+        {
+            Debug.Log("Before "+shirts.sprite );
+            shirts.sprite = UI_Character.Instance.SelectedShirts;
+            Debug.Log("After "+shirts.sprite );
+        }
     }
     /*
     public void SetPlayerInfo(Player _player)

@@ -76,8 +76,7 @@ public class UI_Character : MonoBehaviour
         if (item.tag == "Hair")
         {
             HairParent.GetComponent<Image>().sprite = itemSprite;
-
-            SelectedShirts = itemSprite;
+            SelectedHair = itemSprite;
         }
         
     }
