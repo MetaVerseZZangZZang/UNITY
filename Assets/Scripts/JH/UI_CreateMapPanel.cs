@@ -10,7 +10,15 @@ public class UI_CreateMapPanel : MonoBehaviour
     public static UI_CreateMapPanel Instance;
 
     public InputField RoomNameInputField;
+    public Toggle map_0;
+    public Toggle map_1;
+    public Toggle map_2;
+    public Toggle map_3;
+    
+    public int mapNum;
 
+    
+    
     private void Awake()
     {
         Instance = this;
@@ -28,9 +36,22 @@ public class UI_CreateMapPanel : MonoBehaviour
         this.gameObject.SetActive(true);
     }
 
+    
+    public void onRadio()
+    {
+        if (map_0.isOn)
+            mapNum = 0;
+        else if (map_1.isOn)
+            mapNum = 1;
+        else if (map_2.isOn)
+            mapNum = 2;
+        else if (map_3.isOn)
+            mapNum = 3;
+    }
+    
     public void CreateRoom()
     {
-        PhotonNetwork.CreateRoom(RoomNameInputField.text == "" ? "Room" + Random.Range(0, 100) : RoomNameInputField.text, new RoomOptions { MaxPlayers = 6,BroadcastPropsChangeToAll = true});
+        PhotonManager.Instance.CreateRoom();
         Hide();
         UI_LobbyPanel.Instance.Hide();
         UI_MainPanel.Instance.Show();

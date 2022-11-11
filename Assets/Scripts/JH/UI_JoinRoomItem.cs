@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
@@ -13,11 +14,11 @@ public class UI_JoinRoomItem : MonoBehaviour
     public Text m_roomNameText;
     public Text m_playerCountText;
     public Text m_maxCountText;
-    
+
+
     public void Init(RoomInfo data)
     {
         m_Data = data;
-
         Set();
     }
 
@@ -27,11 +28,12 @@ public class UI_JoinRoomItem : MonoBehaviour
         {
             return;
         }
-        m_roomNameText.text = m_Data.Name.ToString();
+        m_roomNameText.text = m_Data.Name;
         m_playerCountText.text = m_Data.PlayerCount.ToString();
-        m_maxCountText.text = "/"+m_Data.MaxPlayers.ToString();
+        m_maxCountText.text = "/"+m_Data.MaxPlayers;
         
     }
+
 
     public void onClick()
     {

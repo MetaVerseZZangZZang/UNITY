@@ -3,12 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Security.Policy;
+using ExitGames.Client.Photon;
 //using ChatProto;
 using Photon.Pun;
 using Photon.Pun.Demo.Cockpit;
 using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
+using Hashtable=ExitGames.Client.Photon.Hashtable;
+using Random = UnityEngine.Random;
 
 public class PhotonManager : MonoBehaviourPunCallbacks
 {
@@ -19,7 +23,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public List<string> nameList = new List <string>();
     public List<PlayerItem> playerItemList = new List<PlayerItem>();
-
     
     void Awake()
     {
@@ -32,6 +35,17 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LocalPlayer.NickName = UI_StartPanel.Instance.userName;
     }
 
+    public void CreateRoom()
+    {
+        string roomname = UI_CreateMapPanel.Instance.RoomNameInputField.text== "" ? "Room" + Random.Range(0, 100) : UI_CreateMapPanel.Instance.RoomNameInputField.text;
+        RoomOptions roomOptions = new RoomOptions();
+        roomOptions.MaxPlayers = 6;
+        roomOptions.CustomRoomProperties = new Hashtable() { { "Map",UI_CreateMapPanel.Instance.mapNum } };
+        roomOptions.BroadcastPropsChangeToAll = true;
+        PhotonNetwork.CreateRoom(roomname == "" ? "Room" + Random.Range(0, 100) : roomname, roomOptions);
+
+    }
+    
     public override void OnConnectedToMaster()
     {
         PhotonNetwork.JoinLobby();
@@ -68,6 +82,9 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             
             UI_PlayerSlot.Instance.AddPlayerSlot(p.NickName);
         }
+
+        Hashtable CP = PhotonNetwork.CurrentRoom.CustomProperties;
+        Debug.Log(CP["Map"]);
 
         /*
         ChatManager.Instance.Login(PhotonNetwork.LocalPlayer.NickName);
