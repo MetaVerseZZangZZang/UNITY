@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -70,7 +70,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -6070,10 +6070,10 @@ TextureImporter:
       bob_axe_212: 2066824513
       bob_axe_255: -1931966331
       bob_axe_40: 941058842
-      bob_axe_179: -658958738
-      bob_axe_151: 1262946744
-      bob_axe_65: -452467055
       bob_axe_204: 1777379191
+      bob_axe_151: 1262946744
+      bob_axe_179: -658958738
+      bob_axe_65: -452467055
       bob_axe_92: 349631918
       bob_axe_247: -2114432533
       bob_axe_192: -898895871
@@ -6153,8 +6153,8 @@ TextureImporter:
       bob_axe_91: 2011899926
       bob_axe_199: 1906688347
       bob_axe_18: -1362017241
-      bob_axe_165: 1276959970
       bob_axe_269: -1975070960
+      bob_axe_165: 1276959970
       bob_axe_126: -907921887
       bob_axe_221: -1406753282
       bob_axe_236: 244413080
