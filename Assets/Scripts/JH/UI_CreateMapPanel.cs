@@ -1,4 +1,4 @@
-using System.Collections;
+    using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,7 +18,6 @@ public class UI_CreateMapPanel : MonoBehaviour
     public int mapNum;
 
     
-    
     private void Awake()
     {
         Instance = this;
@@ -29,6 +28,9 @@ public class UI_CreateMapPanel : MonoBehaviour
     public void Hide()
     {
         this.gameObject.SetActive(false);
+        map_1.graphic.transform.GetChild(0).gameObject.SetActive(false);
+        map_2.graphic.transform.GetChild(0).gameObject.SetActive(false);
+        map_3.graphic.transform.GetChild(0).gameObject.SetActive(false);
     }
 
     public void Show()
@@ -40,13 +42,37 @@ public class UI_CreateMapPanel : MonoBehaviour
     public void onRadio()
     {
         if (map_0.isOn)
+        {
             mapNum = 0;
+            map_0.graphic.transform.GetChild(0).gameObject.SetActive(true);
+            map_1.graphic.transform.GetChild(0).gameObject.SetActive(false);
+            map_2.graphic.transform.GetChild(0).gameObject.SetActive(false);
+            map_3.graphic.transform.GetChild(0).gameObject.SetActive(false);
+        }
         else if (map_1.isOn)
+        {
             mapNum = 1;
+            map_0.graphic.transform.GetChild(0).gameObject.SetActive(false);
+            map_1.graphic.transform.GetChild(0).gameObject.SetActive(true);
+            map_2.graphic.transform.GetChild(0).gameObject.SetActive(false);
+            map_3.graphic.transform.GetChild(0).gameObject.SetActive(false);
+        }
         else if (map_2.isOn)
+        {
             mapNum = 2;
+            map_0.graphic.transform.GetChild(0).gameObject.SetActive(false);
+            map_1.graphic.transform.GetChild(0).gameObject.SetActive(false);
+            map_2.graphic.transform.GetChild(0).gameObject.SetActive(true);
+            map_3.graphic.transform.GetChild(0).gameObject.SetActive(false);
+        }
         else if (map_3.isOn)
+        {
             mapNum = 3;
+            map_0.graphic.transform.GetChild(0).gameObject.SetActive(false);
+            map_1.graphic.transform.GetChild(0).gameObject.SetActive(false);
+            map_2.graphic.transform.GetChild(0).gameObject.SetActive(false);
+            map_3.graphic.transform.GetChild(0).gameObject.SetActive(true);
+        }
     }
     
     public void CreateRoom()

@@ -22,8 +22,12 @@ public class UI_MainPanel : MonoBehaviour
     //public GameObject keyWord;
     //public GameObject keywordPanel;
     public GameObject BackGround;
-
-
+    public Text roomName;
+    public GameObject PlayerSlot;
+    public GameObject PlayerSlotBtn;
+    public GameObject BottomOption;
+    public int count = 0;
+    
     private void Awake()
     {
         Instance = this;
@@ -47,13 +51,14 @@ public class UI_MainPanel : MonoBehaviour
                 continue;
             BackGround.transform.GetChild(i).gameObject.SetActive(false);
         }
+        roomName.text = PhotonManager.Instance.roomname;
     }
 
     public void NetStart()
     {
-        UI_LobbyPanel.Instance.StopCam();
         AgoraManager.Instance.Join();
         Server.Instance.ChatStart();
+        UI_LobbyPanel.Instance.StopCam();
         AudioLoudnessDetection.Instance.joined = true;
     }
 
@@ -109,7 +114,32 @@ public class UI_MainPanel : MonoBehaviour
     {
         RemoteView.transform.GetChild(0).gameObject.SetActive(false);
     }
+    
+    
+    public void PlayerSlotBtnClick()
+    {
+        PlayerSlot.GetComponent<Animation>().Play("SlotUpdateAnim");
+        PlayerSlotBtn.SetActive(false);
+    }
+    
+    public void PlayerSlotRemoveBtnClick()
+    {
+        PlayerSlot.GetComponent<Animation>().Play("SlotRemoveAnim");
+        PlayerSlotBtn.SetActive(true);
+    }
 
+    public void BottomOptionClick()
+    {
+        if (count%2==0)
+        {
+            BottomOption.GetComponent<Animation>().Play("BottomOptionUpAnim");
+        }
+        else
+        {
+            BottomOption.GetComponent<Animation>().Play("BottomOptionDownAnim");
+        }
 
+        count++;
+    }
 }
 
