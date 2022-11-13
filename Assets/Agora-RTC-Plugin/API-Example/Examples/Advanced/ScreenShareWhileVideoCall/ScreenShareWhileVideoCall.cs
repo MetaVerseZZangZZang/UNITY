@@ -144,7 +144,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         options1.publishScreenTrack.SetValue(false);
         options1.enableAudioRecordingOrPlayout.SetValue(true);
         options1.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
-        var ret = RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, this.Uid2), options1);
+        var ret = RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, this.Uid1), options1);
     }
 
     private void SetExternalVideoSource()
@@ -253,7 +253,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         options.publishScreenTrack.SetValue(false);
         options.enableAudioRecordingOrPlayout.SetValue(true);
         options.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
-        RtcEngine.JoinChannel(_token, _channelName, this.Uid1, options);
+        RtcEngine.JoinChannel(_token, _channelName, this.Uid2, options);
 
         myCam.AddComponent<VideoSurface>();
         LocalView = myCam.GetComponent<VideoSurface>();
@@ -518,6 +518,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     public uint remoteUid;
     public List<GameObject> FriendList;
     public int count = 1;
+    public List<uint> idList;
     #endregion
 
     internal class UserEventHandler : IRtcEngineEventHandler
@@ -536,26 +537,34 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
 
         public override void OnUserJoined(RtcConnection connection, uint uid, int elapsed)
         {
-            if (uid != _videoSample.Uid1 && uid != _videoSample.Uid2  && uid != 0)
+            Debug.Log("아니 왤캐 많이 들엉와 "+ uid);
+
+
+            if (uid != _videoSample.Uid1 && uid != _videoSample.Uid2)
             {
-                GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
-                Debug.Log("뭘까요"+ newFriendCam.transform.GetComponent<VideoSurface>().Uid);
-                newFriendCam.transform.SetParent(_videoSample.FriendCams.transform);
-                newFriendCam.transform.localScale = new Vector3(1, 1, 1);
-                if (newFriendCam.transform.GetComponent<VideoSurface>().Uid != uid)
+                foreach (uint id in _videoSample.idList)
                 {
+                    if (uid != id)
+                    {
+                        GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
+                        Debug.Log("뭘까요" + newFriendCam.transform.GetComponent<VideoSurface>().Uid);
 
-                    FriendCamList.Add(newFriendCam.GetComponent<VideoSurface>());
-                    FriendCamList[FriendCamList.Count - 1].SetEnable(true);
+                        newFriendCam.transform.SetParent(_videoSample.FriendCams.transform);
+                        newFriendCam.transform.localScale = new Vector3(1, 1, 1);
+                        FriendCamList.Add(newFriendCam.GetComponent<VideoSurface>());
+                        FriendCamList[FriendCamList.Count - 1].SetEnable(true);
 
-                    FriendCamList[FriendCamList.Count - 1].SetForUser(uid, connection.channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
-                    // Save the remote user ID in a variable.
-                    _videoSample.remoteUid = uid;
+                        FriendCamList[FriendCamList.Count - 1].SetForUser(uid, connection.channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
+                        // Save the remote user ID in a variable.
+                        _videoSample.remoteUid = uid;
 
-                    _videoSample.FriendList[Math.Min(_videoSample.count, _videoSample.FriendList.Count - 1)].SetActive(true);
-                    _videoSample.count += 1;
+                        _videoSample.FriendList[Math.Min(_videoSample.count, _videoSample.FriendList.Count - 1)].SetActive(true);
+                        _videoSample.count += 1;
+                        
+                    }
+                    
                 }
-
+                _videoSample.idList.Add(uid);
             }
             else
             {
