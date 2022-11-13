@@ -46,7 +46,7 @@ public class UI_MainPanel : MonoBehaviour
         NetStart();
         this.gameObject.SetActive(true);
         BackGround.transform.GetChild(mapnum).gameObject.SetActive(true);
-        
+        myCam.transform.GetChild(0).gameObject.SetActive(false);
         for (int i = 0; i < 4; i++)
         {
             if (i == mapnum)
@@ -67,7 +67,7 @@ public class UI_MainPanel : MonoBehaviour
 
     public void Leave()
     {
-        AgoraManager.Instance.Leave();
+        ScreenShareWhileVideoCall.Instance.Leave();
         PhotonNetwork.LeaveRoom();
         Hide();
         UI_LobbyPanel.Instance.Show();
@@ -81,15 +81,15 @@ public class UI_MainPanel : MonoBehaviour
     {
 
         AgoraManager.camFlag = !toggle.isOn;
-        if (AgoraManager.camFlag)
+        if (!toggle.isOn)
         {
             myCam.transform.GetChild(0).gameObject.SetActive(false);
-            AgoraManager.Instance.RtcEngine.EnableLocalVideo(true);
+            //AgoraManager.Instance.RtcEngine.EnableLocalVideo(true);
 
         }
         else
         {
-            AgoraManager.Instance.RtcEngine.EnableLocalVideo(false);
+            //AgoraManager.Instance.RtcEngine.EnableLocalVideo(false);
             myCam.transform.GetChild(0).gameObject.SetActive(true);
 
         }
@@ -97,6 +97,7 @@ public class UI_MainPanel : MonoBehaviour
     
     public void VoiceToggle(Toggle toggle)
     {
+        /*
         AgoraManager.voiceFlag = !toggle.isOn;
         if (AgoraManager.voiceFlag)
         {
@@ -106,6 +107,7 @@ public class UI_MainPanel : MonoBehaviour
         {
             AgoraManager.Instance.RtcEngine.EnableLocalAudio(false);
         }
+        */
     }
 
     public void friendCamOff(VideoSurface RemoteView)
