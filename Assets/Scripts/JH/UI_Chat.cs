@@ -138,18 +138,53 @@ public class UI_Chat : MonoBehaviour
 
     }
 
+    public void AddAIVisionImage(List<string> data)
+    {
+        GameObject newObject =Instantiate<GameObject>(m_AIImagePrefab);
+            
+        newObject.transform.SetParent(AIParent.transform);
+        newObject.transform.localScale=new Vector3(1,1,1);
+
+        scrollUpdate();
+
+        var rawImages = newObject.GetComponentsInChildren<RawImage>();
+
+        int count = 0;
+        bool isBreak = false;
+        for (int i = 0; i < data.Count; i++)
+        {
+            foreach (string c in data)
+            {
+                int a = count;
+                StartCoroutine(ImageManager.Instance.GetTexture(rawImages[a], c));
+                count += 1;
+
+                if (count >= 5)
+                {
+                    isBreak = true;
+                    break;
+                }
+            }
+
+            if (isBreak)
+            {
+                break;
+            }
+        }
+
+    }
+    
+    
     public void AddFile(string Url,string fileName ,string extension)
     {
-        Debug.Log("ADDFILE");
+        //Debug.Log("ADDFILE");
         GameObject newObject = Instantiate<GameObject>(fileImage);
         newObject.transform.SetParent(AIParent.transform);
         newObject.transform.localScale = new Vector3(1, 1, 1);
 
-
         Button button = newObject.GetComponent<Button>();
         button.onClick.AddListener(()=>StartCoroutine(FileUpload.Instance.URLFileSave(Url,fileName,extension)));
-
-
+        
         Text fileExtention = newObject.transform.GetChild(0).GetChild(0).GetComponent<Text>();
         fileExtention.text = extension.ToUpper();
         
@@ -157,7 +192,7 @@ public class UI_Chat : MonoBehaviour
         
     }
 
-
+    
     public void AddAIGraph(string url)
     {
         GameObject newObject =Instantiate<GameObject>(m_AIGraphPrefab);
@@ -183,11 +218,11 @@ public class UI_Chat : MonoBehaviour
             if (txtComponent.name == "MessageText")
             {
                 txtComponent.text = summaryText;
+                Debug.Log("summaryText "+summaryText);
+                Debug.Log("txtComponent.text "+txtComponent.text);
             }
         }
-
         
-        //newObject.transform.Find("MessageText").GetComponent<TextMeshProUGUI>().text = summaryText;
         scrollUpdate();
 
     }

@@ -509,7 +509,6 @@ MonoBehaviour:
   - {fileID: 208196483, guid: 4fe61f38fae74364f9fc83ec06c254c0, type: 3}
   rb: {fileID: 1458370792616647214}
   PlayerAnim: {fileID: 861582155}
-  ShirtsAnim: {fileID: 694611173}
   pv: {fileID: 1953350129173989457}
 --- !u!1 &4861800122265807227
 GameObject:

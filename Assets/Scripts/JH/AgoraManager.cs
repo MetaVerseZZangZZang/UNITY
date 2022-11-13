@@ -25,7 +25,8 @@ public class AgoraManager : MonoBehaviour
     private string _channelName = "zzang";
     // Fill in the temporary token you obtained from Agora Console.
     private string _token =
-        "007eJxTYBCpdPNyCmINENba+uz63gtZ8l2Tft14aZ5Wf+wE714r024FBtPU5ERLy5QUUwNDY5Nkw6QkszRjY4Ok5FQzILZMMurZmZPcEMjIwJ5nyszIAIEgPitDVVViXjoDAwA6Kx9f";
+        "007eJxTYAj+tqYv/llKaS1XzNnEHobXjm4c51qv2LvW/TSNNLU7K67AYJqanGhpmZJiamBobJJsmJRklmZsbJCUnGoGxJZJRin9+ckNgYwM0utuMDMyQCCIz8pQVZWYl87AAABTdh+2";
+        //"007eJxTYBCpdPNyCmINENba+uz63gtZ8l2Tft14aZ5Wf+wE714r024FBtPU5ERLy5QUUwNDY5Nkw6QkszRjY4Ok5FQzILZMMurZmZPcEMjIwJ5nyszIAIEgPitDVVViXjoDAwA6Kx9f";
     // A variable to save the remote user uid.
     private uint remoteUid;
     internal VideoSurface LocalView;

@@ -16,7 +16,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     
     public Rigidbody2D rb;
     public Animator PlayerAnim; 
-    public Animator ShirtsAnim; 
+    //public Animator ShirtsAnim; 
     //public SpriteRenderer spriteRenderer;
     public PhotonView pv;
     private List<Animator> animsList = new List<Animator>();
@@ -35,10 +35,13 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     
     void Start()
     {
+        
         animsList.Add(PlayerAnim);
+        /*
         animsList.Add(ShirtsAnim);
 
         Debug.Log(UI_Character.Instance.SelectedShirts);
+        */
         if (pv.IsMine)
         {
             Debug.Log("Before "+shirts.sprite );

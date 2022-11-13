@@ -45,5 +45,7 @@ public class UI_ReplyInputField : MonoBehaviour
         }
         
         replyInputField.text = "";
+        UI_ChatInputField.Instance.Show();
+        Hide();
     }
 }
