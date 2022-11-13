@@ -26,12 +26,27 @@ public class UI_Character : MonoBehaviour
     {
         Instance = this;
     }
+
+    public void setTrue(Toggle toggle)
+    {
+        toggle.transform.GetChild(0).gameObject.SetActive(true);
+        toggle.transform.GetChild(1).gameObject.SetActive(false);
+    }
+    
+    public void setFalse(Toggle toggle)
+    {
+        toggle.transform.GetChild(0).gameObject.SetActive(false);
+        toggle.transform.GetChild(1).gameObject.SetActive(true);
+    }
     
     void Start()
     {
         HairItem.SetActive(true);
+        setTrue(HairToggle);
         ShirtsItem.SetActive(false);
+        setFalse(ShirtsToggle);
         PantsItem.SetActive(false);
+        setFalse(PantsToggle);
         
         SelectedShirts=ShirtsParent.GetComponent<Image>().sprite;
         SelectedPants=HairParent.GetComponent<Image>().sprite;
@@ -42,6 +57,10 @@ public class UI_Character : MonoBehaviour
     {
         if (HairToggle.isOn)
         {
+            setTrue(HairToggle);
+            setFalse(ShirtsToggle);
+            setFalse(PantsToggle);
+            
             HairItem.SetActive(true);
             ShirtsItem.SetActive(false);
             PantsItem.SetActive(false);
@@ -52,6 +71,10 @@ public class UI_Character : MonoBehaviour
             HairItem.SetActive(false);
             ShirtsItem.SetActive(true);
             PantsItem.SetActive(false);
+            
+            setTrue(ShirtsToggle);
+            setFalse(HairToggle);
+            setFalse(PantsToggle);
         }
         
         else if (PantsToggle.isOn)
@@ -59,6 +82,10 @@ public class UI_Character : MonoBehaviour
             HairItem.SetActive(false);
             ShirtsItem.SetActive(false);
             PantsItem.SetActive(true);
+            
+            setTrue(PantsToggle);
+            setFalse(ShirtsToggle);
+            setFalse(HairToggle);
         }
         
     }
