@@ -147,7 +147,7 @@ public class FileUpload : MonoBehaviour
     }
 
 
-    public string url = "http://52.79.150.224:5100/uploadfiles";
+    private string url = "http://52.79.150.224:5100/uploadfiles";
     public void SendFile(byte[] fileByte,string fileName,string extension)
     {
         WWWForm form = new WWWForm();
@@ -159,7 +159,7 @@ public class FileUpload : MonoBehaviour
         UnityWebRequest w = UnityWebRequest.Post(url, form);
         w.SetRequestHeader("x-sid", UI_StartPanel.Instance.userName);
         w.SetRequestHeader("x-extension",extension);
-        w.SetRequestHeader("x-fileName", fileName);
+        w.SetRequestHeader("x-filename", fileName);
 
         w.SendWebRequest();
         Debug.Log("보내졌다ㄷ");

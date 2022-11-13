@@ -1561,7 +1561,6 @@ MonoBehaviour:
   saveOpenedFileButton: {fileID: 0}
   fileBytes: 
   sid: UNKNOWN
-  url: http://52.79.150.224:5100
 --- !u!1 &103136282
 GameObject:
   m_ObjectHideFlags: 0
