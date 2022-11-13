@@ -533,18 +533,20 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         public override void OnJoinChannelSuccess(RtcConnection connection, int elapsed)
         {
             Debug.Log("You joined channel: " + connection.channelId);
+           
         }
 
         public override void OnUserJoined(RtcConnection connection, uint uid, int elapsed)
         {
-            Debug.Log("아니 왤캐 많이 들엉와 "+ uid);
-
-
-            if (uid != _videoSample.Uid1 && uid != _videoSample.Uid2)
+            if (uid != _videoSample.Uid1 && uid != _videoSample.Uid2 )
             {
-                foreach (uint id in _videoSample.idList)
+                foreach (uint u in _videoSample.idList)
                 {
-                    if (uid != id)
+                    if (u == uid)
+                    {
+                        return;
+                    }
+                    else
                     {
                         GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
                         Debug.Log("뭘까요" + newFriendCam.transform.GetComponent<VideoSurface>().Uid);
@@ -560,16 +562,11 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
 
                         _videoSample.FriendList[Math.Min(_videoSample.count, _videoSample.FriendList.Count - 1)].SetActive(true);
                         _videoSample.count += 1;
-                        
+                        _videoSample.idList.Add(uid);
                     }
-                    
                 }
-                _videoSample.idList.Add(uid);
-            }
-            else
-            {
-                Debug.Log("exit");
-                return;
+                
+
             }
 
         }
@@ -589,28 +586,28 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
             }
         }
 
-        public override void OnRemoteVideoStateChanged(RtcConnection connection, uint remoteUid,
-            REMOTE_VIDEO_STATE state, REMOTE_VIDEO_STATE_REASON reason, int elapsed)
-        {
-            Debug.Log("uid: " + remoteUid);
-            Debug.Log("state " + state);
+        //public override void OnRemoteVideoStateChanged(RtcConnection connection, uint remoteUid,
+        //    REMOTE_VIDEO_STATE state, REMOTE_VIDEO_STATE_REASON reason, int elapsed)
+        //{
+        //    Debug.Log("uid: " + remoteUid);
+        //    Debug.Log("state " + state);
+            
+        //    foreach (VideoSurface RemoteView in FriendCamList)
+        //    {
+        //        if (RemoteView.Uid == remoteUid)
+        //        {
+        //            if (state == 0)
+        //            {
+        //                UI_MainPanel.Instance.friendCamOff(RemoteView);
+        //            }
+        //            else if (state == REMOTE_VIDEO_STATE.REMOTE_VIDEO_STATE_STARTING)
+        //            {
+        //                UI_MainPanel.Instance.friendCamON(RemoteView);
+        //            }
+        //        }
+        //    }
 
-            foreach (VideoSurface RemoteView in FriendCamList)
-            {
-                if (RemoteView.Uid == remoteUid)
-                {
-                    if (state == 0)
-                    {
-                        UI_MainPanel.Instance.friendCamOff(RemoteView);
-                    }
-                    else if (state == REMOTE_VIDEO_STATE.REMOTE_VIDEO_STATE_STARTING)
-                    {
-                        UI_MainPanel.Instance.friendCamON(RemoteView);
-                    }
-                }
-            }
-
-        }
+        //}
 
     }
 
