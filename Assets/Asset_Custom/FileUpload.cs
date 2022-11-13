@@ -148,7 +148,7 @@ public class FileUpload : MonoBehaviour
 
         
 
-    public string url = Server.Instance.HOST+"/uploadfiles";
+    public string url = "http://192.168.0.100:5100/uploadfiles";
     public void SendFile(byte[] fileByte,string fileName,string extension)
     {
         WWWForm form = new WWWForm();

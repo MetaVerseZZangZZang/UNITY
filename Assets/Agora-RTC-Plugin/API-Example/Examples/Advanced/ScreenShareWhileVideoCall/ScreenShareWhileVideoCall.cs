@@ -9,10 +9,12 @@ using Logger = Agora.Util.Logger;
 using System.Collections;
 using Unity.Collections;
 
-namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.ScreenShareWhileVideoCall
+//namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.ScreenShareWhileVideoCall
+
+public class ScreenShareWhileVideoCall : MonoBehaviour
 {
-    public class ScreenShareWhileVideoCall : MonoBehaviour
-    {
+
+    public static ScreenShareWhileVideoCall Instance;
 
         private Texture2D _texture;
         private Rect _rect;
@@ -22,8 +24,8 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.ScreenShareWhileVideoCa
         public Vector2 CameraSize = new Vector2(1280, 960);
         public int CameraFPS = 15;
         private byte[] _shareData;
-        public RawImage test;
-
+        // public RawImage test;
+    public GameObject Safari;
 
         [FormerlySerializedAs("appIdInput")]
         [SerializeField]
@@ -53,8 +55,15 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.ScreenShareWhileVideoCa
         private Button _startShareBtn;
         private Button _stopShareBtn;
 
+
+        private void Awake()
+        {
+            Instance = this;
+        Safari.SetActive(false);
+    }
+
         // Use this for initialization
-        private void Start()
+        public void AgoraStart()
         {
             LoadAssetData();
             if (CheckAppId())
@@ -63,7 +72,7 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.ScreenShareWhileVideoCa
 #if UNITY_ANDROID || UNITY_IPHONE
                 GameObject.Find("winIdSelect").SetActive(false);
 #else       
-                PrepareScreenCapture();
+                //PrepareScreenCapture();
 #endif
                 EnableUI();
                 JoinChannel();
@@ -78,6 +87,7 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.ScreenShareWhileVideoCa
         public void WebviewStart()
         {
             LoadAssetData();
+        Safari.SetActive(true);
             if (CheckAppId())
             {
                 InitCameraDevice();
@@ -114,14 +124,17 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.ScreenShareWhileVideoCa
         private void InitCameraDevice()
         {
             WebCamDevice[] devices = WebCamTexture.devices;
-            _webCameraTexture = new WebCamTexture(devices[0].name, (int)test.rectTransform.sizeDelta.x , (int)test.rectTransform.sizeDelta.y, CameraFPS);
+            _webCameraTexture = new WebCamTexture(devices[0].name, (int)_rect.width , (int)_rect.height, CameraFPS);
             //RawImage.texture = _webCameraTexture;
             _webCameraTexture.Play();
         }
         private void InitTexture()
         {
-            _rect = new Rect(0, 0, Screen.width/1.5f, Screen.height/1.5f);
-            _texture = new Texture2D((int)_rect.width, (int)_rect.height, TextureFormat.RGBA32, false);
+            _rect = new Rect(0f, 0f, 1200f, 580f);
+        Debug.Log(_rect);
+        Debug.Log(Screen.width);
+        Debug.Log(Screen.height);
+        _texture = new Texture2D((int)_rect.width, (int)_rect.height, TextureFormat.RGBA32, false);
         }
         private void Update()
         {
@@ -141,11 +154,8 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.ScreenShareWhileVideoCa
             IRtcEngine rtc = Agora.Rtc.RtcEngine.Instance;
             if (rtc != null)
             {
-                rect.width = Screen.width;
-                rect.height = Screen.height;
 
-
-                _texture.ReadPixels(rect, 120, 80);
+                _texture.ReadPixels(_rect, 0, 0);
                 _texture.Apply();
 
 #if UNITY_2018_1_OR_NEWER
@@ -165,10 +175,10 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.ScreenShareWhileVideoCa
                 externalVideoFrame.buffer = _shareData;
                 externalVideoFrame.stride = (int)_rect.width;
                 externalVideoFrame.height = (int)_rect.height;
-                externalVideoFrame.cropLeft = 10;
-                externalVideoFrame.cropTop = 10;
-                externalVideoFrame.cropRight = 10;
-                externalVideoFrame.cropBottom = 10;
+                externalVideoFrame.cropLeft = 0;
+                externalVideoFrame.cropTop = 0;
+                externalVideoFrame.cropRight = 0;
+                externalVideoFrame.cropBottom = 0;
                 externalVideoFrame.rotation = 180;
                 externalVideoFrame.timestamp = System.DateTime.Now.Ticks / 10000;
                 var ret = rtc.PushVideoFrame(externalVideoFrame);
@@ -266,27 +276,27 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.ScreenShareWhileVideoCa
             RtcEngine.InitEventHandler(new UserEventHandler(this));
         }
 
-        private void PrepareScreenCapture()
-        {
-            _winIdSelect = GameObject.Find("winIdSelect").GetComponent<Dropdown>();
+        //private void PrepareScreenCapture()
+        //{
+        //    _winIdSelect = GameObject.Find("winIdSelect").GetComponent<Dropdown>();
 
-            if (_winIdSelect == null || RtcEngine == null) return;
+        //    if (_winIdSelect == null || RtcEngine == null) return;
 
-            _winIdSelect.ClearOptions();
+        //    _winIdSelect.ClearOptions();
 
-            SIZE t = new SIZE();
-            t.width = 360;
-            t.height = 240;
-            SIZE s = new SIZE();
-            s.width = 360;
-            s.height = 240;
-            var info = RtcEngine.GetScreenCaptureSources(t, s, true);
+        //    SIZE t = new SIZE();
+        //    t.width = 360;
+        //    t.height = 240;
+        //    SIZE s = new SIZE();
+        //    s.width = 360;
+        //    s.height = 240;
+        //    var info = RtcEngine.GetScreenCaptureSources(t, s, true);
 
-            _winIdSelect.AddOptions(info.Select(w =>
-                    new Dropdown.OptionData(
-                        string.Format("{0}: {1}-{2} | {3}", w.type, w.sourceName, w.sourceTitle, w.sourceId)))
-                .ToList());
-        }
+        //    _winIdSelect.AddOptions(info.Select(w =>
+        //            new Dropdown.OptionData(
+        //                string.Format("{0}: {1}-{2} | {3}", w.type, w.sourceName, w.sourceTitle, w.sourceId)))
+        //        .ToList());
+        //}
 
         private void EnableUI()
         {
@@ -556,4 +566,3 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.ScreenShareWhileVideoCa
     }
 
     #endregion
-}

@@ -26,7 +26,7 @@ public class AgoraManager : MonoBehaviour
     private string _channelName = "zzang";
     // Fill in the temporary token you obtained from Agora Console.
     private string _token =
-        "007eJxTYAj+tqYv/llKaS1XzNnEHobXjm4c51qv2LvW/TSNNLU7K67AYJqanGhpmZJiamBobJJsmJRklmZsbJCUnGoGxJZJRin9+ckNgYwM0utuMDMyQCCIz8pQVZWYl87AAABTdh+2";
+        "007eJxTYNj5c/b1RLV/dU92To3Kac1cMqPCM4hPLuVCQ+zsw+tZBCsVGExTkxMtLVNSTA0MjU2SDZOSzNKMjQ2SklPNgNgyyUjvaUFyQyAjw7d0dyZGBggE8VkZqqoS89IZGADhTCFO";
         //"007eJxTYBCpdPNyCmINENba+uz63gtZ8l2Tft14aZ5Wf+wE714r024FBtPU5ERLy5QUUwNDY5Nkw6QkszRjY4Ok5FQzILZMMurZmZPcEMjIwJ5nyszIAIEgPitDVVViXjoDAwA6Kx9f";
     // A variable to save the remote user uid.
     private uint remoteUid;
@@ -53,12 +53,13 @@ public class AgoraManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        
     }
     // Start is called before the first frame update
 
     void Start()
     {
-        
+        Debug.Log("agora start");    
     }
 
     // Update is called once per frame

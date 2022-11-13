@@ -58,7 +58,8 @@ public class UI_MainPanel : MonoBehaviour
 
     public void NetStart()
     {
-        AgoraManager.Instance.Join();
+        //AgoraManager.Instance.Join();
+        ScreenShareWhileVideoCall.Instance.AgoraStart();
         Server.Instance.ChatStart();
         UI_LobbyPanel.Instance.StopCam();
         AudioLoudnessDetection.Instance.joined = true;
