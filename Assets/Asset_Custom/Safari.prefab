@@ -516,7 +516,6 @@ GameObject:
   - component: {fileID: 323748391658456349}
   - component: {fileID: 323748391658456344}
   - component: {fileID: 323748391658456347}
-  - component: {fileID: 323748391658456346}
   m_Layer: 5
   m_Name: Safari
   m_TagString: Untagged
@@ -584,29 +583,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &323748391658456346
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 323748391658456348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05da5b05659840c4dad970d4dca79b6b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ChatTextPrefab: {fileID: 579288007578266121, guid: f6e1d0a28258cff48822c3d0419c0494,
-    type: 3}
-  m_AIImagePrefab: {fileID: 8040828894595355162, guid: 634ee321057af154f88ba8ee74712650,
-    type: 3}
-  m_AIGraphPrefab: {fileID: 4844533452464394305, guid: d2a92b09644063144a55e2957b73888f,
-    type: 3}
-  m_AITextPrefab: {fileID: 2774793011135761244, guid: 4c08da8ee3d47fb43bde324388d3ee34,
-    type: 3}
-  AIParent: {fileID: 0}
-  fileImage: {fileID: 8049015782105354840, guid: 743826f80851e459faad0abe0393c266,
-    type: 3}
 --- !u!1 &1867439751786231391
 GameObject:
   m_ObjectHideFlags: 0
@@ -642,8 +618,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 180}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1.5, y: -29.569946}
-  m_SizeDelta: {x: -57.08, y: -119.23}
+  m_AnchoredPosition: {x: -0.078125, y: -29.569336}
+  m_SizeDelta: {x: -54.24, y: -119.23}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6831554828795773155
 CanvasRenderer:
@@ -666,7 +642,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9056604, g: 0.4229263, b: 0.4229263, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
