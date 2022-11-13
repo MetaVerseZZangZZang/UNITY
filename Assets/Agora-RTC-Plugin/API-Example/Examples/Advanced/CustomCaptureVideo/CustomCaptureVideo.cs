@@ -200,6 +200,7 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.CustomCaptureVideo
             VideoSurface videoSurface = makeImageSurface(uid.ToString());
             if (!ReferenceEquals(videoSurface, null))
             {
+                Debug.Log("diffrent scripts");
                 // configure videoSurface
                 if (uid == 0)
                 {
@@ -253,8 +254,13 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.CustomCaptureVideo
             }
 
             go.name = goName;
+            if (goName == "3427")
+            {
+                Debug.Log("ㅁ머야 이건");
+            }
             // to be renderered onto
             go.AddComponent<RawImage>();
+            RawImage what = go.GetComponent<RawImage>();
             // make the object draggable
             go.AddComponent<UIElementDrag>();
             GameObject canvas = GameObject.Find("VideoCanvas");

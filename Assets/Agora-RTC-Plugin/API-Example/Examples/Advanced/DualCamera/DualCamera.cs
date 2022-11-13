@@ -35,7 +35,7 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.DualCamera
         private IVideoDeviceManager _videoDeviceManager;
         private DeviceInfo[] _videoDeviceInfos;
         private CameraCapturerConfiguration _config1;
-        private CameraCapturerConfiguration _config2;
+        private ScreenCaptureConfiguration _config2;
 
         public uint UID1 = 123;
         public uint UID2 = 456;
@@ -120,7 +120,8 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.DualCamera
 
         public void SecondCameraJoinChannel()
         {
-            var ret = RtcEngine.StartSecondaryCameraCapture(_config2);
+            var ret = RtcEngine.StartPrimaryScreenCapture(_config2);
+
             Log.UpdateLog(
                 string.Format("StartSecondaryCameraCapture returns: {0}", ret));
             ChannelMediaOptions options2 = new ChannelMediaOptions();
@@ -131,7 +132,7 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.DualCamera
             options2.publishSecondaryCameraTrack.SetValue(true);
             options2.enableAudioRecordingOrPlayout.SetValue(false);
             options2.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
-            ret = RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, UID2), options2);
+            ret = RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, 3427), options2);
             Debug.Log("JoinChannelEx returns: " + ret);
         }
 
@@ -160,10 +161,7 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.DualCamera
 
             if (_videoDeviceInfos.Length > 1)
             {
-                _config2 = new CameraCapturerConfiguration();
-                _config2.deviceId = _videoDeviceInfos[1].deviceId;
-                Debug.Log("SecondaryCamera: " + _config2.deviceId);
-                _config2.format = new VideoFormat();
+                _config2 = new ScreenCaptureConfiguration();
             }
         }
 
