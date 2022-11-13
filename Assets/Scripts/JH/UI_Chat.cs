@@ -57,6 +57,10 @@ public class UI_Chat : MonoBehaviour
             {
                 txtComponent.text = words[2];
             }
+            else if (txtComponent.name == "FilteringText")
+            {
+                txtComponent.text = words[3];
+            }
         }
 
         /*
@@ -69,6 +73,7 @@ public class UI_Chat : MonoBehaviour
         m_ChatPlayer.id = words[0];
         m_ChatPlayer.name = words[1];
         m_ChatPlayer.message = words[2];
+        m_ChatPlayer.filtering = words[3];
         ChatPlayerManager.Instance.ChatPlayersList.Add(m_ChatPlayer);
         
         scrollUpdate();

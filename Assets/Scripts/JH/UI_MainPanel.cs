@@ -26,7 +26,9 @@ public class UI_MainPanel : MonoBehaviour
     public GameObject PlayerSlot;
     public GameObject PlayerSlotBtn;
     public GameObject BottomOption;
+    public GameObject ChatBox;
     public int count = 0;
+    public int chatCount = 0;
     
     private void Awake()
     {
@@ -77,8 +79,8 @@ public class UI_MainPanel : MonoBehaviour
     public void CamToggle(Toggle toggle)
     {
 
-        AgoraManager.camFlag = toggle.isOn;
-        if (toggle.isOn)
+        AgoraManager.camFlag = !toggle.isOn;
+        if (AgoraManager.camFlag)
         {
             myCam.transform.GetChild(0).gameObject.SetActive(false);
             AgoraManager.Instance.RtcEngine.EnableLocalVideo(true);
@@ -94,8 +96,8 @@ public class UI_MainPanel : MonoBehaviour
     
     public void VoiceToggle(Toggle toggle)
     {
-        AgoraManager.voiceFlag = toggle.isOn;
-        if (toggle.isOn)
+        AgoraManager.voiceFlag = !toggle.isOn;
+        if (AgoraManager.voiceFlag)
         {
             AgoraManager.Instance.RtcEngine.EnableLocalAudio(true);
         }
@@ -126,6 +128,26 @@ public class UI_MainPanel : MonoBehaviour
     {
         PlayerSlot.GetComponent<Animation>().Play("SlotRemoveAnim");
         PlayerSlotBtn.SetActive(true);
+    }
+    
+    public void ChatBtnClick()
+    {
+        if (chatCount % 2 == 0)
+        {
+            ChatBox.GetComponent<Animation>().Play("ChatUpdateAnim");
+        }
+        else
+        {
+            ChatBox.GetComponent<Animation>().Play("ChatRemoveAnim");
+        }
+
+        chatCount++;
+    }
+    
+    public void ChatBtnRemoveClick()
+    {
+        ChatBox.GetComponent<Animation>().Play("ChatRemoveAnim");
+        chatCount = 0;
     }
 
     public void BottomOptionClick()

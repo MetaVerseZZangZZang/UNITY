@@ -8,5 +8,5 @@ public class ChatPlayer : MonoBehaviour
     public string name;
     public string message;
     public int heart;
-    
+    public string filtering;
 }

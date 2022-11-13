@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Hair
   - Shirts
+  - Pants
   layers:
   - Default
   - TransparentFX

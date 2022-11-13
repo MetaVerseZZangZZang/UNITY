@@ -12,7 +12,7 @@ using Unity.RenderStreaming;
 public class Server : MonoBehaviour
 {
     public static Server Instance;
-    private string HOST = "http://192.168.0.101:5100";
+    private string HOST = "http://192.168.0.100:5100";
     
     private SocketIOUnity m_Socket;
     private bool m_Connected = false;
@@ -144,17 +144,36 @@ public class Server : MonoBehaviour
                 m_Actions.Add(() =>
                 {
                     string text = response.GetValue<string>();
-                    var spilttedText = text.Split("/|*^");
-                    if (spilttedText.Length >=3)
-                    {
-                        
-                        string receive_id=spilttedText[0];
-                        string receive_Name = spilttedText[1];
-                        string receieveSTT_Word = spilttedText.Length > 2 ? spilttedText[2] : string.Empty;
-                        
-                        UI_Chat.Instance.AddChatText($"{receive_id}:{receive_Name}: {receieveSTT_Word}");
+                    var splittedText = text.Split("/|*^");
+                    Debug.Log("splitted: "+text);
 
+                    if (text.StartsWith("chattingDB"))
+                    {
+                        if (splittedText.Length >= 4)
+                        {
+                            string receive_id = splittedText[0];
+                            string receive_Name = splittedText[1];
+                            string receieveSTT_Word = splittedText.Length > 2 ? splittedText[2] : string.Empty;
+                            string receieve_filtering=splittedText[3];
+                            UI_Chat.Instance.AddChatText($"{receive_id}:{receive_Name}:{receieveSTT_Word}:{receieve_filtering}");
+
+                        }
                     }
+
+                    else
+                    {                        
+                        if (splittedText.Length >= 3)
+                        {
+                            string receive_id = splittedText[0];
+                            string receive_Name = splittedText[1];
+                            string receieveSTT_Word = splittedText.Length > 2 ? splittedText[2] : string.Empty;
+
+                            UI_Chat.Instance.AddChatText($"{receive_id}:{receive_Name}: {receieveSTT_Word}:{string.Empty}");
+
+                        }
+                        
+                    }
+                    
                 });  
 
             });
