@@ -12,11 +12,12 @@ public class UI_Chat : MonoBehaviour
     public GameObject m_AIImagePrefab;
     public GameObject m_AIGraphPrefab;
     public GameObject m_AITextPrefab;
+    public GameObject m_ReplyTextPrefab;
     
     public GameObject AIParent;
     public static UI_Chat Instance;
     public GameObject fileImage;
-    
+
     private void Awake()
     {
         Instance = this;
@@ -25,7 +26,9 @@ public class UI_Chat : MonoBehaviour
         AIParent.SetActive(true);
 
     }
+
     
+
     private void scrollUpdate()
     {
         AIParent.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, AIParent.GetComponent<RectTransform>().anchoredPosition.y + 100);
@@ -54,15 +57,50 @@ public class UI_Chat : MonoBehaviour
             {
                 txtComponent.text = words[2];
             }
+            else if (txtComponent.name == "FilteringText")
+            {
+                txtComponent.text = words[3];
+            }
         }
 
+        /*
         newText.GetComponent<ChatPlayer>().id= words[0];
         newText.GetComponent<ChatPlayer>().name= words[1];
         newText.GetComponent<ChatPlayer>().message= words[2];
+        */
+
+        ChatPlayer m_ChatPlayer = newText.GetComponent<ChatPlayer>();
+        m_ChatPlayer.id = words[0];
+        m_ChatPlayer.name = words[1];
+        m_ChatPlayer.message = words[2];
+        m_ChatPlayer.filtering = words[3];
+        ChatPlayerManager.Instance.ChatPlayersList.Add(m_ChatPlayer);
         
         scrollUpdate();
     }
 
+    public void AddReplyText(string msg)
+    {
+        string[] words = msg.Split(':');
+        GameObject newReply=Instantiate<GameObject>(m_ReplyTextPrefab);
+        ChatPlayer cp = ChatPlayerManager.Instance.findChatPlayerById(words[0]);
+        
+        newReply.transform.SetParent(cp.gameObject.transform);
+        newReply.transform.localScale=new Vector3(1,1,1);
+        newReply.GetComponent<TextMeshProUGUI>().text=words[1]+" : "+words[2];
+        /*
+        var texts = newReply.GetComponentsInChildren<TextMeshProUGUI>();
+        foreach (var txtComponent in texts)
+        {
+            if (txtComponent.name == "ReplyText")
+            {
+                txtComponent.text = words[1]+" : "+words[2];
+            }
+        }
+        */
+
+        scrollUpdate();
+    }
 
     public void AddAIImage(List<KeywordDict> data)
     {
@@ -100,17 +138,53 @@ public class UI_Chat : MonoBehaviour
 
     }
 
+    public void AddAIVisionImage(List<string> data)
+    {
+        GameObject newObject =Instantiate<GameObject>(m_AIImagePrefab);
+            
+        newObject.transform.SetParent(AIParent.transform);
+        newObject.transform.localScale=new Vector3(1,1,1);
+
+        scrollUpdate();
+
+        var rawImages = newObject.GetComponentsInChildren<RawImage>();
+
+        int count = 0;
+        bool isBreak = false;
+        for (int i = 0; i < data.Count; i++)
+        {
+            foreach (string c in data)
+            {
+                int a = count;
+                StartCoroutine(ImageManager.Instance.GetTexture(rawImages[a], c));
+                count += 1;
+
+                if (count >= 5)
+                {
+                    isBreak = true;
+                    break;
+                }
+            }
+
+            if (isBreak)
+            {
+                break;
+            }
+        }
+
+    }
+    
+    
     public void AddFile(string Url,string fileName ,string extension)
     {
+        //Debug.Log("ADDFILE");
         GameObject newObject = Instantiate<GameObject>(fileImage);
         newObject.transform.SetParent(AIParent.transform);
         newObject.transform.localScale = new Vector3(1, 1, 1);
 
-
         Button button = newObject.GetComponent<Button>();
         button.onClick.AddListener(()=>StartCoroutine(FileUpload.Instance.URLFileSave(Url,fileName,extension)));
-
-
+        
         Text fileExtention = newObject.transform.GetChild(0).GetChild(0).GetComponent<Text>();
         fileExtention.text = extension.ToUpper();
         
@@ -118,7 +192,7 @@ public class UI_Chat : MonoBehaviour
         
     }
 
-
+    
     public void AddAIGraph(string url)
     {
         GameObject newObject =Instantiate<GameObject>(m_AIGraphPrefab);
@@ -131,7 +205,6 @@ public class UI_Chat : MonoBehaviour
         var rawImage = newObject.GetComponentInChildren<RawImage>();
         
         StartCoroutine(ImageManager.Instance.GetTexture(rawImage, url));
-        // http://192.168.0.103:5100/static/network/network_XucQRD7ywOalsJKCAAAB_1.png
     }
 
     public void AddAISummary(string summaryText)
@@ -145,11 +218,11 @@ public class UI_Chat : MonoBehaviour
             if (txtComponent.name == "MessageText")
             {
                 txtComponent.text = summaryText;
+                Debug.Log("summaryText "+summaryText);
+                Debug.Log("txtComponent.text "+txtComponent.text);
             }
         }
-
         
-        //newObject.transform.Find("MessageText").GetComponent<TextMeshProUGUI>().text = summaryText;
         scrollUpdate();
 
     }
@@ -188,7 +261,7 @@ public class UI_Chat : MonoBehaviour
 
         scrollUpdate();
 
-    }   
+    }
+
 
 }
-

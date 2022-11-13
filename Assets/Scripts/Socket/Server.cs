@@ -5,6 +5,7 @@ using UnityEngine;
 using SocketIOClient;
 using System.IO;
 using System.Text.Json.Serialization;
+using BansheeGz.BGDatabase;
 //using System.Text.Json;
 using Newtonsoft.Json;
 using Unity.RenderStreaming;
@@ -12,7 +13,7 @@ using Unity.RenderStreaming;
 public class Server : MonoBehaviour
 {
     public static Server Instance;
-    private string HOST = "http://192.168.0.21:5100";
+    public string HOST = "http://192.168.0.100:5100";
     
     private SocketIOUnity m_Socket;
     private bool m_Connected = false;
@@ -28,7 +29,9 @@ public class Server : MonoBehaviour
     private List<Action> m_SummaryDownload = new List<Action>();
     private List<Action> m_NetworkGraphDownload = new List<Action>();
     private List<Action> m_FileUpload = new List<Action>();
-
+    private List<Action> m_ReplyActions = new List<Action>();
+    private List<Action> m_OCRActions = new List<Action>();
+    private List<Action> m_VisionActions = new List<Action>();
     private List<ChatPlayer> ChatPlayerList = new List<ChatPlayer>();
 
 
@@ -144,20 +147,82 @@ public class Server : MonoBehaviour
                 {
                     string text = response.GetValue<string>();
                     var spilttedText = text.Split("/|*^");
+
+                    if (text.StartsWith("chattingDB"))
+                    {
+                        if (spilttedText.Length >= 4)
+                        {
+                            string receive_id = spilttedText[0];
+                            string receive_Name = spilttedText[1];
+                            string receieveSTT_Word = spilttedText.Length > 2 ? spilttedText[2] : string.Empty;
+                            string receieve_filtering = spilttedText[3];
+                            UI_Chat.Instance.AddChatText(
+                                $"{receive_id}:{receive_Name}:{receieveSTT_Word}:{receieve_filtering}");
+                        }
+                    }
+
+                    else
+                    {
+                        if (spilttedText.Length >= 3)
+                        {
+                            string receive_id = spilttedText[0];
+                            string receive_Name = spilttedText[1];
+                            string receieveSTT_Word = spilttedText.Length > 2 ? spilttedText[2] : string.Empty;
+                            UI_Chat.Instance.AddChatText(
+                                $"{receive_id}:{receive_Name}:{receieveSTT_Word}:{string.Empty}");
+                        }
+                    }
+                        
+                });  
+
+            });
+            
+            m_Socket.On("receiveReply", (response) =>
+            {
+                m_ReplyActions.Add(() =>
+                {
+                    string text = response.GetValue<string>();
+                    var spilttedText = text.Split("/|*^"); 
                     if (spilttedText.Length >=3)
                     {
-                        
                         string receive_id=spilttedText[0];
                         string receive_Name = spilttedText[1];
-                        string receieveSTT_Word = spilttedText.Length > 2 ? spilttedText[2] : string.Empty;
-                        
-                        UI_Chat.Instance.AddChatText($"{receive_id}:{receive_Name}: {receieveSTT_Word}");
+                        string receieve_Word = spilttedText.Length > 2 ? spilttedText[2] : string.Empty;
+                        Debug.Log($"{receive_id}:{receive_Name}: {receieve_Word}");
+                        UI_Chat.Instance.AddReplyText($"{receive_id}:{receive_Name}: {receieve_Word}");
 
                     }
                 });  
 
             });
 
+            m_Socket.On("getOcr", (response) =>
+            {
+                m_OCRActions.Add(() =>
+                {
+                    string ocr = response.GetValue<string>();
+                    Debug.Log("getOcr "+ocr);
+                    UI_Chat.Instance.AddAISummary(ocr);
+                });
+            });
+
+            m_Socket.On("getVisionText", (response) =>
+            {
+                m_VisionActions.Add(() =>
+                {
+                    string getImgResult = response.GetValue<string>();
+                    var list = JsonConvert.DeserializeObject<fileResult>(getImgResult);
+                    UI_Chat.Instance.AddAIVisionImage(list.img);
+                    string text = "";
+                    for(int i=0;i<5;i++)
+                    {
+                        text += list.label[i] + " ";
+                    }
+                    UI_Chat.Instance.AddAISummary(text);
+
+                });
+
+            });
 
         });
     }
@@ -178,6 +243,10 @@ public class Server : MonoBehaviour
         m_Socket.Emit("getInputField",text);
     }
 
+    public void ReplyFieldEmit(string text)
+    {
+        m_Socket.Emit("getReplyInputField",text);
+    }
     
     public void ChatEnd()
     {
@@ -239,9 +308,30 @@ public class Server : MonoBehaviour
         {
             a.Invoke();
         }
-
+        
         m_FileUpload.Clear();
-        #endregion 
+        
+        foreach (var a in m_ReplyActions)
+        {
+            a.Invoke();
+        }
+        m_ReplyActions.Clear();
+        
+        foreach (var a in m_OCRActions)
+        {
+            a.Invoke();
+        }
+        m_OCRActions.Clear();
+        
+        foreach (var a in m_VisionActions)
+        {
+            a.Invoke();
+        }
+        m_VisionActions.Clear();
+
+
+        #endregion
+
         //if (Input.GetKeyDown(KeyCode.Z))
         //{
         //    Debug.LogError("녹화 시작");
@@ -273,7 +363,6 @@ public class ChatKeywordData
 public class ChatKeywordData2
 {
     public string Keyword;
-
     public Dictionary<string, List<KeywordDataElement>> Elements;
 }
 
@@ -282,6 +371,12 @@ public class FileUrl
     //public string url;
     public Dictionary <string,string> url;
     
+}
+
+public class fileResult
+{
+    public List<string> img;
+    public List<string> label;
 }
 
 public class KeywordDataElement
@@ -305,6 +400,13 @@ public class InputFieldText
 
 }
 
+public class ReplyInputField
+{
+    public string id;
+    public string context;
+    public string type = "reply";
+
+}
 public class UrlKeyword
 {
     public string imgURL;

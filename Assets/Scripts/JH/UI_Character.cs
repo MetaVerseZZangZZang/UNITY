@@ -34,6 +34,8 @@ public class UI_Character : MonoBehaviour
         PantsItem.SetActive(false);
         
         SelectedShirts=ShirtsParent.GetComponent<Image>().sprite;
+        SelectedPants=HairParent.GetComponent<Image>().sprite;
+        SelectedHair=PantsParent.GetComponent<Image>().sprite;
     }
     
     public void CharRadio()
@@ -65,21 +67,23 @@ public class UI_Character : MonoBehaviour
     {
         Sprite itemSprite = item.sprite;
 
-        
         if (item.tag == "Shirts")
         {
             ShirtsParent.GetComponent<Image>().sprite = itemSprite;
-
             SelectedShirts = itemSprite;
         }
         
         if (item.tag == "Hair")
         {
             HairParent.GetComponent<Image>().sprite = itemSprite;
-
-            SelectedShirts = itemSprite;
+            SelectedHair = itemSprite;
         }
         
+        if (item.tag == "Pants")
+        {
+            PantsParent.GetComponent<Image>().sprite = itemSprite;
+            SelectedPants = itemSprite;
+        }
     }
 
 }
