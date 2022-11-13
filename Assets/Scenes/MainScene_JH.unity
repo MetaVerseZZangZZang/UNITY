@@ -8612,6 +8612,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PlayerSlotPrefab: {fileID: 2490254759800364008, guid: 83b969a02c70eab4fbf8a6b753c47e9a,
     type: 3}
+  roomName: {fileID: 1003671871}
   PlayerSlotParent: {fileID: 1991909211}
 --- !u!111 &983919557
 Animation:

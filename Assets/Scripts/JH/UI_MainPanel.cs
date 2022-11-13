@@ -54,6 +54,7 @@ public class UI_MainPanel : MonoBehaviour
             BackGround.transform.GetChild(i).gameObject.SetActive(false);
         }
         roomName.text = PhotonManager.Instance.roomname;
+        UI_PlayerSlot.Instance.SetRoomName();
     }
 
     public void NetStart()
