@@ -199,7 +199,7 @@ public class UI_Chat : MonoBehaviour
         //Debug.Log("ADDFILE");
         GameObject newObject = Instantiate<GameObject>(fileImage);
         newObject.transform.SetParent(AIParent.transform);
-        newObject.transform.localScale = new Vector3(1, 1, 1);
+        newObject.transform.localScale = new Vector3(1, 0.3f, 1);
 
         Button button = newObject.GetComponent<Button>();
         button.onClick.AddListener(()=>StartCoroutine(FileUpload.Instance.URLFileSave(Url,fileName,extension)));
