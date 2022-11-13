@@ -140,6 +140,7 @@ public class UI_Chat : MonoBehaviour
 
     public void AddFile(string Url,string fileName ,string extension)
     {
+        Debug.Log("ADDFILE");
         GameObject newObject = Instantiate<GameObject>(fileImage);
         newObject.transform.SetParent(AIParent.transform);
         newObject.transform.localScale = new Vector3(1, 1, 1);
