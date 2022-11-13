@@ -85,20 +85,39 @@ public class UI_Chat : MonoBehaviour
         GameObject newReply=Instantiate<GameObject>(m_ReplyTextPrefab);
         ChatPlayer cp = ChatPlayerManager.Instance.findChatPlayerById(words[0]);
         
-        newReply.transform.SetParent(cp.gameObject.transform);
+        newReply.transform.SetParent(AIParent.transform);
         newReply.transform.localScale=new Vector3(1,1,1);
-        newReply.GetComponent<TextMeshProUGUI>().text=words[1]+" : "+words[2];
-        /*
+        
         var texts = newReply.GetComponentsInChildren<TextMeshProUGUI>();
         foreach (var txtComponent in texts)
         {
-            if (txtComponent.name == "ReplyText")
+            if (txtComponent.name == "AnswerTo")
             {
-                txtComponent.text = words[1]+" : "+words[2];
+                txtComponent.text = cp.name + "에게 답장";
             }
+            else if (txtComponent.name == "MessageText")
+            {
+                if (cp.message.Length >= 55)
+                {
+                    txtComponent.text = cp.message.Substring(0, 55) + " ...";
+                }
+                else
+                {
+                    txtComponent.text = cp.message;
+                }
+            }
+            else if (txtComponent.name == "NameText")
+            {
+                txtComponent.text = words[1];
+            }
+            
+            else if (txtComponent.name == "ReplyText")
+            {
+                txtComponent.text = words[2];
+            }
+            
         }
-        */
-
+        
         scrollUpdate();
     }
 
