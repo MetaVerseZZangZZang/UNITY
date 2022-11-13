@@ -6,11 +6,22 @@ using Agora.Rtc;
 using Agora.Util;
 using UnityEngine.Serialization;
 using Logger = Agora.Util.Logger;
+using System.Collections;
+using Unity.Collections;
 
 namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.ScreenShareWhileVideoCall
 {
     public class ScreenShareWhileVideoCall : MonoBehaviour
     {
+        private Texture2D _texture;
+        private Rect _rect;
+        private int i = 0;
+        private WebCamTexture _webCameraTexture;
+        //public RawImage RawImage;
+        public Vector2 CameraSize = new Vector2(640, 480);
+        public int CameraFPS = 15;
+        private byte[] _shareData;
+
         [FormerlySerializedAs("appIdInput")]
         [SerializeField]
         private AppIdInput _appIdInput;
@@ -55,7 +66,126 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.ScreenShareWhileVideoCa
                 JoinChannel();
             }
         }
+        /// <summary>
+        /// ////
+        /// </summary>
+        ///
 
+        public bool startWebview = false;
+        public void WebviewStart()
+        {
+            LoadAssetData();
+            if (CheckAppId())
+            {
+                InitCameraDevice();
+                InitTexture();
+                InitEngine();
+                SetExternalVideoSource();
+                JoinChannel3();
+                startWebview = true;
+            }
+        }
+        private void JoinChannel3()
+        {
+            //RtcEngine.EnableAudio();
+            //RtcEngine.EnableVideo();
+            //RtcEngine.SetClientRole(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
+            //RtcEngine.JoinChannel(_token, _channelName);
+
+            ///
+            RtcEngine.EnableAudio();
+            RtcEngine.EnableVideo();
+            RtcEngine.SetClientRole(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
+
+            //ChannelMediaOptions options = new ChannelMediaOptions();
+            //options.autoSubscribeAudio.SetValue(true);
+            //options.autoSubscribeVideo.SetValue(true);
+
+            //options.publishCameraTrack.SetValue(true);
+            //options.publishScreenTrack.SetValue(false);
+            //options.enableAudioRecordingOrPlayout.SetValue(true);
+            //options.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
+            //RtcEngine.JoinChannel(_token, _channelName, 3427, options);
+            ///
+
+            ChannelMediaOptions options1 = new ChannelMediaOptions();
+            options1.autoSubscribeAudio.SetValue(true);
+            options1.autoSubscribeVideo.SetValue(true);
+
+            options1.publishCameraTrack.SetValue(true);
+            options1.publishScreenTrack.SetValue(false);
+            options1.enableAudioRecordingOrPlayout.SetValue(true);
+            options1.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
+            var ret = RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, 3427), options1);
+        }
+
+        private void SetExternalVideoSource()
+        {
+            var ret = RtcEngine.SetExternalVideoSource(true, false, EXTERNAL_VIDEO_SOURCE_TYPE.VIDEO_FRAME, new SenderOptions());
+            this.Log.UpdateLog("SetExternalVideoSource returns:" + ret);
+        }
+
+        private void InitCameraDevice()
+        {
+            WebCamDevice[] devices = WebCamTexture.devices;
+            _webCameraTexture = new WebCamTexture(devices[0].name, (int)CameraSize.x, (int)CameraSize.y, CameraFPS);
+            //RawImage.texture = _webCameraTexture;
+            _webCameraTexture.Play();
+        }
+        private void InitTexture()
+        {
+            _rect = new UnityEngine.Rect(0, 0, Screen.width, Screen.height);
+            _texture = new Texture2D((int)_rect.width, (int)_rect.height, TextureFormat.RGBA32, false);
+        }
+        private void Update()
+        {
+            if (startWebview == true)
+            {
+                PermissionHelper.RequestMicrophontPermission();
+                StartCoroutine(ShareScreen());
+            }
+        }
+        private IEnumerator ShareScreen()
+        {
+            yield return new WaitForEndOfFrame();
+            IRtcEngine rtc = Agora.Rtc.RtcEngine.Instance;
+            if (rtc != null)
+            {
+                _texture.ReadPixels(_rect, 0, 0);
+                _texture.Apply();
+
+#if UNITY_2018_1_OR_NEWER
+                NativeArray<byte> nativeByteArray = _texture.GetRawTextureData<byte>();
+                if (_shareData?.Length != nativeByteArray.Length)
+                {
+                    _shareData = new byte[nativeByteArray.Length];
+                }
+                nativeByteArray.CopyTo(_shareData);
+#else
+                _shareData = _texture.GetRawTextureData();
+#endif
+
+                ExternalVideoFrame externalVideoFrame = new ExternalVideoFrame();
+                externalVideoFrame.type = VIDEO_BUFFER_TYPE.VIDEO_BUFFER_RAW_DATA;
+                externalVideoFrame.format = VIDEO_PIXEL_FORMAT.VIDEO_PIXEL_RGBA;
+                externalVideoFrame.buffer = _shareData;
+                externalVideoFrame.stride = (int)_rect.width;
+                externalVideoFrame.height = (int)_rect.height;
+                externalVideoFrame.cropLeft = 10;
+                externalVideoFrame.cropTop = 10;
+                externalVideoFrame.cropRight = 10;
+                externalVideoFrame.cropBottom = 10;
+                externalVideoFrame.rotation = 180;
+                externalVideoFrame.timestamp = System.DateTime.Now.Ticks / 10000;
+                var ret = rtc.PushVideoFrame(externalVideoFrame);
+                //Debug.Log("PushVideoFrame ret = " + ret + "time: " + System.DateTime.Now.Millisecond);
+            }
+        }
+
+        /// <summary>
+        /// /////
+        /// </summary>
+        /// <returns></returns>
         private bool CheckAppId()
         {
             Log = new Logger(LogText);
@@ -377,6 +507,10 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.ScreenShareWhileVideoCa
             {
                 ScreenShareWhileVideoCall.MakeVideoView(0, "", VIDEO_SOURCE_TYPE.VIDEO_SOURCE_SCREEN);
             }
+            if (connection.localUid == 3427)
+            {
+                Debug.Log("3427 join channel");
+            }
         }
 
         public override void OnRejoinChannelSuccess(RtcConnection connection, int elapsed)
@@ -408,6 +542,10 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.ScreenShareWhileVideoCa
             if (uid != _desktopScreenShare.Uid1 && uid != _desktopScreenShare.Uid2)
             {
                 ScreenShareWhileVideoCall.MakeVideoView(uid, _desktopScreenShare.GetChannelName(), VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
+            }
+            if (uid == 3427)
+            {
+                Debug.Log("3427 join channel");
             }
         }
 
