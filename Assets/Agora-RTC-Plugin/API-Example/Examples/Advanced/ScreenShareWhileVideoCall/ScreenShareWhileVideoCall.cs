@@ -13,14 +13,17 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.ScreenShareWhileVideoCa
 {
     public class ScreenShareWhileVideoCall : MonoBehaviour
     {
+
         private Texture2D _texture;
         private Rect _rect;
         private int i = 0;
         private WebCamTexture _webCameraTexture;
         //public RawImage RawImage;
-        public Vector2 CameraSize = new Vector2(640, 480);
+        public Vector2 CameraSize = new Vector2(1280, 960);
         public int CameraFPS = 15;
         private byte[] _shareData;
+        public RawImage test;
+
 
         [FormerlySerializedAs("appIdInput")]
         [SerializeField]
@@ -87,26 +90,9 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.ScreenShareWhileVideoCa
         }
         private void JoinChannel3()
         {
-            //RtcEngine.EnableAudio();
-            //RtcEngine.EnableVideo();
-            //RtcEngine.SetClientRole(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
-            //RtcEngine.JoinChannel(_token, _channelName);
-
-            ///
             RtcEngine.EnableAudio();
             RtcEngine.EnableVideo();
             RtcEngine.SetClientRole(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
-
-            //ChannelMediaOptions options = new ChannelMediaOptions();
-            //options.autoSubscribeAudio.SetValue(true);
-            //options.autoSubscribeVideo.SetValue(true);
-
-            //options.publishCameraTrack.SetValue(true);
-            //options.publishScreenTrack.SetValue(false);
-            //options.enableAudioRecordingOrPlayout.SetValue(true);
-            //options.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
-            //RtcEngine.JoinChannel(_token, _channelName, 3427, options);
-            ///
 
             ChannelMediaOptions options1 = new ChannelMediaOptions();
             options1.autoSubscribeAudio.SetValue(true);
@@ -116,7 +102,7 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.ScreenShareWhileVideoCa
             options1.publishScreenTrack.SetValue(false);
             options1.enableAudioRecordingOrPlayout.SetValue(true);
             options1.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
-            var ret = RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, 3427), options1);
+            var ret = RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, this.Uid2), options1);
         }
 
         private void SetExternalVideoSource()
@@ -128,13 +114,13 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.ScreenShareWhileVideoCa
         private void InitCameraDevice()
         {
             WebCamDevice[] devices = WebCamTexture.devices;
-            _webCameraTexture = new WebCamTexture(devices[0].name, (int)CameraSize.x, (int)CameraSize.y, CameraFPS);
+            _webCameraTexture = new WebCamTexture(devices[0].name, (int)test.rectTransform.sizeDelta.x , (int)test.rectTransform.sizeDelta.y, CameraFPS);
             //RawImage.texture = _webCameraTexture;
             _webCameraTexture.Play();
         }
         private void InitTexture()
         {
-            _rect = new UnityEngine.Rect(0, 0, Screen.width, Screen.height);
+            _rect = new Rect(0, 0, Screen.width/1.5f, Screen.height/1.5f);
             _texture = new Texture2D((int)_rect.width, (int)_rect.height, TextureFormat.RGBA32, false);
         }
         private void Update()
@@ -145,13 +131,21 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.ScreenShareWhileVideoCa
                 StartCoroutine(ShareScreen());
             }
         }
+        public int moveX;
+        public int moveY;
+        public Rect rect;
+
         private IEnumerator ShareScreen()
         {
             yield return new WaitForEndOfFrame();
             IRtcEngine rtc = Agora.Rtc.RtcEngine.Instance;
             if (rtc != null)
             {
-                _texture.ReadPixels(_rect, 0, 0);
+                rect.width = Screen.width;
+                rect.height = Screen.height;
+
+
+                _texture.ReadPixels(rect, 120, 80);
                 _texture.Apply();
 
 #if UNITY_2018_1_OR_NEWER
@@ -397,10 +391,11 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.ScreenShareWhileVideoCa
             // configure videoSurface
             videoSurface.SetForUser(uid, channelId, videoSourceType);
             videoSurface.SetEnable(true);
-            videoSurface.OnTextureSizeModify += (int width, int height) =>
+
+            videoSurface.OnTextureSizeModify += (width, height) =>
             {
                 float scale = (float)height / (float)width;
-                videoSurface.transform.localScale = new Vector3(-5, 5 * scale, 1);
+                videoSurface.transform.localScale = new Vector3(5, 5 * scale, 1);
                 Debug.Log("OnTextureSizeModify: " + width + "  " + height);
             };
 
@@ -418,9 +413,9 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.ScreenShareWhileVideoCa
 
             go.name = goName;
             // set up transform
-            go.transform.Rotate(-90.0f, 0.0f, 0.0f);
+            go.transform.Rotate(0f, 0.0f, 0.0f);
             go.transform.position = Vector3.zero;
-            go.transform.localScale = new Vector3(0.25f, 0.5f, .5f);
+            go.transform.localScale = new Vector3(1f, 1f, 1f);
 
             // configure videoSurface
             var videoSurface = go.AddComponent<VideoSurface>();
@@ -454,7 +449,7 @@ namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.ScreenShareWhileVideoCa
             }
 
             // set up transform
-            go.transform.Rotate(0f, 0.0f, 180.0f);
+            go.transform.Rotate(0f, 0.0f, 0f);
             go.transform.localPosition = Vector3.zero;
             go.transform.localScale = new Vector3(3f, 4f, 1f);
 
