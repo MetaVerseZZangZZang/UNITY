@@ -51,13 +51,11 @@ public class AudioLoudnessDetection : MonoBehaviour
     {
         if (joined)
         {
-
             float loudness = GetLoudnessFromMicrophone();
             if (loudness < threshold)
                 loudness = 0;
 
             transform.localScale = Vector3.Lerp(minScale, maxScale, loudness);
-
         }
         /*
         if (Input.GetKeyDown(KeyCode.A))
@@ -84,8 +82,6 @@ public class AudioLoudnessDetection : MonoBehaviour
     {
         int startPosition = clipPosition - sampleWindow;
 
-
-        //Debug.Log(startPosition);
         if (startPosition < 0) return 0;
 
 
@@ -103,7 +99,7 @@ public class AudioLoudnessDetection : MonoBehaviour
         //Debug.Log(loudness*100);
 
         sensibility = loudness * inputSoundSensibility;
-        outputsensibility = loudness * inputSoundSensibility;
+        outputsensibility = loudness * stopSoundSensibility;
         if (loudness * inputSoundSensibility >= 2f && recording == false)
         {
             Debug.Log($"Start input sensibility:  {loudness * inputSoundSensibility}");
@@ -113,11 +109,11 @@ public class AudioLoudnessDetection : MonoBehaviour
             startPosition1 = Microphone.GetPosition(Microphone.devices[0]);
         }
         
-        if (loudness * stopSoundSensibility <= 0.2f && recording == true)
+        if (loudness * stopSoundSensibility <= 0.1f && recording == true)
         {
             
             time += Time.deltaTime;
-            if (time > 0.1f)
+            if (time > 0.25f)
             {
                 //Debug.Log($"Stop input sensibility:  {loudness * stopSoundSensibility}");
                 recording = false;
@@ -169,7 +165,7 @@ public class AudioLoudnessDetection : MonoBehaviour
 
         Debug.Log("emit byte");
         //microphoneClip = Microphone.Start(Microphone.devices[0], true, 20, AudioSettings.outputSampleRate);
-        microphoneClip = Microphone.Start(Microphone.devices[0], true, 20, 44100);
+        //microphoneClip = Microphone.Start(Microphone.devices[0], true, 20, 44100);
     }
 
 
