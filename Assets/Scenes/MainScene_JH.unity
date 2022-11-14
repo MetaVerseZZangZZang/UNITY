@@ -11603,13 +11603,14 @@ MonoBehaviour:
   sendAudio: {fileID: 0}
   sendClip: {fileID: 0}
   recording: 0
-  inputSoundSensibility: 20
+  inputSoundSensibility: 100
   stopSoundSensibility: 100
   loudnessSensibility: 100
   threshold: 0.1
   minScale: {x: 0, y: 0, z: 0}
   maxScale: {x: 0, y: 0, z: 0}
   joined: 0
+  time: 0
 --- !u!1 &1320922103
 GameObject:
   m_ObjectHideFlags: 0
