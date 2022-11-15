@@ -47,6 +47,8 @@ public class Server : MonoBehaviour
 
     public void ChatStart()
     {
+        Debug.LogError(0);
+        
         var uri = new Uri(HOST);
         m_Socket = new SocketIOUnity(uri, new SocketIOOptions()
         {

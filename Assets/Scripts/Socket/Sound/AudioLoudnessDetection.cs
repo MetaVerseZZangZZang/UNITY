@@ -2,8 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-
+using UnityEngine.Networking;
 
 public class AudioLoudnessDetection : MonoBehaviour
 {
@@ -161,13 +160,33 @@ public class AudioLoudnessDetection : MonoBehaviour
 
         sendByte = GetClipData(sendClip);
 
-        Server.Instance.VoiceEmit(sendByte);
+        ////
+        //Server.Instance.VoiceEmit(sendByte);
+        SendVoiceByte(sendByte);
 
+        Debug.LogError(sendByte.Length);
         Debug.Log("emit byte");
         //microphoneClip = Microphone.Start(Microphone.devices[0], true, 20, AudioSettings.outputSampleRate);
         //microphoneClip = Microphone.Start(Microphone.devices[0], true, 20, 44100);
     }
 
+    private string url = "http://52.79.150.224:5100/uploadfiles";
+    public void SendVoiceByte(byte[] fileByte)
+    {
+        WWWForm form = new WWWForm();
+        //Debug.Log(extension.ToUpper());
+        form.AddBinaryData("voiceFile", fileByte);
+      
+
+
+        UnityWebRequest w = UnityWebRequest.Post(url, form);
+        w.SetRequestHeader("x-sid", UI_StartPanel.Instance.userName);
+      
+
+        w.SendWebRequest();
+        Debug.Log("보내졌다ㄷ");
+
+    }
 
 
     // audioclip to byte

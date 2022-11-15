@@ -43,6 +43,8 @@ public class UI_MainPanel : MonoBehaviour
 
     public void Show(int mapnum)
     {
+        Debug.LogError(2);
+
         NetStart();
         this.gameObject.SetActive(true);
         BackGround.transform.GetChild(mapnum).gameObject.SetActive(true);
@@ -59,6 +61,8 @@ public class UI_MainPanel : MonoBehaviour
 
     public void NetStart()
     {
+        Debug.LogError(1);
+
         AgoraManager.Instance.Join();
         Server.Instance.ChatStart();
         UI_LobbyPanel.Instance.StopCam();

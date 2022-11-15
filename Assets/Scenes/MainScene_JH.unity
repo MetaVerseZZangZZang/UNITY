@@ -11604,7 +11604,7 @@ MonoBehaviour:
   sendClip: {fileID: 0}
   recording: 0
   inputSoundSensibility: 20
-  stopSoundSensibility: 100
+  stopSoundSensibility: 50
   loudnessSensibility: 100
   threshold: 0.1
   minScale: {x: 0, y: 0, z: 0}

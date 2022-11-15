@@ -85,6 +85,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         }
 
         Hashtable CP = PhotonNetwork.CurrentRoom.CustomProperties;
+        Debug.LogError(3);
         UI_MainPanel.Instance.Show((int)CP["Map"]);
     }
 
