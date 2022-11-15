@@ -174,6 +174,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         {
             PermissionHelper.RequestMicrophontPermission();
             StartCoroutine(ShareScreen());
+            
         }
     }
     public int moveX;
@@ -519,6 +520,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     public List<GameObject> FriendList;
     public int count = 1;
     public List<uint> idList;
+    public int userCount;
     #endregion
 
     internal class UserEventHandler : IRtcEngineEventHandler
@@ -538,35 +540,32 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
 
         public override void OnUserJoined(RtcConnection connection, uint uid, int elapsed)
         {
+            if (_videoSample.idList.Contains(uid))
+            {
+                return;
+            }
+            else
+            {
+                _videoSample.idList.Add(uid);
+            }
             if (uid != _videoSample.Uid1 && uid != _videoSample.Uid2 )
             {
-                foreach (uint u in _videoSample.idList)
-                {
-                    if (u == uid)
-                    {
-                        return;
-                    }
-                    else
-                    {
-                        GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
-                        Debug.Log("뭘까요" + newFriendCam.transform.GetComponent<VideoSurface>().Uid);
+                _videoSample.userCount = FriendCamList.Count();
+                GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
 
-                        newFriendCam.transform.SetParent(_videoSample.FriendCams.transform);
-                        newFriendCam.transform.localScale = new Vector3(1, 1, 1);
-                        FriendCamList.Add(newFriendCam.GetComponent<VideoSurface>());
-                        FriendCamList[FriendCamList.Count - 1].SetEnable(true);
 
-                        FriendCamList[FriendCamList.Count - 1].SetForUser(uid, connection.channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
-                        // Save the remote user ID in a variable.
-                        _videoSample.remoteUid = uid;
+                newFriendCam.transform.SetParent(_videoSample.FriendCams.transform);
+                newFriendCam.transform.localScale = new Vector3(1, 1, 1);
+                FriendCamList.Add(newFriendCam.GetComponent<VideoSurface>());
+                FriendCamList[FriendCamList.Count - 1].SetEnable(true);
 
-                        _videoSample.FriendList[Math.Min(_videoSample.count, _videoSample.FriendList.Count - 1)].SetActive(true);
-                        _videoSample.count += 1;
-                        _videoSample.idList.Add(uid);
-                    }
-                }
-                
+                FriendCamList[FriendCamList.Count - 1].SetForUser(uid, connection.channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
+                // Save the remote user ID in a variable.
+                _videoSample.remoteUid = uid;
 
+                _videoSample.FriendList[Math.Min(_videoSample.count, _videoSample.FriendList.Count - 1)].SetActive(true);
+                _videoSample.count += 1;
+                _videoSample.idList.Add(uid);
             }
 
         }
