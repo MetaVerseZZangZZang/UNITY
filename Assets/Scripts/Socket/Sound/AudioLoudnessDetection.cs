@@ -161,8 +161,8 @@ public class AudioLoudnessDetection : MonoBehaviour
         sendByte = GetClipData(sendClip);
 
         ////
-        //Server.Instance.VoiceEmit(sendByte);
-        SendVoiceByte(sendByte);
+        Server.Instance.VoiceEmit(sendByte);
+        //SendVoiceByte(sendByte);
 
         Debug.LogError(sendByte.Length);
         Debug.Log("emit byte");
