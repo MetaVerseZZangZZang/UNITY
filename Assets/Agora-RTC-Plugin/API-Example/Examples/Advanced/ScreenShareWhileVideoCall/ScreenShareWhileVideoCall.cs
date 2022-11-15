@@ -57,15 +57,13 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     public uint Uid1 = 123;
     public uint Uid2 = 456;
 
-    private Dropdown _winIdSelect;
-    private Button _startShareBtn;
-    private Button _stopShareBtn;
-
     public static List<VideoSurface> FriendCamList = new List<VideoSurface>();
 
     public GameObject FriendCams;
     public GameObject myCam;
     internal VideoSurface LocalView;
+
+    public bool startWebview = false;
 
 
     private void Awake()
@@ -115,14 +113,14 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     /// </summary>
     ///
 
-    public bool startWebview = false;
+    
     public void WebviewStart()
     {
         LoadAssetData();
         Safari.SetActive(true);
         if (CheckAppId())
         {
-            InitCameraDevice();
+            //InitCameraDevice();
             InitTexture();
             InitEngine();
             SetExternalVideoSource();
@@ -144,7 +142,9 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         options1.publishScreenTrack.SetValue(false);
         options1.enableAudioRecordingOrPlayout.SetValue(true);
         options1.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
-        var ret = RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, this.Uid1), options1);
+        Uid1 = (uint)UnityEngine.Random.Range(1000,2000);
+
+        var ret = RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, Uid1), options1);
     }
 
     private void SetExternalVideoSource()
@@ -163,9 +163,6 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     private void InitTexture()
     {
         _rect = new Rect(0f, 0f, 1400f, 640f);
-        Debug.Log(_rect);
-        Debug.Log(Screen.width);
-        Debug.Log(Screen.height);
         _texture = new Texture2D((int)_rect.width, (int)_rect.height, TextureFormat.RGBA32, false);
     }
     private void Update()
@@ -254,7 +251,12 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         options.publishScreenTrack.SetValue(false);
         options.enableAudioRecordingOrPlayout.SetValue(true);
         options.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
-        RtcEngine.JoinChannel(_token, _channelName, this.Uid2, options);
+
+        Uid2 = (uint)UnityEngine.Random.Range(1000, 2000);
+        string bridge = (int)Uid2 + "3427";
+        Uid2 = (uint)Int32.Parse(bridge);
+
+        RtcEngine.JoinChannel(_token, _channelName, Uid2, options);
 
         myCam.AddComponent<VideoSurface>();
         LocalView = myCam.GetComponent<VideoSurface>();
@@ -263,22 +265,22 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
 
     }
 
-    private void ScreenShareJoinChannel()
-    {
-        ChannelMediaOptions options = new ChannelMediaOptions();
-        options.autoSubscribeAudio.SetValue(false);
-        options.autoSubscribeVideo.SetValue(false);
-        options.publishCameraTrack.SetValue(false);
-        options.publishScreenTrack.SetValue(true);
-        options.enableAudioRecordingOrPlayout.SetValue(false);
-#if UNITY_ANDROID || UNITY_IPHONE
-            options.publishScreenCaptureAudio.SetValue(true);
-            options.publishScreenCaptureVideo.SetValue(true);
-#endif
-        options.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
-        var ret = RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, this.Uid2), options);
-        Debug.Log("JoinChannelEx returns: " + ret);
-    }
+//    private void ScreenShareJoinChannel()
+//    {
+//        ChannelMediaOptions options = new ChannelMediaOptions();
+//        options.autoSubscribeAudio.SetValue(false);
+//        options.autoSubscribeVideo.SetValue(false);
+//        options.publishCameraTrack.SetValue(false);
+//        options.publishScreenTrack.SetValue(true);
+//        options.enableAudioRecordingOrPlayout.SetValue(false);
+//#if UNITY_ANDROID || UNITY_IPHONE
+//            options.publishScreenCaptureAudio.SetValue(true);
+//            options.publishScreenCaptureVideo.SetValue(true);
+//#endif
+//        options.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
+//        var ret = RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, this.Uid2), options);
+//        Debug.Log("JoinChannelEx returns: " + ret);
+//    }
 
     private void ScreenShareLeaveChannel()
     {
@@ -350,53 +352,53 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     //    }
     //}
 
-    private void OnStartShareBtnClick()
-    {
-        if (RtcEngine == null) return;
+//    private void OnStartShareBtnClick()
+//    {
+//        if (RtcEngine == null) return;
 
-        if (_startShareBtn != null) _startShareBtn.gameObject.SetActive(false);
-        if (_stopShareBtn != null) _stopShareBtn.gameObject.SetActive(true);
+//        if (_startShareBtn != null) _startShareBtn.gameObject.SetActive(false);
+//        if (_stopShareBtn != null) _stopShareBtn.gameObject.SetActive(true);
 
-#if UNITY_ANDROID || UNITY_IPHONE
-            var parameters2 = new ScreenCaptureParameters2();
-            parameters2.captureAudio = true;
-            parameters2.captureVideo = true;
-            var nRet = RtcEngine.StartScreenCapture(parameters2);
-            this.Log.UpdateLog("StartScreenCapture :" + nRet);
-#else
-        RtcEngine.StopScreenCapture();
-        if (_winIdSelect == null) return;
-        var option = _winIdSelect.options[_winIdSelect.value].text;
-        if (string.IsNullOrEmpty(option)) return;
+//#if UNITY_ANDROID || UNITY_IPHONE
+//            var parameters2 = new ScreenCaptureParameters2();
+//            parameters2.captureAudio = true;
+//            parameters2.captureVideo = true;
+//            var nRet = RtcEngine.StartScreenCapture(parameters2);
+//            this.Log.UpdateLog("StartScreenCapture :" + nRet);
+//#else
+//        RtcEngine.StopScreenCapture();
+//        if (_winIdSelect == null) return;
+//        var option = _winIdSelect.options[_winIdSelect.value].text;
+//        if (string.IsNullOrEmpty(option)) return;
 
-        if (option.Contains("ScreenCaptureSourceType_Window"))
-        {
-            var windowId = option.Split("|".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)[1];
-            Log.UpdateLog(string.Format(">>>>> Start sharing {0}", windowId));
-            var nRet = RtcEngine.StartScreenCaptureByWindowId(ulong.Parse(windowId), default(Rectangle),
-                    default(ScreenCaptureParameters));
-            this.Log.UpdateLog("StartScreenCaptureByWindowId:" + nRet);
-        }
-        else
-        {
-            var dispId = uint.Parse(option.Split("|".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)[1]);
-            Log.UpdateLog(string.Format(">>>>> Start sharing display {0}", dispId));
-            var nRet = RtcEngine.StartScreenCaptureByDisplayId(dispId, default(Rectangle),
-                new ScreenCaptureParameters { captureMouseCursor = true, frameRate = 30 });
-            this.Log.UpdateLog("StartScreenCaptureByDisplayId:" + nRet);
-        }
-#endif
+//        if (option.Contains("ScreenCaptureSourceType_Window"))
+//        {
+//            var windowId = option.Split("|".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)[1];
+//            Log.UpdateLog(string.Format(">>>>> Start sharing {0}", windowId));
+//            var nRet = RtcEngine.StartScreenCaptureByWindowId(ulong.Parse(windowId), default(Rectangle),
+//                    default(ScreenCaptureParameters));
+//            this.Log.UpdateLog("StartScreenCaptureByWindowId:" + nRet);
+//        }
+//        else
+//        {
+//            var dispId = uint.Parse(option.Split("|".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)[1]);
+//            Log.UpdateLog(string.Format(">>>>> Start sharing display {0}", dispId));
+//            var nRet = RtcEngine.StartScreenCaptureByDisplayId(dispId, default(Rectangle),
+//                new ScreenCaptureParameters { captureMouseCursor = true, frameRate = 30 });
+//            this.Log.UpdateLog("StartScreenCaptureByDisplayId:" + nRet);
+//        }
+//#endif
 
-        ScreenShareJoinChannel();
-    }
+//        //ScreenShareJoinChannel();
+//    }
 
-    private void OnStopShareBtnClick()
-    {
-        ScreenShareLeaveChannel();
-        if (_startShareBtn != null) _startShareBtn.gameObject.SetActive(true);
-        if (_stopShareBtn != null) _stopShareBtn.gameObject.SetActive(false);
-        RtcEngine.StopScreenCapture();
-    }
+    //private void OnStopShareBtnClick()
+    //{
+    //    ScreenShareLeaveChannel();
+    //    if (_startShareBtn != null) _startShareBtn.gameObject.SetActive(true);
+    //    if (_stopShareBtn != null) _stopShareBtn.gameObject.SetActive(false);
+    //    RtcEngine.StopScreenCapture();
+    //}
 
     private void OnDestroy()
     {
@@ -548,8 +550,13 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
             {
                 _videoSample.idList.Add(uid);
             }
+            
             if (uid != _videoSample.Uid1 && uid != _videoSample.Uid2 )
             {
+                if (_videoSample.startWebview == true)
+                {
+                    GameObject playerID = GameObject.Find(UI_StartPanel.Instance.userName);
+                }
                 _videoSample.userCount = FriendCamList.Count();
                 GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
 
