@@ -589,8 +589,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                 {
                     GameObject canvas = playerID.transform.GetChild(0).GetComponent<GameObject>();
                     GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
-                    _videoSample.FriendCams.transform.SetParent(canvas.transform);
-                    Debug.Log(canvas.transform.parent);
+                    newFriendCam.transform.SetParent(canvas.transform);
                 }
 
                 else
