@@ -278,9 +278,9 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         options.enableAudioRecordingOrPlayout.SetValue(true);
         options.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
 
-        Uid2 = (uint)UnityEngine.Random.Range(1000, 2000);
-        string bridge = (int)Uid2 + "3427";
-        Uid2 = (uint)Int32.Parse(bridge);
+        //Uid2 = (uint)UnityEngine.Random.Range(1000, 2000);
+        //string bridge = (int)Uid2 + "3427";
+        //Uid2 = (uint)Int32.Parse(bridge);
 
         RtcEngine.JoinChannel(_token, _channelName, Uid2, options);
 
