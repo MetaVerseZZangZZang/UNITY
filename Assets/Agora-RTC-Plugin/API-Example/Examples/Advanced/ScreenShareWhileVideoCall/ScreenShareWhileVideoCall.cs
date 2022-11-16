@@ -122,10 +122,10 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         {
             Debug.Log("player detect");
 
-            GameObject playerID = GameObject.Find(Uid2 + "(user)");
+            GameObject playerID = GameObject.Find(UI_StartPanel.Instance.userName);
             PlayerItem playerScript = playerID.GetComponent<PlayerItem>();
             playerScript.webviewStart = true;
-            Debug.LogError("먼저 시작되었는가"+playerScript.webviewStart);
+            //Debug.LogError("먼저 시작되었는가"+playerScript.webviewStart);
             //InitCameraDevice();
             InitTexture();
             InitEngine();
@@ -141,7 +141,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
 
             RawImage playerWebImage = playerCanvas.GetComponent<RawImage>();
 
-            Debug.Log(playerWebImage);
+            //Debug.Log(playerWebImage);
             StartCoroutine(BringWebTexture(playerWebImage));
 
         }
@@ -170,7 +170,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         options1.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
         Uid1 = (uint)UnityEngine.Random.Range(1000,2000);
 
-        var ret = RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, Uid1), options1);
+        var ret = RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, this.Uid1), options1);
     }
 
     private void SetExternalVideoSource()
@@ -288,7 +288,6 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         LocalView = myCam.GetComponent<VideoSurface>();
         LocalView.SetForUser(0, "", VIDEO_SOURCE_TYPE.VIDEO_SOURCE_CAMERA);
         LocalView.SetEnable(true);
-
     }
 
 //    private void ScreenShareJoinChannel()

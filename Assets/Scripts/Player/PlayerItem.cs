@@ -33,13 +33,6 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
     void Awake()
     {
-        ScreenShareWhileVideoCall.Instance.Uid2 = (uint)UnityEngine.Random.Range(1000, 2000);
-        string bridge = ScreenShareWhileVideoCall.Instance.Uid2 + "3427";
-        ScreenShareWhileVideoCall.Instance.Uid2 = (uint)Int32.Parse(bridge);
-        playerUID = ScreenShareWhileVideoCall.Instance.Uid2;
-        gameObject.name = ScreenShareWhileVideoCall.Instance.Uid2 + "(user)";
-
-
         playerName.text = pv.IsMine ? PhotonNetwork.NickName : pv.Owner.NickName;
         playerName.color = pv.IsMine ? Color.green : Color.red;
     }
