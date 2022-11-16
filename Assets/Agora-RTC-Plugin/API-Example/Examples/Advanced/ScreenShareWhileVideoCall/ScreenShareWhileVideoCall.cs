@@ -120,18 +120,18 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         Safari.SetActive(true);
         if (CheckAppId())
         {
+            Debug.Log("player detect");
+
+            GameObject playerID = GameObject.Find(Uid2 + "(user)");
+            PlayerItem playerScript = playerID.GetComponent<PlayerItem>();
+            playerScript.webviewStart = true;
+            Debug.LogError("먼저 시작되었는가"+playerScript.webviewStart);
             //InitCameraDevice();
             InitTexture();
             InitEngine();
             SetExternalVideoSource();
             JoinChannel3();
             startWebview = true;
-
-            Debug.Log("player detect");
-
-            GameObject playerID = GameObject.Find(Uid2 + "(user)");
-            PlayerItem playerScript = playerID.GetComponent<PlayerItem>();
-            playerScript.webviewStart = true;
 
 
             Transform playerCanvas = playerID.transform.GetChild(0).GetChild(2);
@@ -583,10 +583,12 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                 GameObject playerID = GameObject.Find(_videoSample.Uid2 + "(user)");
                 Debug.LogError(playerID);
                 PlayerItem playerScript = playerID.GetComponent<PlayerItem>();
-
+                Debug.LogError(playerScript);
+                Debug.LogError(playerScript.webviewStart);
 
                 if (playerScript.webviewStart == true)
                 {
+                    Debug.LogError("들어옴");
                     GameObject canvas = playerID.transform.GetChild(0).GetComponent<GameObject>();
                     GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
                     newFriendCam.transform.SetParent(canvas.transform);
