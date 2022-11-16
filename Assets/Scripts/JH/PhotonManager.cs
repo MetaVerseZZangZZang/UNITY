@@ -76,10 +76,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         GameObject player = PhotonNetwork.Instantiate("Prefabs/Player", Vector3.zero, Quaternion.identity);
-        ScreenShareWhileVideoCall.Instance.Uid2 = (uint)UnityEngine.Random.Range(1000, 2000);
-        string bridge = ScreenShareWhileVideoCall.Instance.Uid2 + "3427";
-        ScreenShareWhileVideoCall.Instance.Uid2 = (uint)Int32.Parse(bridge);
-        player.name = ScreenShareWhileVideoCall.Instance.Uid2 + "(user)";
+
 
         Debug.LogError(player.name);
 
