@@ -1567,8 +1567,8 @@ MonoBehaviour:
   _token: 
   _channelName: 
   LogText: {fileID: 659837968}
-  Uid1: 123
-  Uid2: 456
+  Uid1: 0
+  Uid2: 0
   FriendCams: {fileID: 167813667}
   myCam: {fileID: 2055122013}
   startWebview: 0
@@ -11506,34 +11506,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1025258634, guid: 2a003f72aea0dc74eb5bf6cd43def022, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1025258635, guid: 2a003f72aea0dc74eb5bf6cd43def022, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1025258635, guid: 2a003f72aea0dc74eb5bf6cd43def022, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1025258635, guid: 2a003f72aea0dc74eb5bf6cd43def022, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1025258635, guid: 2a003f72aea0dc74eb5bf6cd43def022, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1025258635, guid: 2a003f72aea0dc74eb5bf6cd43def022, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
-      objectReference: {fileID: 0}
-    - target: {fileID: 1025258635, guid: 2a003f72aea0dc74eb5bf6cd43def022, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 180
-      objectReference: {fileID: 0}
     - target: {fileID: 1458370792616647203, guid: 2a003f72aea0dc74eb5bf6cd43def022,
         type: 3}
       propertyPath: m_Name
@@ -11593,11 +11565,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1953350129173989457, guid: 2a003f72aea0dc74eb5bf6cd43def022,
-        type: 3}
-      propertyPath: sceneViewId
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a003f72aea0dc74eb5bf6cd43def022, type: 3}

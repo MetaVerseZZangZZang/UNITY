@@ -357,7 +357,6 @@ public class ChatKeywordData
     public List<string> mainkey;
     public List<string> subkey1;
     public List<string> subkey2;
-
 }
 
 public class ChatKeywordData2
@@ -370,7 +369,6 @@ public class FileUrl
 {
     //public string url;
     public Dictionary <string,string> url;
-    
 }
 
 public class fileResult
@@ -390,14 +388,12 @@ public class KeywordDict
 {
     public string keyword;
     public List<string> Elements;
-    
 }
 
 public class InputFieldText
 {
     public string nickname;
     public string context;
-
 }
 
 public class ReplyInputField

@@ -54,8 +54,8 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     internal Logger Log;
     internal IRtcEngineEx RtcEngine = null;
 
-    public uint Uid1 = 123;
-    public uint Uid2 = 456;
+    public uint Uid1;
+    public uint Uid2;
 
     public static List<VideoSurface> FriendCamList = new List<VideoSurface>();
 
@@ -129,7 +129,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
 
             Debug.Log("player detect");
 
-            GameObject playerID = GameObject.Find(UI_StartPanel.Instance.userName + "(user)");
+            GameObject playerID = GameObject.Find(Uid2 + "(user)");
             PlayerItem playerScript = playerID.GetComponent<PlayerItem>();
             playerScript.webviewStart = true;
 
@@ -149,7 +149,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
 
     IEnumerator BringWebTexture(RawImage webImageTexture)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         webImageTexture.texture = WebViewObject.Instance.tx.texture;
 
     }
@@ -580,42 +580,35 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
             if (uid != _videoSample.Uid1 && uid != _videoSample.Uid2 )
             {
 
-                GameObject playerID = GameObject.Find(_videoSample.Uid1 + "(user)");
+                GameObject playerID = GameObject.Find(_videoSample.Uid2 + "(user)");
                 PlayerItem playerScript = playerID.GetComponent<PlayerItem>();
 
 
                 if (playerScript.webviewStart == true)
                 {
-
+                    GameObject canvas = playerID.transform.GetChild(0).GetComponent<GameObject>();
+                    GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
+                    canvas.transform.SetParent(_videoSample.FriendCams.transform);
                 }
 
+                else
+                {
+                    _videoSample.userCount = FriendCamList.Count();
 
-                Transform playerCanvas = playerID.transform.GetChild(0).GetChild(2);
-                playerCanvas.gameObject.SetActive(true);
-                RawImage playerWebImage = playerCanvas.GetComponent<RawImage>();
+                    GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
+                    newFriendCam.transform.SetParent(_videoSample.FriendCams.transform);
+                    newFriendCam.transform.localScale = new Vector3(1, 1, 1);
 
-                Debug.Log(playerWebImage);
+                    FriendCamList.Add(newFriendCam.GetComponent<VideoSurface>());
+                    FriendCamList[FriendCamList.Count - 1].SetEnable(true);
+                    FriendCamList[FriendCamList.Count - 1].SetForUser(uid, connection.channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
+                    // Save the remote user ID in a variable.
 
-
-
-                _videoSample.userCount = FriendCamList.Count();
-
-
-                GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
-                newFriendCam.transform.SetParent(_videoSample.FriendCams.transform);
-                newFriendCam.transform.localScale = new Vector3(1, 1, 1);
-
-
-                FriendCamList.Add(newFriendCam.GetComponent<VideoSurface>());
-                FriendCamList[FriendCamList.Count - 1].SetEnable(true);
-                FriendCamList[FriendCamList.Count - 1].SetForUser(uid, connection.channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
-                // Save the remote user ID in a variable.
-
-
-                _videoSample.remoteUid = uid;
-                _videoSample.FriendList[Math.Min(_videoSample.count, _videoSample.FriendList.Count - 1)].SetActive(true);
-                _videoSample.count += 1;
-                _videoSample.idList.Add(uid);
+                    _videoSample.remoteUid = uid;
+                    _videoSample.FriendList[Math.Min(_videoSample.count, _videoSample.FriendList.Count - 1)].SetActive(true);
+                    _videoSample.count += 1;
+                    _videoSample.idList.Add(uid);
+                }
             }
 
         }
