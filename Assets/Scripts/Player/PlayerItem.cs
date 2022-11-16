@@ -27,6 +27,8 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     
     private Player player;
 
+    public bool webviewStart = false;
+
     void Awake()
     {
         playerName.text = pv.IsMine ? PhotonNetwork.NickName : pv.Owner.NickName;

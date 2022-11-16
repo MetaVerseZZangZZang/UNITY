@@ -75,7 +75,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        PhotonNetwork.Instantiate("Prefabs/Player", Vector3.zero, Quaternion.identity);
+        GameObject player = PhotonNetwork.Instantiate("Prefabs/Player", Vector3.zero, Quaternion.identity);
+        player.name = ScreenShareWhileVideoCall.Instance.Uid2 + "(user)";
 ;        //UpdatePlayerList();
         foreach (Player p in PhotonNetwork.PlayerList)
         {
@@ -147,7 +148,9 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         {
             GameObject newPlayerItem = PhotonNetwork.Instantiate("Prefabs/Player", Vector3.zero, Quaternion.identity);
 
-            newPlayerItem.name = UI_StartPanel.Instance.userName;
+            
+            
+
             newPlayerItem.transform.localScale = new Vector3(1, 1, 1);
             PlayerItem newPlayer = newPlayerItem.GetComponent<PlayerItem>();
             //newPlayer.SetPlayerInfo(player.Value);

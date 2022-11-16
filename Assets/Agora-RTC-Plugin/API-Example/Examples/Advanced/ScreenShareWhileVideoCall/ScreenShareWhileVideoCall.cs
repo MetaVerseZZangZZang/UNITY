@@ -126,8 +126,34 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
             SetExternalVideoSource();
             JoinChannel3();
             startWebview = true;
+
+            Debug.Log("player detect");
+
+            GameObject playerID = GameObject.Find(UI_StartPanel.Instance.userName + "(user)");
+            PlayerItem playerScript = playerID.GetComponent<PlayerItem>();
+            playerScript.webviewStart = true;
+
+
+            Transform playerCanvas = playerID.transform.GetChild(0).GetChild(2);
+            //GameObject player_WebviewPanel = playerCanvas.transform.GetChild(2).GetComponent<GameObject>();
+            //Debug.LogError(playerCanvas);
+            playerCanvas.gameObject.SetActive(true);
+
+            RawImage playerWebImage = playerCanvas.GetComponent<RawImage>();
+
+            Debug.Log(playerWebImage);
+            StartCoroutine(BringWebTexture(playerWebImage));
+
         }
     }
+
+    IEnumerator BringWebTexture(RawImage webImageTexture)
+    {
+        yield return new WaitForSeconds(1f);
+        webImageTexture.texture = WebViewObject.Instance.tx.texture;
+
+    }
+
     private void JoinChannel3()
     {
         RtcEngine.EnableAudio();
@@ -553,23 +579,40 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
             
             if (uid != _videoSample.Uid1 && uid != _videoSample.Uid2 )
             {
-                if (_videoSample.startWebview == true)
+
+                GameObject playerID = GameObject.Find(_videoSample.Uid1 + "(user)");
+                PlayerItem playerScript = playerID.GetComponent<PlayerItem>();
+
+
+                if (playerScript.webviewStart == true)
                 {
-                    GameObject playerID = GameObject.Find(UI_StartPanel.Instance.userName);
+
                 }
+
+
+                Transform playerCanvas = playerID.transform.GetChild(0).GetChild(2);
+                playerCanvas.gameObject.SetActive(true);
+                RawImage playerWebImage = playerCanvas.GetComponent<RawImage>();
+
+                Debug.Log(playerWebImage);
+
+
+
                 _videoSample.userCount = FriendCamList.Count();
+
+
                 GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
-
-
                 newFriendCam.transform.SetParent(_videoSample.FriendCams.transform);
                 newFriendCam.transform.localScale = new Vector3(1, 1, 1);
+
+
                 FriendCamList.Add(newFriendCam.GetComponent<VideoSurface>());
                 FriendCamList[FriendCamList.Count - 1].SetEnable(true);
-
                 FriendCamList[FriendCamList.Count - 1].SetForUser(uid, connection.channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
                 // Save the remote user ID in a variable.
-                _videoSample.remoteUid = uid;
 
+
+                _videoSample.remoteUid = uid;
                 _videoSample.FriendList[Math.Min(_videoSample.count, _videoSample.FriendList.Count - 1)].SetActive(true);
                 _videoSample.count += 1;
                 _videoSample.idList.Add(uid);
