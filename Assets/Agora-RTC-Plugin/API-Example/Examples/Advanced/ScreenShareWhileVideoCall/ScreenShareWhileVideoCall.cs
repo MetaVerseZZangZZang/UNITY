@@ -559,13 +559,21 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
             else
             {
                 _videoSample.idList.Add(uid);
+
             }
             
             if (uid != _videoSample.Uid1 && uid != _videoSample.Uid2 )
             {
 
-                GameObject player = GameObject.Find(_videoSample.playerdict[uid]);
-                Debug.LogError(player);
+                if (GameObject.Find(_videoSample.playerdict[uid]) == null)
+                {
+                    //GameObject player = GameObject.Find(_videoSample.playerdict[uid]);
+                    Debug.LogError("nulllllllllll");
+                }
+
+
+
+
                 //Debug.LogError(_videoSample.Uid2 + "(user)");
                 //PlayerItem playerScript = player.GetComponent<PlayerItem>();
                 //Debug.LogError(player);
