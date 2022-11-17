@@ -558,7 +558,12 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
             {
 
                 GameObject player = GameObject.Find(uid.ToString() + "(user)");
+                PlayerItem playerScript = player.GetComponent<PlayerItem>();
                 Debug.Log("플레이어"+player);
+                if (playerScript.webviewStart == true)
+                {
+                    Debug.Log("!!!!!!!!!!!!!!!!!!!!!"+playerScript.webviewStart);
+                }
                 //PlayerItem playerScript = playerID.GetComponent<PlayerItem>();
 
                 //if (playerScript.webviewStart == true)
