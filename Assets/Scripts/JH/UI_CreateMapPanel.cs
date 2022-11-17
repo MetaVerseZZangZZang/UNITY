@@ -10,6 +10,7 @@ public class UI_CreateMapPanel : MonoBehaviour
     public static UI_CreateMapPanel Instance;
 
     public InputField RoomNameInputField;
+
     public Toggle map_0;
     public Toggle map_1;
     public Toggle map_2;

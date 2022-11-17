@@ -112,5 +112,6 @@ public class UI_Character : MonoBehaviour
             SelectedPants = itemSprite;
         }
     }
+    
 
 }

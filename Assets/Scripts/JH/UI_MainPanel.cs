@@ -47,13 +47,13 @@ public class UI_MainPanel : MonoBehaviour
 
         NetStart();
         this.gameObject.SetActive(true);
-        BackGround.transform.GetChild(mapnum).gameObject.SetActive(true);
+        //BackGround.transform.GetChild(mapnum).gameObject.SetActive(true);
         
         for (int i = 0; i < 4; i++)
         {
             if (i == mapnum)
                 continue;
-            BackGround.transform.GetChild(i).gameObject.SetActive(false);
+            //BackGround.transform.GetChild(i).gameObject.SetActive(false);
         }
         roomName.text = PhotonManager.Instance.roomname;
         UI_PlayerSlot.Instance.SetRoomName();
@@ -61,8 +61,6 @@ public class UI_MainPanel : MonoBehaviour
 
     public void NetStart()
     {
-        Debug.LogError(1);
-
         AgoraManager.Instance.Join();
         Server.Instance.ChatStart();
         UI_LobbyPanel.Instance.StopCam();
