@@ -556,10 +556,11 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
             
             if (uid != _videoSample.Uid1 && uid != _videoSample.Uid2 )
             {
-
-                GameObject player = GameObject.Find(uid.ToString() + "(user)");
+                GameObject player = GameObject.Find(_videoSample.Uid2 +"(user)");
+                Debug.LogError(_videoSample.Uid2 + "(user)");
                 PlayerItem playerScript = player.GetComponent<PlayerItem>();
-                Debug.Log("플레이어"+player);
+                Debug.LogError(player);
+
                 if (playerScript.webviewStart == true)
                 {
                     Debug.Log("!!!!!!!!!!!!!!!!!!!!!"+playerScript.webviewStart);
