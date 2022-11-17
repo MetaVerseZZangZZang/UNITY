@@ -65,6 +65,8 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
 
     public bool startWebview = false;
 
+    public Dictionary<uint, string> playerdict = new Dictionary<uint, string>();
+
 
     private void Awake()
     {
@@ -124,11 +126,14 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         Safari.SetActive(true);
         if (CheckAppId())
         {
-            Debug.Log("player detect");
+            Debug.LogError(Uid2 + "(user)");
 
-            GameObject playerID = GameObject.Find(Uid2 +"(user)");
+            GameObject playerID = GameObject.Find(UI_StartPanel.Instance.userName +"(user)");
+
             PlayerItem playerScript = playerID.GetComponent<PlayerItem>();
+
             playerScript.webviewStart = true;
+
             InitCameraDevice();
             InitTexture();
             InitEngine();
@@ -142,6 +147,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
             RawImage playerWebImage = playerCanvas.GetComponent<RawImage>();
             StartCoroutine(BringWebTexture(playerWebImage));
 
+            
         }
     }
 
@@ -545,6 +551,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
 
         public override void OnUserJoined(RtcConnection connection, uint uid, int elapsed)
         {
+
             if (_videoSample.idList.Contains(uid))
             {
                 return;
@@ -556,16 +563,20 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
             
             if (uid != _videoSample.Uid1 && uid != _videoSample.Uid2 )
             {
-                GameObject player = GameObject.Find(_videoSample.Uid2 +"(user)");
-                Debug.LogError(_videoSample.Uid2 + "(user)");
-                PlayerItem playerScript = player.GetComponent<PlayerItem>();
-                Debug.LogError(player);
-                Debug.LogError(playerScript.webviewStart);
 
-                if (playerScript.webviewStart == true)
-                {
-                    Debug.Log("!!!!!!!!!!!!!!!!!!!!!"+playerScript.webviewStart);
-                }
+                GameObject player = GameObject.Find(_videoSample.playerdict[uid]);
+                Debug.LogError(player);
+                //Debug.LogError(_videoSample.Uid2 + "(user)");
+                //PlayerItem playerScript = player.GetComponent<PlayerItem>();
+                //Debug.LogError(player);
+
+
+                //if (playerScript.webviewStart == true)
+                //{
+                //    Debug.Log("!!!!!!!!!!!!!!!!!!!!!"+playerScript.webviewStart);
+                //}
+
+
                 //PlayerItem playerScript = playerID.GetComponent<PlayerItem>();
 
                 //if (playerScript.webviewStart == true)
@@ -578,7 +589,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
 
                 //else
                 //{
-                    _videoSample.userCount = FriendCamList.Count();
+                _videoSample.userCount = FriendCamList.Count();
 
                     GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
                     newFriendCam.transform.SetParent(_videoSample.FriendCams.transform);

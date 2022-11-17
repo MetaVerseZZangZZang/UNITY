@@ -41,8 +41,11 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     {
         playerUID = (uint)UnityEngine.Random.Range(1000,2000);
         ScreenShareWhileVideoCall.Instance.Uid2 = playerUID;
-        gameObject.name = playerUID.ToString()+"(user)";
-        
+        gameObject.name = UI_StartPanel.Instance.userName+"(user)";
+        ScreenShareWhileVideoCall.Instance.playerdict.Add(playerUID,UI_StartPanel.Instance.userName+"(user)");
+
+        Debug.LogError(ScreenShareWhileVideoCall.Instance.playerdict[playerUID]);
+
         animsList.Add(PlayerAnim);
         /*
         animsList.Add(ShirtsAnim);
