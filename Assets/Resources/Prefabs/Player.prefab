@@ -585,6 +585,7 @@ MonoBehaviour:
   PlayerAnim: {fileID: 861582155}
   pv: {fileID: 1953350129173989457}
   webviewStart: 0
+  playerUID: 0
 --- !u!1 &4861800122265807227
 GameObject:
   m_ObjectHideFlags: 0

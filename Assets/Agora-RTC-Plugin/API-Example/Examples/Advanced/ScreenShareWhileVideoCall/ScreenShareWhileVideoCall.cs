@@ -54,8 +54,8 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     internal Logger Log;
     internal IRtcEngineEx RtcEngine = null;
 
-    public uint Uid1;
-    public uint Uid2;
+    public uint Uid1=123;
+    public uint Uid2=345;
 
     public static List<VideoSurface> FriendCamList = new List<VideoSurface>();
 
@@ -125,7 +125,6 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
             GameObject playerID = GameObject.Find(UI_StartPanel.Instance.userName);
             PlayerItem playerScript = playerID.GetComponent<PlayerItem>();
             playerScript.webviewStart = true;
-            //Debug.LogError("먼저 시작되었는가"+playerScript.webviewStart);
             //InitCameraDevice();
             InitTexture();
             InitEngine();
@@ -135,14 +134,12 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
 
 
             Transform playerCanvas = playerID.transform.GetChild(0).GetChild(2);
-            //GameObject player_WebviewPanel = playerCanvas.transform.GetChild(2).GetComponent<GameObject>();
-            //Debug.LogError(playerCanvas);
             playerCanvas.gameObject.SetActive(true);
-
             RawImage playerWebImage = playerCanvas.GetComponent<RawImage>();
-
-            //Debug.Log(playerWebImage);
             StartCoroutine(BringWebTexture(playerWebImage));
+
+
+
 
         }
     }
@@ -168,9 +165,9 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         options1.publishScreenTrack.SetValue(false);
         options1.enableAudioRecordingOrPlayout.SetValue(true);
         options1.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
-        Uid1 = (uint)UnityEngine.Random.Range(1000,2000);
-
-        var ret = RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, this.Uid1), options1);
+        //Uid1 = (uint)UnityEngine.Random.Range(1000,2000);
+        
+        var ret = RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, Uid1), options1);
     }
 
     private void SetExternalVideoSource()
@@ -278,10 +275,6 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         options.enableAudioRecordingOrPlayout.SetValue(true);
         options.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
 
-        //Uid2 = (uint)UnityEngine.Random.Range(1000, 2000);
-        //string bridge = (int)Uid2 + "3427";
-        //Uid2 = (uint)Int32.Parse(bridge);
-
         RtcEngine.JoinChannel(_token, _channelName, Uid2, options);
 
         myCam.AddComponent<VideoSurface>();
@@ -290,22 +283,6 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         LocalView.SetEnable(true);
     }
 
-//    private void ScreenShareJoinChannel()
-//    {
-//        ChannelMediaOptions options = new ChannelMediaOptions();
-//        options.autoSubscribeAudio.SetValue(false);
-//        options.autoSubscribeVideo.SetValue(false);
-//        options.publishCameraTrack.SetValue(false);
-//        options.publishScreenTrack.SetValue(true);
-//        options.enableAudioRecordingOrPlayout.SetValue(false);
-//#if UNITY_ANDROID || UNITY_IPHONE
-//            options.publishScreenCaptureAudio.SetValue(true);
-//            options.publishScreenCaptureVideo.SetValue(true);
-//#endif
-//        options.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
-//        var ret = RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, this.Uid2), options);
-//        Debug.Log("JoinChannelEx returns: " + ret);
-//    }
 
     private void ScreenShareLeaveChannel()
     {
