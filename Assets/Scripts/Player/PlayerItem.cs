@@ -41,10 +41,10 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     {
         playerUID = (uint)UnityEngine.Random.Range(1000,2000);
         ScreenShareWhileVideoCall.Instance.Uid2 = playerUID;
-        gameObject.name = UI_StartPanel.Instance.userName+"(user)";
+        gameObject.name = pv.IsMine ? PhotonNetwork.NickName+"(user)" : pv.Owner.NickName+"(user)";
         ScreenShareWhileVideoCall.Instance.playerdict.Add(playerUID,UI_StartPanel.Instance.userName+"(user)");
 
-        Debug.LogError(ScreenShareWhileVideoCall.Instance.playerdict[playerUID]);
+        //Debug.LogError(ScreenShareWhileVideoCall.Instance.playerdict[playerUID]);
 
         animsList.Add(PlayerAnim);
         /*
