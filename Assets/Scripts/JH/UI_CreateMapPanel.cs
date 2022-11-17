@@ -27,15 +27,23 @@ public class UI_CreateMapPanel : MonoBehaviour
     // Start is called before the first frame update
     public void Hide()
     {
-        this.gameObject.SetActive(false);
-        map_1.graphic.transform.GetChild(0).gameObject.SetActive(false);
-        map_2.graphic.transform.GetChild(0).gameObject.SetActive(false);
-        map_3.graphic.transform.GetChild(0).gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     public void Show()
     {
-        this.gameObject.SetActive(true);
+        map_0.isOn = true;
+        map_1.isOn = false;
+        map_2.isOn = false;
+        map_3.isOn = false;
+        
+        map_0.graphic.transform.GetChild(0).gameObject.SetActive(true);
+        map_1.graphic.transform.GetChild(0).gameObject.SetActive(false);
+        map_2.graphic.transform.GetChild(0).gameObject.SetActive(false);
+        map_3.graphic.transform.GetChild(0).gameObject.SetActive(false);
+        
+        RoomNameInputField.text = "";
+        gameObject.SetActive(true);
     }
 
     
