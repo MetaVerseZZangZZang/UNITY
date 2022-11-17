@@ -181,7 +181,6 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     {
         WebCamDevice[] devices = WebCamTexture.devices;
         _webCameraTexture = new WebCamTexture(devices[0].name, (int)_rect.width, (int)_rect.height, CameraFPS);
-        //RawImage.texture = _webCameraTexture;
         _webCameraTexture.Play();
     }
     private void InitTexture()
@@ -558,7 +557,8 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
             if (uid != _videoSample.Uid1 && uid != _videoSample.Uid2 )
             {
 
-             
+                GameObject player = GameObject.Find(uid.ToString() + "(user)");
+                Debug.Log("플레이어"+player);
                 //PlayerItem playerScript = playerID.GetComponent<PlayerItem>();
 
                 //if (playerScript.webviewStart == true)
