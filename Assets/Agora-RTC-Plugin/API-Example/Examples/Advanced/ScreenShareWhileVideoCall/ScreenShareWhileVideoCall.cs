@@ -560,6 +560,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                 Debug.LogError(_videoSample.Uid2 + "(user)");
                 PlayerItem playerScript = player.GetComponent<PlayerItem>();
                 Debug.LogError(player);
+                Debug.LogError(playerScript.webviewStart);
 
                 if (playerScript.webviewStart == true)
                 {
