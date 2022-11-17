@@ -39,6 +39,9 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     
     void Start()
     {
+        playerUID = (uint)UnityEngine.Random.Range(1000,2000);
+        ScreenShareWhileVideoCall.Instance.Uid2 = playerUID;
+        gameObject.name = playerUID.ToString()+"(user)";
         
         animsList.Add(PlayerAnim);
         /*
@@ -47,7 +50,6 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         Debug.Log(UI_Character.Instance.SelectedShirts);
         */
 
-        playerUID = (uint)UnityEngine.Random.Range(1000,2000);
         if (pv.IsMine)
         {
             Debug.Log("Before "+shirts.sprite );

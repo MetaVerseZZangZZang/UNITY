@@ -105,13 +105,17 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
             //PrepareScreenCapture();
 #endif
             //EnableUI();
-            JoinChannel();
+            //JoinChannel();
+            StartCoroutine(GetUID());
         }
     }
-    /// <summary>
-    /// ////
-    /// </summary>
-    ///
+
+
+    IEnumerator GetUID()
+    {
+        yield return new WaitForSeconds(1f);
+        JoinChannel();
+    }
 
     
     public void WebviewStart()
@@ -122,10 +126,10 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         {
             Debug.Log("player detect");
 
-            GameObject playerID = GameObject.Find(UI_StartPanel.Instance.userName);
+            GameObject playerID = GameObject.Find(Uid2 +"(user)");
             PlayerItem playerScript = playerID.GetComponent<PlayerItem>();
             playerScript.webviewStart = true;
-            //InitCameraDevice();
+            InitCameraDevice();
             InitTexture();
             InitEngine();
             SetExternalVideoSource();
@@ -137,9 +141,6 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
             playerCanvas.gameObject.SetActive(true);
             RawImage playerWebImage = playerCanvas.GetComponent<RawImage>();
             StartCoroutine(BringWebTexture(playerWebImage));
-
-
-
 
         }
     }
@@ -274,6 +275,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         options.publishScreenTrack.SetValue(false);
         options.enableAudioRecordingOrPlayout.SetValue(true);
         options.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
+
 
         RtcEngine.JoinChannel(_token, _channelName, Uid2, options);
 
@@ -557,10 +559,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
             {
 
                 GameObject playerID = GameObject.Find(_videoSample.Uid2 + "(user)");
-                Debug.LogError(playerID);
                 PlayerItem playerScript = playerID.GetComponent<PlayerItem>();
-                Debug.LogError(playerScript);
-                Debug.LogError(playerScript.webviewStart);
 
                 if (playerScript.webviewStart == true)
                 {
@@ -578,10 +577,11 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                     newFriendCam.transform.SetParent(_videoSample.FriendCams.transform);
                     newFriendCam.transform.localScale = new Vector3(1, 1, 1);
 
+
                     FriendCamList.Add(newFriendCam.GetComponent<VideoSurface>());
                     FriendCamList[FriendCamList.Count - 1].SetEnable(true);
                     FriendCamList[FriendCamList.Count - 1].SetForUser(uid, connection.channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
-                    // Save the remote user ID in a variable.
+
 
                     _videoSample.remoteUid = uid;
                     _videoSample.FriendList[Math.Min(_videoSample.count, _videoSample.FriendList.Count - 1)].SetActive(true);
