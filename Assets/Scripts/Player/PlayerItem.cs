@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Photon.Pun;
 using Photon.Pun.Demo.PunBasics;
 using Photon.Realtime;
@@ -39,12 +40,18 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     
     void Start()
     {
-        playerUID = (uint)UnityEngine.Random.Range(1000,2000);
-        ScreenShareWhileVideoCall.Instance.Uid2 = playerUID;
-        gameObject.name = pv.IsMine ? PhotonNetwork.NickName+"(user)" : pv.Owner.NickName+"(user)";
-        ScreenShareWhileVideoCall.Instance.playerdict.Add(playerUID,UI_StartPanel.Instance.userName+"(user)");
+        
+       
 
-        //Debug.LogError(ScreenShareWhileVideoCall.Instance.playerdict[playerUID]);
+        gameObject.name = pv.IsMine ? PhotonNetwork.NickName+"(user)" : pv.Owner.NickName+"(user)";
+        if (pv.IsMine)
+        {
+            playerUID = (uint)UnityEngine.Random.Range(1000, 2000);
+            ScreenShareWhileVideoCall.Instance.Uid2 = playerUID;
+            ScreenShareWhileVideoCall.Instance.playerdict.Add(playerUID, UI_StartPanel.Instance.userName + "(user)");
+        }
+ 
+     
 
         animsList.Add(PlayerAnim);
         /*
