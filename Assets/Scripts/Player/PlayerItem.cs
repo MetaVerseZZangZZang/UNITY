@@ -62,7 +62,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
             playerUID = (uint)UnityEngine.Random.Range(1000, 2000);
 
-            PhotonManager.Instance.playerdict.Add(playerUID, UI_StartPanel.Instance.userName);
+            
 
         }
     }
@@ -180,11 +180,14 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         if (stream.IsWriting)
         {
             stream.SendNext(transform.position);
-
+            stream.SendNext(webviewStart);
         }
         else
         {
             curPos = (Vector3)stream.ReceiveNext();
+            webviewStart = (bool)stream.ReceiveNext();
+            playerUID = (uint)stream.ReceiveNext();
+
 
         }
     }

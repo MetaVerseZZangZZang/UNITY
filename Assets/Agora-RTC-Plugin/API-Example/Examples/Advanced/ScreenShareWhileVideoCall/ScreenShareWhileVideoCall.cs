@@ -65,8 +65,8 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
 
     public bool startWebview = false;
 
-    
 
+    public Dictionary<uint, string> playerdict = new Dictionary<uint, string>();
 
     private void Awake()
     {
@@ -565,7 +565,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
             if (uid != _videoSample.Uid1 && uid != _videoSample.Uid2 )
             {
 
-                if (!PhotonManager.Instance.playerdict.ContainsKey(uid))
+                if (!_videoSample.playerdict.ContainsKey(uid))
                 {
                     Debug.LogError("nulllllllllll");
                     _videoSample.userCount = FriendCamList.Count();
@@ -585,9 +585,9 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                     _videoSample.count += 1;
                     _videoSample.idList.Add(uid);
                 }
-                else if (PhotonManager.Instance.playerdict.ContainsKey(uid))
+                else if (_videoSample.playerdict.ContainsKey(uid))
                 {
-                    GameObject player = GameObject.Find(PhotonManager.Instance.playerdict[uid]);
+                    GameObject player = GameObject.Find(_videoSample.playerdict[uid]);
                     PlayerItem playerScript = player.GetComponent<PlayerItem>();
 
                     Debug.LogError(playerScript.webviewStart);

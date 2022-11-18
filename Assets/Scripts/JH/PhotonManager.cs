@@ -25,7 +25,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public List<PlayerItem> playerItemList = new List<PlayerItem>();
     public string roomname;
 
-    public Dictionary<uint, string> playerdict = new Dictionary<uint, string>();
+    
 
     void Awake()
     {
@@ -134,9 +134,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         //ChatRPC("<color=yellow>" + newPlayer.NickName + "님이 참가하셨습니다</color>");
         //nameList.Add(newPlayer.NickName);
         //UpdatePlayerList();
-        Debug.LogError(newPlayer.NickName);
         UI_PlayerSlot.Instance.AddPlayerSlot(newPlayer.NickName);
-        Debug.LogError(playerdict.FirstOrDefault(x => x.Value == newPlayer.NickName).Key);
+        //Debug.LogError(ScreenShareWhileVideoCall.Instance.playerdict.FirstOrDefault(x => x.Value == newPlayer.NickName).Key);
         
     }
 
