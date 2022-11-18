@@ -178,12 +178,12 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         if (stream.IsWriting)
         {
             stream.SendNext(transform.position);
-            
+            stream.SendNext(webviewStart);
         }
         else
         {
             curPos = (Vector3)stream.ReceiveNext();
-           
+            webviewStart = (bool)stream.ReceiveNext();
         }
     }
 
