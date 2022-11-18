@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/*
 public class UI_Character : MonoBehaviour
 {
     public static UI_Character Instance;
@@ -115,3 +116,4 @@ public class UI_Character : MonoBehaviour
     
 
 }
+*/

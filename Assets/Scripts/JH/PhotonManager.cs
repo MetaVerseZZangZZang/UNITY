@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Security.Policy;
+using AdvancedPeopleSystem;
 using ExitGames.Client.Photon;
 //using ChatProto;
 using Photon.Pun;
@@ -75,7 +76,9 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        PhotonNetwork.Instantiate("Prefabs/Character", Vector3.zero, Quaternion.Euler(new Vector3(0,180,0)));
+        GameObject player=PhotonNetwork.Instantiate("Prefabs/Character", Vector3.zero, Quaternion.Euler(new Vector3(0,180,0)));
+        int selectedHairIndex = CharacterManager.Instance.selectedHairIndex;
+        player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,selectedHairIndex);
         //UpdatePlayerList();
         //int shirt=(int)PhotonNetwork.PlayerList[PhotonNetwork.PlayerList.Count() - 1].CustomProperties["Shirts"];
         

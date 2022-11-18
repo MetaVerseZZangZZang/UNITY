@@ -80,7 +80,8 @@ namespace AdvancedPeopleSystem
         public bool applyFeetOffset = true;
 
         public bool notAPP2Shader = false;
-
+        
+        
         private void Awake()
         {
             this._transform = transform;
@@ -780,6 +781,7 @@ namespace AdvancedPeopleSystem
         /// </summary>
         private void SetHairByIndex(int index)
         {
+            CharacterManager.Instance.selectedHairIndex = index;
             CharacterPart hair = GetCharacterPart("Hair");
             if (hair == null || hair.skinnedMesh.Count <= 0)
                 return;

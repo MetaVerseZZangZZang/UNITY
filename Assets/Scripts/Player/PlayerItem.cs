@@ -12,7 +12,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     //public Text playerName;
     // Start is called before the first frame update
     
-    public Rigidbody2D rb;
+    public Rigidbody rb;
     public Animator playerAnim; 
     //public SpriteRenderer spriteRenderer;
     public PhotonView pv;
@@ -23,6 +23,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     
     private Player player;
 
+   
     void Awake()
     {
         //playerName.text = pv.IsMine ? PhotonNetwork.NickName : pv.Owner.NickName;
@@ -79,39 +80,35 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             float axis_Y = Input.GetAxisRaw("Vertical");
             if (axis_X == 1)   
             {
-                rb.velocity = Vector2.right * 4f;
                 transform.rotation=Quaternion.Euler(0,90,0);
                 playerAnim.SetBool("walk",true);
             }
 
             if (axis_X == -1)  
             {
-                rb.velocity = Vector2.left * 4f;
                 transform.rotation=Quaternion.Euler(0,-90,0);
                 playerAnim.SetBool("walk",true);
             }
 
             if (axis_Y == 1)
             {
-                rb.velocity = Vector2.up * 4f;
                 transform.rotation=Quaternion.Euler(0,0,0);
                 playerAnim.SetBool("walk",true);
             }
 
             if (axis_Y == -1)
             {
-                rb.velocity = Vector2.down * 4f;
                 transform.rotation=Quaternion.Euler(0,180,0);
                 playerAnim.SetBool("walk",true);
-                
             }
 
             if (axis_X == 0 && axis_Y == 0)
             {
-                rb.velocity = Vector2.zero;
                 playerAnim.SetBool("walk",false);
             }
-
+            
+            Vector3 getVel = new Vector3(axis_X, 0, axis_Y) * 4f;
+            rb.velocity = getVel;
         }
     }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

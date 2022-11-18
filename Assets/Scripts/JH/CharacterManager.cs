@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,12 +7,10 @@ using UnityEngine.UI;
 
 public class CharacterManager : MonoBehaviour
 {
+    public static CharacterManager Instance;
     public CharacterCustomization CharacterCustomization;
     [Space(15)]
 
-    public Text playbutton_text;
-
-    public Text bake_text;
     public Text lod_text;
 
     public Text panelNameText;
@@ -46,6 +45,14 @@ public class CharacterManager : MonoBehaviour
     public RectTransform femaleUI;
     public RectTransform maleUI;
     
+    public int selectedHairIndex = -1;
+
+    public void Awake()
+    {
+        Instance=this;
+    }
+
+
     #region ButtonEvents
     public void SwitchCharacterSettings(string name)
     {
@@ -69,7 +76,6 @@ public class CharacterManager : MonoBehaviour
             HairPanel.gameObject.SetActive(false);
         else
             HairPanel.gameObject.SetActive(true);
-
         //currentPanelIndex = (v) ? 1 : 0;
     }
     
@@ -277,16 +283,7 @@ public class CharacterManager : MonoBehaviour
     {
         CharacterCustomization.Randomize();
     }
-    bool walk_active = false;
-
-    public void PlayAnim()
-    {
-        walk_active = !walk_active;
-
-        CharacterCustomization.GetAnimator().SetBool("walk", walk_active);
-
-        playbutton_text.text = (walk_active) ? "STOP" : "PLAY";
-    }
+    
     #endregion
     
     void Start()
