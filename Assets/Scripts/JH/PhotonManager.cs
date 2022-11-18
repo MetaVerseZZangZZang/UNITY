@@ -6,6 +6,7 @@ using System.Net.NetworkInformation;
 using System.Security.Policy;
 using AdvancedPeopleSystem;
 using ExitGames.Client.Photon;
+using ExitGames.Client.Photon.StructWrapping;
 //using ChatProto;
 using Photon.Pun;
 using Photon.Pun.Demo.Cockpit;
@@ -73,26 +74,28 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         UI_JoinRoom.Instance.Refresh();
     }
 
-
+    private PlayerItem m_PlayerItem;
     public override void OnJoinedRoom()
     {
+        //GameObject player=PhotonNetwork.Instantiate("Prefabs/Character", Vector3.zero, Quaternion.Euler(new Vector3(0,180,0)));
         GameObject player=PhotonNetwork.Instantiate("Prefabs/Character", Vector3.zero, Quaternion.Euler(new Vector3(0,180,0)));
+        m_PlayerItem = player.GetComponent<PlayerItem>();//.SetPlayerInfo(player);}
+        //m_PlayerItem.Sethair()
+        /*
         int selectedHairIndex = CharacterManager.Instance.selectedHairIndex;
+        
         player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,selectedHairIndex);
         
-        if (PhotonNetwork.IsMasterClient)
-        {
-            Hashtable playerCP=new Hashtable { { "hair", selectedHairIndex } };
-            PhotonNetwork.LocalPlayer.SetCustomProperties(playerCP);
-            //Hashtable playerCP = PhotonNetwork.LocalPlayer.CustomProperties;
-        }
+        Hashtable playerCP=new Hashtable { { "hair", selectedHairIndex } };
+        PhotonNetwork.LocalPlayer.SetCustomProperties(playerCP);
+        */
+        //player.GetComponent<PlayerItem>().SetPlayerInfo(PhotonNetwork.LocalPlayer);
         
         foreach (Player p in PhotonNetwork.PlayerList)
         {
-            Debug.Log("player p"+p);
             UI_PlayerSlot.Instance.AddPlayerSlot(p.NickName);
         }
-
+        
         Hashtable CP = PhotonNetwork.CurrentRoom.CustomProperties;
         UI_MainPanel.Instance.Show((int)CP["Map"]);
     }
@@ -126,7 +129,11 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Debug.Log("OnPlayerEnteredRoom "+newPlayer.NickName);
-        Debug.Log("newPlayer.CustomProperties[hair] "+newPlayer.CustomProperties["hair"]);
+        Hashtable cp = newPlayer.CustomProperties;
+        Debug.Log("newPlayer.CustomProperties[hair] "+(int)cp["hair"]);
+        
+        
+        
         UI_PlayerSlot.Instance.AddPlayerSlot(newPlayer.NickName);
     }
 
