@@ -78,18 +78,22 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         GameObject player = PhotonNetwork.Instantiate("Prefabs/Player", Vector3.zero, Quaternion.identity);
-        //PlayerItem playerScript = player.GetComponent<PlayerItem>();
-        //playerScript.playerUID = (uint)UnityEngine.Random.Range(1000, 2000);
-        //string bridge = playerScript.playerUID + "3427";
-        //playerScript.playerUID = (uint)Int32.Parse(bridge);
-        //player.name = UI_StartPanel.Instance.userName;
-        
+        PlayerItem playerScript = player.GetComponent<PlayerItem>();
+
+        if (playerScript.pv.IsMine)
+        {
+            playerScript.playerUID = (uint)UnityEngine.Random.Range(1000, 2000);
+            ScreenShareWhileVideoCall.Instance.Uid2 = playerScript.playerUID;
+            playerdict.Add(playerScript.playerUID, UI_StartPanel.Instance.userName + "(user)");
+            Debug.Log("9999999999999" + playerdict[playerScript.playerUID]);
+        }
+        else
+        {
+            Debug.Log("1010101010" + PhotonManager.Instance.playerdict.FirstOrDefault(x => x.Value == playerScript.pv.Owner.NickName + "(user)").Key);
+        }
 
 
 
-        Debug.LogError(player.name);
-
-        ;        //UpdatePlayerList();
         foreach (Player p in PhotonNetwork.PlayerList)
         {
             //nameList.Add(p.NickName);
