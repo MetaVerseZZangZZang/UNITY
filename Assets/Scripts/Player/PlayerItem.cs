@@ -117,15 +117,16 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         
-        GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,2);
         if (stream.IsWriting)
         {
             stream.SendNext(transform.position);
-
+            stream.SendNext( CharacterManager.Instance.selectedHairIndex );
         }
         else
         {
             curPos = (Vector3)stream.ReceiveNext();
+            int hairIndex = (int)stream.ReceiveNext();
+            GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,hairIndex);
 
         }
     }
