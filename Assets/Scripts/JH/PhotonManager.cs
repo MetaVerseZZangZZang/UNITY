@@ -129,12 +129,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        Debug.Log("OnPlayerEnteredRoom "+newPlayer.NickName);
-        Hashtable cp = newPlayer.CustomProperties;
-        Debug.Log("newPlayer.CustomProperties[hair] "+(int)cp["hair"]);
-        
-        
-        
         UI_PlayerSlot.Instance.AddPlayerSlot(newPlayer.NickName);
     }
 

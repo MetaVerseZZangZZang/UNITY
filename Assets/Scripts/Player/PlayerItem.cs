@@ -38,40 +38,6 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         */
     }
     
-    public void SetPlayerInfo(Player _player)
-    {
-        player = _player;
-        
-        int selectedHairIndex = CharacterManager.Instance.selectedHairIndex;
-        playerProperties["hair"] = selectedHairIndex;
-        cc.SetElementByIndex(CharacterElementType.Hair,selectedHairIndex);
-        PhotonNetwork.SetCustomProperties(playerProperties);
-        //UpdatePlayerItem(player);
-    }
-
-    /*
-    public override void OnPlayerPropertiesUpdate(Player targetPlayer,ExitGames.Client.Photon.Hashtable playerProperties)
-    {
-        if (player == targetPlayer)
-        {
-            UpdatePlayerItem(targetPlayer);
-        }
-    }
-    */
-
-    
-    void UpdatePlayerItem()
-    {
-        if (player.CustomProperties.ContainsKey("shirts"))
-        {
-            //shirts.sprite = shirtsSprites[(int)player.CustomProperties["shirts"]];
-            //playerProperties["shirts"] = (int)player.CustomProperties["shirts"];
-        }
-        else
-        {
-            playerProperties["shirts"] = 0;
-        }
-    }
 
     //public GameObject sayingObject;
     void Update()
