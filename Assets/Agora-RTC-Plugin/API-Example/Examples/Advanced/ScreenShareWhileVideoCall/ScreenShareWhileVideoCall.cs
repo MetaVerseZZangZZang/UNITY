@@ -66,9 +66,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     public bool startWebview = false;
 
 
-    public Dictionary<uint, string> playerdict = new Dictionary<uint, string>();
-    public List<uint> aig = new List<uint>();
-
+    public Dictionary<int, string> playerdict = new Dictionary<int, string>();
 
 
     private void Awake()

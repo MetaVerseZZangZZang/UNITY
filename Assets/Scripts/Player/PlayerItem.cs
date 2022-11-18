@@ -32,7 +32,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
     public int playerUID;
 
-    public Dictionary<uint, string> idUint = new Dictionary<uint, string>();
+    public Dictionary<int, string> idUint = new Dictionary<int, string>();
 
     void Awake()
     {
@@ -63,7 +63,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             playerUID = (int)UnityEngine.Random.Range(1000, 2000);
             ScreenShareWhileVideoCall.Instance.Uid2= (uint)playerUID;
 
-            idUint.Add((uint)playerUID, PhotonNetwork.NickName);
+            idUint.Add(playerUID, PhotonNetwork.NickName);
 
             //ScreenShareWhileVideoCall.Instance.aig.Add(playerUID);
 
@@ -192,7 +192,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             curPos = (Vector3)stream.ReceiveNext();
             webviewStart = (bool)stream.ReceiveNext();
             playerUID = (int)stream.ReceiveNext();
-            ScreenShareWhileVideoCall.Instance.playerdict = (Dictionary<uint, string>)stream.ReceiveNext();
+            ScreenShareWhileVideoCall.Instance.playerdict = (Dictionary<int, string>)stream.ReceiveNext();
         }
     }
 
