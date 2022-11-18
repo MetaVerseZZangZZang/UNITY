@@ -69,6 +69,8 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     public Dictionary<uint, string> playerdict = new Dictionary<uint, string>();
     public List<uint> aig = new List<uint>();
 
+
+
     private void Awake()
     {
         Instance = this;
@@ -201,7 +203,6 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         {
             PermissionHelper.RequestMicrophontPermission();
             StartCoroutine(ShareScreen());
-            
         }
     }
     public int moveX;
@@ -565,7 +566,6 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
             
             if (uid != _videoSample.Uid1 && uid != _videoSample.Uid2 )
             {
-
                 if (!_videoSample.playerdict.ContainsKey(uid))
                 {
                     Debug.LogError("nulllllllllll");

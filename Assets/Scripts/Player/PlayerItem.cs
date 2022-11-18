@@ -30,7 +30,9 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
     public bool webviewStart = false;
 
-    public uint playerUID;
+    public int playerUID;
+
+    public Dictionary<uint, string> idUint = new Dictionary<uint, string>();
 
     void Awake()
     {
@@ -58,9 +60,12 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             shirts.sprite = UI_Character.Instance.SelectedShirts;
             Debug.Log("After "+shirts.sprite );
 
-            playerUID = (uint)UnityEngine.Random.Range(1000, 2000);
+            playerUID = (int)UnityEngine.Random.Range(1000, 2000);
+            ScreenShareWhileVideoCall.Instance.Uid2= (uint)playerUID;
 
-            ScreenShareWhileVideoCall.Instance.aig.Add(playerUID);
+            idUint.Add((uint)playerUID, PhotonNetwork.NickName);
+
+            //ScreenShareWhileVideoCall.Instance.aig.Add(playerUID);
 
         }
     }
@@ -180,12 +185,14 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             stream.SendNext(transform.position);
             stream.SendNext(webviewStart);
             stream.SendNext(playerUID);
+            stream.SendNext(idUint);
         }
         else
         {
             curPos = (Vector3)stream.ReceiveNext();
             webviewStart = (bool)stream.ReceiveNext();
-            playerUID = (uint)stream.ReceiveNext();
+            playerUID = (int)stream.ReceiveNext();
+            ScreenShareWhileVideoCall.Instance.playerdict = (Dictionary<uint, string>)stream.ReceiveNext();
         }
     }
 
