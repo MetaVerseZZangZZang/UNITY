@@ -44,8 +44,6 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         gameObject.name = pv.IsMine ? PhotonNetwork.NickName+"(user)" : pv.Owner.NickName+"(user)";
 
 
-        
-        
 
         animsList.Add(PlayerAnim);
         /*
@@ -62,7 +60,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
             playerUID = (uint)UnityEngine.Random.Range(1000, 2000);
 
-            
+            ScreenShareWhileVideoCall.Instance.aig.Add(playerUID);
 
         }
     }
@@ -180,16 +178,12 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         if (stream.IsWriting)
         {
             stream.SendNext(transform.position);
-            stream.SendNext(webviewStart);
-            stream.SendNext(playerUID);
+            
         }
         else
         {
             curPos = (Vector3)stream.ReceiveNext();
-            webviewStart = (bool)stream.ReceiveNext();
-            playerUID = (uint)stream.ReceiveNext();
-
-
+           
         }
     }
 

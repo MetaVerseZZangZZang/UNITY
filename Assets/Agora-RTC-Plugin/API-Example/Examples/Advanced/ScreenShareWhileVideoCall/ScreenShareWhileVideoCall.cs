@@ -67,6 +67,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
 
 
     public Dictionary<uint, string> playerdict = new Dictionary<uint, string>();
+    public List<uint> aig = new List<uint>();
 
     private void Awake()
     {
