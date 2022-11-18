@@ -48,7 +48,12 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         {
             playerUID = (uint)UnityEngine.Random.Range(1000, 2000);
             ScreenShareWhileVideoCall.Instance.Uid2 = playerUID;
-            ScreenShareWhileVideoCall.Instance.playerdict.Add(playerUID, UI_StartPanel.Instance.userName + "(user)");
+            PhotonManager.Instance.playerdict.Add(playerUID, UI_StartPanel.Instance.userName + "(user)");
+        }
+        else
+        {
+            uint key = PhotonManager.Instance.playerdict.FirstOrDefault(x => x.Value == pv.Owner.NickName + "(user)").Key;
+            
         }
  
      

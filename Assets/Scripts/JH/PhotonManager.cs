@@ -24,7 +24,9 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public List<string> nameList = new List <string>();
     public List<PlayerItem> playerItemList = new List<PlayerItem>();
     public string roomname;
-    
+
+    public Dictionary<uint, string> playerdict = new Dictionary<uint, string>();
+
     void Awake()
     {
         Instance = this;
