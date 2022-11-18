@@ -38,6 +38,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         */
     }
     
+    /*
     public void SetPlayerInfo(Player _player)
     {
         player = _player;
@@ -59,19 +60,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     }
     */
 
-    
-    void UpdatePlayerItem()
-    {
-        if (player.CustomProperties.ContainsKey("shirts"))
-        {
-            //shirts.sprite = shirtsSprites[(int)player.CustomProperties["shirts"]];
-            //playerProperties["shirts"] = (int)player.CustomProperties["shirts"];
-        }
-        else
-        {
-            playerProperties["shirts"] = 0;
-        }
-    }
+
 
     //public GameObject sayingObject;
     void Update()
@@ -121,13 +110,15 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         {
             stream.SendNext(transform.position);
             stream.SendNext( CharacterManager.Instance.selectedHairIndex );
+            stream.SendNext( CharacterManager.Instance.selectedShirtsIndex );
         }
         else
         {
             curPos = (Vector3)stream.ReceiveNext();
             int hairIndex = (int)stream.ReceiveNext();
+            int shirtsIndex = (int)stream.ReceiveNext();
             GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,hairIndex);
-
+            GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Shirt,shirtsIndex);
         }
     }
 
