@@ -76,7 +76,14 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         PhotonNetwork.Instantiate("Prefabs/Character", Vector3.zero, Quaternion.Euler(new Vector3(0,180,0)));
-;        //UpdatePlayerList();
+        //UpdatePlayerList();
+        //int shirt=(int)PhotonNetwork.PlayerList[PhotonNetwork.PlayerList.Count() - 1].CustomProperties["Shirts"];
+        
+        /*
+        Hashtable hash = new Hashtable();
+        hash.Add("Shirts","Shirt Type 2");
+        PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+        */
         foreach (Player p in PhotonNetwork.PlayerList)
         {
             //nameList.Add(p.NickName);

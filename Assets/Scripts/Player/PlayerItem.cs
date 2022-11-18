@@ -9,17 +9,13 @@ using UnityEngine.UI;
 
 public class PlayerItem : MonoBehaviour, IPunObservable
 {
-    public Text playerName;
-    public SpriteRenderer shirts;
-    public Sprite[] shirtsSprites;
+    //public Text playerName;
     // Start is called before the first frame update
     
     public Rigidbody2D rb;
-    public Animator PlayerAnim; 
-    //public Animator ShirtsAnim; 
+    public Animator playerAnim; 
     //public SpriteRenderer spriteRenderer;
     public PhotonView pv;
-    private List<Animator> animsList = new List<Animator>();
     
     Vector3 curPos;
     
@@ -29,25 +25,17 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
     void Awake()
     {
-        playerName.text = pv.IsMine ? PhotonNetwork.NickName : pv.Owner.NickName;
-        playerName.color = pv.IsMine ? Color.green : Color.red;
+        //playerName.text = pv.IsMine ? PhotonNetwork.NickName : pv.Owner.NickName;
+        //playerName.color = pv.IsMine ? Color.green : Color.red;
     }
     
     void Start()
     {
-        
-        animsList.Add(PlayerAnim);
         /*
         animsList.Add(ShirtsAnim);
 
         Debug.Log(UI_Character.Instance.SelectedShirts);
         */
-        if (pv.IsMine)
-        {
-            Debug.Log("Before "+shirts.sprite );
-            shirts.sprite = UI_Character.Instance.SelectedShirts;
-            Debug.Log("After "+shirts.sprite );
-        }
     }
     /*
     public void SetPlayerInfo(Player _player)
@@ -89,71 +77,39 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         {
             float axis_X = Input.GetAxisRaw("Horizontal");
             float axis_Y = Input.GetAxisRaw("Vertical");
-            if (axis_X == 1)
+            if (axis_X == 1)   
             {
                 rb.velocity = Vector2.right * 4f;
-
-                foreach (Animator ani in animsList)
-                {
-                    ani.SetBool("Walk_RightArrow",true);
-                    ani.SetBool("Walk_LeftArrow", false);
-                    ani.SetBool("Walk_UpArrow", false);
-                    ani.SetBool("Walk_DownArrow", false);
-                }
+                transform.rotation=Quaternion.Euler(0,90,0);
+                playerAnim.SetBool("walk",true);
             }
 
-            if (axis_X == -1)
+            if (axis_X == -1)  
             {
                 rb.velocity = Vector2.left * 4f;
-                foreach (Animator ani in animsList)
-                {
-                    ani.SetBool("Walk_LeftArrow", true);
-                    ani.SetBool("Walk_UpArrow", false);
-                    ani.SetBool("Walk_DownArrow", false);
-                    ani.SetBool("Walk_RightArrow", false);
-                        
-                }
+                transform.rotation=Quaternion.Euler(0,-90,0);
+                playerAnim.SetBool("walk",true);
             }
 
             if (axis_Y == 1)
             {
                 rb.velocity = Vector2.up * 4f;
-                
-                foreach (Animator ani in animsList)
-                {
-                    ani.SetBool("Walk_UpArrow", true);
-                    ani.SetBool("Walk_RightArrow", false);
-                    ani.SetBool("Walk_LeftArrow", false);
-                    ani.SetBool("Walk_DownArrow", false);
-                }
+                transform.rotation=Quaternion.Euler(0,0,0);
+                playerAnim.SetBool("walk",true);
             }
 
             if (axis_Y == -1)
             {
                 rb.velocity = Vector2.down * 4f;
-
-                foreach (Animator ani in animsList)
-                {
-                    ani.SetBool("Walk_DownArrow", true);
-                    ani.SetBool("Walk_RightArrow", false);
-                    ani.SetBool("Walk_LeftArrow", false);
-                    ani.SetBool("Walk_UpArrow", false);
-                    
-                }
+                transform.rotation=Quaternion.Euler(0,180,0);
+                playerAnim.SetBool("walk",true);
                 
             }
 
             if (axis_X == 0 && axis_Y == 0)
             {
                 rb.velocity = Vector2.zero;
-                foreach (Animator ani in animsList)
-                {
-                    ani.SetBool("Walk_DownArrow", false);
-                    ani.SetBool("Walk_RightArrow", false);
-                    ani.SetBool("Walk_LeftArrow", false);
-                    ani.SetBool("Walk_UpArrow", false);
-                    
-                }
+                playerAnim.SetBool("walk",false);
             }
 
         }
