@@ -425,63 +425,63 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
 
     #region -- Video Render UI Logic ---
 
-    internal static void MakeVideoView(uint uid, string channelId = "", VIDEO_SOURCE_TYPE videoSourceType = VIDEO_SOURCE_TYPE.VIDEO_SOURCE_CAMERA)
-    {
-        var go = GameObject.Find(uid.ToString());
-        if (!ReferenceEquals(go, null))
-        {
-            return; // reuse
-        }
+    //internal static void MakeVideoView(uint uid, string channelId = "", VIDEO_SOURCE_TYPE videoSourceType = VIDEO_SOURCE_TYPE.VIDEO_SOURCE_CAMERA)
+    //{
+    //    var go = GameObject.Find(uid.ToString());
+    //    if (!ReferenceEquals(go, null))
+    //    {
+    //        return; // reuse
+    //    }
 
-        // create a GameObject and assign to this new user
-        VideoSurface videoSurface = new VideoSurface();
+    //    // create a GameObject and assign to this new user
+    //    VideoSurface videoSurface = new VideoSurface();
 
-        if (videoSourceType == VIDEO_SOURCE_TYPE.VIDEO_SOURCE_CAMERA)
-        {
-            videoSurface = MakeImageSurface("MainCameraView");
-        }
-        else if (videoSourceType == VIDEO_SOURCE_TYPE.VIDEO_SOURCE_SCREEN)
-        {
-            videoSurface = MakeImageSurface("ScreenShareView");
-        }
-        else
-        {
-            videoSurface = MakeImageSurface(uid.ToString());
-        }
-        if (ReferenceEquals(videoSurface, null)) return;
-        // configure videoSurface
-        videoSurface.SetForUser(uid, channelId, videoSourceType);
-        videoSurface.SetEnable(true);
+    //    if (videoSourceType == VIDEO_SOURCE_TYPE.VIDEO_SOURCE_CAMERA)
+    //    {
+    //        videoSurface = MakeImageSurface("MainCameraView");
+    //    }
+    //    else if (videoSourceType == VIDEO_SOURCE_TYPE.VIDEO_SOURCE_SCREEN)
+    //    {
+    //        videoSurface = MakeImageSurface("ScreenShareView");
+    //    }
+    //    else
+    //    {
+    //        videoSurface = MakeImageSurface(uid.ToString());
+    //    }
+    //    if (ReferenceEquals(videoSurface, null)) return;
+    //    // configure videoSurface
+    //    videoSurface.SetForUser(uid, channelId, videoSourceType);
+    //    videoSurface.SetEnable(true);
 
-        videoSurface.OnTextureSizeModify += (width, height) =>
-        {
-            float scale = (float)height / (float)width;
-            videoSurface.transform.localScale = new Vector3(5, 5 * scale, 1);
-            Debug.Log("OnTextureSizeModify: " + width + "  " + height);
-        };
+    //    videoSurface.OnTextureSizeModify += (width, height) =>
+    //    {
+    //        float scale = (float)height / (float)width;
+    //        videoSurface.transform.localScale = new Vector3(5, 5 * scale, 1);
+    //        Debug.Log("OnTextureSizeModify: " + width + "  " + height);
+    //    };
 
-    }
+    //}
 
-    // VIDEO TYPE 1: 3D Object
-    private static VideoSurface MakePlaneSurface(string goName)
-    {
-        var go = GameObject.CreatePrimitive(PrimitiveType.Plane);
+    //// VIDEO TYPE 1: 3D Object
+    //private static VideoSurface MakePlaneSurface(string goName)
+    //{
+    //    var go = GameObject.CreatePrimitive(PrimitiveType.Plane);
 
-        if (go == null)
-        {
-            return null;
-        }
+    //    if (go == null)
+    //    {
+    //        return null;
+    //    }
 
-        go.name = goName;
-        // set up transform
-        go.transform.Rotate(0f, 0.0f, 0.0f);
-        go.transform.position = Vector3.zero;
-        go.transform.localScale = new Vector3(1f, 1f, 1f);
+    //    go.name = goName;
+    //    // set up transform
+    //    go.transform.Rotate(0f, 0.0f, 0.0f);
+    //    go.transform.position = Vector3.zero;
+    //    go.transform.localScale = new Vector3(1f, 1f, 1f);
 
-        // configure videoSurface
-        var videoSurface = go.AddComponent<VideoSurface>();
-        return videoSurface;
-    }
+    //    // configure videoSurface
+    //    var videoSurface = go.AddComponent<VideoSurface>();
+    //    return videoSurface;
+    //}
 
     // Video TYPE 2: RawImage
     private static VideoSurface MakeImageSurface(string goName)
@@ -576,6 +576,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                         Debug.LogError("1");
                         GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
                         newFriendCam.transform.SetParent(player.transform.GetChild(0));
+                        newFriendCam.transform.position = new Vector2(0,0);
                         newFriendCam.transform.localScale = new Vector3(1, 1, 1);
 
 
