@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using AdvancedPeopleSystem;
 using Photon.Pun;
 using Photon.Pun.Demo.PunBasics;
 using Photon.Realtime;
@@ -22,7 +23,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     private ExitGames.Client.Photon.Hashtable playerProperties = new ExitGames.Client.Photon.Hashtable();
     
     private Player player;
-
+    public int selectedHairIndex = -1;
    
     void Awake()
     {
@@ -32,11 +33,8 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     
     void Start()
     {
-        /*
-        animsList.Add(ShirtsAnim);
-
-        Debug.Log(UI_Character.Instance.SelectedShirts);
-        */
+        selectedHairIndex = CharacterManager.Instance.selectedHairIndex;
+        gameObject.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,selectedHairIndex);
     }
     /*
     public void SetPlayerInfo(Player _player)
@@ -73,7 +71,6 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     //public GameObject sayingObject;
     void Update()
     {
-        
         if (pv.IsMine)
         {
             float axis_X = Input.GetAxisRaw("Horizontal");
@@ -116,12 +113,12 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         if (stream.IsWriting)
         {
             stream.SendNext(transform.position);
-
+            stream.SendNext(selectedHairIndex);
         }
         else
         {
             curPos = (Vector3)stream.ReceiveNext();
-
+            Debug.Log("stream.ReceiveNext() "+stream.ReceiveNext());
         }
     }
 
