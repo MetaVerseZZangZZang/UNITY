@@ -53,7 +53,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         else
         {
             uint key = PhotonManager.Instance.playerdict.FirstOrDefault(x => x.Value == pv.Owner.NickName + "(user)").Key;
-            
+            Debug.Log("??????????????"+key);
         }
  
      
