@@ -564,7 +564,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
             
             if (uid != _videoSample.Uid1 && uid != _videoSample.Uid2 )
             {
-                if (!_videoSample.playerdict.ContainsKey(uid))
+                if (!_videoSample.playerdict.ContainsKey((int)uid))
                 {
                     Debug.LogError("nulllllllllll");
                     _videoSample.userCount = FriendCamList.Count();
@@ -584,9 +584,9 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                     _videoSample.count += 1;
                     _videoSample.idList.Add(uid);
                 }
-                else if (_videoSample.playerdict.ContainsKey(uid))
+                else if (_videoSample.playerdict.ContainsKey((int)uid))
                 {
-                    GameObject player = GameObject.Find(_videoSample.playerdict[uid]);
+                    GameObject player = GameObject.Find(_videoSample.playerdict[(int)uid]);
                     PlayerItem playerScript = player.GetComponent<PlayerItem>();
 
                     Debug.LogError(playerScript.webviewStart);
