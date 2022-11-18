@@ -43,13 +43,9 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
         gameObject.name = pv.IsMine ? PhotonNetwork.NickName+"(user)" : pv.Owner.NickName+"(user)";
 
-        //playerUID = (uint)UnityEngine.Random.Range(1000, 2000);
-        //ScreenShareWhileVideoCall.Instance.Uid2 = playerUID;
-        //PhotonManager.Instance.playerdict.Add(playerUID, UI_StartPanel.Instance.userName + "(user)");
-        //Debug.Log("9999999999999" + PhotonManager.Instance.playerdict[playerUID]);
-        //uint key = PhotonManager.Instance.playerdict.FirstOrDefault(x => x.Value == PhotonNetwork.NickName + "(user)").Key;
-        //Debug.Log("101010101010" + key);
 
+        
+        
 
         animsList.Add(PlayerAnim);
         /*
@@ -63,6 +59,11 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             Debug.Log("Before "+shirts.sprite );
             shirts.sprite = UI_Character.Instance.SelectedShirts;
             Debug.Log("After "+shirts.sprite );
+
+            playerUID = (uint)UnityEngine.Random.Range(1000, 2000);
+
+            PhotonManager.Instance.playerdict.Add(playerUID, UI_StartPanel.Instance.userName);
+
         }
     }
     /*

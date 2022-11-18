@@ -78,15 +78,14 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         GameObject player = PhotonNetwork.Instantiate("Prefabs/Player", Vector3.zero, Quaternion.identity);
-        PlayerItem playerScript = player.GetComponent<PlayerItem>();
-        playerScript.playerUID = (uint)UnityEngine.Random.Range(1000, 2000);
+       
+        
+        //ScreenShareWhileVideoCall.Instance.Uid2 = playerScript.playerUID;
 
-        ScreenShareWhileVideoCall.Instance.Uid2 = playerScript.playerUID;
-
-        PhotonManager.Instance.playerdict.Add(playerScript.playerUID, UI_StartPanel.Instance.userName + "(user)");
-        Debug.Log("9999999999999" + PhotonManager.Instance.playerdict[playerScript.playerUID]);
-        uint key = PhotonManager.Instance.playerdict.FirstOrDefault(x => x.Value == PhotonNetwork.NickName + "(user)").Key;
-        Debug.Log("101010101010" + key);
+        //PhotonManager.Instance.playerdict.Add(playerScript.playerUID, UI_StartPanel.Instance.userName + "(user)");
+        //Debug.Log("9999999999999" + PhotonManager.Instance.playerdict[playerScript.playerUID]);
+        //uint key = PhotonManager.Instance.playerdict.FirstOrDefault(x => x.Value == PhotonNetwork.NickName + "(user)").Key;
+        //Debug.Log("101010101010" + key);
 
 
 
@@ -135,13 +134,17 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         //ChatRPC("<color=yellow>" + newPlayer.NickName + "님이 참가하셨습니다</color>");
         //nameList.Add(newPlayer.NickName);
         //UpdatePlayerList();
+        Debug.LogError(newPlayer.NickName);
         UI_PlayerSlot.Instance.AddPlayerSlot(newPlayer.NickName);
+        Debug.LogError(playerdict.FirstOrDefault(x => x.Value == newPlayer.NickName).Key);
+        
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         //nameList.Remove(otherPlayer.NickName);
         //UpdatePlayerList();
+
         UI_PlayerSlot.Instance.DelPlayerSlot(otherPlayer.NickName);
     }
 

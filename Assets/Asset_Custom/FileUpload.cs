@@ -161,7 +161,7 @@ public class FileUpload : MonoBehaviour
         form.AddBinaryData("file", fileByte,fileName+extension);
         Debug.Log(fileName + extension);
            
-           
+     
         UnityWebRequest w = UnityWebRequest.Post(url, form);
         w.SetRequestHeader("x-sid", UI_StartPanel.Instance.userName);
         w.SetRequestHeader("x-extension",extension);
