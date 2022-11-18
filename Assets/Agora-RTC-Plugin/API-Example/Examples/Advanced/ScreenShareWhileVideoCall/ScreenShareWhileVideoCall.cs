@@ -564,118 +564,93 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
             
             if (uid != _videoSample.Uid1 && uid != _videoSample.Uid2 )
             {
-                if (!_videoSample.playerdict.ContainsKey((int)uid))
-                {
-                    Debug.LogError("nulllllllllll");
-                    _videoSample.userCount = FriendCamList.Count();
+                Debug.LogError("nulllllllllll");
+                _videoSample.userCount = FriendCamList.Count();
 
-                    GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
-                    newFriendCam.transform.SetParent(_videoSample.FriendCams.transform);
-                    newFriendCam.transform.localScale = new Vector3(1, 1, 1);
+                GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
+                newFriendCam.transform.SetParent(_videoSample.FriendCams.transform);
+                newFriendCam.transform.localScale = new Vector3(1, 1, 1);
 
 
-                    FriendCamList.Add(newFriendCam.GetComponent<VideoSurface>());
-                    FriendCamList[FriendCamList.Count - 1].SetEnable(true);
-                    FriendCamList[FriendCamList.Count - 1].SetForUser(uid, connection.channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
+                FriendCamList.Add(newFriendCam.GetComponent<VideoSurface>());
+                FriendCamList[FriendCamList.Count - 1].SetEnable(true);
+                FriendCamList[FriendCamList.Count - 1].SetForUser(uid, connection.channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
 
 
-                    _videoSample.remoteUid = uid;
-                    _videoSample.FriendList[Math.Min(_videoSample.count, _videoSample.FriendList.Count - 1)].SetActive(true);
-                    _videoSample.count += 1;
-                    _videoSample.idList.Add(uid);
-                }
-                else if (_videoSample.playerdict.ContainsKey((int)uid))
-                {
-                    GameObject player = GameObject.Find(_videoSample.playerdict[(int)uid]);
-                    PlayerItem playerScript = player.GetComponent<PlayerItem>();
+                _videoSample.remoteUid = uid;
+                _videoSample.FriendList[Math.Min(_videoSample.count, _videoSample.FriendList.Count - 1)].SetActive(true);
+                _videoSample.count += 1;
+                _videoSample.idList.Add(uid);
 
-                    Debug.LogError(playerScript.webviewStart);
-                    if (playerScript.webviewStart == true)
-                    {
-                        GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
-                        newFriendCam.transform.SetParent(player.transform.GetChild(0));
-                        newFriendCam.transform.localScale = new Vector3(1, 1, 1);
-
-
-                        FriendCamList.Add(newFriendCam.GetComponent<VideoSurface>());
-                        FriendCamList[FriendCamList.Count - 1].SetEnable(true);
-                        FriendCamList[FriendCamList.Count - 1].SetForUser(uid, connection.channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
-
-
-                        _videoSample.remoteUid = uid;
-                        _videoSample.FriendList[Math.Min(_videoSample.count, _videoSample.FriendList.Count - 1)].SetActive(true);
-                        _videoSample.count += 1;
-                        _videoSample.idList.Add(uid);
-                    }
-                    else
-                    {
-                        //Debug.LogError("nulllllllllll");
-                        _videoSample.userCount = FriendCamList.Count();
-
-                        GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
-                        newFriendCam.transform.SetParent(_videoSample.FriendCams.transform);
-                        newFriendCam.transform.localScale = new Vector3(1, 1, 1);
-
-
-                        FriendCamList.Add(newFriendCam.GetComponent<VideoSurface>());
-                        FriendCamList[FriendCamList.Count - 1].SetEnable(true);
-                        FriendCamList[FriendCamList.Count - 1].SetForUser(uid, connection.channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
-
-
-                        _videoSample.remoteUid = uid;
-                        _videoSample.FriendList[Math.Min(_videoSample.count, _videoSample.FriendList.Count - 1)].SetActive(true);
-                        _videoSample.count += 1;
-                        _videoSample.idList.Add(uid);
-                    }
-                }
-                else
-                {
-                    //Debug.LogError("nulllllllllll");
-                    _videoSample.userCount = FriendCamList.Count();
-
-                    GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
-                    newFriendCam.transform.SetParent(_videoSample.FriendCams.transform);
-                    newFriendCam.transform.localScale = new Vector3(1, 1, 1);
-
-
-                    FriendCamList.Add(newFriendCam.GetComponent<VideoSurface>());
-                    FriendCamList[FriendCamList.Count - 1].SetEnable(true);
-                    FriendCamList[FriendCamList.Count - 1].SetForUser(uid, connection.channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
-
-
-                    _videoSample.remoteUid = uid;
-                    _videoSample.FriendList[Math.Min(_videoSample.count, _videoSample.FriendList.Count - 1)].SetActive(true);
-                    _videoSample.count += 1;
-                    _videoSample.idList.Add(uid);
-                }
-
-
-
-                //Debug.LogError(_videoSample.Uid2 + "(user)");
-                //PlayerItem playerScript = player.GetComponent<PlayerItem>();
-                //Debug.LogError(player);
-
-
-                //if (playerScript.webviewStart == true)
+                //if (!_videoSample.playerdict.ContainsKey((int)uid))
                 //{
-                //    Debug.Log("!!!!!!!!!!!!!!!!!!!!!"+playerScript.webviewStart);
                 //}
-
-
-                //PlayerItem playerScript = playerID.GetComponent<PlayerItem>();
-
-                //if (playerScript.webviewStart == true)
+                //else if (_videoSample.playerdict.ContainsKey((int)uid))
                 //{
-                //    Debug.LogError("들어옴");
-                //    GameObject canvas = playerID.transform.GetChild(0).GetComponent<GameObject>();
-                //    GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
-                //    newFriendCam.transform.SetParent(canvas.transform);
-                //}
+                //    GameObject player = GameObject.Find(_videoSample.playerdict[(int)uid]);
+                //    PlayerItem playerScript = player.GetComponent<PlayerItem>();
 
+                //    Debug.LogError(playerScript.webviewStart);
+                //    if (playerScript.webviewStart == true)
+                //    {
+                //        GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
+                //        newFriendCam.transform.SetParent(player.transform.GetChild(0));
+                //        newFriendCam.transform.localScale = new Vector3(1, 1, 1);
+
+
+                //        FriendCamList.Add(newFriendCam.GetComponent<VideoSurface>());
+                //        FriendCamList[FriendCamList.Count - 1].SetEnable(true);
+                //        FriendCamList[FriendCamList.Count - 1].SetForUser(uid, connection.channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
+
+
+                //        _videoSample.remoteUid = uid;
+                //        _videoSample.FriendList[Math.Min(_videoSample.count, _videoSample.FriendList.Count - 1)].SetActive(true);
+                //        _videoSample.count += 1;
+                //        _videoSample.idList.Add(uid);
+                //    }
+                //    else
+                //    {
+                //        //Debug.LogError("nulllllllllll");
+                //        _videoSample.userCount = FriendCamList.Count();
+
+                //        GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
+                //        newFriendCam.transform.SetParent(_videoSample.FriendCams.transform);
+                //        newFriendCam.transform.localScale = new Vector3(1, 1, 1);
+
+
+                //        FriendCamList.Add(newFriendCam.GetComponent<VideoSurface>());
+                //        FriendCamList[FriendCamList.Count - 1].SetEnable(true);
+                //        FriendCamList[FriendCamList.Count - 1].SetForUser(uid, connection.channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
+
+
+                //        _videoSample.remoteUid = uid;
+                //        _videoSample.FriendList[Math.Min(_videoSample.count, _videoSample.FriendList.Count - 1)].SetActive(true);
+                //        _videoSample.count += 1;
+                //        _videoSample.idList.Add(uid);
+                //    }
+                //}
                 //else
                 //{
-                
+                //    //Debug.LogError("nulllllllllll");
+                //    _videoSample.userCount = FriendCamList.Count();
+
+                //    GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
+                //    newFriendCam.transform.SetParent(_videoSample.FriendCams.transform);
+                //    newFriendCam.transform.localScale = new Vector3(1, 1, 1);
+
+
+                //    FriendCamList.Add(newFriendCam.GetComponent<VideoSurface>());
+                //    FriendCamList[FriendCamList.Count - 1].SetEnable(true);
+                //    FriendCamList[FriendCamList.Count - 1].SetForUser(uid, connection.channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
+
+
+                //    _videoSample.remoteUid = uid;
+                //    _videoSample.FriendList[Math.Min(_videoSample.count, _videoSample.FriendList.Count - 1)].SetActive(true);
+                //    _videoSample.count += 1;
+                //    _videoSample.idList.Add(uid);
                 //}
+
+
             }
 
         }
