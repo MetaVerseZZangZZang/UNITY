@@ -80,6 +80,9 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         //GameObject player=PhotonNetwork.Instantiate("Prefabs/Character", Vector3.zero, Quaternion.Euler(new Vector3(0,180,0)));
         GameObject player=PhotonNetwork.Instantiate("Prefabs/Character", Vector3.zero, Quaternion.Euler(new Vector3(0,180,0)));
         m_PlayerItem = player.GetComponent<PlayerItem>();//.SetPlayerInfo(player);}
+        
+        player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,2);
+
         //m_PlayerItem.Sethair()
         /*
         int selectedHairIndex = CharacterManager.Instance.selectedHairIndex;
