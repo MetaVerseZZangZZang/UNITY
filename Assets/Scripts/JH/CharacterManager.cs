@@ -16,6 +16,7 @@ public class CharacterManager : MonoBehaviour
     public Text panelNameText;
 
     public RectTransform HairPanel;
+    public RectTransform BeardPanel;
     public RectTransform ShirtPanel;
     public RectTransform PantsPanel;
     public RectTransform ShoesPanel;
@@ -45,8 +46,7 @@ public class CharacterManager : MonoBehaviour
     public RectTransform maleUI;
     
     public int selectedHairIndex = -1;
-    public int selectedShirtsIndex = -1;
-    
+
     public void Awake()
     {
         Instance=this;
@@ -121,10 +121,10 @@ public class CharacterManager : MonoBehaviour
         HairColorPanel.gameObject.SetActive(v);
     }
     
-    public void ShirtPanel_Select()
+    public void ShirtPanel_Select(bool v)
     {
-        //HideAllPanels();
-        if (ShirtPanel.gameObject.activeSelf)
+        HideAllPanels();
+        if (!v)
             ShirtPanel.gameObject.SetActive(false);
         else
             ShirtPanel.gameObject.SetActive(true);
@@ -153,7 +153,17 @@ public class CharacterManager : MonoBehaviour
         else
             BackpackPanel.gameObject.SetActive(true);
     }
-    
+
+    public void BeardPanel_Select(bool v)
+    {
+        HideAllPanels();
+        if (!v)
+            BeardPanel.gameObject.SetActive(false);
+        else
+            BeardPanel.gameObject.SetActive(true);
+
+        currentPanelIndex = (v) ? 1 : 0;
+    }
     public void HatPanel_Select(bool v)
     {
         HideAllPanels();
@@ -247,6 +257,8 @@ public class CharacterManager : MonoBehaviour
     {
         HairColorPanel.gameObject.SetActive(false);
         
+        if (BeardPanel != null)
+            BeardPanel.gameObject.SetActive(false);
         HairPanel.gameObject.SetActive(false);
         ShirtPanel.gameObject.SetActive(false);
         PantsPanel.gameObject.SetActive(false);

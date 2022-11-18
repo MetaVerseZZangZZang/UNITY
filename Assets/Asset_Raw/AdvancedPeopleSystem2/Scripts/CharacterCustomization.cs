@@ -651,7 +651,6 @@ namespace AdvancedPeopleSystem
                 }
                 if (type == CharacterElementType.Shirt)
                 {
-                    CharacterManager.Instance.selectedShirtsIndex = index;
                     GetBlendshapeData(CharacterBlendShapeType.BackpackOffset).value = 100;
                     if (characterSelectedElements.GetSelectedIndex(CharacterElementType.Item1) != -1)
                         SetBlendshapeValue(CharacterBlendShapeType.BackpackOffset, 100);

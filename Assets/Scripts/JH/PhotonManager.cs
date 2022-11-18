@@ -80,9 +80,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         GameObject player=PhotonNetwork.Instantiate("Prefabs/Character", Vector3.zero, Quaternion.Euler(new Vector3(0,180,0)));
 
         player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,CharacterManager.Instance.selectedHairIndex );
-        
-        Debug.Log("CharacterManager.Instance.selectedShirtsIndex"+CharacterManager.Instance.selectedShirtsIndex);
-        player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Shirt,CharacterManager.Instance.selectedShirtsIndex );
+
         //m_PlayerItem.Sethair()
         /*
         int selectedHairIndex = CharacterManager.Instance.selectedHairIndex;
@@ -131,12 +129,12 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        /*
         Debug.Log("OnPlayerEnteredRoom "+newPlayer.NickName);
         Hashtable cp = newPlayer.CustomProperties;
         Debug.Log("newPlayer.CustomProperties[hair] "+(int)cp["hair"]);
-        */
-
+        
+        
+        
         UI_PlayerSlot.Instance.AddPlayerSlot(newPlayer.NickName);
     }
 
