@@ -78,11 +78,11 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         GameObject player = PhotonNetwork.Instantiate("Prefabs/Player", Vector3.zero, Quaternion.identity);
-        PlayerItem playerScript = player.GetComponent<PlayerItem>();
-        playerScript.playerUID = (uint)UnityEngine.Random.Range(1000, 2000);
-        string bridge = playerScript.playerUID + "3427";
-        playerScript.playerUID = (uint)Int32.Parse(bridge);
-        player.name = UI_StartPanel.Instance.userName;
+        //PlayerItem playerScript = player.GetComponent<PlayerItem>();
+        //playerScript.playerUID = (uint)UnityEngine.Random.Range(1000, 2000);
+        //string bridge = playerScript.playerUID + "3427";
+        //playerScript.playerUID = (uint)Int32.Parse(bridge);
+        //player.name = UI_StartPanel.Instance.userName;
         
 
 
