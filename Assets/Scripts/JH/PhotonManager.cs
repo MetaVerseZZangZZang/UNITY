@@ -79,18 +79,14 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         GameObject player = PhotonNetwork.Instantiate("Prefabs/Player", Vector3.zero, Quaternion.identity);
         PlayerItem playerScript = player.GetComponent<PlayerItem>();
+        playerScript.playerUID = (uint)UnityEngine.Random.Range(1000, 2000);
 
-        if (playerScript.pv.IsMine)
-        {
-            playerScript.playerUID = (uint)UnityEngine.Random.Range(1000, 2000);
-            ScreenShareWhileVideoCall.Instance.Uid2 = playerScript.playerUID;
-            playerdict.Add(playerScript.playerUID, UI_StartPanel.Instance.userName + "(user)");
-            Debug.Log("9999999999999" + playerdict[playerScript.playerUID]);
-        }
-        else
-        {
-            Debug.Log("1010101010" + PhotonManager.Instance.playerdict.FirstOrDefault(x => x.Value == playerScript.pv.Owner.NickName + "(user)").Key);
-        }
+        ScreenShareWhileVideoCall.Instance.Uid2 = playerScript.playerUID;
+
+        PhotonManager.Instance.playerdict.Add(playerScript.playerUID, UI_StartPanel.Instance.userName + "(user)");
+        Debug.Log("9999999999999" + PhotonManager.Instance.playerdict[playerScript.playerUID]);
+        uint key = PhotonManager.Instance.playerdict.FirstOrDefault(x => x.Value == PhotonNetwork.NickName + "(user)").Key;
+        Debug.Log("101010101010" + key);
 
 
 
