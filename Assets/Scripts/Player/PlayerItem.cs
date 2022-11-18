@@ -179,11 +179,13 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         {
             stream.SendNext(transform.position);
             stream.SendNext(webviewStart);
+            stream.SendNext(playerUID);
         }
         else
         {
             curPos = (Vector3)stream.ReceiveNext();
             webviewStart = (bool)stream.ReceiveNext();
+            playerUID = (uint)stream.ReceiveNext();
         }
     }
 
