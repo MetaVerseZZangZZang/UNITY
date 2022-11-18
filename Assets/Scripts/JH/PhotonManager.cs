@@ -79,14 +79,16 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         GameObject player=PhotonNetwork.Instantiate("Prefabs/Character", Vector3.zero, Quaternion.Euler(new Vector3(0,180,0)));
         int selectedHairIndex = CharacterManager.Instance.selectedHairIndex;
         player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,selectedHairIndex);
-        
-        Hashtable hash = new Hashtable();
-        hash.Add("Shirts",CharacterManager.Instance.selectedHairIndex);
-        PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Hashtable playerCP=new Hashtable { { "hair", selectedHairIndex } };
+            PhotonNetwork.LocalPlayer.SetCustomProperties(playerCP);
+            //Hashtable playerCP = PhotonNetwork.LocalPlayer.CustomProperties;
+        }
         
         foreach (Player p in PhotonNetwork.PlayerList)
         {
-            //int shirt=(int)p.CustomProperties["Shirts"];
             UI_PlayerSlot.Instance.AddPlayerSlot(p.NickName);
         }
 
