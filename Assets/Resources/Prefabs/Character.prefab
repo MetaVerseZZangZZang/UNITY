@@ -2548,6 +2548,7 @@ GameObject:
   - component: {fileID: 5981644011129649013}
   - component: {fileID: 8461957992028094475}
   - component: {fileID: 9220516865472278287}
+  - component: {fileID: 4338413693397323449}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -2672,7 +2673,7 @@ MonoBehaviour:
     - {fileID: 6791931087251776183}
     - {fileID: 3195732119377324750}
   prefabPath: Assets/AdvancedPeopleSystem2/Prefabs/CustomizableCharacter.prefab
-  instanceStatus: 6
+  instanceStatus: 5
   originHip: {fileID: 1231293355673010347}
   headHip: {fileID: 8473455122907128234}
   clothesAnchors:
@@ -3082,11 +3083,15 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 3
   OwnershipTransfer: 0
-  observableSearch: 2
+  observableSearch: 0
   ObservedComponents:
   - {fileID: 103247769117648114}
   - {fileID: 5981644011129649013}
   - {fileID: 9220516865472278287}
+  - {fileID: 4338413693397323449}
+  - {fileID: 4338413693397323449}
+  - {fileID: 4338413693397323449}
+  - {fileID: 4338413693397323449}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -3158,6 +3163,22 @@ MonoBehaviour:
   m_SynchronizeAngularVelocity: 0
   m_TeleportEnabled: 0
   m_TeleportIfDistanceGreaterThan: 3
+--- !u!114 &4338413693397323449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705496087617365778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &1856924670619042996
 GameObject:
   m_ObjectHideFlags: 0

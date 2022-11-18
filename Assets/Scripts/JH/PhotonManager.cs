@@ -79,18 +79,14 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         GameObject player=PhotonNetwork.Instantiate("Prefabs/Character", Vector3.zero, Quaternion.Euler(new Vector3(0,180,0)));
         int selectedHairIndex = CharacterManager.Instance.selectedHairIndex;
         player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,selectedHairIndex);
-        //UpdatePlayerList();
-        //int shirt=(int)PhotonNetwork.PlayerList[PhotonNetwork.PlayerList.Count() - 1].CustomProperties["Shirts"];
         
-        /*
         Hashtable hash = new Hashtable();
-        hash.Add("Shirts","Shirt Type 2");
+        hash.Add("Shirts",CharacterManager.Instance.selectedHairIndex);
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
-        */
+        
         foreach (Player p in PhotonNetwork.PlayerList)
         {
-            //nameList.Add(p.NickName);
-            
+            //int shirt=(int)p.CustomProperties["Shirts"];
             UI_PlayerSlot.Instance.AddPlayerSlot(p.NickName);
         }
 
@@ -139,31 +135,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         UI_PlayerSlot.Instance.DelPlayerSlot(otherPlayer.NickName);
     }
 
-    
-    void UpdatePlayerList()
-    {
-        foreach (PlayerItem item in playerItemList)
-        {
-            Destroy(item.gameObject);
-        }
-        playerItemList.Clear();
-
-        if (PhotonNetwork.CurrentRoom == null)
-        {
-            return;
-        }
-
-        foreach (KeyValuePair<int, Player> player in PhotonNetwork.CurrentRoom.Players)
-        {
-            GameObject newPlayerItem = PhotonNetwork.Instantiate("Prefabs/Player", Vector3.zero, Quaternion.identity);
-            
-            
-            newPlayerItem.transform.localScale = new Vector3(1, 1, 1);
-            PlayerItem newPlayer = newPlayerItem.GetComponent<PlayerItem>();
-            //newPlayer.SetPlayerInfo(player.Value);
-            playerItemList.Add(newPlayer);
-        }
-    }
     
 }
 
