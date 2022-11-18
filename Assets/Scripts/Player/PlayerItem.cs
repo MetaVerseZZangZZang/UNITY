@@ -24,7 +24,8 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     
     private Player player;
     public int selectedHairIndex = -1;
-   
+
+    private CharacterCustomization cc;
     void Awake()
     {
         //playerName.text = pv.IsMine ? PhotonNetwork.NickName : pv.Owner.NickName;
@@ -34,7 +35,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     void Start()
     {
         selectedHairIndex = CharacterManager.Instance.selectedHairIndex;
-        gameObject.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,selectedHairIndex);
+        //
     }
     /*
     public void SetPlayerInfo(Player _player)
@@ -118,7 +119,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         else
         {
             curPos = (Vector3)stream.ReceiveNext();
-            Debug.Log("stream.ReceiveNext() "+stream.ReceiveNext());
+            cc.SetElementByIndex(CharacterElementType.Hair,(int)stream.ReceiveNext());
         }
     }
 
