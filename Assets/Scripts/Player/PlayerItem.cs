@@ -107,8 +107,11 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         
         if (pv.IsMine)
         {
+
             float axis_X = Input.GetAxisRaw("Horizontal");
             float axis_Y = Input.GetAxisRaw("Vertical");
+
+           
             if (axis_X == 1)
             {
                 rb.velocity = Vector2.right * 4f;

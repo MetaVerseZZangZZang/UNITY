@@ -117,7 +117,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     IEnumerator GetUID()
     {
         yield return new WaitForSeconds(1f);
-        JoinChannel();
+        JoinChannel3();
     }
 
     
@@ -139,7 +139,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
             InitTexture();
             InitEngine();
             SetExternalVideoSource();
-            JoinChannel3();
+            JoinChannel();
             startWebview = true;
 
 
@@ -284,10 +284,10 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
 
         RtcEngine.JoinChannel(_token, _channelName, Uid2, options);
 
-        myCam.AddComponent<VideoSurface>();
-        LocalView = myCam.GetComponent<VideoSurface>();
-        LocalView.SetForUser(0, "", VIDEO_SOURCE_TYPE.VIDEO_SOURCE_CAMERA);
-        LocalView.SetEnable(true);
+        //myCam.AddComponent<VideoSurface>();
+        //LocalView = myCam.GetComponent<VideoSurface>();
+        //LocalView.SetForUser(0, "", VIDEO_SOURCE_TYPE.VIDEO_SOURCE_CAMERA);
+        //LocalView.SetEnable(true);
     }
 
 
