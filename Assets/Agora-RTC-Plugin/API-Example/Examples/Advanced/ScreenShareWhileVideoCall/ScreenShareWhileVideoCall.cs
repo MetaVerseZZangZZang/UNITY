@@ -66,6 +66,8 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     public bool startWebview = false;
 
 
+    public GameObject panseo;
+
     public Dictionary<int, string> playerdict = new Dictionary<int, string>();
 
 
@@ -120,7 +122,35 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         JoinChannel3();
     }
 
-    
+    public void PanseoStart()
+    {
+        LoadAssetData();
+        //Safari.SetActive(true);
+        if (CheckAppId())
+        {
+            //Debug.LogError(Uid2 + "(user)");
+            panseo.SetActive(true);
+            GameObject playerID = GameObject.Find(UI_StartPanel.Instance.userName + "(user)");
+
+            PlayerItem playerScript = playerID.GetComponent<PlayerItem>();
+
+            playerScript.webviewStart = true;
+
+            InitCameraDevice();
+            InitTexture();
+            InitEngine();
+            SetExternalVideoSource();
+            JoinChannel();
+            //startWebview = true;
+
+
+            Transform playerCanvas = playerID.transform.GetChild(0).GetChild(2);
+            playerCanvas.gameObject.SetActive(true);
+            RawImage playerWebImage = playerCanvas.GetComponent<RawImage>();
+            StartCoroutine(BringWebTexture(playerWebImage));
+        }
+    }
+
     public void WebviewStart()
     {
         LoadAssetData();
@@ -147,8 +177,6 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
             playerCanvas.gameObject.SetActive(true);
             RawImage playerWebImage = playerCanvas.GetComponent<RawImage>();
             StartCoroutine(BringWebTexture(playerWebImage));
-
-            
         }
     }
 
