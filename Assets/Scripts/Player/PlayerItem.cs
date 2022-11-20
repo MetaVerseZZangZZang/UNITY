@@ -108,6 +108,12 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
         }
     }
+
+    public void DrawStream(Vector2 position)
+    {
+        Drawable.Instance.PenBrush(position);
+    }
+
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
@@ -122,6 +128,13 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             stream.SendNext(CharCustomManager.Instance.selectedPantsIndex);
             stream.SendNext(CharCustomManager.Instance.selectedShoesIndex);
             stream.SendNext(CharCustomManager.Instance.selectedHatIndex);
+
+            if (noteStart == true && pv.IsMine)
+            {
+                drawPosition = Drawable.Instance.sendPositionValue;
+                Drawable.Instance.PenBrush(drawPosition);
+                stream.SendNext(drawPosition);
+            }
         }
         else
         {
@@ -144,6 +157,10 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Pants,pantsIndex );
             GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Shoes,shoesIndex );
             GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hat,hatIndex );
+
+
+            drawPosition = (Vector2)stream.ReceiveNext();
+            DrawStream(drawPosition);
 
         }
     }
