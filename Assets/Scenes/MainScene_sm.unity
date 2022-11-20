@@ -11001,7 +11001,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 571045d48cec88d48848f53bf379f673, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sendPositionValue: {x: 0, y: 0}
   Drawing_Layers:
     serializedVersion: 2
     m_Bits: 256
