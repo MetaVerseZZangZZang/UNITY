@@ -9,6 +9,7 @@ using Logger = Agora.Util.Logger;
 using System.Collections;
 using Unity.Collections;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 
 using System.Collections;
 using System.Collections.Generic;
@@ -66,9 +67,10 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     public bool startWebview = false;
 
 
-    public GameObject panseo;
+    public GameObject note;
 
     public Dictionary<int, string> playerdict = new Dictionary<int, string>();
+
 
 
     private void Awake()
@@ -99,6 +101,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     // Use this for initialization
     public void AgoraStart()
     {
+        
         Safari.SetActive(false);
         LoadAssetData();
         if (CheckAppId())
@@ -122,61 +125,55 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         JoinChannel3();
     }
 
-    public void PanseoStart()
+    public void WebviewStart()
     {
+        
+        
+
         LoadAssetData();
         //Safari.SetActive(true);
         if (CheckAppId())
         {
-            //Debug.LogError(Uid2 + "(user)");
-            panseo.SetActive(true);
-            GameObject playerID = GameObject.Find(UI_StartPanel.Instance.userName + "(user)");
+            if (EventSystem.current.currentSelectedGameObject != null)
+            {
+                GameObject clickObject = EventSystem.current.currentSelectedGameObject;
+                Debug.LogError(clickObject.name);
 
-            PlayerItem playerScript = playerID.GetComponent<PlayerItem>();
+                GameObject playerID = GameObject.Find(UI_StartPanel.Instance.userName + "(user)");
 
-            playerScript.webviewStart = true;
-
-            InitCameraDevice();
-            InitTexture();
-            InitEngine();
-            SetExternalVideoSource();
-            JoinChannel();
-            //startWebview = true;
+                PlayerItem playerScript = playerID.GetComponent<PlayerItem>();
 
 
-            Transform playerCanvas = playerID.transform.GetChild(0).GetChild(2);
-            playerCanvas.gameObject.SetActive(true);
-            RawImage playerWebImage = playerCanvas.GetComponent<RawImage>();
-            StartCoroutine(BringWebTexture(playerWebImage));
-        }
-    }
-
-    public void WebviewStart()
-    {
-        LoadAssetData();
-        Safari.SetActive(true);
-        if (CheckAppId())
-        {
-            Debug.LogError(Uid2 + "(user)");
-
-            GameObject playerID = GameObject.Find(UI_StartPanel.Instance.userName +"(user)");
-
-            PlayerItem playerScript = playerID.GetComponent<PlayerItem>();
-
-            playerScript.webviewStart = true;
-
-            InitCameraDevice();
-            InitTexture();
-            InitEngine();
-            SetExternalVideoSource();
-            JoinChannel();
-            startWebview = true;
-
-
-            Transform playerCanvas = playerID.transform.GetChild(0).GetChild(2);
-            playerCanvas.gameObject.SetActive(true);
-            RawImage playerWebImage = playerCanvas.GetComponent<RawImage>();
-            StartCoroutine(BringWebTexture(playerWebImage));
+                if (clickObject.name == "ShareNote")
+                {
+                    playerScript.noteStart = true;
+                    note.SetActive(true);
+                    InitCameraDevice();
+                    InitTexture();
+                    InitEngine();
+                    SetExternalVideoSource();
+                    JoinChannel();
+                    Transform playerCanvas = playerID.transform.GetChild(0).GetChild(2);
+                    playerCanvas.gameObject.SetActive(true);
+                    
+                    //RawImage playerWebImage = playerCanvas.GetComponent<RawImage>();
+                }
+                else if (clickObject.name == "ShareScreen")
+                {
+                    playerScript.webviewStart = true;
+                    Safari.SetActive(true);
+                    InitCameraDevice();
+                    InitTexture();
+                    InitEngine();
+                    SetExternalVideoSource();
+                    JoinChannel();
+                    startWebview = true;
+                    Transform playerCanvas = playerID.transform.GetChild(0).GetChild(2);
+                    playerCanvas.gameObject.SetActive(true);
+                    RawImage playerWebImage = playerCanvas.GetComponent<RawImage>();
+                    StartCoroutine(BringWebTexture(playerWebImage));
+                }
+            }
         }
     }
 

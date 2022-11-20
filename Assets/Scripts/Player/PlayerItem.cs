@@ -29,10 +29,14 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     private Player player;
 
     public bool webviewStart = false;
+    public bool noteStart = false;
 
     public int playerUID;
 
     public Dictionary<int, string> idUint = new Dictionary<int, string>();
+
+
+    public RawImage test;
 
     void Awake()
     {
@@ -196,6 +200,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             webviewStart = (bool)stream.ReceiveNext();
             playerUID = (int)stream.ReceiveNext();
             ScreenShareWhileVideoCall.Instance.playerdict = (Dictionary<int, string>)stream.ReceiveNext();
+            //test = (Texture)stream.SendNext(test);
         }
     }
 

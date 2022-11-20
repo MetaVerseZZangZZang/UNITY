@@ -101,6 +101,8 @@ namespace FreeDraw
         {
             Vector2 pixel_pos = WorldToPixelCoordinates(world_point);
 
+            //Debug.Log(world_point);
+
             cur_colors = drawable_texture.GetPixels32();
 
             if (previous_drag_position == Vector2.zero)
