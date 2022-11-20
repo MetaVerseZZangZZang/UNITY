@@ -3135,6 +3135,10 @@ MonoBehaviour:
   cc: {fileID: 1705496087617365781}
   speed: 0
   Nickname: 
+  webviewStart: 0
+  noteStart: 0
+  playerUID: 0
+  drawPosition: {x: 0, y: 0}
 --- !u!54 &8461957992028094475
 Rigidbody:
   m_ObjectHideFlags: 0
