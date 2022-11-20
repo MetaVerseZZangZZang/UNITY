@@ -86,7 +86,8 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         if (stream.IsWriting)
         {
             stream.SendNext(transform.position);
-            stream.SendNext( CharacterManager.Instance.selectedHairIndex );
+            stream.SendNext(CharCustomManager.Instance.selectedHairIndex);
+            Debug.Log("CharCustomManager.Instance.selectedHairIndex "+CharCustomManager.Instance.selectedHairIndex);
         }
         else
         {
@@ -96,6 +97,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
             if (Nickname == info.Sender.NickName)
             {
+                Debug.Log("Nickname "+Nickname);
                 GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,hairIndex);
             }
 

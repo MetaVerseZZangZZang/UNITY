@@ -3133,6 +3133,7 @@ MonoBehaviour:
   playerAnim: {fileID: 7217555815998165618}
   pv: {fileID: 5776876361673224434}
   cc: {fileID: 1705496087617365781}
+  Nickname: 
 --- !u!54 &8461957992028094475
 Rigidbody:
   m_ObjectHideFlags: 0

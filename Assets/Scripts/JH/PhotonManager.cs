@@ -27,6 +27,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public List<PlayerItem> playerItemList = new List<PlayerItem>();
     public string roomname;
     
+    
     void Awake()
     {
         Instance = this;
@@ -79,7 +80,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         GameObject player=PhotonNetwork.Instantiate("Prefabs/Character", Vector3.zero, Quaternion.Euler(new Vector3(0,180,0)));
         player.GetComponent<PlayerItem>().Nickname = PhotonNetwork.LocalPlayer.NickName;
-        player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,CharacterManager.Instance.selectedHairIndex );
+        Debug.Log("selectedHairIndex "+CharCustomManager.Instance.selectedHairIndex);
+        player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,CharCustomManager.Instance.selectedHairIndex );
 
         //m_PlayerItem.Sethair()
         /*

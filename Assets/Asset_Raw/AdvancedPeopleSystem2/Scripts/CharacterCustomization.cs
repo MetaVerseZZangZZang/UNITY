@@ -781,7 +781,7 @@ namespace AdvancedPeopleSystem
         /// </summary>
         private void SetHairByIndex(int index)
         {
-            CharacterManager.Instance.selectedHairIndex = index;
+            //CharacterManager.Instance.selectedHairIndex = index;
             CharacterPart hair = GetCharacterPart("Hair");
             if (hair == null || hair.skinnedMesh.Count <= 0)
                 return;

@@ -1,119 +1,299 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using AdvancedPeopleSystem;
 using UnityEngine.UI;
 
-/*
 public class UI_Character : MonoBehaviour
 {
     public static UI_Character Instance;
-    public GameObject HairItem;
-    public GameObject ShirtsItem;
-    public GameObject PantsItem;
     
-    public Toggle HairToggle;
-    public Toggle ShirtsToggle;
-    public Toggle PantsToggle;
-    
-    public Sprite SelectedShirts;
-    public Sprite SelectedPants;
-    public Sprite SelectedHair;
+    public CharacterCustomization CharacterCustomization;
+    [Space(15)]
 
-    public GameObject ShirtsParent;
-    public GameObject HairParent;
-    public GameObject PantsParent;
+    public Text lod_text;
+
+    public Text panelNameText;
+
+    public RectTransform HairPanel;
+    public RectTransform BeardPanel;
+    public RectTransform ShirtPanel;
+    public RectTransform PantsPanel;
+    public RectTransform ShoesPanel;
+    public RectTransform HatPanel;
+    public RectTransform AccessoryPanel;
+    public RectTransform BackpackPanel;
+
+    public RectTransform FaceEditPanel;
+    public RectTransform BaseEditPanel;
     
-    void Awake()
+    public RectTransform HairColorPanel;
+    
+    public RectTransform SavesPanel;
+    public RectTransform SavesPanelList;
+    public RectTransform SavesPrefab;
+    public List<RectTransform> SavesList = new List<RectTransform>();
+    
+    public Image HairColorButtonColor;
+
+    public Vector3[] CameraPositionForPanels;
+    public Vector3[] CameraEulerForPanels;
+    int currentPanelIndex = 0;
+
+    public Camera Camera;
+
+    public RectTransform femaleUI;
+    public RectTransform maleUI;
+    
+    
+
+    public void Awake()
     {
         Instance = this;
     }
 
-    public void setTrue(Toggle toggle)
+    #region ButtonEvents
+    public void SwitchCharacterSettings(string name)
     {
-        toggle.transform.GetChild(0).gameObject.SetActive(true);
-        toggle.transform.GetChild(1).gameObject.SetActive(false);
+        CharacterCustomization.SwitchCharacterSettings(name);
+        if(name == "Male")
+        {
+            maleUI.gameObject.SetActive(true);
+            femaleUI.gameObject.SetActive(false);
+        }
+        if (name == "Female")
+        {
+            femaleUI.gameObject.SetActive(true);
+            maleUI.gameObject.SetActive(false);
+        }
     }
     
-    public void setFalse(Toggle toggle)
+    public void HairPanel_Select()
     {
-        toggle.transform.GetChild(0).gameObject.SetActive(false);
-        toggle.transform.GetChild(1).gameObject.SetActive(true);
+        //HideAllPanels();
+        if (HairPanel.gameObject.activeSelf)
+            HairPanel.gameObject.SetActive(false);
+        else
+            HairPanel.gameObject.SetActive(true);
+        //currentPanelIndex = (v) ? 1 : 0;
     }
+    
+    public void ShowFaceEdit()
+    {
+        FaceEditPanel.gameObject.SetActive(true);
+        BaseEditPanel.gameObject.SetActive(false);
+        currentPanelIndex = 1;
+        panelNameText.text = "FACE CUSTOMIZER";
+    }
+
+    public void ShowBaseEdit()
+    {
+        FaceEditPanel.gameObject.SetActive(false);
+        BaseEditPanel.gameObject.SetActive(true);
+        currentPanelIndex = 0;
+        panelNameText.text = "BASE CUSTOMIZER";
+    }
+   
+    int lodIndex;
+    public void Lod_Event(int next)
+    {
+        lodIndex += next;
+        if (lodIndex < 0)
+            lodIndex = 3;
+        if (lodIndex > 3)
+            lodIndex = 0;
+
+        lod_text.text = lodIndex.ToString();
+
+        CharacterCustomization.ForceLOD(lodIndex);
+    }
+    
+    public void SetNewHairColor(Color color)
+    {
+        HairColorButtonColor.color = color;
+        CharacterCustomization.SetBodyColor(BodyColorPart.Hair, color);
+    }
+   
+    public void VisibleHairColorPanel(bool v)
+    {
+        HideAllPanels();
+        HairColorPanel.gameObject.SetActive(v);
+    }
+    
+    public void ShirtPanel_Select(bool v)
+    {
+        HideAllPanels();
+        if (!v)
+            ShirtPanel.gameObject.SetActive(false);
+        else
+            ShirtPanel.gameObject.SetActive(true);
+    }
+    public void PantsPanel_Select(bool v)
+    {
+        HideAllPanels();
+        if (!v)
+            PantsPanel.gameObject.SetActive(false);
+        else
+            PantsPanel.gameObject.SetActive(true);
+    }
+    public void ShoesPanel_Select(bool v)
+    {
+        HideAllPanels();
+        if (!v)
+            ShoesPanel.gameObject.SetActive(false);
+        else
+            ShoesPanel.gameObject.SetActive(true);
+    }
+    public void BackpackPanel_Select(bool v)
+    {
+        HideAllPanels();
+        if (!v)
+            BackpackPanel.gameObject.SetActive(false);
+        else
+            BackpackPanel.gameObject.SetActive(true);
+    }
+
+    public void BeardPanel_Select(bool v)
+    {
+        HideAllPanels();
+        if (!v)
+            BeardPanel.gameObject.SetActive(false);
+        else
+            BeardPanel.gameObject.SetActive(true);
+
+        currentPanelIndex = (v) ? 1 : 0;
+    }
+    public void HatPanel_Select(bool v)
+    {
+        HideAllPanels();
+        if (!v)
+            HatPanel.gameObject.SetActive(false);
+        else
+            HatPanel.gameObject.SetActive(true);
+        currentPanelIndex = (v) ? 1 : 0;
+    }
+    
+    public void AccessoryPanel_Select(bool v)
+    {
+        HideAllPanels();
+        if (!v)
+            AccessoryPanel.gameObject.SetActive(false);
+        else
+            AccessoryPanel.gameObject.SetActive(true);
+        currentPanelIndex = (v) ? 1 : 0;
+    }
+
+    public void SavesPanel_Select(bool v)
+    {
+        HideAllPanels();
+        if (!v)
+        {
+            SavesPanel.gameObject.SetActive(false);
+            foreach(var save in SavesList)
+            {
+                Destroy(save.gameObject);
+            }
+            SavesList.Clear();
+        }
+        else
+        {
+            var saves = CharacterCustomization.GetSavedCharacterDatas();
+            for (int i = 0; i < saves.Count;i++)
+            {
+                var savePrefab = Instantiate(SavesPrefab, SavesPanelList);
+                int index = i;
+                savePrefab.GetComponent<Button>().onClick.AddListener(() => SaveSelect(index));
+                savePrefab.GetComponentInChildren<Text>().text = string.Format("({0}) {1}",index,saves[i].name);
+                SavesList.Add(savePrefab);
+            }
+            SavesPanel.gameObject.SetActive(true);
+        }
+    }
+    public void SaveSelect(int index)
+    {
+        var saves = CharacterCustomization.GetSavedCharacterDatas();
+        CharacterCustomization.ApplySavedCharacterData(saves[index]);
+    }
+    public void EmotionsChange_Event(int index)
+    {
+        var anim = CharacterCustomization.Settings.characterAnimationPresets[index];
+        if (anim != null)
+            CharacterCustomization.PlayBlendshapeAnimation(anim.name, 2f);
+    }
+    public void HairChange_Event(int index)
+    {
+        CharCustomManager.Instance.selectedHairIndex = index;
+        CharacterCustomization.SetElementByIndex(CharacterElementType.Hair, index);
+    }
+    public void BeardChange_Event(int index)
+    {
+        CharacterCustomization.SetElementByIndex(CharacterElementType.Beard, index);
+    }
+    public void ShirtChange_Event(int index)
+    {
+        CharacterCustomization.SetElementByIndex(CharacterElementType.Shirt, index);
+    }
+    public void PantsChange_Event(int index)
+    {
+        CharacterCustomization.SetElementByIndex(CharacterElementType.Pants, index);
+    }
+    public void ShoesChange_Event(int index)
+    {
+        CharacterCustomization.SetElementByIndex(CharacterElementType.Shoes, index);
+    }
+    public void BackpackChange_Event(int index)
+    {
+        CharacterCustomization.SetElementByIndex(CharacterElementType.Item1, index);
+    }
+    public void HatChange_Event(int index)
+    {
+        CharacterCustomization.SetElementByIndex(CharacterElementType.Hat, index);
+    }
+    public void AccessoryChange_Event(int index)
+    {
+        CharacterCustomization.SetElementByIndex(CharacterElementType.Accessory, index);
+    }
+    public void HideAllPanels()
+    {
+        HairColorPanel.gameObject.SetActive(false);
+        
+        if (BeardPanel != null)
+            BeardPanel.gameObject.SetActive(false);
+        HairPanel.gameObject.SetActive(false);
+        ShirtPanel.gameObject.SetActive(false);
+        PantsPanel.gameObject.SetActive(false);
+        ShoesPanel.gameObject.SetActive(false);
+        BackpackPanel.gameObject.SetActive(false);
+        HatPanel.gameObject.SetActive(false);
+        AccessoryPanel.gameObject.SetActive(false);
+        SavesPanel.gameObject.SetActive(false);
+
+        currentPanelIndex = 0;
+    }
+    public void SaveToFile()
+    {
+        CharacterCustomization.SaveCharacterToFile(CharacterCustomizationSetup.CharacterFileSaveFormat.Json);
+    }
+    public void ClearFromFile()
+    {
+        SavesPanel.gameObject.SetActive(false);
+        CharacterCustomization.ClearSavedData();
+    }
+    public void Randimize()
+    {
+        CharacterCustomization.Randomize();
+    }
+    
+    #endregion
     
     void Start()
     {
-        HairItem.SetActive(true);
-        setTrue(HairToggle);
-        ShirtsItem.SetActive(false);
-        setFalse(ShirtsToggle);
-        PantsItem.SetActive(false);
-        setFalse(PantsToggle);
-        
-        SelectedShirts=ShirtsParent.GetComponent<Image>().sprite;
-        SelectedPants=HairParent.GetComponent<Image>().sprite;
-        SelectedHair=PantsParent.GetComponent<Image>().sprite;
     }
-    
-    public void CharRadio()
+
+    // Update is called once per frame
+    void Update()
     {
-        if (HairToggle.isOn)
-        {
-            setTrue(HairToggle);
-            setFalse(ShirtsToggle);
-            setFalse(PantsToggle);
-            
-            HairItem.SetActive(true);
-            ShirtsItem.SetActive(false);
-            PantsItem.SetActive(false);
-        }
-        
-        else if (ShirtsToggle.isOn)
-        {
-            HairItem.SetActive(false);
-            ShirtsItem.SetActive(true);
-            PantsItem.SetActive(false);
-            
-            setTrue(ShirtsToggle);
-            setFalse(HairToggle);
-            setFalse(PantsToggle);
-        }
-        
-        else if (PantsToggle.isOn)
-        {
-            HairItem.SetActive(false);
-            ShirtsItem.SetActive(false);
-            PantsItem.SetActive(true);
-            
-            setTrue(PantsToggle);
-            setFalse(ShirtsToggle);
-            setFalse(HairToggle);
-        }
         
     }
-
-    public void SetCloths(Image item)
-    {
-        Sprite itemSprite = item.sprite;
-
-        if (item.tag == "Shirts")
-        {
-            ShirtsParent.GetComponent<Image>().sprite = itemSprite;
-            SelectedShirts = itemSprite;
-        }
-        
-        if (item.tag == "Hair")
-        {
-            HairParent.GetComponent<Image>().sprite = itemSprite;
-            SelectedHair = itemSprite;
-        }
-        
-        if (item.tag == "Pants")
-        {
-            PantsParent.GetComponent<Image>().sprite = itemSprite;
-            SelectedPants = itemSprite;
-        }
-    }
-    
-
 }
-*/
