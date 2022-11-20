@@ -6,6 +6,7 @@ using System.Net.NetworkInformation;
 using System.Security.Policy;
 using AdvancedPeopleSystem;
 using ExitGames.Client.Photon;
+using ExitGames.Client.Photon.StructWrapping;
 //using ChatProto;
 using Photon.Pun;
 using Photon.Pun.Demo.Cockpit;
@@ -73,23 +74,29 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         UI_JoinRoom.Instance.Refresh();
     }
 
-
+    private PlayerItem m_PlayerItem;
     public override void OnJoinedRoom()
     {
         GameObject player=PhotonNetwork.Instantiate("Prefabs/Character", Vector3.zero, Quaternion.Euler(new Vector3(0,180,0)));
+
+        player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,CharacterManager.Instance.selectedHairIndex );
+
+        //m_PlayerItem.Sethair()
+        /*
         int selectedHairIndex = CharacterManager.Instance.selectedHairIndex;
+        
         player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,selectedHairIndex);
         
-        Hashtable hash = new Hashtable();
-        hash.Add("Shirts",CharacterManager.Instance.selectedHairIndex);
-        PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+        Hashtable playerCP=new Hashtable { { "hair", selectedHairIndex } };
+        PhotonNetwork.LocalPlayer.SetCustomProperties(playerCP);
+        */
+        //player.GetComponent<PlayerItem>().SetPlayerInfo(PhotonNetwork.LocalPlayer);
         
         foreach (Player p in PhotonNetwork.PlayerList)
         {
-            //int shirt=(int)p.CustomProperties["Shirts"];
             UI_PlayerSlot.Instance.AddPlayerSlot(p.NickName);
         }
-
+        
         Hashtable CP = PhotonNetwork.CurrentRoom.CustomProperties;
         UI_MainPanel.Instance.Show((int)CP["Map"]);
     }
@@ -122,9 +129,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        //ChatRPC("<color=yellow>" + newPlayer.NickName + "님이 참가하셨습니다</color>");
-        //nameList.Add(newPlayer.NickName);
-        //UpdatePlayerList();
         UI_PlayerSlot.Instance.AddPlayerSlot(newPlayer.NickName);
     }
 

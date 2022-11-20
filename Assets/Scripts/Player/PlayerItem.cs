@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using AdvancedPeopleSystem;
 using Photon.Pun;
 using Photon.Pun.Demo.PunBasics;
 using Photon.Realtime;
@@ -11,16 +12,14 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 {
     //public Text playerName;
     // Start is called before the first frame update
-    
     public Rigidbody rb;
     public Animator playerAnim; 
     //public SpriteRenderer spriteRenderer;
     public PhotonView pv;
-    
+    public CharacterCustomization cc;
     Vector3 curPos;
     
     private ExitGames.Client.Photon.Hashtable playerProperties = new ExitGames.Client.Photon.Hashtable();
-    
     private Player player;
 
    
@@ -38,38 +37,8 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         Debug.Log(UI_Character.Instance.SelectedShirts);
         */
     }
-    /*
-    public void SetPlayerInfo(Player _player)
-    {
-        playerName.text = _player.NickName;
-        playerName.color = pv.IsMine ? Color.green : Color.red;
-        player = _player;
-        //playerProperties["shirts"] = Array.IndexOf(shirtsSprites, UI_Character.Instance.SelectedShirts);
-        //PhotonNetwork.SetCustomProperties(playerProperties);
-        //UpdatePlayerItem(player);
-    }
+    
 
-    public override void OnPlayerPropertiesUpdate(Player targetPlayer,ExitGames.Client.Photon.Hashtable playerProperties)
-    {
-        if (player == targetPlayer)
-        {
-            UpdatePlayerItem(targetPlayer);
-        }
-    }
-
-    void UpdatePlayerItem(Player player)
-    {
-        if (player.CustomProperties.ContainsKey("shirts"))
-        {
-            shirts.sprite = shirtsSprites[(int)player.CustomProperties["shirts"]];
-            playerProperties["shirts"] = (int)player.CustomProperties["shirts"];
-        }
-        else
-        {
-            playerProperties["shirts"] = 0;
-        }
-    }
-*/
     //public GameObject sayingObject;
     void Update()
     {
@@ -113,14 +82,17 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
+        
         if (stream.IsWriting)
         {
             stream.SendNext(transform.position);
-
+            stream.SendNext( CharacterManager.Instance.selectedHairIndex );
         }
         else
         {
             curPos = (Vector3)stream.ReceiveNext();
+            int hairIndex = (int)stream.ReceiveNext();
+            GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,hairIndex);
 
         }
     }
