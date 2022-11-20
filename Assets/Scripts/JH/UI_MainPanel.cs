@@ -21,7 +21,7 @@ public class UI_MainPanel : MonoBehaviour
     // sm이 수정했다 선언
     //public GameObject keyWord;
     //public GameObject keywordPanel;
-    public GameObject BackGround;
+    //public GameObject BackGround;
     public Text roomName;
     public GameObject PlayerSlot;
     public GameObject PlayerSlotBtn;
@@ -41,18 +41,21 @@ public class UI_MainPanel : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
-    public void Show(int mapnum)
+    public void Show()
     {
         NetStart();
         this.gameObject.SetActive(true);
-        BackGround.transform.GetChild(mapnum).gameObject.SetActive(true);
+        //BackGround.transform.GetChild(mapnum).gameObject.SetActive(true);
         myCam.transform.GetChild(0).gameObject.SetActive(false);
+        
+        /*
         for (int i = 0; i < 4; i++)
         {
             if (i == mapnum)
                 continue;
             BackGround.transform.GetChild(i).gameObject.SetActive(false);
         }
+        */
         roomName.text = PhotonManager.Instance.roomname;
     }
 

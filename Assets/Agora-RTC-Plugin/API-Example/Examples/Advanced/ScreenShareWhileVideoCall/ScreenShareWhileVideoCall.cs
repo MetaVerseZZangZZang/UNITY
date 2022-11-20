@@ -184,6 +184,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     private void SetupUI()
     {
         //GameObject go = GameObject.Find("LocalView");
+        
         myCam.AddComponent<VideoSurface>();
         LocalView = myCam.GetComponent<VideoSurface>();
         LocalView.transform.Rotate(0.0f, 0.0f, 0);
@@ -198,7 +199,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         RtcEngine.EnableAudio();
         RtcEngine.EnableVideo();
         RtcEngine.SetClientRole(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
-
+        SetupUI();
         ChannelMediaOptions options1 = new ChannelMediaOptions();
         options1.autoSubscribeAudio.SetValue(true);
         options1.autoSubscribeVideo.SetValue(true);
@@ -301,6 +302,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
 
     private void JoinChannel()
     {
+        Debug.Log("in");
         RtcEngine.EnableAudio();
         RtcEngine.EnableVideo();
         RtcEngine.SetClientRole(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
