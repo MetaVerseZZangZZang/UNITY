@@ -21,6 +21,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     
     private ExitGames.Client.Photon.Hashtable playerProperties = new ExitGames.Client.Photon.Hashtable();
     private Player player;
+    public string Nickname;
 
    
     void Awake()
@@ -82,7 +83,6 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        
         if (stream.IsWriting)
         {
             stream.SendNext(transform.position);
@@ -92,7 +92,12 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         {
             curPos = (Vector3)stream.ReceiveNext();
             int hairIndex = (int)stream.ReceiveNext();
-            GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,hairIndex);
+           // Debug.Log("HairIndex "+hairIndex);
+
+            if (Nickname == info.Sender.NickName)
+            {
+                GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,hairIndex);
+            }
 
         }
     }
