@@ -36,7 +36,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     public Dictionary<int, string> idUint = new Dictionary<int, string>();
 
 
-    public RawImage test;
+    public Vector2 drawPosition;
 
     void Awake()
     {
