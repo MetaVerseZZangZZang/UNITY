@@ -516,6 +516,7 @@ GameObject:
   - component: {fileID: 323748391658456349}
   - component: {fileID: 323748391658456344}
   - component: {fileID: 323748391658456347}
+  - component: {fileID: 1560725942}
   m_Layer: 5
   m_Name: Safari
   m_TagString: Untagged
@@ -583,6 +584,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1560725942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323748391658456348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd7a06e2474d740bcaebc79c0a004b5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  webViewObject: {fileID: 0}
 --- !u!1 &1867439751786231391
 GameObject:
   m_ObjectHideFlags: 0
@@ -642,7 +656,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9056604, g: 0.4229263, b: 0.4229263, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
