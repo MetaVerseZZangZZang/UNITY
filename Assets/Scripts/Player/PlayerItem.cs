@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using AdvancedPeopleSystem;
 using Photon.Pun;
 using Photon.Pun.Demo.PunBasics;
 using Photon.Realtime;
@@ -10,23 +11,18 @@ using UnityEngine.UI;
 
 public class PlayerItem : MonoBehaviour, IPunObservable
 {
-    public Text playerName;
-    public SpriteRenderer shirts;
-    public Sprite[] shirtsSprites;
+    //public Text playerName;
     // Start is called before the first frame update
-    
-    public Rigidbody2D rb;
-    public Animator PlayerAnim; 
-    //public Animator ShirtsAnim; 
+    public Rigidbody rb;
+    public Animator playerAnim; 
     //public SpriteRenderer spriteRenderer;
     public PhotonView pv;
-    private List<Animator> animsList = new List<Animator>();
-    
+    public CharacterCustomization cc;
     Vector3 curPos;
-    
+    public int speed=5;
     private ExitGames.Client.Photon.Hashtable playerProperties = new ExitGames.Client.Photon.Hashtable();
-    
     private Player player;
+    public string Nickname;
 
     public bool webviewStart = false;
     public bool noteStart = false;
@@ -38,10 +34,11 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
     public Vector2 drawPosition;
 
+   
     void Awake()
     {
-        playerName.text = pv.IsMine ? PhotonNetwork.NickName : pv.Owner.NickName;
-        playerName.color = pv.IsMine ? Color.green : Color.red;
+        //playerName.text = pv.IsMine ? PhotonNetwork.NickName : pv.Owner.NickName;
+        //playerName.color = pv.IsMine ? Color.green : Color.red;
     }
     
     void Start()
@@ -49,9 +46,6 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
         gameObject.name = pv.IsMine ? PhotonNetwork.NickName+"(user)" : pv.Owner.NickName+"(user)";
 
-
-
-        animsList.Add(PlayerAnim);
         /*
         animsList.Add(ShirtsAnim);
 
@@ -60,9 +54,6 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
         if (pv.IsMine)
         {
-            Debug.Log("Before "+shirts.sprite );
-            shirts.sprite = UI_Character.Instance.SelectedShirts;
-            Debug.Log("After "+shirts.sprite );
 
             playerUID = (int)UnityEngine.Random.Range(1000, 2000);
             ScreenShareWhileVideoCall.Instance.Uid2= (uint)playerUID;
@@ -73,38 +64,6 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
         }
     }
-    /*
-    public void SetPlayerInfo(Player _player)
-    {
-        playerName.text = _player.NickName;
-        playerName.color = pv.IsMine ? Color.green : Color.red;
-        player = _player;
-        //playerProperties["shirts"] = Array.IndexOf(shirtsSprites, UI_Character.Instance.SelectedShirts);
-        //PhotonNetwork.SetCustomProperties(playerProperties);
-        //UpdatePlayerItem(player);
-    }
-
-    public override void OnPlayerPropertiesUpdate(Player targetPlayer,ExitGames.Client.Photon.Hashtable playerProperties)
-    {
-        if (player == targetPlayer)
-        {
-            UpdatePlayerItem(targetPlayer);
-        }
-    }
-
-    void UpdatePlayerItem(Player player)
-    {
-        if (player.CustomProperties.ContainsKey("shirts"))
-        {
-            shirts.sprite = shirtsSprites[(int)player.CustomProperties["shirts"]];
-            playerProperties["shirts"] = (int)player.CustomProperties["shirts"];
-        }
-        else
-        {
-            playerProperties["shirts"] = 0;
-        }
-    }
-*/
     //public GameObject sayingObject;
     void Update()
     {
@@ -114,73 +73,38 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
             float axis_X = Input.GetAxisRaw("Horizontal");
             float axis_Y = Input.GetAxisRaw("Vertical");
-
-           
             if (axis_X == 1)
             {
-                rb.velocity = Vector2.right * 4f;
-
-                foreach (Animator ani in animsList)
-                {
-                    ani.SetBool("Walk_RightArrow",true);
-                    ani.SetBool("Walk_LeftArrow", false);
-                    ani.SetBool("Walk_UpArrow", false);
-                    ani.SetBool("Walk_DownArrow", false);
-                }
+                transform.rotation=Quaternion.Euler(0,90,0);
+                transform.Translate(5f * Time.deltaTime, 0, 0);
+                playerAnim.SetBool("walk",true);
             }
 
-            if (axis_X == -1)
+            if (axis_X == -1)   //왼
             {
-                rb.velocity = Vector2.left * 4f;
-                foreach (Animator ani in animsList)
-                {
-                    ani.SetBool("Walk_LeftArrow", true);
-                    ani.SetBool("Walk_UpArrow", false);
-                    ani.SetBool("Walk_DownArrow", false);
-                    ani.SetBool("Walk_RightArrow", false);
-                        
-                }
+                transform.rotation=Quaternion.Euler(0,-90,0);
+                transform.Translate(-5f * Time.deltaTime, 0, 0);
+                playerAnim.SetBool("walk",true);
             }
 
-            if (axis_Y == 1)
+            if (axis_Y == 1)   //위
             {
-                rb.velocity = Vector2.up * 4f;
+                transform.Translate(0, 0, 5f * Time.deltaTime);
+                transform.rotation=Quaternion.Euler(0,0,0);
+                playerAnim.SetBool("walk",true);
                 
-                foreach (Animator ani in animsList)
-                {
-                    ani.SetBool("Walk_UpArrow", true);
-                    ani.SetBool("Walk_RightArrow", false);
-                    ani.SetBool("Walk_LeftArrow", false);
-                    ani.SetBool("Walk_DownArrow", false);
-                }
             }
 
-            if (axis_Y == -1)
+            if (axis_Y == -1)    //아래
             {
-                rb.velocity = Vector2.down * 4f;
-
-                foreach (Animator ani in animsList)
-                {
-                    ani.SetBool("Walk_DownArrow", true);
-                    ani.SetBool("Walk_RightArrow", false);
-                    ani.SetBool("Walk_LeftArrow", false);
-                    ani.SetBool("Walk_UpArrow", false);
-                    
-                }
-                
+                transform.Translate(0, 0, -5f * Time.deltaTime);
+                transform.rotation=Quaternion.Euler(0,180,0);
+                playerAnim.SetBool("walk",true);
             }
 
             if (axis_X == 0 && axis_Y == 0)
             {
-                rb.velocity = Vector2.zero;
-                foreach (Animator ani in animsList)
-                {
-                    ani.SetBool("Walk_DownArrow", false);
-                    ani.SetBool("Walk_RightArrow", false);
-                    ani.SetBool("Walk_LeftArrow", false);
-                    ani.SetBool("Walk_UpArrow", false);
-                    
-                }
+                playerAnim.SetBool("walk",false);
             }
 
         }
@@ -193,6 +117,12 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             stream.SendNext(webviewStart);
             stream.SendNext(playerUID);
             stream.SendNext(idUint);
+            stream.SendNext(CharCustomManager.Instance.selectedGender);
+            stream.SendNext(CharCustomManager.Instance.selectedHairIndex);
+            stream.SendNext(CharCustomManager.Instance.selectedShirtsIndex);
+            stream.SendNext(CharCustomManager.Instance.selectedPantsIndex);
+            stream.SendNext(CharCustomManager.Instance.selectedShoesIndex);
+            stream.SendNext(CharCustomManager.Instance.selectedHatIndex);
         }
         else
         {
@@ -201,6 +131,21 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             playerUID = (int)stream.ReceiveNext();
             ScreenShareWhileVideoCall.Instance.playerdict = (Dictionary<int, string>)stream.ReceiveNext();
             //test = (Texture)stream.SendNext(test);
+
+            string gender = (string)stream.ReceiveNext();
+            int hairIndex = (int)stream.ReceiveNext();
+            int shirtsIndex = (int)stream.ReceiveNext();
+            int pantsIndex = (int)stream.ReceiveNext();
+            int shoesIndex = (int)stream.ReceiveNext();
+            int hatIndex = (int)stream.ReceiveNext();
+            
+            GetComponent<CharacterCustomization>().SwitchCharacterSettings(gender);
+            GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,hairIndex );
+            GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Shirt,shirtsIndex );
+            GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Pants,pantsIndex );
+            GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Shoes,shoesIndex );
+            GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hat,hatIndex );
+
         }
     }
 

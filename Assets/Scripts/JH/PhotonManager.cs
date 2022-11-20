@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Security.Policy;
+using AdvancedPeopleSystem;
 using ExitGames.Client.Photon;
+using ExitGames.Client.Photon.StructWrapping;
 //using ChatProto;
 using Photon.Pun;
 using Photon.Pun.Demo.Cockpit;
@@ -24,9 +26,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public List<string> nameList = new List <string>();
     public List<PlayerItem> playerItemList = new List<PlayerItem>();
     public string roomname;
-
     
-
+    
     void Awake()
     {
         Instance = this;
@@ -74,25 +75,39 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         UI_JoinRoom.Instance.Refresh();
     }
 
-
+    private PlayerItem m_PlayerItem;
     public override void OnJoinedRoom()
     {
-        GameObject player = PhotonNetwork.Instantiate("Prefabs/Player", Vector3.zero, Quaternion.identity);
-
-
+        GameObject player=PhotonNetwork.Instantiate("Prefabs/Character", Vector3.zero, Quaternion.Euler(new Vector3(0,180,0)));
+        player.GetComponent<PlayerItem>().Nickname = PhotonNetwork.LocalPlayer.NickName;
+        player.name="Character_"+PhotonNetwork.LocalPlayer.NickName;
+        player.GetComponent<CharacterCustomization>().SwitchCharacterSettings(CharCustomManager.Instance.selectedGender);
+        player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,CharCustomManager.Instance.selectedHairIndex );
+        player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Shirt,CharCustomManager.Instance.selectedShirtsIndex );
+        player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Pants,CharCustomManager.Instance.selectedPantsIndex );
+        player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Shoes,CharCustomManager.Instance.selectedShoesIndex );
+        player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hat,CharCustomManager.Instance.selectedHatIndex );
+        
+        
+        //m_PlayerItem.Sethair()
+        /*
+        int selectedHairIndex = CharacterManager.Instance.selectedHairIndex;
+        
+        player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,selectedHairIndex);
+        
+        Hashtable playerCP=new Hashtable { { "hair", selectedHairIndex } };
+        PhotonNetwork.LocalPlayer.SetCustomProperties(playerCP);
+        */
+        //player.GetComponent<PlayerItem>().SetPlayerInfo(PhotonNetwork.LocalPlayer);
+        
         foreach (Player p in PhotonNetwork.PlayerList)
         {
-            //nameList.Add(p.NickName);
-            
             UI_PlayerSlot.Instance.AddPlayerSlot(p.NickName);
         }
-
+        
         Hashtable CP = PhotonNetwork.CurrentRoom.CustomProperties;
         UI_MainPanel.Instance.Show((int)CP["Map"]);
-
-        
     }
-
 
     public void LeaveRoom()
     {
@@ -122,49 +137,16 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        //ChatRPC("<color=yellow>" + newPlayer.NickName + "님이 참가하셨습니다</color>");
-        //nameList.Add(newPlayer.NickName);
-        //UpdatePlayerList();
         UI_PlayerSlot.Instance.AddPlayerSlot(newPlayer.NickName);
-        //Debug.LogError(ScreenShareWhileVideoCall.Instance.playerdict.FirstOrDefault(x => x.Value == newPlayer.NickName).Key);
-        
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         //nameList.Remove(otherPlayer.NickName);
         //UpdatePlayerList();
-
         UI_PlayerSlot.Instance.DelPlayerSlot(otherPlayer.NickName);
     }
 
-    
-    void UpdatePlayerList()
-    {
-        foreach (PlayerItem item in playerItemList)
-        {
-            Destroy(item.gameObject);
-        }
-        playerItemList.Clear();
-
-        if (PhotonNetwork.CurrentRoom == null)
-        {
-            return;
-        }
-
-        foreach (KeyValuePair<int, Player> player in PhotonNetwork.CurrentRoom.Players)
-        {
-            GameObject newPlayerItem = PhotonNetwork.Instantiate("Prefabs/Player", Vector3.zero, Quaternion.identity);
-
-            
-            
-
-            newPlayerItem.transform.localScale = new Vector3(1, 1, 1);
-            PlayerItem newPlayer = newPlayerItem.GetComponent<PlayerItem>();
-            //newPlayer.SetPlayerInfo(player.Value);
-            playerItemList.Add(newPlayer);
-        }
-    }
     
 }
 

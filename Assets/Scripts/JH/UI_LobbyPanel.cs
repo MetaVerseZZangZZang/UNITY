@@ -50,7 +50,7 @@ public class UI_LobbyPanel : MonoBehaviour
 
     public void Hide()
     {
-        this.gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     public void Show()
@@ -89,7 +89,7 @@ public class UI_LobbyPanel : MonoBehaviour
 
     public void CamToggle(Toggle toggle)
     {
-        if (toggle.isOn)
+        if (!toggle.isOn)
         {
             ShowCam();
         }
@@ -99,11 +99,11 @@ public class UI_LobbyPanel : MonoBehaviour
             myCam.texture = cameraOff.texture;
         }
         
-        AgoraManager.camFlag = toggle.isOn;
+        AgoraManager.camFlag = !toggle.isOn;
     }
 
     public void VoiceToggle(Toggle toggle)
     {
-        AgoraManager.voiceFlag = toggle.isOn;
+        AgoraManager.voiceFlag = !toggle.isOn;
     }
 }

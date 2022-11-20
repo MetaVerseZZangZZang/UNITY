@@ -9,7 +9,8 @@ using UnityEngine.UI;
 public class UI_PlayerSlot : MonoBehaviour
 {
     public GameObject m_PlayerSlotPrefab;
-   
+
+    public TextMeshProUGUI roomName;
     public GameObject PlayerSlotParent;
     // Start is called before the first frame update
     public static UI_PlayerSlot Instance;
@@ -19,6 +20,10 @@ public class UI_PlayerSlot : MonoBehaviour
         Instance = this;
     }
 
+    public void SetRoomName()
+    {
+        roomName.text=PhotonManager.Instance.roomname;
+    }
     public void AddPlayerSlot(string playerName)
     {
         GameObject newPlayer=Instantiate<GameObject>(m_PlayerSlotPrefab);

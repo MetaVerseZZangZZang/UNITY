@@ -2,8 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-
+using UnityEngine.Networking;
 
 public class AudioLoudnessDetection : MonoBehaviour
 {
@@ -51,13 +50,11 @@ public class AudioLoudnessDetection : MonoBehaviour
     {
         if (joined)
         {
-
             float loudness = GetLoudnessFromMicrophone();
             if (loudness < threshold)
                 loudness = 0;
 
             transform.localScale = Vector3.Lerp(minScale, maxScale, loudness);
-
         }
         /*
         if (Input.GetKeyDown(KeyCode.A))
@@ -76,12 +73,14 @@ public class AudioLoudnessDetection : MonoBehaviour
 
     int startPosition1;
     int stopPosition;
+    public float time;
+
+    public float sensibility;
+    public float outputsensibility;
     public float GetLoudnessFromAudioClip(int clipPosition, AudioClip clip)
     {
         int startPosition = clipPosition - sampleWindow;
 
-
-        //Debug.Log(startPosition);
         if (startPosition < 0) return 0;
 
 
@@ -98,7 +97,8 @@ public class AudioLoudnessDetection : MonoBehaviour
         float loudness = totalLoudness / sampleWindow;
         //Debug.Log(loudness*100);
 
-
+        sensibility = loudness * inputSoundSensibility;
+        outputsensibility = loudness * stopSoundSensibility;
         if (loudness * inputSoundSensibility >= 2f && recording == false)
         {
             Debug.Log($"Start input sensibility:  {loudness * inputSoundSensibility}");
@@ -107,15 +107,22 @@ public class AudioLoudnessDetection : MonoBehaviour
             sendClip = null;
             startPosition1 = Microphone.GetPosition(Microphone.devices[0]);
         }
-
-        if (loudness * stopSoundSensibility <= 0.03f && recording == true)
+        
+        if (loudness * stopSoundSensibility <= 0.1f && recording == true)
         {
-            Debug.Log($"Stop input sensibility:  {loudness * stopSoundSensibility}");
-            recording = false;
-            stopPosition = Microphone.GetPosition(Microphone.devices[0]);
+            
+            time += Time.deltaTime;
+            if (time > 0.25f)
+            {
+                //Debug.Log($"Stop input sensibility:  {loudness * stopSoundSensibility}");
+                recording = false;
+                stopPosition = Microphone.GetPosition(Microphone.devices[0]);
 
-            Debug.Log("녹음 중지");
-            AudioDetect(startPosition1, stopPosition, clip);
+                Debug.Log("녹음 중지");
+                AudioDetect(startPosition1, stopPosition, clip);
+                time = 0;
+
+            }
         }
 
         return loudness;
@@ -153,13 +160,33 @@ public class AudioLoudnessDetection : MonoBehaviour
 
         sendByte = GetClipData(sendClip);
 
+        ////
         Server.Instance.VoiceEmit(sendByte);
+        //SendVoiceByte(sendByte);
 
+        Debug.LogError(sendByte.Length);
         Debug.Log("emit byte");
         //microphoneClip = Microphone.Start(Microphone.devices[0], true, 20, AudioSettings.outputSampleRate);
-        microphoneClip = Microphone.Start(Microphone.devices[0], true, 20, 44100);
+        //microphoneClip = Microphone.Start(Microphone.devices[0], true, 20, 44100);
     }
 
+    private string url = "http://52.79.150.224:5100/uploadfiles";
+    public void SendVoiceByte(byte[] fileByte)
+    {
+        WWWForm form = new WWWForm();
+        //Debug.Log(extension.ToUpper());
+        form.AddBinaryData("voiceFile", fileByte);
+      
+
+
+        UnityWebRequest w = UnityWebRequest.Post(url, form);
+        w.SetRequestHeader("x-sid", UI_StartPanel.Instance.userName);
+      
+
+        w.SendWebRequest();
+        Debug.Log("보내졌다ㄷ");
+
+    }
 
 
     // audioclip to byte
