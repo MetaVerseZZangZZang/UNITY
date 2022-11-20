@@ -86,14 +86,30 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         if (stream.IsWriting)
         {
             stream.SendNext(transform.position);
+            stream.SendNext(CharCustomManager.Instance.selectedGender);
             stream.SendNext(CharCustomManager.Instance.selectedHairIndex);
-            Debug.Log("CharCustomManager.Instance.selectedHairIndex "+CharCustomManager.Instance.selectedHairIndex);
+            stream.SendNext(CharCustomManager.Instance.selectedShirtsIndex);
+            stream.SendNext(CharCustomManager.Instance.selectedPantsIndex);
+            stream.SendNext(CharCustomManager.Instance.selectedShoesIndex);
+            stream.SendNext(CharCustomManager.Instance.selectedHatIndex);
         }
         else
         {
             curPos = (Vector3)stream.ReceiveNext();
+
+            string gender = (string)stream.ReceiveNext();
             int hairIndex = (int)stream.ReceiveNext();
-            GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,hairIndex);
+            int shirtsIndex = (int)stream.ReceiveNext();
+            int pantsIndex = (int)stream.ReceiveNext();
+            int shoesIndex = (int)stream.ReceiveNext();
+            int hatIndex = (int)stream.ReceiveNext();
+            
+            GetComponent<CharacterCustomization>().SwitchCharacterSettings(gender);
+            GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,hairIndex );
+            GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Shirt,shirtsIndex );
+            GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Pants,pantsIndex );
+            GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Shoes,shoesIndex );
+            GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hat,hatIndex );
 
         }
     }

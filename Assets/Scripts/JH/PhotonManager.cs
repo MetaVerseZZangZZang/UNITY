@@ -80,9 +80,14 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         GameObject player=PhotonNetwork.Instantiate("Prefabs/Character", Vector3.zero, Quaternion.Euler(new Vector3(0,180,0)));
         player.GetComponent<PlayerItem>().Nickname = PhotonNetwork.LocalPlayer.NickName;
-        Debug.Log("selectedHairIndex "+CharCustomManager.Instance.selectedHairIndex);
+        player.GetComponent<CharacterCustomization>().SwitchCharacterSettings(CharCustomManager.Instance.selectedGender);
         player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,CharCustomManager.Instance.selectedHairIndex );
-
+        player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Shirt,CharCustomManager.Instance.selectedShirtsIndex );
+        player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Pants,CharCustomManager.Instance.selectedPantsIndex );
+        player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Shoes,CharCustomManager.Instance.selectedShoesIndex );
+        player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hat,CharCustomManager.Instance.selectedHatIndex );
+        
+        
         //m_PlayerItem.Sethair()
         /*
         int selectedHairIndex = CharacterManager.Instance.selectedHairIndex;

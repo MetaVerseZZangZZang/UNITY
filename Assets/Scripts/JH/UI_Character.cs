@@ -17,12 +17,10 @@ public class UI_Character : MonoBehaviour
     public Text panelNameText;
 
     public RectTransform HairPanel;
-    public RectTransform BeardPanel;
     public RectTransform ShirtPanel;
     public RectTransform PantsPanel;
     public RectTransform ShoesPanel;
     public RectTransform HatPanel;
-    public RectTransform AccessoryPanel;
     public RectTransform BackpackPanel;
 
     public RectTransform FaceEditPanel;
@@ -43,20 +41,29 @@ public class UI_Character : MonoBehaviour
 
     public Camera Camera;
 
-    public RectTransform femaleUI;
     public RectTransform maleUI;
-    
-    
+    public RectTransform femaleUI;
 
     public void Awake()
     {
         Instance = this;
     }
-
+    void Start()
+    {
+        HairPanel.gameObject.SetActive(false);
+        ShirtPanel.gameObject.SetActive(false);
+        PantsPanel.gameObject.SetActive(false);
+        ShoesPanel.gameObject.SetActive(false);
+        HatPanel.gameObject.SetActive(false);
+        BackpackPanel.gameObject.SetActive(false);
+    
+    }
     #region ButtonEvents
     public void SwitchCharacterSettings(string name)
     {
         CharacterCustomization.SwitchCharacterSettings(name);
+        CharCustomManager.Instance.selectedGender = name;
+        
         if(name == "Male")
         {
             maleUI.gameObject.SetActive(true);
@@ -71,12 +78,11 @@ public class UI_Character : MonoBehaviour
     
     public void HairPanel_Select()
     {
-        //HideAllPanels();
+        HideAllPanels();
         if (HairPanel.gameObject.activeSelf)
             HairPanel.gameObject.SetActive(false);
         else
             HairPanel.gameObject.SetActive(true);
-        //currentPanelIndex = (v) ? 1 : 0;
     }
     
     public void ShowFaceEdit()
@@ -121,68 +127,48 @@ public class UI_Character : MonoBehaviour
         HairColorPanel.gameObject.SetActive(v);
     }
     
-    public void ShirtPanel_Select(bool v)
+    public void ShirtPanel_Select()
     {
         HideAllPanels();
-        if (!v)
+        if (ShirtPanel.gameObject.activeSelf)
             ShirtPanel.gameObject.SetActive(false);
         else
             ShirtPanel.gameObject.SetActive(true);
     }
-    public void PantsPanel_Select(bool v)
+    public void PantsPanel_Select()
     {
         HideAllPanels();
-        if (!v)
+        if (PantsPanel.gameObject.activeSelf)
             PantsPanel.gameObject.SetActive(false);
         else
             PantsPanel.gameObject.SetActive(true);
     }
-    public void ShoesPanel_Select(bool v)
+    public void ShoesPanel_Select()
     {
         HideAllPanels();
-        if (!v)
+        if (ShoesPanel.gameObject.activeSelf)
             ShoesPanel.gameObject.SetActive(false);
         else
             ShoesPanel.gameObject.SetActive(true);
     }
-    public void BackpackPanel_Select(bool v)
+    public void BackpackPanel_Select()
     {
         HideAllPanels();
-        if (!v)
+        if (BackpackPanel.gameObject.activeSelf)
             BackpackPanel.gameObject.SetActive(false);
         else
             BackpackPanel.gameObject.SetActive(true);
     }
 
-    public void BeardPanel_Select(bool v)
+    public void HatPanel_Select()
     {
         HideAllPanels();
-        if (!v)
-            BeardPanel.gameObject.SetActive(false);
-        else
-            BeardPanel.gameObject.SetActive(true);
-
-        currentPanelIndex = (v) ? 1 : 0;
-    }
-    public void HatPanel_Select(bool v)
-    {
-        HideAllPanels();
-        if (!v)
+        if (HatPanel.gameObject.activeSelf)
             HatPanel.gameObject.SetActive(false);
         else
             HatPanel.gameObject.SetActive(true);
-        currentPanelIndex = (v) ? 1 : 0;
     }
-    
-    public void AccessoryPanel_Select(bool v)
-    {
-        HideAllPanels();
-        if (!v)
-            AccessoryPanel.gameObject.SetActive(false);
-        else
-            AccessoryPanel.gameObject.SetActive(true);
-        currentPanelIndex = (v) ? 1 : 0;
-    }
+
 
     public void SavesPanel_Select(bool v)
     {
@@ -226,50 +212,46 @@ public class UI_Character : MonoBehaviour
         CharCustomManager.Instance.selectedHairIndex = index;
         CharacterCustomization.SetElementByIndex(CharacterElementType.Hair, index);
     }
-    public void BeardChange_Event(int index)
-    {
-        CharacterCustomization.SetElementByIndex(CharacterElementType.Beard, index);
-    }
     public void ShirtChange_Event(int index)
     {
+        CharCustomManager.Instance.selectedShirtsIndex = index;
         CharacterCustomization.SetElementByIndex(CharacterElementType.Shirt, index);
     }
     public void PantsChange_Event(int index)
     {
+        CharCustomManager.Instance.selectedPantsIndex = index;
         CharacterCustomization.SetElementByIndex(CharacterElementType.Pants, index);
     }
     public void ShoesChange_Event(int index)
     {
+        CharCustomManager.Instance.selectedShoesIndex = index;
         CharacterCustomization.SetElementByIndex(CharacterElementType.Shoes, index);
     }
+    
+    public void HatChange_Event(int index)
+    {
+        CharCustomManager.Instance.selectedHatIndex = index;
+        CharacterCustomization.SetElementByIndex(CharacterElementType.Hat, index);
+    }
+    
     public void BackpackChange_Event(int index)
     {
         CharacterCustomization.SetElementByIndex(CharacterElementType.Item1, index);
     }
-    public void HatChange_Event(int index)
-    {
-        CharacterCustomization.SetElementByIndex(CharacterElementType.Hat, index);
-    }
+
     public void AccessoryChange_Event(int index)
     {
         CharacterCustomization.SetElementByIndex(CharacterElementType.Accessory, index);
     }
     public void HideAllPanels()
     {
-        HairColorPanel.gameObject.SetActive(false);
-        
-        if (BeardPanel != null)
-            BeardPanel.gameObject.SetActive(false);
+        //HairColorPanel.gameObject.SetActive(false);
         HairPanel.gameObject.SetActive(false);
+        HatPanel.gameObject.SetActive(false);
         ShirtPanel.gameObject.SetActive(false);
         PantsPanel.gameObject.SetActive(false);
         ShoesPanel.gameObject.SetActive(false);
-        BackpackPanel.gameObject.SetActive(false);
-        HatPanel.gameObject.SetActive(false);
-        AccessoryPanel.gameObject.SetActive(false);
-        SavesPanel.gameObject.SetActive(false);
-
-        currentPanelIndex = 0;
+        //BackpackPanel.gameObject.SetActive(false);
     }
     public void SaveToFile()
     {
@@ -287,9 +269,7 @@ public class UI_Character : MonoBehaviour
     
     #endregion
     
-    void Start()
-    {
-    }
+
 
     // Update is called once per frame
     void Update()
