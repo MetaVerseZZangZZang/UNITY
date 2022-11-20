@@ -93,13 +93,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         {
             curPos = (Vector3)stream.ReceiveNext();
             int hairIndex = (int)stream.ReceiveNext();
-           // Debug.Log("HairIndex "+hairIndex);
-
-            if (Nickname == info.Sender.NickName)
-            {
-                Debug.Log("Nickname "+Nickname);
-                GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,hairIndex);
-            }
+            GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,hairIndex);
 
         }
     }
