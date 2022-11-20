@@ -19,7 +19,6 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     public PhotonView pv;
     public CharacterCustomization cc;
     Vector3 curPos;
-    public int speed=5;
     private ExitGames.Client.Photon.Hashtable playerProperties = new ExitGames.Client.Photon.Hashtable();
     private Player player;
     public string Nickname;
@@ -76,29 +75,29 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             if (axis_X == 1)
             {
                 transform.rotation=Quaternion.Euler(0,90,0);
-                transform.Translate(5f * Time.deltaTime, 0, 0);
+                transform.Translate(0, 0, 2f * Time.deltaTime);
                 playerAnim.SetBool("walk",true);
             }
 
             if (axis_X == -1)   //왼
             {
                 transform.rotation=Quaternion.Euler(0,-90,0);
-                transform.Translate(-5f * Time.deltaTime, 0, 0);
+                transform.Translate(0, 0, 2f * Time.deltaTime);
                 playerAnim.SetBool("walk",true);
             }
 
             if (axis_Y == 1)   //위
             {
-                transform.Translate(0, 0, 5f * Time.deltaTime);
                 transform.rotation=Quaternion.Euler(0,0,0);
+                transform.Translate(0, 0, 2f * Time.deltaTime);
                 playerAnim.SetBool("walk",true);
                 
             }
 
             if (axis_Y == -1)    //아래
             {
-                transform.Translate(0, 0, -5f * Time.deltaTime);
                 transform.rotation=Quaternion.Euler(0,180,0);
+                transform.Translate(0, 0, 2f * Time.deltaTime);
                 playerAnim.SetBool("walk",true);
             }
 
