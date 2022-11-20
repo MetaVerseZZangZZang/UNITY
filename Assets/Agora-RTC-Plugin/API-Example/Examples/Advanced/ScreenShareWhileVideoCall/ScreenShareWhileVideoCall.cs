@@ -150,7 +150,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                     InitEngine();
                     SetExternalVideoSource();
                     JoinChannel();
-                    Transform playerCanvas = playerID.transform.GetChild(0).GetChild(2);
+                    Transform playerCanvas = playerID.transform.GetChild(1).GetChild(0);
                     playerCanvas.gameObject.SetActive(true);
                     
                     //RawImage playerWebImage = playerCanvas.GetComponent<RawImage>();
@@ -165,7 +165,8 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                     SetExternalVideoSource();
                     JoinChannel();
                     startWebview = true;
-                    Transform playerCanvas = playerID.transform.GetChild(0).GetChild(2);
+                    Transform playerCanvas = playerID.transform.GetChild(1).GetChild(0);
+                    Debug.Log(playerCanvas);
                     playerCanvas.gameObject.SetActive(true);
                     RawImage playerWebImage = playerCanvas.GetComponent<RawImage>();
                     StartCoroutine(BringWebTexture(playerWebImage));
