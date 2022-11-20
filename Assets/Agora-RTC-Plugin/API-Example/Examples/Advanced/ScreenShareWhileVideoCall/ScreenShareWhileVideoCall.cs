@@ -66,7 +66,6 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
 
     public bool startWebview = false;
 
-
     public GameObject note;
 
     public Dictionary<int, string> playerdict = new Dictionary<int, string>();
@@ -127,8 +126,6 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
 
     public void WebviewStart()
     {
-        
-        
 
         LoadAssetData();
         //Safari.SetActive(true);
@@ -182,6 +179,18 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         webImageTexture.texture = WebViewObject.Instance.tx.texture;
 
+    }
+    
+    private void SetupUI()
+    {
+        //GameObject go = GameObject.Find("LocalView");
+        myCam.AddComponent<VideoSurface>();
+        LocalView = myCam.GetComponent<VideoSurface>();
+        LocalView.transform.Rotate(0.0f, 0.0f, 0);
+        //go = GameObject.Find("RemoteView");
+        LocalView.SetForUser(0, "", VIDEO_SOURCE_TYPE.VIDEO_SOURCE_CAMERA);
+        // Start rendering local video.
+        LocalView.SetEnable(true);
     }
 
     private void JoinChannel3()
@@ -295,7 +304,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         RtcEngine.EnableAudio();
         RtcEngine.EnableVideo();
         RtcEngine.SetClientRole(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
-
+        SetupUI();
         
         ChannelMediaOptions options = new ChannelMediaOptions();
         options.autoSubscribeAudio.SetValue(true);
