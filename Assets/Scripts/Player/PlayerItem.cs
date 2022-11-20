@@ -18,7 +18,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     public PhotonView pv;
     public CharacterCustomization cc;
     Vector3 curPos;
-    
+    public int speed=5;
     private ExitGames.Client.Photon.Hashtable playerProperties = new ExitGames.Client.Photon.Hashtable();
     private Player player;
     public string Nickname;
@@ -48,26 +48,32 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         {
             float axis_X = Input.GetAxisRaw("Horizontal");
             float axis_Y = Input.GetAxisRaw("Vertical");
-            if (axis_X == 1)   
+            
+            if (axis_X == 1)   //오
             {
                 transform.rotation=Quaternion.Euler(0,90,0);
+                transform.Translate(5f * Time.deltaTime, 0, 0);
                 playerAnim.SetBool("walk",true);
             }
 
-            if (axis_X == -1)  
+            if (axis_X == -1)   //왼
             {
                 transform.rotation=Quaternion.Euler(0,-90,0);
+                transform.Translate(-5f * Time.deltaTime, 0, 0);
                 playerAnim.SetBool("walk",true);
             }
 
-            if (axis_Y == 1)
+            if (axis_Y == 1)   //위
             {
+                transform.Translate(0, 0, 5f * Time.deltaTime);
                 transform.rotation=Quaternion.Euler(0,0,0);
                 playerAnim.SetBool("walk",true);
+                
             }
 
-            if (axis_Y == -1)
+            if (axis_Y == -1)    //아래
             {
+                transform.Translate(0, 0, -5f * Time.deltaTime);
                 transform.rotation=Quaternion.Euler(0,180,0);
                 playerAnim.SetBool("walk",true);
             }
@@ -76,9 +82,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             {
                 playerAnim.SetBool("walk",false);
             }
-            
-            Vector3 getVel = new Vector3(axis_X, 0, axis_Y) * 4f;
-            rb.velocity = getVel;
+
         }
     }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

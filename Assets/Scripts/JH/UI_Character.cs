@@ -21,7 +21,7 @@ public class UI_Character : MonoBehaviour
     public RectTransform PantsPanel;
     public RectTransform ShoesPanel;
     public RectTransform HatPanel;
-    public RectTransform BackpackPanel;
+    //public RectTransform BackpackPanel;
 
     public RectTransform FaceEditPanel;
     public RectTransform BaseEditPanel;
@@ -55,7 +55,7 @@ public class UI_Character : MonoBehaviour
         PantsPanel.gameObject.SetActive(false);
         ShoesPanel.gameObject.SetActive(false);
         HatPanel.gameObject.SetActive(false);
-        BackpackPanel.gameObject.SetActive(false);
+        //BackpackPanel.gameObject.SetActive(false);
     
     }
     #region ButtonEvents
@@ -151,6 +151,8 @@ public class UI_Character : MonoBehaviour
         else
             ShoesPanel.gameObject.SetActive(true);
     }
+    
+    /*
     public void BackpackPanel_Select()
     {
         HideAllPanels();
@@ -159,6 +161,7 @@ public class UI_Character : MonoBehaviour
         else
             BackpackPanel.gameObject.SetActive(true);
     }
+    */
 
     public void HatPanel_Select()
     {

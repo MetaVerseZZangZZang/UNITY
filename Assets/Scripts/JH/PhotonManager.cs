@@ -80,6 +80,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         GameObject player=PhotonNetwork.Instantiate("Prefabs/Character", Vector3.zero, Quaternion.Euler(new Vector3(0,180,0)));
         player.GetComponent<PlayerItem>().Nickname = PhotonNetwork.LocalPlayer.NickName;
+        player.name="Character_"+PhotonNetwork.LocalPlayer.NickName;
         player.GetComponent<CharacterCustomization>().SwitchCharacterSettings(CharCustomManager.Instance.selectedGender);
         player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,CharCustomManager.Instance.selectedHairIndex );
         player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Shirt,CharCustomManager.Instance.selectedShirtsIndex );
