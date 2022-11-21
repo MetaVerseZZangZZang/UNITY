@@ -126,8 +126,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     {
         if (stream.IsWriting)
         {
-            stream.SendNext(transform.rotation);
-            Debug.Log(transform.rotation);
+            stream.SendNext(transform.rotation.eulerAngles);
             stream.SendNext(transform.position);
             stream.SendNext(webviewStart);
             stream.SendNext(playerUID);
@@ -147,6 +146,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             curPos = (Vector3)stream.ReceiveNext();
             webviewStart = (bool)stream.ReceiveNext();
             playerUID = (int)stream.ReceiveNext();
+            ScreenShareWhileVideoCall.Instance.playerdict = (Dictionary<int, string>)stream.ReceiveNext();
             string gender = (string)stream.ReceiveNext();
             int hairIndex = (int)stream.ReceiveNext();
             int shirtsIndex = (int)stream.ReceiveNext();
@@ -154,7 +154,6 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             int shoesIndex = (int)stream.ReceiveNext();
             int hatIndex = (int)stream.ReceiveNext();
             
-            ScreenShareWhileVideoCall.Instance.playerdict = (Dictionary<int, string>)stream.ReceiveNext();
             transform.rotation=Quaternion.Euler(curRot);
             transform.position = curPos;
             GetComponent<CharacterCustomization>().SwitchCharacterSettings(gender);

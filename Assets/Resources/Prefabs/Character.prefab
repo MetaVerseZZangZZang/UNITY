@@ -2775,7 +2775,7 @@ MonoBehaviour:
     - {fileID: 6791931087251776183}
     - {fileID: 3195732119377324750}
   prefabPath: Assets/AdvancedPeopleSystem2/Prefabs/CustomizableCharacter.prefab
-  instanceStatus: 6
+  instanceStatus: 5
   originHip: {fileID: 1231293355673010347}
   headHip: {fileID: 8473455122907128234}
   clothesAnchors:
@@ -3185,16 +3185,12 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 3
   OwnershipTransfer: 0
-  observableSearch: 2
+  observableSearch: 1
   ObservedComponents:
   - {fileID: 103247769117648114}
   - {fileID: 5981644011129649013}
   - {fileID: 9220516865472278287}
   - {fileID: 4338413693397323449}
-  - {fileID: 3397383967260779957}
-  - {fileID: 4270063870362988112}
-  - {fileID: 7018618778641377027}
-  - {fileID: 7180452793906098255}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -3269,8 +3265,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SynchronizeVelocity: 1
-  m_SynchronizeAngularVelocity: 1
-  m_TeleportEnabled: 1
+  m_SynchronizeAngularVelocity: 0
+  m_TeleportEnabled: 0
   m_TeleportIfDistanceGreaterThan: 1
 --- !u!114 &4338413693397323449
 MonoBehaviour:
@@ -5487,7 +5483,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2896836676802665187}
   - component: {fileID: 3181260584091509187}
-  - component: {fileID: 7018618778641377027}
   m_Layer: 0
   m_Name: HAIR_m_lod2
   m_TagString: Untagged
@@ -5616,22 +5611,6 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.000000022351742, y: 0.76774114, z: -0.11615491}
     m_Extent: {x: 0.08153182, y: 0.124702096, z: 0.108751535}
   m_DirtyAABB: 0
---- !u!114 &7018618778641377027
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4373737447874175058}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
 --- !u!1 &4390150808621064783
 GameObject:
   m_ObjectHideFlags: 0
@@ -5783,7 +5762,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2397130782341509565}
   - component: {fileID: 8439291678088258479}
-  - component: {fileID: 3397383967260779957}
   m_Layer: 0
   m_Name: HAIR_m_lod0
   m_TagString: Untagged
@@ -5912,22 +5890,6 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.000000022351742, y: 0.76750654, z: -0.12188481}
     m_Extent: {x: 0.08153182, y: 0.124931216, z: 0.114332095}
   m_DirtyAABB: 0
---- !u!114 &3397383967260779957
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4433285166675877184}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
 --- !u!1 &4498279151396376324
 GameObject:
   m_ObjectHideFlags: 0
@@ -9314,7 +9276,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7676930122844056622}
   - component: {fileID: 900658688029537926}
-  - component: {fileID: 7180452793906098255}
   m_Layer: 0
   m_Name: HAIR_m_lod3
   m_TagString: Untagged
@@ -9443,22 +9404,6 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.000000029802322, y: 0.761809, z: -0.11809328}
     m_Extent: {x: 0.07976204, y: 0.11370361, z: 0.099791825}
   m_DirtyAABB: 0
---- !u!114 &7180452793906098255
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6427642214438811918}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
 --- !u!1 &6492701630593477495
 GameObject:
   m_ObjectHideFlags: 0
@@ -10812,7 +10757,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7856988761053193907}
   - component: {fileID: 4447193644102198716}
-  - component: {fileID: 4270063870362988112}
   m_Layer: 0
   m_Name: HAIR_m_lod1
   m_TagString: Untagged
@@ -10941,22 +10885,6 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.000000022351742, y: 0.7686263, z: -0.11625481}
     m_Extent: {x: 0.08153182, y: 0.12381208, z: 0.10865164}
   m_DirtyAABB: 0
---- !u!114 &4270063870362988112
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7464161384201797933}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
 --- !u!1 &7536777448044174121
 GameObject:
   m_ObjectHideFlags: 0
