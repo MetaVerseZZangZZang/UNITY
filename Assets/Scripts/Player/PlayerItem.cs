@@ -111,16 +111,16 @@ public class PlayerItem : MonoBehaviour, IPunObservable
                 transform.Translate(0, 0, 2f * Time.deltaTime);
                 //playerAnim.SetBool("walk", true);
             }
-/*
+
             if (axis_X == 0 && axis_Y == 0)
             {
                 playerAnim.SetBool("walk", false);
             }
-            else if (axis_X > 0 && axis_Y > 0) 
+            else if (axis_X != 0 || axis_Y != 0) 
             {
                 playerAnim.SetBool("walk", true);
             }
-*/
+
         }
     }
 
