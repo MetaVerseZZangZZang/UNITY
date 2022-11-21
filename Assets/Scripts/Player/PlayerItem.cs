@@ -107,12 +107,12 @@ public class PlayerItem : MonoBehaviour, IPunObservable
                 transform.rotation=Quaternion.Euler(0,180,0);
                 transform.Translate(0, 0, 2f * Time.deltaTime);
             }
-
+/*
             if (axis_X == 0 && axis_Y == 0)
             {
                 playerAnim.SetBool("walk",false);
             }
-
+*/
         }
     }
 
