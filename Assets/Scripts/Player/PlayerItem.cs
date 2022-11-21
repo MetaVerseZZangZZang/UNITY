@@ -162,8 +162,8 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hat,hatIndex );
 
 
-            drawPosition = (Vector2)stream.ReceiveNext();
-            DrawStream(drawPosition);
+            //drawPosition = (Vector2)stream.ReceiveNext();
+            //DrawStream(drawPosition);
 
         }
     }
