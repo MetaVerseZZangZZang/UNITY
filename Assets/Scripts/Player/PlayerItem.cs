@@ -121,7 +121,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
             else
             {
-                playerAnim.SetBool("walk", true);
+                playerAnim.SetBool("walk", false);
             }
 
         }
