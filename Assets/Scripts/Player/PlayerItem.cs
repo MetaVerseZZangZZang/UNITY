@@ -126,8 +126,6 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     {
         if (stream.IsWriting)
         {
-            stream.SendNext(transform.rotation.eulerAngles);
-            stream.SendNext(transform.position);
             stream.SendNext(webviewStart);
             stream.SendNext(playerUID);
             stream.SendNext(idUint);
