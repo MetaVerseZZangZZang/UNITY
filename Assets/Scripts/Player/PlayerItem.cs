@@ -95,13 +95,14 @@ public class PlayerItem : MonoBehaviour, IPunObservable
                 {
                     playerAnim.SetFloat("speed", -1);
                 }
-                playerAnim.SetFloat("speed", 1);
-                playerAnim.SetBool("IsWalking", true);
+                //playerAnim.SetFloat("speed", 1);
+                //playerAnim.SetBool("IsWalking", true);
+                RpcAni("IsWalking");
             }
             else
             {
                 playerAnim.SetFloat("speed", 1);
-                playerAnim.SetBool("IsWalking", false);
+                //playerAnim.SetBool("IsWalking", false);
             }
 
             //float axis_X = Input.GetAxisRaw("Horizontal");
@@ -151,6 +152,11 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             //}
 
         }
+    }
+    [PunRPC]
+    void RpcAni(string strAni) 
+    {
+        if (playerAnim != null) playerAnim.Play(strAni);
     }
 
     public void DrawStream(Vector2 position)
