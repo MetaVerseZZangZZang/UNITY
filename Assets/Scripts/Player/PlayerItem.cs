@@ -142,8 +142,8 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         }
         else
         {
-            curRot = (Vector3)stream.ReceiveNext();
-            curPos = (Vector3)stream.ReceiveNext();
+            //curRot = (Vector3)stream.ReceiveNext();
+            //curPos = (Vector3)stream.ReceiveNext();
             webviewStart = (bool)stream.ReceiveNext();
             playerUID = (int)stream.ReceiveNext();
             ScreenShareWhileVideoCall.Instance.playerdict = (Dictionary<int, string>)stream.ReceiveNext();
@@ -154,8 +154,8 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             int shoesIndex = (int)stream.ReceiveNext();
             int hatIndex = (int)stream.ReceiveNext();
             
-            transform.rotation=Quaternion.Euler(curRot);
-            transform.position = curPos;
+            //transform.rotation=Quaternion.Euler(curRot);
+            //transform.position = curPos;
             GetComponent<CharacterCustomization>().SwitchCharacterSettings(gender);
             GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,hairIndex );
             GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Shirt,shirtsIndex );
