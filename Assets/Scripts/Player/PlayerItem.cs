@@ -20,6 +20,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     public PhotonView pv;
     public CharacterCustomization cc;
     Vector3 curPos;
+    Vector3 curRot;
     private ExitGames.Client.Photon.Hashtable playerProperties = new ExitGames.Client.Photon.Hashtable();
     private Player player;
     public string Nickname;
@@ -125,6 +126,8 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     {
         if (stream.IsWriting)
         {
+            stream.SendNext(transform.rotation);
+            Debug.Log(transform.rotation);
             stream.SendNext(transform.position);
             stream.SendNext(webviewStart);
             stream.SendNext(playerUID);
@@ -140,12 +143,10 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         }
         else
         {
+            curRot = (Vector3)stream.ReceiveNext();
             curPos = (Vector3)stream.ReceiveNext();
             webviewStart = (bool)stream.ReceiveNext();
             playerUID = (int)stream.ReceiveNext();
-            ScreenShareWhileVideoCall.Instance.playerdict = (Dictionary<int, string>)stream.ReceiveNext();
-            //test = (Texture)stream.SendNext(test);
-            transform.position = curPos;
             string gender = (string)stream.ReceiveNext();
             int hairIndex = (int)stream.ReceiveNext();
             int shirtsIndex = (int)stream.ReceiveNext();
@@ -153,6 +154,9 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             int shoesIndex = (int)stream.ReceiveNext();
             int hatIndex = (int)stream.ReceiveNext();
             
+            ScreenShareWhileVideoCall.Instance.playerdict = (Dictionary<int, string>)stream.ReceiveNext();
+            transform.rotation=Quaternion.Euler(curRot);
+            transform.position = curPos;
             GetComponent<CharacterCustomization>().SwitchCharacterSettings(gender);
             GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,hairIndex );
             GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Shirt,shirtsIndex );
