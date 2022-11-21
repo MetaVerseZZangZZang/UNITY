@@ -9,6 +9,7 @@ using Photon.Realtime;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
+using Button = UnityEngine.UI.Button;
 using Toggle = UnityEngine.UI.Toggle;
 
 
@@ -29,6 +30,7 @@ public class UI_MainPanel : MonoBehaviour
     public GameObject ChatBox;
     public int count = 0;
     public int chatCount = 0;
+    public Button chatStartBtn;
     
     private void Awake()
     {
@@ -44,6 +46,7 @@ public class UI_MainPanel : MonoBehaviour
     public void Show()
     {
         
+        Server.Instance.ChatStart();
         UI_LobbyPanel.Instance.StopCam();
         ScreenShareWhileVideoCall.Instance.AgoraStart();
         gameObject.SetActive(true);
@@ -61,11 +64,26 @@ public class UI_MainPanel : MonoBehaviour
         roomName.text = PhotonManager.Instance.roomname;
     }
 
-    public void NetStart()
+    public void ChatStartBtn()
     {
-        //AgoraManager.Instance.Join();
-        Server.Instance.ChatStart();
-        AudioLoudnessDetection.Instance.joined = true;
+        if (Server.Instance.AIFlag == false)
+        {
+            AudioLoudnessDetection.Instance.joined = true;
+            Server.Instance.AIFlag = true;
+            chatStartBtn.GetComponentInChildren<Text>().text = "End";
+        }
+
+        else
+        {
+            AudioLoudnessDetection.Instance.joined = false;
+            Server.Instance.AIFlag = false;
+            chatStartBtn.GetComponentInChildren<Text>().text = "Start";
+        }
+    }
+
+    public void GiveMeAI()
+    {
+        Server.Instance.AIResultEmit();
     }
 
     public void Leave()
@@ -74,7 +92,7 @@ public class UI_MainPanel : MonoBehaviour
         PhotonNetwork.LeaveRoom();
         Hide();
         UI_LobbyPanel.Instance.Show();
-        Server.Instance.ChatEnd();
+        Server.Instance.MeetingEnd();
         AudioLoudnessDetection.Instance.joined = false;
 
     }
