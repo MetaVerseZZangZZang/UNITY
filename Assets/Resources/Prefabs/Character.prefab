@@ -2775,7 +2775,7 @@ MonoBehaviour:
     - {fileID: 6791931087251776183}
     - {fileID: 3195732119377324750}
   prefabPath: Assets/AdvancedPeopleSystem2/Prefabs/CustomizableCharacter.prefab
-  instanceStatus: 1
+  instanceStatus: 6
   originHip: {fileID: 1231293355673010347}
   headHip: {fileID: 8473455122907128234}
   clothesAnchors:
