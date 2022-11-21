@@ -80,9 +80,9 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
             float axis_X = Input.GetAxisRaw("Horizontal");
             float axis_Y = Input.GetAxisRaw("Vertical");
-            
+
             //playerAnim.SetBool("walk",true);
-            
+
             if (axis_X == 1)
             {
                 transform.rotation=Quaternion.Euler(0,90,0);
