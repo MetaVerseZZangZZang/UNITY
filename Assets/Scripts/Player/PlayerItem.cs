@@ -102,7 +102,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             else
             {
                 //playerAnim.SetFloat("speed", 1);
-                RpcAni("IsWalking", false);
+                //RpcAni("IsWalking", false);
                 //playerAnim.SetBool("IsWalking", false);
             }
 
