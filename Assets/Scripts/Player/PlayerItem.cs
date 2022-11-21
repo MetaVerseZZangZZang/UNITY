@@ -127,7 +127,10 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
             if (axis_X == 0 && axis_Y == 0)
             {
-                playerAnim.SetBool("walk", false);
+                if (playerAnim.GetBool("walk"))
+                {
+                    playerAnim.SetBool("walk", false);
+                }
             }
 
         }
