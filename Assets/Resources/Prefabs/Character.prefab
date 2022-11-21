@@ -2775,7 +2775,7 @@ MonoBehaviour:
     - {fileID: 6791931087251776183}
     - {fileID: 3195732119377324750}
   prefabPath: Assets/AdvancedPeopleSystem2/Prefabs/CustomizableCharacter.prefab
-  instanceStatus: 6
+  instanceStatus: 5
   originHip: {fileID: 1231293355673010347}
   headHip: {fileID: 8473455122907128234}
   clothesAnchors:
@@ -3215,6 +3215,8 @@ MonoBehaviour:
   noteStart: 0
   playerUID: 0
   drawPosition: {x: 0, y: 0}
+  speed: 2
+  rotationSpeed: 2
 --- !u!54 &8461957992028094475
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3279,11 +3281,11 @@ MonoBehaviour:
   ShowParameterInspector: 1
   m_SynchronizeParameters:
   - Type: 4
-    SynchronizeType: 2
-    Name: walk
-  - Type: 9
-    SynchronizeType: 0
-    Name: walkTrigger
+    SynchronizeType: 1
+    Name: isWalking
+  - Type: 1
+    SynchronizeType: 1
+    Name: speed
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0

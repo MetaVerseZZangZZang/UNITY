@@ -66,6 +66,8 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         }
     }
     //public GameObject sayingObject;
+    public int speed = 1;
+    public int rotationSpeed = 2;
     void Update()
     {
         if (noteStart == true)
@@ -77,52 +79,76 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         }
         if (pv.IsMine)
         {
+            //player.SetActive(false);
 
-            float axis_X = Input.GetAxisRaw("Horizontal");
-            float axis_Y = Input.GetAxisRaw("Vertical");
+            float translation = Input.GetAxis("Vertical") * speed;
+            float rotation = Input.GetAxis("Horizontal") * rotationSpeed;
 
-            //playerAnim.SetBool("walk",true);
+            translation *= Time.deltaTime;
+            rotation *= Time.deltaTime;
+            transform.Translate(0, 0, translation);
+            transform.Rotate(0, rotation, 0);
 
-            if (axis_X == 1)
+            if (translation != 0 || rotation != 0)
             {
-                transform.rotation=Quaternion.Euler(0,90,0);
-                transform.Translate(0, 0, 2f * Time.deltaTime);
-
-                //playerAnim.SetBool("walkTrigger",true);
+                if (translation < 0)
+                {
+                    playerAnim.SetFloat("speed", -1);
+                }
+                playerAnim.SetFloat("speed", 1);
+                playerAnim.SetBool("IsWalking", true);
             }
-
-            if (axis_X == -1)   //왼
-            {
-                transform.rotation=Quaternion.Euler(0,-90,0);
-                transform.Translate(0, 0, 2f * Time.deltaTime);
-                //playerAnim.SetBool("walkTrigger", true);
-            }
-
-            if (axis_Y == 1)   //위
-            {
-                transform.rotation=Quaternion.Euler(0,0,0);
-                transform.Translate(0, 0, 2f * Time.deltaTime);
-                //playerAnim.SetTrigger("walkTrigger");
-
-            }
-
-            if (axis_Y == -1)    //아래
-            {
-                transform.rotation=Quaternion.Euler(0,180,0);
-                transform.Translate(0, 0, 2f * Time.deltaTime);
-                //playerAnim.SetTrigger("walkTrigger");
-            }
-
-
-            if (axis_X == 0 && axis_Y == 0 ) 
-            {
-                playerAnim.SetBool("walk", false);
-            }
-
             else
             {
-                playerAnim.SetBool("walk", true);
+                playerAnim.SetFloat("speed", 1);
+                playerAnim.SetBool("IsWalking", false);
             }
+
+            //float axis_X = Input.GetAxisRaw("Horizontal");
+            //float axis_Y = Input.GetAxisRaw("Vertical");
+
+            ////playerAnim.SetBool("walk",true);
+
+            //if (axis_X == 1)
+            //{
+            //    transform.rotation=Quaternion.Euler(0,90,0);
+            //    transform.Translate(0, 0, 2f * Time.deltaTime);
+
+            //    //playerAnim.SetBool("walkTrigger",true);
+            //}
+
+            //if (axis_X == -1)   //왼
+            //{
+            //    transform.rotation=Quaternion.Euler(0,-90,0);
+            //    transform.Translate(0, 0, 2f * Time.deltaTime);
+            //    //playerAnim.SetBool("walkTrigger", true);
+            //}
+
+            //if (axis_Y == 1)   //위
+            //{
+            //    transform.rotation=Quaternion.Euler(0,0,0);
+            //    transform.Translate(0, 0, 2f * Time.deltaTime);
+            //    //playerAnim.SetTrigger("walkTrigger");
+
+            //}
+
+            //if (axis_Y == -1)    //아래
+            //{
+            //    transform.rotation=Quaternion.Euler(0,180,0);
+            //    transform.Translate(0, 0, 2f * Time.deltaTime);
+            //    //playerAnim.SetTrigger("walkTrigger");
+            //}
+
+
+            //if (axis_X == 0 && axis_Y == 0 ) 
+            //{
+            //    playerAnim.SetBool("walk", false);
+            //}
+
+            //else
+            //{
+            //    playerAnim.SetBool("walk", true);
+            //}
 
         }
     }
