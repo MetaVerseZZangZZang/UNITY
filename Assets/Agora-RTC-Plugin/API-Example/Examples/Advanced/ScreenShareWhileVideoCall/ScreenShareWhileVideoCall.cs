@@ -128,17 +128,15 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
 
     public void WebviewStop()
     {
-        startWebview = false;
-        GameObject clickObject = EventSystem.current.currentSelectedGameObject;
-        Debug.LogError(clickObject.name);
-
         GameObject playerID = GameObject.Find(UI_StartPanel.Instance.userName + "(user)");
         Transform playerCanvas = playerID.transform.GetChild(1).GetChild(0);
 
         PlayerItem playerScript = playerID.GetComponent<PlayerItem>();
         playerScript.webviewStart = false;
-
+        Safari.SetActive(false);
         playerCanvas.gameObject.SetActive(false);
+
+        ScreenShareLeaveChannel();
     }
 
 
@@ -327,7 +325,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         RtcEngine.EnableAudio();
         RtcEngine.EnableVideo();
         RtcEngine.SetClientRole(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
-        SetupUI();
+        //SetupUI();
         
         ChannelMediaOptions options = new ChannelMediaOptions();
         options.autoSubscribeAudio.SetValue(true);
@@ -541,40 +539,40 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     //}
 
     // Video TYPE 2: RawImage
-    private static VideoSurface MakeImageSurface(string goName)
-    {
-        var go = new GameObject();
+    //private static VideoSurface MakeImageSurface(string goName)
+    //{
+    //    var go = new GameObject();
 
-        if (go == null)
-        {
-            return null;
-        }
+    //    if (go == null)
+    //    {
+    //        return null;
+    //    }
 
-        go.name = goName;
-        // to be renderered onto
-        go.AddComponent<RawImage>();
-        // make the object draggable
-        go.AddComponent<UIElementDrag>();
-        var canvas = GameObject.Find("VideoCanvas");
-        if (canvas != null)
-        {
-            go.transform.parent = canvas.transform;
-            Debug.Log("add video view");
-        }
-        else
-        {
-            Debug.Log("Canvas is null video view");
-        }
+    //    go.name = goName;
+    //    // to be renderered onto
+    //    go.AddComponent<RawImage>();
+    //    // make the object draggable
+    //    go.AddComponent<UIElementDrag>();
+    //    var canvas = GameObject.Find("VideoCanvas");
+    //    if (canvas != null)
+    //    {
+    //        go.transform.parent = canvas.transform;
+    //        Debug.Log("add video view");
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("Canvas is null video view");
+    //    }
 
-        // set up transform
-        go.transform.Rotate(0f, 0.0f, 0f);
-        go.transform.localPosition = Vector3.zero;
-        go.transform.localScale = new Vector3(3f, 4f, 1f);
+    //    // set up transform
+    //    go.transform.Rotate(0f, 0.0f, 0f);
+    //    go.transform.localPosition = Vector3.zero;
+    //    go.transform.localScale = new Vector3(3f, 4f, 1f);
 
-        // configure videoSurface
-        var videoSurface = go.AddComponent<VideoSurface>();
-        return videoSurface;
-    }
+    //    // configure videoSurface
+    //    var videoSurface = go.AddComponent<VideoSurface>();
+    //    return videoSurface;
+    //}
 
     internal static void DestroyVideoView(string name)
     {
