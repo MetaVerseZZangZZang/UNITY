@@ -81,36 +81,44 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             float axis_X = Input.GetAxisRaw("Horizontal");
             float axis_Y = Input.GetAxisRaw("Vertical");
             
-            playerAnim.SetBool("walk",true);
+            //playerAnim.SetBool("walk",true);
             
             if (axis_X == 1)
             {
                 transform.rotation=Quaternion.Euler(0,90,0);
                 transform.Translate(0, 0, 2f * Time.deltaTime);
+                //playerAnim.SetBool("walk", true);
             }
 
             if (axis_X == -1)   //왼
             {
                 transform.rotation=Quaternion.Euler(0,-90,0);
                 transform.Translate(0, 0, 2f * Time.deltaTime);
+                //playerAnim.SetBool("walk", true);
             }
 
             if (axis_Y == 1)   //위
             {
                 transform.rotation=Quaternion.Euler(0,0,0);
                 transform.Translate(0, 0, 2f * Time.deltaTime);
-                
+                //playerAnim.SetBool("walk", true);
+
             }
 
             if (axis_Y == -1)    //아래
             {
                 transform.rotation=Quaternion.Euler(0,180,0);
                 transform.Translate(0, 0, 2f * Time.deltaTime);
+                //playerAnim.SetBool("walk", true);
             }
 
             if (axis_X == 0 && axis_Y == 0)
             {
-                playerAnim.SetBool("walk",false);
+                playerAnim.SetBool("walk", false);
+            }
+            else if (axis_X > 0 && axis_Y > 0) 
+            {
+                playerAnim.SetBool("walk", true);
             }
 
         }
