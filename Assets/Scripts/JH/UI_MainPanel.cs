@@ -38,13 +38,15 @@ public class UI_MainPanel : MonoBehaviour
     
     public void Hide()
     {
-        this.gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     public void Show()
     {
-        NetStart();
-        this.gameObject.SetActive(true);
+        
+        UI_LobbyPanel.Instance.StopCam();
+        ScreenShareWhileVideoCall.Instance.AgoraStart();
+        gameObject.SetActive(true);
         //BackGround.transform.GetChild(mapnum).gameObject.SetActive(true);
         myCam.transform.GetChild(0).gameObject.SetActive(false);
         
@@ -62,9 +64,7 @@ public class UI_MainPanel : MonoBehaviour
     public void NetStart()
     {
         //AgoraManager.Instance.Join();
-        ScreenShareWhileVideoCall.Instance.AgoraStart();
         Server.Instance.ChatStart();
-        UI_LobbyPanel.Instance.StopCam();
         AudioLoudnessDetection.Instance.joined = true;
     }
 

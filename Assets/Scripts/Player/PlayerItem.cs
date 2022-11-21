@@ -126,9 +126,6 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     {
         if (stream.IsWriting)
         {
-            stream.SendNext(transform.rotation);
-            Debug.Log(transform.rotation);
-            stream.SendNext(transform.position);
             stream.SendNext(webviewStart);
             stream.SendNext(playerUID);
             stream.SendNext(idUint);
@@ -143,10 +140,11 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         }
         else
         {
-            curRot = (Vector3)stream.ReceiveNext();
-            curPos = (Vector3)stream.ReceiveNext();
+            //curRot = (Vector3)stream.ReceiveNext();
+            //curPos = (Vector3)stream.ReceiveNext();
             webviewStart = (bool)stream.ReceiveNext();
             playerUID = (int)stream.ReceiveNext();
+            ScreenShareWhileVideoCall.Instance.playerdict = (Dictionary<int, string>)stream.ReceiveNext();
             string gender = (string)stream.ReceiveNext();
             int hairIndex = (int)stream.ReceiveNext();
             int shirtsIndex = (int)stream.ReceiveNext();
@@ -154,9 +152,8 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             int shoesIndex = (int)stream.ReceiveNext();
             int hatIndex = (int)stream.ReceiveNext();
             
-            ScreenShareWhileVideoCall.Instance.playerdict = (Dictionary<int, string>)stream.ReceiveNext();
-            transform.rotation=Quaternion.Euler(curRot);
-            transform.position = curPos;
+            //transform.rotation=Quaternion.Euler(curRot);
+            //transform.position = curPos;
             GetComponent<CharacterCustomization>().SwitchCharacterSettings(gender);
             GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,hairIndex );
             GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Shirt,shirtsIndex );
@@ -165,8 +162,8 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hat,hatIndex );
 
 
-            drawPosition = (Vector2)stream.ReceiveNext();
-            DrawStream(drawPosition);
+            //drawPosition = (Vector2)stream.ReceiveNext();
+            //DrawStream(drawPosition);
 
         }
     }
