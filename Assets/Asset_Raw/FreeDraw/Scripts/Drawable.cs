@@ -10,7 +10,10 @@ using UnityEngine.EventSystems;
 // 3. Attach a 2D collider (like a Box Collider 2D) to this sprite
 // 4. Hold down left mouse to draw on this texture!
 public class Drawable : MonoBehaviour
+
 {
+    public Camera m_2DCamera;
+
     public static Drawable Instance;
     // PEN COLOUR
     public static Color Pen_Colour = Color.black;     // Change these to change the default drawing settings
@@ -148,7 +151,7 @@ public class Drawable : MonoBehaviour
         if (mouse_held_down && !no_drawing_on_current_drag)
         {
             // Convert mouse coordinates to world coordinates
-            Vector2 mouse_world_position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 mouse_world_position = m_2DCamera.ScreenToWorldPoint(Input.mousePosition);
 
             // Check if the current mouse position overlaps our image
             Collider2D hit = Physics2D.OverlapPoint(mouse_world_position, Drawing_Layers.value);
@@ -157,6 +160,7 @@ public class Drawable : MonoBehaviour
                 // We're over the texture we're drawing on!
                 // Use whatever function the current brush is
                 current_brush(mouse_world_position);
+                Debug.LogError(mouse_world_position);
             }
 
             else

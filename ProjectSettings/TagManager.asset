@@ -15,7 +15,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - 2D
   - 
   - 
   - 
@@ -53,4 +53,7 @@ TagManager:
     locked: 0
   - name: New Layer 3
     uniqueID: 565505707
+    locked: 0
+  - name: New Layer 4
+    uniqueID: 1584595045
     locked: 0
