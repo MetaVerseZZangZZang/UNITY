@@ -56,7 +56,7 @@ public class UI_LobbyPanel : MonoBehaviour
     public void Show()
     {
         this.gameObject.SetActive(true);
-        Name.text = UI_StartPanel.Instance.userName;
+        //Name.text = UI_StartPanel.Instance.userName;
         ShowCam();
     }
 

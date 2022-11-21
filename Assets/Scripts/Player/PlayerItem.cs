@@ -6,6 +6,7 @@ using AdvancedPeopleSystem;
 using Photon.Pun;
 using Photon.Pun.Demo.PunBasics;
 using Photon.Realtime;
+using TreeEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -144,7 +145,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             playerUID = (int)stream.ReceiveNext();
             ScreenShareWhileVideoCall.Instance.playerdict = (Dictionary<int, string>)stream.ReceiveNext();
             //test = (Texture)stream.SendNext(test);
-
+            transform.position = curPos;
             string gender = (string)stream.ReceiveNext();
             int hairIndex = (int)stream.ReceiveNext();
             int shirtsIndex = (int)stream.ReceiveNext();
