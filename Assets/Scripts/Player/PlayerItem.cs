@@ -88,30 +88,21 @@ public class PlayerItem : MonoBehaviour, IPunObservable
                 transform.rotation=Quaternion.Euler(0,90,0);
                 transform.Translate(0, 0, 2f * Time.deltaTime);
 
-                if (!playerAnim.GetBool("walk"))
-                {
-                    playerAnim.SetBool("walk", true);
-                }
+                playerAnim.SetTrigger("walkTrigger");
             }
 
             if (axis_X == -1)   //왼
             {
                 transform.rotation=Quaternion.Euler(0,-90,0);
                 transform.Translate(0, 0, 2f * Time.deltaTime);
-                if (!playerAnim.GetBool("walk"))
-                {
-                    playerAnim.SetBool("walk", true);
-                }
+                playerAnim.SetTrigger("walkTrigger");
             }
 
             if (axis_Y == 1)   //위
             {
                 transform.rotation=Quaternion.Euler(0,0,0);
                 transform.Translate(0, 0, 2f * Time.deltaTime);
-                if (!playerAnim.GetBool("walk"))
-                {
-                    playerAnim.SetBool("walk", true);
-                }
+                playerAnim.SetTrigger("walkTrigger");
 
             }
 
@@ -119,18 +110,13 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             {
                 transform.rotation=Quaternion.Euler(0,180,0);
                 transform.Translate(0, 0, 2f * Time.deltaTime);
-                if (!playerAnim.GetBool("walk"))
-                {
-                    playerAnim.SetBool("walk", true);
-                }
+                playerAnim.SetTrigger("walkTrigger");
             }
 
-            if (axis_X == 0 && axis_Y == 0)
+
+            if (axis_X == 0 && axis_Y == 0 ) 
             {
-                if (playerAnim.GetBool("walk"))
-                {
-                    playerAnim.SetBool("walk", false);
-                }
+                playerAnim.ResetTrigger("walkTrigger");
             }
 
         }
