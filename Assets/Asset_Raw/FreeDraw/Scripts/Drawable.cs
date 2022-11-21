@@ -23,6 +23,8 @@ public class Drawable : MonoBehaviour
 
     public Vector2 sendPositionValue;
 
+    public static Vector2 mouse_world_position;
+
     public delegate void Brush_Function(Vector2 world_position);
     // This is the function called when a left click happens
     // Pass in your own custom one to change the brush type
@@ -151,8 +153,8 @@ public class Drawable : MonoBehaviour
         if (mouse_held_down && !no_drawing_on_current_drag)
         {
             // Convert mouse coordinates to world coordinates
-            Vector2 mouse_world_position = m_2DCamera.ScreenToWorldPoint(Input.mousePosition);
-
+            mouse_world_position = m_2DCamera.ScreenToWorldPoint(Input.mousePosition);
+                       
             // Check if the current mouse position overlaps our image
             Collider2D hit = Physics2D.OverlapPoint(mouse_world_position, Drawing_Layers.value);
             if (hit != null && hit.transform != null)

@@ -124,6 +124,26 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         JoinChannel3();
     }
 
+
+
+    public void WebviewStop()
+    {
+        startWebview = false;
+        GameObject clickObject = EventSystem.current.currentSelectedGameObject;
+        Debug.LogError(clickObject.name);
+
+        GameObject playerID = GameObject.Find(UI_StartPanel.Instance.userName + "(user)");
+        Transform playerCanvas = playerID.transform.GetChild(1).GetChild(0);
+
+        PlayerItem playerScript = playerID.GetComponent<PlayerItem>();
+        playerScript.webviewStart = false;
+
+        playerCanvas.gameObject.SetActive(false);
+    }
+
+
+
+
     public void WebviewStart()
     {
 

@@ -66,7 +66,13 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     //public GameObject sayingObject;
     void Update()
     {
-        
+        if (noteStart == true)
+        {
+            drawPosition = Drawable.Instance.sendPositionValue;
+            //drawPosition = Drawable.Instance.sendPositionValue;
+
+
+        }
         if (pv.IsMine)
         {
 
@@ -128,13 +134,8 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             stream.SendNext(CharCustomManager.Instance.selectedPantsIndex);
             stream.SendNext(CharCustomManager.Instance.selectedShoesIndex);
             stream.SendNext(CharCustomManager.Instance.selectedHatIndex);
-
-            if (noteStart == true && pv.IsMine)
-            {
-                drawPosition = Drawable.Instance.sendPositionValue;
-                Drawable.Instance.PenBrush(drawPosition);
-                stream.SendNext(drawPosition);
-            }
+            
+            
         }
         else
         {
