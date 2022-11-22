@@ -81,10 +81,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     private PlayerItem m_PlayerItem;
     public override void OnJoinedRoom()
     {
-        GameObject player=PhotonNetwork.Instantiate("Prefabs/Character", Vector3.zero, Quaternion.Euler(new Vector3(0,180,0)));
+        GameObject player=PhotonNetwork.Instantiate("Prefabs/"+CharCustomManager.Instance.selectedGender+"Character", Vector3.zero, Quaternion.Euler(new Vector3(0,180,0)));
         player.GetComponent<PlayerItem>().Nickname = PhotonNetwork.LocalPlayer.NickName;
-        player.name="Character_"+PhotonNetwork.LocalPlayer.NickName;
-        player.GetComponent<CharacterCustomization>().SwitchCharacterSettings(CharCustomManager.Instance.selectedGender);
         player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,CharCustomManager.Instance.selectedHairIndex );
         player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Shirt,CharCustomManager.Instance.selectedShirtsIndex );
         player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Pants,CharCustomManager.Instance.selectedPantsIndex );
