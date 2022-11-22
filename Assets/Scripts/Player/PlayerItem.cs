@@ -200,7 +200,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             webviewStart = (bool)stream.ReceiveNext();
             playerUID = (int)stream.ReceiveNext();
             ScreenShareWhileVideoCall.Instance.playerdict = (Dictionary<int, string>)stream.ReceiveNext();
-            string gender = (string)stream.ReceiveNext();
+            //string gender = (string)stream.ReceiveNext();
             int hairIndex = (int)stream.ReceiveNext();
             int shirtsIndex = (int)stream.ReceiveNext();
             int pantsIndex = (int)stream.ReceiveNext();
@@ -209,7 +209,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             
             //transform.rotation=Quaternion.Euler(curRot);
             //transform.position = curPos;
-            GetComponent<CharacterCustomization>().SwitchCharacterSettings(gender);
+            //GetComponent<CharacterCustomization>().SwitchCharacterSettings(gender);
             GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,hairIndex );
             GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Shirt,shirtsIndex );
             GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Pants,pantsIndex );
