@@ -630,18 +630,19 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                     if (playerScript.webviewStart == true)
                     {
                         Debug.LogError("1");
-                        GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
-                        newFriendCam.transform.SetParent(player.transform.GetChild(1));
-                        newFriendCam.transform.position = new Vector2(0,0);
-                        newFriendCam.transform.localScale = new Vector3(1, 1, 1);
+                        //GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
+                        VideoSurface vs = player.transform.GetChild(1).GetChild(0).GetComponent<VideoSurface>();
+                        //newFriendCam.transform.SetParent(player.transform.GetChild(1));
+                        //newFriendCam.transform.position = new Vector2(0,0);
+                        //newFriendCam.transform.localScale = new Vector3(1, 1, 1);
 
 
-                        FriendCamList.Add(newFriendCam.GetComponent<VideoSurface>());
-                        FriendCamList[FriendCamList.Count - 1].SetEnable(true);
-                        FriendCamList[FriendCamList.Count - 1].SetForUser(uid, connection.channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
+                        //FriendCamList.Add(newFriendCam.GetComponent<VideoSurface>());
+                        vs.SetEnable(true);
+                        vs.SetForUser(uid, connection.channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
 
                         _videoSample.remoteUid = uid;
-                        _videoSample.FriendList[Math.Min(_videoSample.count, _videoSample.FriendList.Count - 1)].SetActive(true);
+                        //_videoSample.FriendList[Math.Min(_videoSample.count, _videoSample.FriendList.Count - 1)].SetActive(true);
                         _videoSample.count += 1;
                         _videoSample.idList.Add(uid);
                     }
