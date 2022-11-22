@@ -32,17 +32,18 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         Instance = this;
         
-        PhotonNetwork.SerializationRate = 80;
-        PhotonNetwork.SendRate = 60;
+
     }
     
     public void Connect()
     {
         PhotonNetwork.ConnectUsingSettings();
         PhotonNetwork.LocalPlayer.NickName = UI_StartPanel.Instance.userName;
-
+        PhotonNetwork.SerializationRate = 30;
+        PhotonNetwork.SendRate = 60;
     }
 
+    
     public void CreateRoom()
     {
         roomname = UI_CreateMapPanel.Instance.RoomNameInputField.text== "" ? "Room" + Random.Range(0, 100) : UI_CreateMapPanel.Instance.RoomNameInputField.text;

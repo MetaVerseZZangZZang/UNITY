@@ -32,7 +32,8 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
     public Dictionary<int, string> idUint = new Dictionary<int, string>();
     public Vector2 drawPosition;
-
+    private bool animFlag=false;
+    
    
     void Awake()
     {
@@ -99,22 +100,24 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             {
                 transform.rotation=Quaternion.Euler(0,90,0);
                 transform.Translate(0, 0, 2f * Time.deltaTime);
-                playerAnim.SetBool("IsWalking",true);
-            
+                //playerAnim.SetBool("IsWalking",true);
+                charMove();
             }
 
             if (axis_X == -1)   //왼
             {
                 transform.rotation=Quaternion.Euler(0,-90,0);
                 transform.Translate(0, 0, 2f * Time.deltaTime);
-                playerAnim.SetBool("IsWalking",true);
+                //playerAnim.SetBool("IsWalking",true);
+                charMove();
             }
 
             if (axis_Y == 1)   //위
             {
                 transform.rotation=Quaternion.Euler(0,0,0);
                 transform.Translate(0, 0, 2f * Time.deltaTime);
-                playerAnim.SetBool("IsWalking",true);
+                //playerAnim.SetBool("IsWalking",true);
+                charMove();
             
             }
 
@@ -122,7 +125,8 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             {
                 transform.rotation=Quaternion.Euler(0,180,0);
                 transform.Translate(0, 0, 2f * Time.deltaTime);
-                playerAnim.SetBool("IsWalking",true);
+                //playerAnim.SetBool("IsWalking",true);
+                charMove();
             }
 
             if (axis_X == 0 && axis_Y == 0)
@@ -133,6 +137,22 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         }
         
     }
+
+    public void charMove()
+    {
+        animFlag = true;
+        pv.RPC("charMoveRPC", RpcTarget.All);
+    }
+
+    [PunRPC] 
+    public void charMoveRPC()
+    {
+        if (!animFlag)
+            return;
+        playerAnim.SetBool("IsWalking",true);
+        animFlag = false;
+    } 
+    
     void RpcAni() 
     {
         if (playerAnim != null) playerAnim.SetBool("IsWalking",true);
@@ -206,5 +226,6 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             col.isTrigger = false;
         }
     }
-    
+
 }
+
