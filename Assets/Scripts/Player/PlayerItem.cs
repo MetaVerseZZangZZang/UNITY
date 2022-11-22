@@ -35,6 +35,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
 
     public bool talking = false;
+    public GameObject talkingImage;
 
    
     void Awake()
@@ -72,10 +73,15 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         
         if (pv.IsMine)
         {
-            if (AudioLoudnessDetection.Instance.recording == true)
+            talking = AudioLoudnessDetection.Instance.recording;
+            if (talking == true)
             {
-                talking = AudioLoudnessDetection.Instance.recording;
-                Debug.Log("talking");
+                talkingImage.SetActive(true);
+                //Debug.Log("talking");
+            }
+            else if (talking == false)
+            {
+                talkingImage.SetActive(false);
             }
             float axis_X = Input.GetAxisRaw("Horizontal");
             float axis_Y = Input.GetAxisRaw("Vertical");
