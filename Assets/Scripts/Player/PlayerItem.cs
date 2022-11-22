@@ -74,16 +74,16 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
         }
         
-            //if (Drawable.drawable.drawing == true)
-            //{
-            //    x_Position = Drawable.drawable.mouse_world_position.x;
-            //    y_Position = Drawable.drawable.mouse_world_position.y;
+        //if (Drawable.drawable.drawing == true)
+        //{
+        //    x_Position = Drawable.drawable.mouse_world_position.x;
+        //    y_Position = Drawable.drawable.mouse_world_position.y;
 
-            //    Vector2 pos = new Vector2(x_Position, y_Position); 
-            //    Drawable.drawable.current_brush(pos);
-            //    Debug.Log("enter");
+        //    Vector2 pos = new Vector2(x_Position, y_Position); 
+        //    Drawable.drawable.current_brush(pos);
+        //    Debug.Log("enter");
 
-            //}
+        //}
 
         if (noteStart == true)
         {
@@ -102,7 +102,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
                 transform.Translate(0, 0, 2f * Time.deltaTime);
                 //playerAnim.SetBool("IsWalking",true);
                 animFlag = true;
-                pv.RPC("charMoveRPC", RpcTarget.AllBuffered);
+                pv.RPC("charMoveRPC", RpcTarget.All );
             }
 
             if (axis_X == -1)   //왼
@@ -111,7 +111,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
                 transform.Translate(0, 0, 2f * Time.deltaTime);
                 //playerAnim.SetBool("IsWalking",true);
                 animFlag = true;
-                pv.RPC("charMoveRPC", RpcTarget.AllBuffered);
+                pv.RPC("charMoveRPC", RpcTarget.All );
             }
 
             if (axis_Y == 1)   //위
@@ -120,7 +120,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
                 transform.Translate(0, 0, 2f * Time.deltaTime);
                 //playerAnim.SetBool("IsWalking",true);
                 animFlag = true;
-                pv.RPC("charMoveRPC", RpcTarget.AllBuffered);
+                pv.RPC("charMoveRPC", RpcTarget.All );
             
             }
 
@@ -130,7 +130,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
                 transform.Translate(0, 0, 2f * Time.deltaTime);
                 //playerAnim.SetBool("IsWalking",true);
                 animFlag = true;
-                pv.RPC("charMoveRPC", RpcTarget.AllBuffered);
+                pv.RPC("charMoveRPC", RpcTarget.All );
             }
 
             if (axis_X == 0 && axis_Y == 0)
