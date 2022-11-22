@@ -16533,7 +16533,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c79c48eb6bfc49c6bc34644e73f2f79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HOST: http://34.64.76.147:5100
+  HOST: http://zzangzzang.site:5100
   mic: {fileID: 0}
   micClip: {fileID: 0}
   proto1: 

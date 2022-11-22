@@ -3214,10 +3214,6 @@ MonoBehaviour:
   webviewStart: 0
   noteStart: 0
   playerUID: 0
-  x_Position: 0
-  y_Position: 0
-  receiveYPos: 0
-  receiveXPos: 0
   drawPosition: {x: 0, y: 0}
   speed: 2
   rotationSpeed: 2

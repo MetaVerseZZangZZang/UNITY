@@ -69,7 +69,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     {
         if (noteStart == true)
         {
-            drawPosition = Drawable.Instance.sendPositionValue;
+            //drawPosition = Drawable.Instance.sendPositionValue;
             //drawPosition = Drawable.Instance.sendPositionValue;
 
         }
@@ -162,7 +162,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
     public void DrawStream(Vector2 position)
     {
-        Drawable.Instance.PenBrush(position);
+        //Drawable.Instance.PenBrush(position);
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
