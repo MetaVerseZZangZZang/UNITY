@@ -102,7 +102,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
                 transform.Translate(0, 0, 2f * Time.deltaTime);
                 //playerAnim.SetBool("IsWalking",true);
                 animFlag = true;
-                pv.RPC("charMoveRPC", RpcTarget.All);
+                pv.RPC("charMoveRPC", RpcTarget.AllBuffered);
             }
 
             if (axis_X == -1)   //왼
@@ -111,7 +111,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
                 transform.Translate(0, 0, 2f * Time.deltaTime);
                 //playerAnim.SetBool("IsWalking",true);
                 animFlag = true;
-                pv.RPC("charMoveRPC", RpcTarget.All);
+                pv.RPC("charMoveRPC", RpcTarget.AllBuffered);
             }
 
             if (axis_Y == 1)   //위
@@ -120,7 +120,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
                 transform.Translate(0, 0, 2f * Time.deltaTime);
                 //playerAnim.SetBool("IsWalking",true);
                 animFlag = true;
-                pv.RPC("charMoveRPC", RpcTarget.All);
+                pv.RPC("charMoveRPC", RpcTarget.AllBuffered);
             
             }
 
@@ -130,7 +130,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
                 transform.Translate(0, 0, 2f * Time.deltaTime);
                 //playerAnim.SetBool("IsWalking",true);
                 animFlag = true;
-                pv.RPC("charMoveRPC", RpcTarget.All);
+                pv.RPC("charMoveRPC", RpcTarget.AllBuffered);
             }
 
             if (axis_X == 0 && axis_Y == 0)
