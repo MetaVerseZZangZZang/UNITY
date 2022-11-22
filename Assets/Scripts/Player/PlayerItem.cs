@@ -100,27 +100,27 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             {
                 transform.rotation=Quaternion.Euler(0,90,0);
                 transform.Translate(0, 0, 2f * Time.deltaTime);
-                //playerAnim.SetBool("IsWalking",true);
-                animFlag = true;
-                pv.RPC("charMoveRPC", RpcTarget.All );
+                playerAnim.SetBool("IsWalking",true);
+                //animFlag = true;
+                //pv.RPC("charMoveRPC", RpcTarget.All );
             }
 
             if (axis_X == -1)   //왼
             {
                 transform.rotation=Quaternion.Euler(0,-90,0);
                 transform.Translate(0, 0, 2f * Time.deltaTime);
-                //playerAnim.SetBool("IsWalking",true);
-                animFlag = true;
-                pv.RPC("charMoveRPC", RpcTarget.All );
+                playerAnim.SetBool("IsWalking",true);
+               // animFlag = true;
+               //pv.RPC("charMoveRPC", RpcTarget.All );
             }
 
             if (axis_Y == 1)   //위
             {
                 transform.rotation=Quaternion.Euler(0,0,0);
                 transform.Translate(0, 0, 2f * Time.deltaTime);
-                //playerAnim.SetBool("IsWalking",true);
-                animFlag = true;
-                pv.RPC("charMoveRPC", RpcTarget.All );
+                playerAnim.SetBool("IsWalking",true);
+                //animFlag = true;
+                //pv.RPC("charMoveRPC", RpcTarget.All );
             
             }
 
@@ -128,14 +128,15 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             {
                 transform.rotation=Quaternion.Euler(0,180,0);
                 transform.Translate(0, 0, 2f * Time.deltaTime);
-                //playerAnim.SetBool("IsWalking",true);
-                animFlag = true;
-                pv.RPC("charMoveRPC", RpcTarget.All );
+                playerAnim.SetBool("IsWalking",true);
+                
+                //animFlag = true;
+                //pv.RPC("charMoveRPC", RpcTarget.All );
             }
 
             if (axis_X == 0 && axis_Y == 0)
             {
-                animFlag = false;
+                //animFlag = false;
                 playerAnim.SetBool("IsWalking",false);
             }
 

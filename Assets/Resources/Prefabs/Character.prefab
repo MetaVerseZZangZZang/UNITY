@@ -2775,7 +2775,7 @@ MonoBehaviour:
     - {fileID: 6791931087251776183}
     - {fileID: 3195732119377324750}
   prefabPath: Assets/AdvancedPeopleSystem2/Prefabs/CustomizableCharacter.prefab
-  instanceStatus: 6
+  instanceStatus: 5
   originHip: {fileID: 1231293355673010347}
   headHip: {fileID: 8473455122907128234}
   clothesAnchors:
@@ -3167,7 +3167,7 @@ LODGroup:
     - renderer: {fileID: 4030009683265369669}
     - renderer: {fileID: 3006149051882141536}
     - renderer: {fileID: 2360133679379591443}
-  m_Enabled: 0
+  m_Enabled: 1
 --- !u!114 &5776876361673224434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3185,7 +3185,7 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 3
   OwnershipTransfer: 0
-  observableSearch: 1
+  observableSearch: 0
   ObservedComponents:
   - {fileID: 5981644011129649013}
   - {fileID: 9220516865472278287}
