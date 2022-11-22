@@ -2744,7 +2744,7 @@ MonoBehaviour:
   playerUID: 0
   drawPosition: {x: 0, y: 0}
   talking: 0
-  talkingImage: {fileID: 0}
+  talkingImage: {fileID: 4604997921933885919}
   speed: 1
   rotationSpeed: 2
 --- !u!54 &8461957992028094475

@@ -99,12 +99,12 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             talking = AudioLoudnessDetection.Instance.recording;
             if (talking == true)
             {
-                //talkingImage.SetActive(true);
+                talkingImage.SetActive(true);
                 //Debug.Log("talking");
             }
             else if (talking == false)
             {
-                //talkingImage.SetActive(false);
+                talkingImage.SetActive(false);
             }
             float axis_X = Input.GetAxisRaw("Horizontal");
             float axis_Z = Input.GetAxisRaw("Vertical");
