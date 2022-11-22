@@ -47,7 +47,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     void Start()
     {    
 
-        //gameObject.name = pv.IsMine ? PhotonNetwork.NickName+"(user)" : pv.Owner.NickName+"(user)";
+        gameObject.name = pv.IsMine ? PhotonNetwork.NickName+"(user)" : pv.Owner.NickName+"(user)";
         /*
         animsList.Add(ShirtsAnim);
 
