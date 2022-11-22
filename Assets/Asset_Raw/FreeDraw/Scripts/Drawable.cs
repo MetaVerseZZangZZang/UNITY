@@ -12,9 +12,10 @@ using UnityEngine.EventSystems;
 public class Drawable : MonoBehaviour
 
 {
+    public bool drawing = false;
     public Camera m_2DCamera;
 
-    public static Drawable Instance;
+    //public static Drawable Instance;
     // PEN COLOUR
     public static Color Pen_Colour = Color.black;     // Change these to change the default drawing settings
     // PEN WIDTH (actually, it's a radius, in pixels)
@@ -23,7 +24,7 @@ public class Drawable : MonoBehaviour
 
     public Vector2 sendPositionValue;
 
-    public static Vector2 mouse_world_position;
+    public Vector2 mouse_world_position;
 
     public delegate void Brush_Function(Vector2 world_position);
     // This is the function called when a left click happens
@@ -52,8 +53,9 @@ public class Drawable : MonoBehaviour
 
 
 
-//////////////////////////////////////////////////////////////////////////////
-// BRUSH TYPES. Implement your own here
+    //////////////////////////////////////////////////////////////////////////////
+    // BRUSH TYPES. Implement your own here
+
 
 
     // When you want to make your own type of brush effects,
@@ -149,7 +151,16 @@ public class Drawable : MonoBehaviour
     void Update()
     {
         // Is the user holding down the left mouse button?
-        bool mouse_held_down = Input.GetMouseButton(0);
+        bool mouse_held_down = Input.GetMouseButton(1);
+        if (Input.GetMouseButton(1))
+        {
+            drawing = true;
+        }
+        if (Input.GetMouseButtonUp(1))
+        {
+            drawing = false;
+        }
+
         if (mouse_held_down && !no_drawing_on_current_drag)
         {
             // Convert mouse coordinates to world coordinates
@@ -162,7 +173,7 @@ public class Drawable : MonoBehaviour
                 // We're over the texture we're drawing on!
                 // Use whatever function the current brush is
                 current_brush(mouse_world_position);
-                Debug.LogError(mouse_world_position);
+                //Debug.LogError(mouse_world_position);
             }
 
             else

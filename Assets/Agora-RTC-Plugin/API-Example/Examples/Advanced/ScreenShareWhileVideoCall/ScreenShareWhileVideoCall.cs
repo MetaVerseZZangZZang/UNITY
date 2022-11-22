@@ -29,7 +29,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     private WebCamTexture _webCameraTexture;
     //public RawImage RawImage;
     public Vector2 CameraSize = new Vector2(1280, 960);
-    public int CameraFPS = 15;
+    public int CameraFPS = 10;
     private byte[] _shareData;
     // public RawImage test;
     public GameObject Safari;
