@@ -32,7 +32,6 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
     public Dictionary<int, string> idUint = new Dictionary<int, string>();
     public Vector2 drawPosition;
-    private bool animFlag=false;
     
 
     public bool talking = false;
@@ -108,7 +107,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
                 //talkingImage.SetActive(false);
             }
             float axis_X = Input.GetAxisRaw("Horizontal");
-            float axis_Y = Input.GetAxisRaw("Vertical");
+            float axis_Z = Input.GetAxisRaw("Vertical");
             if (axis_X == 1)
             {
                 transform.rotation=Quaternion.Euler(0,90,0);
@@ -127,7 +126,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
                //pv.RPC("charMoveRPC", RpcTarget.All );
             }
 
-            if (axis_Y == 1)   //위
+            if (axis_Z == 1)   //위
             {
                 transform.rotation=Quaternion.Euler(0,0,0);
                 transform.Translate(0, 0, 2f * Time.deltaTime);
@@ -137,7 +136,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             
             }
 
-            if (axis_Y == -1)    //아래
+            if (axis_Z == -1)    //아래
             {
                 transform.rotation=Quaternion.Euler(0,180,0);
                 transform.Translate(0, 0, 2f * Time.deltaTime);
@@ -147,7 +146,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
                 //pv.RPC("charMoveRPC", RpcTarget.All );
             }
 
-            if (axis_X == 0 && axis_Y == 0)
+            if (axis_X == 0 && axis_Z == 0)
             {
                 //animFlag = false;
                 playerAnim.SetBool("IsWalking",false);
@@ -157,16 +156,6 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         
     }
 
-
-    [PunRPC] 
-    void charMoveRPC()
-    {
-        if (!animFlag)
-            return;
-        playerAnim.SetBool("IsWalking",true);
-        animFlag = false;
-    } 
-    
     
     void RpcAni() 
     {
@@ -182,6 +171,9 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     {
         if (stream.IsWriting)
         {
+            stream.SendNext(transform.rotation.eulerAngles);
+            stream.SendNext(transform.position);
+            stream.SendNext(playerUID);
             stream.SendNext(webviewStart);
             stream.SendNext(playerUID);
             stream.SendNext(idUint);
@@ -195,8 +187,8 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         }
         else
         {
-            //curRot = (Vector3)stream.ReceiveNext();
-            //curPos = (Vector3)stream.ReceiveNext();
+            curRot = (Vector3)stream.ReceiveNext();
+            curPos = (Vector3)stream.ReceiveNext();
             webviewStart = (bool)stream.ReceiveNext();
             playerUID = (int)stream.ReceiveNext();
             ScreenShareWhileVideoCall.Instance.playerdict = (Dictionary<int, string>)stream.ReceiveNext();
@@ -207,8 +199,8 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             int shoesIndex = (int)stream.ReceiveNext();
             int hatIndex = (int)stream.ReceiveNext();
             
-            //transform.rotation=Quaternion.Euler(curRot);
-            //transform.position = curPos;
+            transform.rotation=Quaternion.Euler(curRot);
+            transform.position = curPos;
             //GetComponent<CharacterCustomization>().SwitchCharacterSettings(gender);
             GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,hairIndex );
             GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Shirt,shirtsIndex );
