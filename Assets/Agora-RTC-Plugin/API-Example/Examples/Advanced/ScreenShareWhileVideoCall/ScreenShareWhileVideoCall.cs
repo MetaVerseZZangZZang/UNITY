@@ -136,7 +136,8 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         Safari.SetActive(false);
         playerCanvas.gameObject.SetActive(false);
 
-        ScreenShareLeaveChannel();
+        //ScreenShareLeaveChannel();
+        RtcEngine.LeaveChannelEx(new RtcConnection(_channelName, Uid2));
     }
 
 
