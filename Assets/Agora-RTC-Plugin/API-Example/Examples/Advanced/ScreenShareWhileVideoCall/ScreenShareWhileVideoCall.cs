@@ -631,7 +631,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                     {
                         Debug.LogError("1");
                         GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
-                        newFriendCam.transform.SetParent(player.transform.GetChild(0));
+                        newFriendCam.transform.SetParent(player.transform.GetChild(1));
                         newFriendCam.transform.position = new Vector2(0,0);
                         newFriendCam.transform.localScale = new Vector3(1, 1, 1);
 
