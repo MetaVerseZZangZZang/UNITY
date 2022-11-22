@@ -99,7 +99,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             {
                 transform.rotation=Quaternion.Euler(0,90,0);
                 transform.Translate(0, 0, 2f * Time.deltaTime);
-                playerAnim.SetBool("walk",true);
+                playerAnim.SetBool("IsWalking",true);
             
             }
 
@@ -107,14 +107,14 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             {
                 transform.rotation=Quaternion.Euler(0,-90,0);
                 transform.Translate(0, 0, 2f * Time.deltaTime);
-                playerAnim.SetBool("walk",true);
+                playerAnim.SetBool("IsWalking",true);
             }
 
             if (axis_Y == 1)   //위
             {
                 transform.rotation=Quaternion.Euler(0,0,0);
                 transform.Translate(0, 0, 2f * Time.deltaTime);
-                playerAnim.SetBool("walk",true);
+                playerAnim.SetBool("IsWalking",true);
             
             }
 
@@ -122,12 +122,12 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             {
                 transform.rotation=Quaternion.Euler(0,180,0);
                 transform.Translate(0, 0, 2f * Time.deltaTime);
-                playerAnim.SetBool("walk",true);
+                playerAnim.SetBool("IsWalking",true);
             }
 
             if (axis_X == 0 && axis_Y == 0)
             {
-                playerAnim.SetBool("walk",false);
+                playerAnim.SetBool("IsWalking",false);
             }
 
         }
