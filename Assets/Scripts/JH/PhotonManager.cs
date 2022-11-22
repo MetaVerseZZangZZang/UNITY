@@ -39,8 +39,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.ConnectUsingSettings();
         PhotonNetwork.LocalPlayer.NickName = UI_StartPanel.Instance.userName;
-        PhotonNetwork.SerializationRate = 30;
-        PhotonNetwork.SendRate = 60;
     }
 
     

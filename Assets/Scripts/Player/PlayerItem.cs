@@ -145,7 +145,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
 
     [PunRPC] 
-    public void charMoveRPC()
+    void charMoveRPC()
     {
         if (!animFlag)
             return;
