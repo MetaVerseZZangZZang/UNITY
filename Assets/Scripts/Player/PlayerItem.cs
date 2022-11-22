@@ -70,16 +70,16 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     //public GameObject sayingObject;
     void Update()
     {
-        if (Drawable.drawable.drawing == true)
-        {
-            x_Position = Drawable.drawable.mouse_world_position.x;
-            y_Position = Drawable.drawable.mouse_world_position.y;
+        //if (Drawable.drawable.drawing == true)
+        //{
+        //    x_Position = Drawable.drawable.mouse_world_position.x;
+        //    y_Position = Drawable.drawable.mouse_world_position.y;
 
-            Vector2 pos = new Vector2(x_Position, y_Position); 
-            Drawable.drawable.current_brush(pos);
-            Debug.Log("enter");
+        //    Vector2 pos = new Vector2(x_Position, y_Position); 
+        //    Drawable.drawable.current_brush(pos);
+        //    Debug.Log("enter");
 
-        }
+        //}
 
         if (noteStart == true)
         {

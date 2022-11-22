@@ -82,9 +82,9 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         GameObject player = PhotonNetwork.Instantiate("Prefabs/Character", Vector3.zero, Quaternion.Euler(new Vector3(0,180,0)));
-        GameObject note = PhotonNetwork.Instantiate("Prefabs/Note", new Vector3(-670, 378, 0), Quaternion.identity);
-        Drawable noteScript = note.transform.GetChild(2).GetComponent<Drawable>();
-        noteScript.m_2DCamera = twice_Cam;
+//        GameObject note = PhotonNetwork.Instantiate("Prefabs/Note", new Vector3(-670, 378, 0), Quaternion.identity);
+////        Drawable noteScript = note.transform.GetChild(2).GetComponent<Drawable>();
+//        noteScript.m_2DCamera = twice_Cam;
 
         //Drawable noteScript = instanitateNote.transform.GetChild(2).GetComponent<Drawable>();
         //noteScript.m_2DCamera = twice_Cam;
