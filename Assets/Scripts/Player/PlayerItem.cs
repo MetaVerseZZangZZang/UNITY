@@ -34,6 +34,9 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     public Vector2 drawPosition;
     private bool animFlag=false;
     
+
+    public bool talking = false;
+    public GameObject talkingImage;
    
     void Awake()
     {
@@ -94,6 +97,16 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         }
         if (pv.IsMine)
         {
+            talking = AudioLoudnessDetection.Instance.recording;
+            if (talking == true)
+            {
+                talkingImage.SetActive(true);
+                //Debug.Log("talking");
+            }
+            else if (talking == false)
+            {
+                talkingImage.SetActive(false);
+            }
             float axis_X = Input.GetAxisRaw("Horizontal");
             float axis_Y = Input.GetAxisRaw("Vertical");
             if (axis_X == 1)
@@ -178,8 +191,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             stream.SendNext(CharCustomManager.Instance.selectedPantsIndex);
             stream.SendNext(CharCustomManager.Instance.selectedShoesIndex);
             stream.SendNext(CharCustomManager.Instance.selectedHatIndex);
-            
-            
+            stream.SendNext(talking);
         }
         else
         {
@@ -204,9 +216,10 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Shoes,shoesIndex );
             GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hat,hatIndex );
 
-
             //drawPosition = (Vector2)stream.ReceiveNext();
             //DrawStream(drawPosition);
+            talking = (bool)stream.ReceiveNext();
+
 
         }
     }

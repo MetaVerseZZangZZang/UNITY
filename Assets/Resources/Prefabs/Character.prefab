@@ -1,5 +1,78 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1782298310
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1782298311}
+  - component: {fileID: 1782298313}
+  - component: {fileID: 1782298312}
+  m_Layer: 0
+  m_Name: TalkingImg
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1782298311
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782298310}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4564406897170010435}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1782298313
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782298310}
+  m_CullTransparentMesh: 1
+--- !u!114 &1782298312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782298310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 2800000, guid: 606bda8603bf8492ba14093ea8b744cc, type: 3}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!1 &22470901656743013
 GameObject:
   m_ObjectHideFlags: 0
@@ -2645,11 +2718,11 @@ GameObject:
   - component: {fileID: 7217555815998165618}
   - component: {fileID: 1586573521573317435}
   - component: {fileID: 5776876361673224434}
+  - component: {fileID: 103247769117648114}
   - component: {fileID: 5981644011129649013}
   - component: {fileID: 8461957992028094475}
   - component: {fileID: 9220516865472278287}
   - component: {fileID: 4338413693397323449}
-  - component: {fileID: 8419534613497682209}
   m_Layer: 0
   m_Name: Character
   m_TagString: Player
@@ -2775,7 +2848,7 @@ MonoBehaviour:
     - {fileID: 6791931087251776183}
     - {fileID: 3195732119377324750}
   prefabPath: Assets/AdvancedPeopleSystem2/Prefabs/CustomizableCharacter.prefab
-  instanceStatus: 5
+  instanceStatus: 1
   originHip: {fileID: 1231293355673010347}
   headHip: {fileID: 8473455122907128234}
   clothesAnchors:
@@ -3053,8 +3126,8 @@ Animator:
   m_Avatar: {fileID: 9000000, guid: 1b8f3f34252d9ee44823ab05504b31a8, type: 3}
   m_Controller: {fileID: 9100000, guid: 73dfba487f63297498cf4b2ae53f6fb5, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 1
-  m_ApplyRootMotion: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -3185,15 +3258,40 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 3
   OwnershipTransfer: 0
-  observableSearch: 0
+  observableSearch: 2
   ObservedComponents:
+  - {fileID: 103247769117648114}
   - {fileID: 5981644011129649013}
   - {fileID: 9220516865472278287}
   - {fileID: 4338413693397323449}
-  - {fileID: 8419534613497682209}
+  - {fileID: 3397383967260779957}
+  - {fileID: 4270063870362988112}
+  - {fileID: 7018618778641377027}
+  - {fileID: 7180452793906098255}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &103247769117648114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705496087617365778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 1
+    Name: walk
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
 --- !u!114 &5981644011129649013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3215,8 +3313,8 @@ MonoBehaviour:
   noteStart: 0
   playerUID: 0
   drawPosition: {x: 0, y: 0}
-  speed: 2
-  rotationSpeed: 2
+  talking: 0
+  talkingImage: {fileID: 1782298310}
 --- !u!54 &8461957992028094475
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3246,8 +3344,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SynchronizeVelocity: 1
-  m_SynchronizeAngularVelocity: 0
-  m_TeleportEnabled: 0
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 1
   m_TeleportIfDistanceGreaterThan: 1
 --- !u!114 &4338413693397323449
 MonoBehaviour:
@@ -3265,30 +3363,6 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
---- !u!114 &8419534613497682209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1705496087617365778}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowLayerWeightsInspector: 1
-  ShowParameterInspector: 1
-  m_SynchronizeParameters:
-  - Type: 1
-    SynchronizeType: 1
-    Name: speed
-  - Type: 4
-    SynchronizeType: 1
-    Name: IsWalking
-  m_SynchronizeLayers:
-  - SynchronizeType: 0
-    LayerIndex: 0
 --- !u!1 &1856924670619042996
 GameObject:
   m_ObjectHideFlags: 0
@@ -5488,6 +5562,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2896836676802665187}
   - component: {fileID: 3181260584091509187}
+  - component: {fileID: 7018618778641377027}
   m_Layer: 0
   m_Name: HAIR_m_lod2
   m_TagString: Untagged
@@ -5616,6 +5691,22 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.000000022351742, y: 0.76774114, z: -0.11615491}
     m_Extent: {x: 0.08153182, y: 0.124702096, z: 0.108751535}
   m_DirtyAABB: 0
+--- !u!114 &7018618778641377027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4373737447874175058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &4390150808621064783
 GameObject:
   m_ObjectHideFlags: 0
@@ -5767,6 +5858,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2397130782341509565}
   - component: {fileID: 8439291678088258479}
+  - component: {fileID: 3397383967260779957}
   m_Layer: 0
   m_Name: HAIR_m_lod0
   m_TagString: Untagged
@@ -5895,6 +5987,22 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.000000022351742, y: 0.76750654, z: -0.12188481}
     m_Extent: {x: 0.08153182, y: 0.124931216, z: 0.114332095}
   m_DirtyAABB: 0
+--- !u!114 &3397383967260779957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4433285166675877184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &4498279151396376324
 GameObject:
   m_ObjectHideFlags: 0
@@ -9281,6 +9389,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7676930122844056622}
   - component: {fileID: 900658688029537926}
+  - component: {fileID: 7180452793906098255}
   m_Layer: 0
   m_Name: HAIR_m_lod3
   m_TagString: Untagged
@@ -9409,6 +9518,22 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.000000029802322, y: 0.761809, z: -0.11809328}
     m_Extent: {x: 0.07976204, y: 0.11370361, z: 0.099791825}
   m_DirtyAABB: 0
+--- !u!114 &7180452793906098255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6427642214438811918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &6492701630593477495
 GameObject:
   m_ObjectHideFlags: 0
@@ -10762,6 +10887,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7856988761053193907}
   - component: {fileID: 4447193644102198716}
+  - component: {fileID: 4270063870362988112}
   m_Layer: 0
   m_Name: HAIR_m_lod1
   m_TagString: Untagged
@@ -10890,6 +11016,22 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.000000022351742, y: 0.7686263, z: -0.11625481}
     m_Extent: {x: 0.08153182, y: 0.12381208, z: 0.10865164}
   m_DirtyAABB: 0
+--- !u!114 &4270063870362988112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7464161384201797933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &7536777448044174121
 GameObject:
   m_ObjectHideFlags: 0
@@ -11377,6 +11519,7 @@ RectTransform:
   m_Children:
   - {fileID: 2488306635694635647}
   - {fileID: 2776866039533185533}
+  - {fileID: 1782298311}
   m_Father: {fileID: 1705496087617365780}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
