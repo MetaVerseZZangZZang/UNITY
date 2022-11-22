@@ -31,12 +31,16 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     void Awake()
     {
         Instance = this;
+        
+        PhotonNetwork.SerializationRate = 80;
+        PhotonNetwork.SendRate = 60;
     }
     
     public void Connect()
     {
         PhotonNetwork.ConnectUsingSettings();
         PhotonNetwork.LocalPlayer.NickName = UI_StartPanel.Instance.userName;
+
     }
 
     public void CreateRoom()

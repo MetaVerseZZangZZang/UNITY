@@ -31,8 +31,6 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     public int playerUID;
 
     public Dictionary<int, string> idUint = new Dictionary<int, string>();
-
-
     public Vector2 drawPosition;
 
    
@@ -46,13 +44,11 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     {    
 
         gameObject.name = pv.IsMine ? PhotonNetwork.NickName+"(user)" : pv.Owner.NickName+"(user)";
-
         /*
         animsList.Add(ShirtsAnim);
 
         Debug.Log(UI_Character.Instance.SelectedShirts);
         */
-
         if (pv.IsMine)
         {
 
@@ -75,87 +71,67 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             drawPosition = Drawable.Instance.sendPositionValue;
             //drawPosition = Drawable.Instance.sendPositionValue;
 
-
         }
-        if (pv.IsMine)
+        void Update()
         {
-            //player.SetActive(false);
+            //if (Drawable.drawable.drawing == true)
+            //{
+            //    x_Position = Drawable.drawable.mouse_world_position.x;
+            //    y_Position = Drawable.drawable.mouse_world_position.y;
 
-            float translation = Input.GetAxis("Vertical") * speed;
-            float rotation = Input.GetAxis("Horizontal") * rotationSpeed;
+            //    Vector2 pos = new Vector2(x_Position, y_Position); 
+            //    Drawable.drawable.current_brush(pos);
+            //    Debug.Log("enter");
 
-            translation *= Time.deltaTime;
-            rotation *= Time.deltaTime;
-            transform.Translate(0, 0, translation);
-            transform.Rotate(0, rotation, 0);
+            //}
 
-            if (translation != 0 || rotation != 0)
+            if (noteStart == true)
             {
-                if (translation < 0)
+                //drawPosition = Drawable.Instance.sendPositionValue;
+                //drawPosition = Drawable.Instance.sendPositionValue;
+                //Debug.Log(Drawable.Instance.);
+
+            }
+            if (pv.IsMine)
+            {
+                float axis_X = Input.GetAxisRaw("Horizontal");
+                float axis_Y = Input.GetAxisRaw("Vertical");
+                if (axis_X == 1)
                 {
-                    playerAnim.SetFloat("speed", -1);
+                    transform.rotation=Quaternion.Euler(0,90,0);
+                    transform.Translate(0, 0, 2f * Time.deltaTime);
+                    playerAnim.SetBool("walk",true);
+                
                 }
-                //playerAnim.SetFloat("speed", 1);
-                //playerAnim.SetBool("IsWalking", true);
 
-                Invoke("RpcAni",1);
+                if (axis_X == -1)   //왼
+                {
+                    transform.rotation=Quaternion.Euler(0,-90,0);
+                    transform.Translate(0, 0, 2f * Time.deltaTime);
+                    playerAnim.SetBool("walk",true);
+                }
+
+                if (axis_Y == 1)   //위
+                {
+                    transform.rotation=Quaternion.Euler(0,0,0);
+                    transform.Translate(0, 0, 2f * Time.deltaTime);
+                    playerAnim.SetBool("walk",true);
+                
+                }
+
+                if (axis_Y == -1)    //아래
+                {
+                    transform.rotation=Quaternion.Euler(0,180,0);
+                    transform.Translate(0, 0, 2f * Time.deltaTime);
+                    playerAnim.SetBool("walk",true);
+                }
+
+                if (axis_X == 0 && axis_Y == 0)
+                {
+                    playerAnim.SetBool("walk",false);
+                }
+
             }
-            else
-            {
-                CancelInvoke();
-                playerAnim.SetBool("IsWalking",false);
-                //RpcAni("IsWaling",false);
-                //playerAnim.SetFloat("speed", 1);
-                //RpcAni("IsWalking", false);
-                //playerAnim.SetBool("IsWalking", false);
-            }
-
-            //float axis_X = Input.GetAxisRaw("Horizontal");
-            //float axis_Y = Input.GetAxisRaw("Vertical");
-
-            ////playerAnim.SetBool("walk",true);
-
-            //if (axis_X == 1)
-            //{
-            //    transform.rotation=Quaternion.Euler(0,90,0);
-            //    transform.Translate(0, 0, 2f * Time.deltaTime);
-
-            //    //playerAnim.SetBool("walkTrigger",true);
-            //}
-
-            //if (axis_X == -1)   //왼
-            //{
-            //    transform.rotation=Quaternion.Euler(0,-90,0);
-            //    transform.Translate(0, 0, 2f * Time.deltaTime);
-            //    //playerAnim.SetBool("walkTrigger", true);
-            //}
-
-            //if (axis_Y == 1)   //위
-            //{
-            //    transform.rotation=Quaternion.Euler(0,0,0);
-            //    transform.Translate(0, 0, 2f * Time.deltaTime);
-            //    //playerAnim.SetTrigger("walkTrigger");
-
-            //}
-
-            //if (axis_Y == -1)    //아래
-            //{
-            //    transform.rotation=Quaternion.Euler(0,180,0);
-            //    transform.Translate(0, 0, 2f * Time.deltaTime);
-            //    //playerAnim.SetTrigger("walkTrigger");
-            //}
-
-
-            //if (axis_X == 0 && axis_Y == 0 ) 
-            //{
-            //    playerAnim.SetBool("walk", false);
-            //}
-
-            //else
-            //{
-            //    playerAnim.SetBool("walk", true);
-            //}
-
         }
     }
     void RpcAni() 
