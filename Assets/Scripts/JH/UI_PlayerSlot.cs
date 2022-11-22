@@ -20,7 +20,7 @@ public class UI_PlayerSlot : MonoBehaviour
         Instance = this;
     }
 
-    public void SetRoomName()
+    public void Start()
     {
         roomName.text=PhotonManager.Instance.roomname;
     }

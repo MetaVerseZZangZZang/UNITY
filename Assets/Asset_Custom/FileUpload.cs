@@ -153,7 +153,7 @@ public class FileUpload : MonoBehaviour
 
         
 
-    public string url = "http://192.168.0.100:5100/uploadfiles";
+    private string url = "http://34.64.76.147:5100/uploadfiles";
     public void SendFile(byte[] fileByte,string fileName,string extension)
     {
         WWWForm form = new WWWForm();

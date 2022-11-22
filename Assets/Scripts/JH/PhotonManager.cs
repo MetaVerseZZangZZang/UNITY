@@ -26,22 +26,22 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public List<string> nameList = new List <string>();
     public List<PlayerItem> playerItemList = new List<PlayerItem>();
     public string roomname;
-    public Camera twice_Cam;
+    
     
     void Awake()
     {
         Instance = this;
-        PhotonNetwork.SendRate = 60;
-        PhotonNetwork.SerializationRate = 30;
+        
+
     }
-
-
+    
     public void Connect()
     {
         PhotonNetwork.ConnectUsingSettings();
         PhotonNetwork.LocalPlayer.NickName = UI_StartPanel.Instance.userName;
     }
 
+    
     public void CreateRoom()
     {
         roomname = UI_CreateMapPanel.Instance.RoomNameInputField.text== "" ? "Room" + Random.Range(0, 100) : UI_CreateMapPanel.Instance.RoomNameInputField.text;
@@ -81,14 +81,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     private PlayerItem m_PlayerItem;
     public override void OnJoinedRoom()
     {
-        GameObject player = PhotonNetwork.Instantiate("Prefabs/Character", Vector3.zero, Quaternion.Euler(new Vector3(0,180,0)));
-//        GameObject note = PhotonNetwork.Instantiate("Prefabs/Note", new Vector3(-670, 378, 0), Quaternion.identity);
-////        Drawable noteScript = note.transform.GetChild(2).GetComponent<Drawable>();
-//        noteScript.m_2DCamera = twice_Cam;
-
-        //Drawable noteScript = instanitateNote.transform.GetChild(2).GetComponent<Drawable>();
-        //noteScript.m_2DCamera = twice_Cam;
-
+        GameObject player=PhotonNetwork.Instantiate("Prefabs/Character", Vector3.zero, Quaternion.Euler(new Vector3(0,180,0)));
         player.GetComponent<PlayerItem>().Nickname = PhotonNetwork.LocalPlayer.NickName;
         player.name="Character_"+PhotonNetwork.LocalPlayer.NickName;
         player.GetComponent<CharacterCustomization>().SwitchCharacterSettings(CharCustomManager.Instance.selectedGender);
@@ -97,7 +90,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Pants,CharCustomManager.Instance.selectedPantsIndex );
         player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Shoes,CharCustomManager.Instance.selectedShoesIndex );
         player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hat,CharCustomManager.Instance.selectedHatIndex );
-        //note.SetActive(true);
+        
         
         //m_PlayerItem.Sethair()
         /*
