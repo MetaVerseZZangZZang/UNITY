@@ -1,6 +1,7 @@
 using UnityEngine;
 
 using System.Collections;
+using UnityEngine.UI;
 
 
 public class WebViewScript : MonoBehaviour
@@ -8,6 +9,8 @@ public class WebViewScript : MonoBehaviour
 
     public WebViewObject webViewObject;
 
+
+    public InputField userInputURL;
     // Use this for initialization
 
     void Start()
@@ -16,7 +19,7 @@ public class WebViewScript : MonoBehaviour
     }
 
     // Update is called once per frame
-
+    string url = "http://www.naver.com";
     void Update()
     {
 
@@ -30,6 +33,20 @@ public class WebViewScript : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            webViewObject.LoadURL(url);
+        }
+
+
+
+    }
+
+
+    public void SurfURL()
+    {
+
+        webViewObject.LoadURL(userInputURL.text);
     }
 
     public void StartWebView()
@@ -44,7 +61,7 @@ public class WebViewScript : MonoBehaviour
 
         webViewObject.LoadURL(strUrl);
         webViewObject.SetVisibility(true);
-        webViewObject.SetMargins(50, 50, 50, 50);
+// webViewObject.SetMargins(50, 50, 50, 50);
 
     }
 }

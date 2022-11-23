@@ -75,7 +75,7 @@ public class WebViewObject : MonoBehaviour
     public RawImage tx;
 #if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
     IntPtr webView;
-    Rect rect;
+    public Rect rect;
     public Texture2D texture;
     byte[] textureDataBuffer;
     string inputString = "";
@@ -211,11 +211,26 @@ public class WebViewObject : MonoBehaviour
         
     }
 
+    Camera m_2DCamera;
     private void Start()
     {
         tx = GameObject.Find("TVPanel").GetComponent<RawImage>();
         print(tx);
         Instance = this;
+        //tx = GameObject.Find("TVPanel").GetComponent<RawImage>();
+        //print(tx);
+        //m_2DCamera = GameObject.Find("2DCamera").GetComponent<Camera>();
+        //rect = new Rect(28,-370,1145,675f);
+        //rect = new Rect(0, 0, 1920/2, 1080/2);
+        //rect = new Rect(0, 0, 1920 / 2, 1080 / 2);
+
+        //rect = new Rect(0, 0, Screen.width, Screen.height);
+
+        Debug.LogError(33333);
+
+        //rect.ro
+        //OnGUI();
+
     }
 
     public bool IsKeyboardVisible
@@ -480,7 +495,8 @@ public class WebViewObject : MonoBehaviour
                 return id;
             };
         })()");
-        rect = new Rect(0, 0, Screen.width, Screen.height);
+        rect = new Rect(0, 0, Screen.width/2, Screen.height/2);
+        //Debug.LogError(444444);
         OnApplicationFocus(true);
 #elif UNITY_IPHONE
         webView = _CWebViewPlugin_Init(name, transparent, zoom, ua, enableWKWebView, wkContentMode, wkAllowsLinkPreview);
@@ -677,8 +693,8 @@ public class WebViewObject : MonoBehaviour
 #elif UNITY_WEBGL && !UNITY_EDITOR
         _gree_unity_webview_setMargins(name, (int)ml, (int)mt, (int)mr, (int)mb);
 #elif UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
-        int width = (int)(Screen.width - (ml + mr));
-        int height = (int)(Screen.height - (mb + mt));
+        int width = (int)(Screen.width/2 - (ml + mr));
+        int height = (int)(Screen.height/2 - (mb + mt));
         _CWebViewPlugin_SetRect(webView, width, height);
         rect = new Rect(left, bottom, width, height);
 #elif UNITY_IPHONE
@@ -1270,8 +1286,14 @@ public class WebViewObject : MonoBehaviour
         }
     }
 
+    public float x;
+    public float y;
+    public float sizex = 1200;
+    public float sizey = 800;
+
     void Update()
     {
+        //rect = new Rect(x, y, sizex, sizey);
         if (hasFocus) {
             inputString += Input.inputString;
         }
@@ -1325,9 +1347,15 @@ public class WebViewObject : MonoBehaviour
     }
 
     public int bitmapRefreshCycle = 1;
-
+    void OnDrawGizmos()
+    {
+        Gizmos.color = new Color(1.0f, 0.0f, 0.0f);
+        Gizmos.DrawWireCube(new Vector3(rect.center.x, rect.center.y, 0.01f), new Vector3(rect.size.x, rect.size.y, 0.01f));
+    }
     void OnGUI()
     {
+        
+
         if (webView == IntPtr.Zero || !visibility)
             return;
         switch (Event.current.type) {
@@ -1343,11 +1371,14 @@ public class WebViewObject : MonoBehaviour
         case EventType.MouseUp:
         case EventType.ScrollWheel:
             if (hasFocus) {
-                Vector3 p;
+                Vector3 p = Vector3.zero;
                 p.x = Input.mousePosition.x - rect.x;
                 p.y = Input.mousePosition.y - rect.y;
-                {
-                    int mouseState = 0;
+
+               
+
+                    {
+                        int mouseState = 0;
                     if (Input.GetButtonDown("Fire1")) {
                         mouseState = 1;
                     } else if (Input.GetButton("Fire1")) {
@@ -1379,9 +1410,9 @@ public class WebViewObject : MonoBehaviour
                         new Vector3(0, Screen.height, 0),
                         Quaternion.identity,
                         new Vector3(1, -1, 1));
-                //GUI.DrawTexture(rect, texture);
-                //
-                tx.texture = texture;
+                GUI.DrawTexture(rect, texture);
+
+                //tx.texture = texture;
                 GUI.matrix = m;
             }
             break;
