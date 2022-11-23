@@ -8,8 +8,10 @@ using UnityEngine.UI;
 public class UI_Character : MonoBehaviour
 {
     public static UI_Character Instance;
-    
-    public CharacterCustomization CharacterCustomization;
+
+    public GameObject MaleGameObject;
+    public GameObject FemaleGameObject;
+    private CharacterCustomization CharacterCustomization;
     [Space(15)]
 
     public Text lod_text;
@@ -61,18 +63,24 @@ public class UI_Character : MonoBehaviour
     #region ButtonEvents
     public void SwitchCharacterSettings(string name)
     {
-        CharacterCustomization.SwitchCharacterSettings(name);
+        //CharacterCustomization.SwitchCharacterSettings(name);
         CharCustomManager.Instance.selectedGender = name;
         
         if(name == "Male")
         {
+            MaleGameObject.gameObject.SetActive(true);
+            FemaleGameObject.gameObject.SetActive(false);
             maleUI.gameObject.SetActive(true);
             femaleUI.gameObject.SetActive(false);
+            CharacterCustomization = MaleGameObject.GetComponent<CharacterCustomization>();
         }
         if (name == "Female")
         {
+            FemaleGameObject.gameObject.SetActive(true);
+            MaleGameObject.gameObject.SetActive(false);
             femaleUI.gameObject.SetActive(true);
             maleUI.gameObject.SetActive(false);
+            CharacterCustomization = FemaleGameObject.GetComponent<CharacterCustomization>();
         }
     }
     

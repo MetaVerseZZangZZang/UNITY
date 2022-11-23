@@ -90,12 +90,12 @@ namespace AdvancedPeopleSystem
     [System.Serializable]
     public class CharacterSelectedElements: ICloneable
     {
-        public int Hair = -1;
+        public int Hair = 0;
         public int Beard = -1;
         public int Hat = -1;
-        public int Shirt = -1;
-        public int Pants = -1;
-        public int Shoes = -1;
+        public int Shirt = 0;
+        public int Pants = 0;
+        public int Shoes = 0;
         public int Accessory = -1;
         public int Item1 = -1;
 
