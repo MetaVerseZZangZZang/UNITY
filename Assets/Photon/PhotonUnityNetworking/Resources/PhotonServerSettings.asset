@@ -41,6 +41,8 @@ MonoBehaviour:
   - Fire
   - RespawnSpaceship
   - RPC_ShareWalkAnim
+  - PvDraw
+  - PvClean
   DisableAutoOpenWizard: 1
-  ShowSettings: 0
+  ShowSettings: 1
   DevRegionSetOnce: 1

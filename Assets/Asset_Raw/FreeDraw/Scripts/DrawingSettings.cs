@@ -19,6 +19,7 @@ namespace FreeDraw
         // new_width is radius in pixels
         public void SetMarkerWidth(int new_width)
         {
+            Debug.Log(new_width);
             Drawable.Pen_Width = new_width;
         }
         public void SetMarkerWidth(float new_width)
@@ -42,6 +43,7 @@ namespace FreeDraw
             c.a = Transparency;
             SetMarkerColour(c);
             Drawable.drawable.SetPenBrush();
+            Drawable.color_index = 2;
         }
         public void SetMarkerGreen()
         {
@@ -56,7 +58,26 @@ namespace FreeDraw
             c.a = Transparency;
             SetMarkerColour(c);
             Drawable.drawable.SetPenBrush();
+            Drawable.color_index = 1;
         }
+        public void SetMarkerBlack()
+        {
+            Color c = Color.black;
+            c.a = Transparency;
+            SetMarkerColour(c);
+            Drawable.drawable.SetPenBrush();
+            Drawable.color_index = 0;
+        }
+        public void SetMarkerEraser()
+        {
+            Color c = new Color(255f, 255f, 255f, 0f);
+            c.a = Transparency;
+            SetMarkerColour(c);
+            Drawable.drawable.SetPenBrush();
+            Drawable.color_index = 3;
+        }
+        
+        
         public void SetEraser()
         {
             SetMarkerColour(new Color(255f, 255f, 255f, 0f));
