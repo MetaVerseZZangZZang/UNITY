@@ -15,7 +15,9 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     //public Text playerName;
     // Start is called before the first frame update
     public Rigidbody rb;
-    public Animator playerAnim; 
+
+    public Animator playerAnim;
+
     //public SpriteRenderer spriteRenderer;
     public PhotonView pv;
     public CharacterCustomization cc;
@@ -32,21 +34,21 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
     public Dictionary<int, string> idUint = new Dictionary<int, string>();
     public Vector2 drawPosition;
-    
+
 
     public bool talking = false;
     public GameObject talkingImage;
-   
+
     void Awake()
     {
         //playerName.text = pv.IsMine ? PhotonNetwork.NickName : pv.Owner.NickName;
         //playerName.color = pv.IsMine ? Color.green : Color.red;
     }
-    
-    void Start()
-    {    
 
-        gameObject.name = pv.IsMine ? PhotonNetwork.NickName+"(user)" : pv.Owner.NickName+"(user)";
+    void Start()
+    {
+
+        gameObject.name = pv.IsMine ? PhotonNetwork.NickName + "(user)" : pv.Owner.NickName + "(user)";
         /*
         animsList.Add(ShirtsAnim);
 
@@ -56,7 +58,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         {
 
             playerUID = (int)UnityEngine.Random.Range(1000, 2000);
-            ScreenShareWhileVideoCall.Instance.Uid2= (uint)playerUID;
+            ScreenShareWhileVideoCall.Instance.Uid2 = (uint)playerUID;
 
             idUint.Add(playerUID, PhotonNetwork.NickName);
 
@@ -64,9 +66,11 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
         }
     }
+
     //public GameObject sayingObject;
     public int speed = 1;
     public int rotationSpeed = 2;
+
     void Update()
     {
         if (noteStart == true)
@@ -75,7 +79,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             //drawPosition = Drawable.Instance.sendPositionValue;
 
         }
-        
+
         //if (Drawable.drawable.drawing == true)
         //{
         //    x_Position = Drawable.drawable.mouse_world_position.x;
@@ -94,6 +98,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             //Debug.Log(Drawable.Instance.);
 
         }
+
         if (pv.IsMine)
         {
             talking = AudioLoudnessDetection.Instance.recording;
@@ -106,62 +111,48 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             {
                 talkingImage.SetActive(false);
             }
+
+            // jihyun 2022-11-23 -------- 캐릭터 이동, 회전, 애니메이션 --------------------------
             float axis_X = Input.GetAxisRaw("Horizontal");
             float axis_Z = Input.GetAxisRaw("Vertical");
-            if (axis_X == 1)
-            {
-                transform.rotation=Quaternion.Euler(0,90,0);
-                transform.Translate(0, 0, 2f * Time.deltaTime);
-                playerAnim.SetBool("IsWalking",true);
-                //animFlag = true;
-                //pv.RPC("charMoveRPC", RpcTarget.All );
-            }
 
-            if (axis_X == -1)   //왼
+            if (axis_X != 0 || axis_Z != 0)
             {
-                transform.rotation=Quaternion.Euler(0,-90,0);
-                transform.Translate(0, 0, 2f * Time.deltaTime);
-                playerAnim.SetBool("IsWalking",true);
-               // animFlag = true;
-               //pv.RPC("charMoveRPC", RpcTarget.All );
+                Rotate(axis_X, axis_Z);
+                Walk(playerAnim);
             }
-
-            if (axis_Z == 1)   //위
+            else
             {
-                transform.rotation=Quaternion.Euler(0,0,0);
-                transform.Translate(0, 0, 2f * Time.deltaTime);
-                playerAnim.SetBool("IsWalking",true);
-                //animFlag = true;
-                //pv.RPC("charMoveRPC", RpcTarget.All );
-            
+                playerAnim.SetBool("IsWalking", false);
             }
-
-            if (axis_Z == -1)    //아래
-            {
-                transform.rotation=Quaternion.Euler(0,180,0);
-                transform.Translate(0, 0, 2f * Time.deltaTime);
-                playerAnim.SetBool("IsWalking",true);
-                
-                //animFlag = true;
-                //pv.RPC("charMoveRPC", RpcTarget.All );
-            }
-
-            if (axis_X == 0 && axis_Z == 0)
-            {
-                //animFlag = false;
-                playerAnim.SetBool("IsWalking",false);
-            }
+            // jihyun 2022-11-23 -------- 캐릭터 이동, 회전, 애니메이션 --------------------------
 
         }
-        
+
     }
 
-    
-    void RpcAni() 
+    // jihyun 2022-11-23 -------- 캐릭터 이동, 회전, 애니메이션, speed 변수는 프리팹에서 나중에 바꿔주삼 --------------------------
+    void Walk(Animator anim)
     {
-        if (playerAnim != null) playerAnim.SetBool("IsWalking",true);
+        anim.SetBool("IsWalking", true);
+        // Rotate() 에서 방향을 바꿔주기 때문에 그 방향대로만 가게 해주면 된다
+        transform.Translate(Vector3.forward * speed * Time.smoothDeltaTime);
     }
 
+    void Rotate(float h, float v)
+    {
+        Vector3 dir = new Vector3(h, 0, v).normalized;
+
+        Quaternion rot = Quaternion.identity; // Quaternion 값을 저장할 변수 선언 및 초기화
+
+        rot.eulerAngles =
+            new Vector3(0, Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg, 0); // 역시 eulerAngles를 이용한 오일러 각도를 Quaternion으로 저장
+
+        transform.rotation = rot; // 그 각도로 회전
+    }
+    // jihyun 2022-11-23 -------- 캐릭터 이동, 회전, 애니메이션 --------------------------
+
+ 
     public void DrawStream(Vector2 position)
     {
         //Drawable.Instance.PenBrush(position);
