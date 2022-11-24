@@ -454,6 +454,39 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         public override void OnUserJoined(RtcConnection connection, uint uid, int elapsed)
         {
             Debug.Log("IININININININI");
+            GameObject player = GameObject.Find(_videoSample.playerdict[(int)uid]+"(user)");
+            PlayerItem playerScript = player.GetComponent<PlayerItem>();
+            
+            if (playerScript.webviewStart == true)
+            {
+                VideoSurface vs = player.transform.GetChild(1).GetChild(0).GetComponent<VideoSurface>();
+
+                vs.SetEnable(true);
+                vs.SetForUser(uid, connection.channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
+
+                _videoSample.remoteUid = uid;
+                //_videoSample.FriendList[Math.Min(_videoSample.count, _videoSample.FriendList.Count - 1)].SetActive(true);
+                _videoSample.count += 1;
+            }
+            else
+            {
+                _videoSample.userCount = FriendCamList.Count();
+
+                GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
+                newFriendCam.transform.SetParent(_videoSample.FriendCams.transform);
+                newFriendCam.transform.localScale = new Vector3(1, 1, 1);
+
+                FriendCamList.Add(newFriendCam.GetComponent<VideoSurface>());
+                
+                Debug.Log("newFriendCam.GetComponent<VideoSurface>() "+newFriendCam.GetComponent<VideoSurface>());
+                FriendCamList[FriendCamList.Count - 1].SetEnable(true);
+                FriendCamList[FriendCamList.Count - 1].SetForUser(uid, connection.channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
+                
+                _videoSample.remoteUid = uid;
+                _videoSample.FriendList[Math.Min(_videoSample.count, _videoSample.FriendList.Count - 1)].SetActive(true);
+                _videoSample.count += 1;
+            }
+            /*
             if (uid != _videoSample.Uid1 && uid != _videoSample.Uid2 )
             {
 
@@ -516,6 +549,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                 }
 
             }
+            */
 
         }
 
