@@ -453,8 +453,25 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         
         public override void OnUserJoined(RtcConnection connection, uint uid, int elapsed)
         {
+            Debug.Log("IININININININI");
+            //GameObject player = GameObject.Find(_videoSample.playerdict[(int)uid]+"(user)");
+            GameObject[] respawns;
+            respawns = GameObject.FindGameObjectsWithTag("Player");
+            PlayerItem playerScript=null;
+            GameObject player=null;
             
-            /*if (playerScript.webviewStart == true)
+            foreach (GameObject r in respawns)
+            {
+                if (r.GetComponent<PlayerItem>().playerUID == uid)
+                {
+                    player = r;
+                    playerScript = r.GetComponent<PlayerItem>();
+                    break;
+                }
+                
+            }
+            
+            if (playerScript.webviewStart == true)
             {
                 VideoSurface vs = player.transform.GetChild(1).GetChild(0).GetComponent<VideoSurface>();
 
@@ -466,7 +483,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                 _videoSample.count += 1;
             }
             else
-            {*/
+            {
                 _videoSample.userCount = FriendCamList.Count();
 
                 GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
