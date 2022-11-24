@@ -720,14 +720,12 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         }
 
         
-        
         public override void OnRemoteVideoStateChanged(RtcConnection connection, uint remoteUid,
             REMOTE_VIDEO_STATE state, REMOTE_VIDEO_STATE_REASON reason, int elapsed)
         {
-            
             foreach (VideoSurface RemoteView in FriendCamList)
             {
-                Debug.Log("RemoteView.UserName "+RemoteView.UserName);
+                Debug.Log("RemoteView.uid "+RemoteView.Uid);
                 if (RemoteView.Uid == remoteUid)
                 {
                     Debug.Log("IINN");
@@ -741,7 +739,6 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                     }
                 }
             }
-
         }
         
 

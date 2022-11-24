@@ -105,12 +105,12 @@ public class UI_MainPanel : MonoBehaviour
         if (!toggle.isOn)
         {
             myCam.transform.GetChild(0).gameObject.SetActive(false);
-            ScreenShareWhileVideoCall.Instance.RtcEngine.EnableLocalVideo(true);
+            AgoraManager.Instance.RtcEngine.EnableLocalVideo(true);
 
         }
         else
         {
-            ScreenShareWhileVideoCall.Instance.RtcEngine.EnableLocalVideo(false);
+            AgoraManager.Instance.RtcEngine.EnableLocalVideo(false);
             myCam.transform.GetChild(0).gameObject.SetActive(true);
 
         }
