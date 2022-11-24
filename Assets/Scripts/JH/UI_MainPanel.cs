@@ -101,16 +101,16 @@ public class UI_MainPanel : MonoBehaviour
     public void CamToggle(Toggle toggle)
     {
 
-        AgoraManager.camFlag = !toggle.isOn;
+        //AgoraManager.camFlag = !toggle.isOn;
         if (!toggle.isOn)
         {
             myCam.transform.GetChild(0).gameObject.SetActive(false);
-            //AgoraManager.Instance.RtcEngine.EnableLocalVideo(true);
+            ScreenShareWhileVideoCall.Instance.RtcEngine.EnableLocalVideo(true);
 
         }
         else
         {
-            //AgoraManager.Instance.RtcEngine.EnableLocalVideo(false);
+            ScreenShareWhileVideoCall.Instance.RtcEngine.EnableLocalVideo(false);
             myCam.transform.GetChild(0).gameObject.SetActive(true);
 
         }
