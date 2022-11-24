@@ -100,7 +100,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     // Use this for initialization
     public void AgoraStart()
     {
-        
+        //Uid1 = (uint)UnityEngine.Random.Range(1000, 2000);
         Safari.SetActive(false);
         LoadAssetData();
         if (CheckAppId())
@@ -236,7 +236,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         options1.publishScreenTrack.SetValue(false);
         options1.enableAudioRecordingOrPlayout.SetValue(true);
         options1.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
-        //Uid1 = (uint)UnityEngine.Random.Range(1000,2000);
+        
         
         var ret = RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, Uid1), options1);
     }

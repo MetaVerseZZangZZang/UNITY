@@ -30,7 +30,10 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     public bool webviewStart = false;
     public bool noteStart = false;
 
-    public int playerUID;
+    //public int playerUID;
+    public int playerwebID;
+    public int playerObjectID;
+
 
     public Dictionary<int, string> idUint = new Dictionary<int, string>();
     public Vector2 drawPosition;
@@ -57,10 +60,14 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         if (pv.IsMine)
         {
 
-            playerUID = (int)UnityEngine.Random.Range(1000, 2000);
-            ScreenShareWhileVideoCall.Instance.Uid2 = (uint)playerUID;
+            playerwebID = (int)UnityEngine.Random.Range(1000, 2000);
+            ScreenShareWhileVideoCall.Instance.Uid2 = (uint)playerwebID;
 
-            idUint.Add(playerUID, PhotonNetwork.NickName);
+            idUint.Add(playerwebID, PhotonNetwork.NickName);
+
+
+            playerObjectID = (int)UnityEngine.Random.Range(3000,5000);
+            ScreenShareWhileVideoCall.Instance.Uid1 = (uint)playerwebID;
 
             //ScreenShareWhileVideoCall.Instance.aig.Add(playerUID);
 
@@ -164,7 +171,8 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         {
             stream.SendNext(transform.rotation.eulerAngles);
             stream.SendNext(transform.position);
-            stream.SendNext(playerUID);
+            stream.SendNext(playerwebID);
+            stream.SendNext(playerObjectID);
             stream.SendNext(webviewStart);
             stream.SendNext(idUint);
             stream.SendNext(CharCustomManager.Instance.selectedHairIndex);
@@ -178,9 +186,12 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         {
             curRot = (Vector3)stream.ReceiveNext();
             curPos = (Vector3)stream.ReceiveNext();
-            playerUID = (int)stream.ReceiveNext();
+            playerwebID = (int)stream.ReceiveNext();
             webviewStart = (bool)stream.ReceiveNext();
+            playerObjectID = (int)stream.ReceiveNext();
             ScreenShareWhileVideoCall.Instance.playerdict = (Dictionary<int, string>)stream.ReceiveNext();
+
+
             int hairIndex = (int)stream.ReceiveNext();
             int shirtsIndex = (int)stream.ReceiveNext();
             int pantsIndex = (int)stream.ReceiveNext();
