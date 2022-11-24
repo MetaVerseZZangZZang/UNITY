@@ -102,17 +102,15 @@ public class UI_MainPanel : MonoBehaviour
     {
 
         ScreenShareWhileVideoCall.Instance.camFlag = !toggle.isOn;
-        if (!toggle.isOn)
+        if (ScreenShareWhileVideoCall.Instance.camFlag)  
         {
             myCam.transform.GetChild(0).gameObject.SetActive(false);
-            //ScreenShareWhileVideoCall.Instance.RtcEngine.EnableLocalVideo(true);
-
+            ScreenShareWhileVideoCall.Instance.camFlag = false;
         }
         else
         {
-            //ScreenShareWhileVideoCall.Instance.RtcEngine.EnableLocalVideo(false);
             myCam.transform.GetChild(0).gameObject.SetActive(true);
-
+            ScreenShareWhileVideoCall.Instance.camFlag = true;
         }
     }
     
