@@ -140,6 +140,7 @@ public class UI_MainPanel : MonoBehaviour
     public void friendCamON(PlayerItem playerItem)
     {
         VideoSurface RemoteView = getVSByPlayerItem(playerItem);
+        Debug.Log("REMOTEVIEW" +RemoteView.UserName);
         RemoteView.transform.GetChild(0).gameObject.SetActive(false);
     }
 
@@ -148,12 +149,11 @@ public class UI_MainPanel : MonoBehaviour
         VideoSurface vs = null;
         for (int i = 0; i < FriendCams.transform.childCount; i++)
         {
-            if (FriendCams.transform.GetChild(i).GetComponent<VideoSurface>().UserName==playerItem.Nickname)
+            if (FriendCams.transform.GetChild(i).GetComponent<VideoSurface>().UserName==playerItem.name+"(user)")
             {
                 vs = FriendCams.transform.GetChild(i).GetComponent<VideoSurface>();
                 break;
             }
-
         }
         return vs;
     }
