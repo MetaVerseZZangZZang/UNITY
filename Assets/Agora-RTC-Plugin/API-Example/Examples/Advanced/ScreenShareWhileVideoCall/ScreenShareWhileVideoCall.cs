@@ -489,7 +489,6 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                         GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
                         newFriendCam.transform.SetParent(_videoSample.FriendCams.transform);
                         newFriendCam.transform.localScale = new Vector3(1, 1, 1);
-                        newFriendCam.GetComponent<VideoSurface>().UserName = _videoSample.playerdict[(int)uid];
                         if (!FriendCamList.Contains(newFriendCam.GetComponent<VideoSurface>()))
                         {
                             FriendCamList.Add(newFriendCam.GetComponent<VideoSurface>());
@@ -510,7 +509,6 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                     GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
                     newFriendCam.transform.SetParent(_videoSample.FriendCams.transform);
                     newFriendCam.transform.localScale = new Vector3(1, 1, 1);
-                    newFriendCam.GetComponent<VideoSurface>().UserName = _videoSample.playerdict[(int)uid];
 
                     if (!FriendCamList.Contains(newFriendCam.GetComponent<VideoSurface>()))
                     {

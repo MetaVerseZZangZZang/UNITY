@@ -195,16 +195,14 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             //DrawStream(drawPosition);
             talking = (bool)stream.ReceiveNext();
 
-            if (!pv.IsMine)
+            if (!(bool)stream.ReceiveNext())
             {
-                if (!(bool)stream.ReceiveNext())
-                {
-                    Debug.Log("켜라");
-                    UI_MainPanel.Instance.friendCamON(this);
-                }
-                else
-                    UI_MainPanel.Instance.friendCamOff(this);
+                Debug.Log("켜라");
+                Debug.Log(this.Nickname);
+                UI_MainPanel.Instance.friendCamON(this);
             }
+            else
+                UI_MainPanel.Instance.friendCamOff(this);
         }
     
     }

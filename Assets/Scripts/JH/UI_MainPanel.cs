@@ -135,32 +135,38 @@ public class UI_MainPanel : MonoBehaviour
     public void friendCamOff(PlayerItem playerItem)
     {
         VideoSurface RemoteView = getVSByPlayerItem(playerItem);
-        RemoteView.transform.GetChild(0).gameObject.SetActive(true);
+        if(getVSByPlayerItem(playerItem)!=null)
+            RemoteView.transform.GetChild(0).gameObject.SetActive(true);
     }
 
     public void friendCamON(PlayerItem playerItem)
     {
         VideoSurface RemoteView = getVSByPlayerItem(playerItem);
-        Debug.Log("REMOTEVIEW" +RemoteView.UserName);
-        RemoteView.transform.GetChild(0).gameObject.SetActive(false);
+        if(getVSByPlayerItem(playerItem)!=null)
+            RemoteView.transform.GetChild(0).gameObject.SetActive(false);
     }
 
     public VideoSurface getVSByPlayerItem(PlayerItem playerItem)
     {
         VideoSurface vs = null;
         Debug.Log("FriendCams.transform.childCount "+FriendCams.transform.childCount);
-        for (int i = 0; i < FriendCams.transform.childCount; i++)
+
+        if (FriendCams.transform.childCount >= 1)
         {
-            Debug.Log("FriendCams.transform.GetChild(i).GetComponent<VideoSurface>().UserName "+FriendCams.transform.GetChild(i).GetComponent<VideoSurface>().UserName);
-            Debug.Log("playerItem.name "+playerItem.name);
-            if (FriendCams.transform.GetChild(i).GetComponent<VideoSurface>().UserName==playerItem.name+"(user)")
+            for (int i = 0; i < FriendCams.transform.childCount; i++)
             {
-                
-                
-                vs = FriendCams.transform.GetChild(i).GetComponent<VideoSurface>();
-                break;
+                Debug.Log("FriendCams.transform.GetChild(i).GetComponent<VideoSurface>().UserName " +
+                          FriendCams.transform.GetChild(i).GetComponent<VideoSurface>().UserName);
+                Debug.Log("playerItem.name " + playerItem.name);
+                if (FriendCams.transform.GetChild(i).GetComponent<VideoSurface>().UserName ==
+                    playerItem.name + "(user)")
+                {
+                    vs = FriendCams.transform.GetChild(i).GetComponent<VideoSurface>();
+                    break;
+                }
             }
         }
+
         return vs;
     }
     
