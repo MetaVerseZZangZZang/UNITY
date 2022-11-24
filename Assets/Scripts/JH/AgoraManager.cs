@@ -221,11 +221,11 @@ public class AgoraManager : MonoBehaviour
                 {
                     if (state == 0)
                     {
-                        UI_MainPanel.Instance.friendCamOff(RemoteView);
+                        //UI_MainPanel.Instance.friendCamOff(RemoteView);
                     }
                     else if (state==REMOTE_VIDEO_STATE.REMOTE_VIDEO_STATE_STARTING)
                     {
-                        UI_MainPanel.Instance.friendCamON(RemoteView);
+                        //UI_MainPanel.Instance.friendCamON(RemoteView);
                     }
                 }
             }

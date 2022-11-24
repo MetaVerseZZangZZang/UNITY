@@ -71,7 +71,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
 
     public Dictionary<int, string> playerdict = new Dictionary<int, string>();
 
-
+    public bool camFlag = true;
 
     private void Awake()
     {

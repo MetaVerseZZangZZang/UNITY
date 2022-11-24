@@ -31,7 +31,7 @@ public class UI_MainPanel : MonoBehaviour
     public int count = 0;
     public int chatCount = 0;
     public Button chatStartBtn;
-    
+    public GameObject FriendCams;
     private void Awake()
     {
         Instance = this;
@@ -131,16 +131,32 @@ public class UI_MainPanel : MonoBehaviour
         */
     }
 
-    public void friendCamOff(VideoSurface RemoteView)
+    public void friendCamOff(PlayerItem playerItem)
     {
+        VideoSurface RemoteView = getVSByPlayerItem(playerItem);
         RemoteView.transform.GetChild(0).gameObject.SetActive(true);
     }
 
-    public void friendCamON(VideoSurface RemoteView)
+    public void friendCamON(PlayerItem playerItem)
     {
+        VideoSurface RemoteView = getVSByPlayerItem(playerItem);
         RemoteView.transform.GetChild(0).gameObject.SetActive(false);
     }
-    
+
+    public VideoSurface getVSByPlayerItem(PlayerItem playerItem)
+    {
+        VideoSurface vs = null;
+        for (int i = 0; i < FriendCams.transform.childCount; i++)
+        {
+            if (FriendCams.transform.GetChild(i).GetComponent<VideoSurface>().UserName==playerItem.Nickname)
+            {
+                vs = FriendCams.transform.GetChild(i).GetComponent<VideoSurface>();
+                break;
+            }
+
+        }
+        return vs;
+    }
     
     public void PlayerSlotBtnClick()
     {

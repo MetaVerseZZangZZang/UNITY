@@ -38,7 +38,8 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
     public bool talking = false;
     public GameObject talkingImage;
-
+    public bool camFlag = true;
+    
     void Awake()
     {
         //playerName.text = pv.IsMine ? PhotonNetwork.NickName : pv.Owner.NickName;
@@ -173,6 +174,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             stream.SendNext(CharCustomManager.Instance.selectedShoesIndex);
             stream.SendNext(CharCustomManager.Instance.selectedHatIndex);
             stream.SendNext(talking);
+            stream.SendNext(ScreenShareWhileVideoCall.Instance.camFlag);
         }
         else
         {
@@ -199,7 +201,12 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             //drawPosition = (Vector2)stream.ReceiveNext();
             //DrawStream(drawPosition);
             talking = (bool)stream.ReceiveNext();
-
+            camFlag=(bool)stream.ReceiveNext();
+            
+            if(camFlag)
+                UI_MainPanel.Instance.friendCamON(this);
+            else
+                UI_MainPanel.Instance.friendCamON(this);
 
         }
     }
