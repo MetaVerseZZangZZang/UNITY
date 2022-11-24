@@ -454,8 +454,22 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         public override void OnUserJoined(RtcConnection connection, uint uid, int elapsed)
         {
             Debug.Log("IININININININI");
-            GameObject player = GameObject.Find(_videoSample.playerdict[(int)uid]+"(user)");
-            PlayerItem playerScript = player.GetComponent<PlayerItem>();
+            //GameObject player = GameObject.Find(_videoSample.playerdict[(int)uid]+"(user)");
+            GameObject[] respawns;
+            respawns = GameObject.FindGameObjectsWithTag("Player");
+            PlayerItem playerScript=null;
+            GameObject player=null;
+            
+            foreach (GameObject r in respawns)
+            {
+                if (r.GetComponent<PlayerItem>().playerUID == uid)
+                {
+                    player = r;
+                    playerScript = r.GetComponent<PlayerItem>();
+                    break;
+                }
+                
+            }
             
             if (playerScript.webviewStart == true)
             {
