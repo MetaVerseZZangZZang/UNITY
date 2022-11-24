@@ -204,7 +204,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             camFlag=(bool)stream.ReceiveNext();
             
             if(camFlag)
-                UI_MainPanel.Instance.friendCamON(this);
+                UI_MainPanel.Instance.friendCamOff(this);
             else
                 UI_MainPanel.Instance.friendCamON(this);
 
