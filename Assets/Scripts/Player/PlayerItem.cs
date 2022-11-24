@@ -195,9 +195,9 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             //DrawStream(drawPosition);
             talking = (bool)stream.ReceiveNext();
 
-            if ((bool)stream.ReceiveNext())
+            if (!(bool)stream.ReceiveNext())
             {
-                Debug.Log("friendCamON");
+                Debug.Log("켜라");
                 UI_MainPanel.Instance.friendCamON(this);
             }
             else

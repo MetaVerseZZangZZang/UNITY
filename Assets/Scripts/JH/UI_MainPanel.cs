@@ -102,13 +102,16 @@ public class UI_MainPanel : MonoBehaviour
     {
 
         ScreenShareWhileVideoCall.Instance.camFlag = !toggle.isOn;
-        if (ScreenShareWhileVideoCall.Instance.camFlag)  
+        if (ScreenShareWhileVideoCall.Instance.camFlag)  //끄고
         {
+            Debug.Log("끄고");
             myCam.transform.GetChild(0).gameObject.SetActive(false);
             ScreenShareWhileVideoCall.Instance.camFlag = false;
+            
         }
-        else
+        else      //켜기
         {
+            Debug.Log("켜고");
             myCam.transform.GetChild(0).gameObject.SetActive(true);
             ScreenShareWhileVideoCall.Instance.camFlag = true;
         }
