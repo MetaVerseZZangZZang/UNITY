@@ -31,7 +31,6 @@ public class UI_MainPanel : MonoBehaviour
     public int count = 0;
     public int chatCount = 0;
     public Button chatStartBtn;
-    public GameObject FriendCams;
     private void Awake()
     {
         Instance = this;
@@ -149,19 +148,17 @@ public class UI_MainPanel : MonoBehaviour
     public VideoSurface getVSByPlayerItem(PlayerItem playerItem)
     {
         VideoSurface vs = null;
-        Debug.Log("FriendCams.transform.childCount "+FriendCams.transform.childCount);
 
-        if (FriendCams.transform.childCount >= 1)
+        Debug.Log(ScreenShareWhileVideoCall.Instance.playerdict);
+        if (ScreenShareWhileVideoCall.FriendCamList.Count >= 1)
         {
-            for (int i = 0; i < FriendCams.transform.childCount; i++)
+            foreach(VideoSurface s in ScreenShareWhileVideoCall.FriendCamList)
             {
-                Debug.Log("FriendCams.transform.GetChild(i).GetComponent<VideoSurface>().UserName " +
-                          FriendCams.transform.GetChild(i).GetComponent<VideoSurface>().UserName);
+                Debug.Log("s.useranme" + s.UserName);
                 Debug.Log("playerItem.name " + playerItem.name);
-                if (FriendCams.transform.GetChild(i).GetComponent<VideoSurface>().UserName ==
-                    playerItem.name + "(user)")
+                //if (FriendCams.transform.GetChild(i).GetComponent<VideoSurface>().UserName ==playerItem.name + "(user)")
                 {
-                    vs = FriendCams.transform.GetChild(i).GetComponent<VideoSurface>();
+                    vs = s;
                     break;
                 }
             }

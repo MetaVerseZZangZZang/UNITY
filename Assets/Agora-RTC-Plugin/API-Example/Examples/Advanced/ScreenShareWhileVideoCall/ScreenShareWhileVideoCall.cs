@@ -494,6 +494,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                             FriendCamList.Add(newFriendCam.GetComponent<VideoSurface>());
                             FriendCamList[FriendCamList.Count - 1].SetEnable(true);
                             FriendCamList[FriendCamList.Count - 1].SetForUser(uid, connection.channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
+                            FriendCamList[FriendCamList.Count - 1].UserName = _videoSample.playerdict[(int)uid];
                         }
 
                         _videoSample.remoteUid = uid;
@@ -516,6 +517,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                         FriendCamList[FriendCamList.Count - 1].SetEnable(true);
                         FriendCamList[FriendCamList.Count - 1].SetForUser(uid, connection.channelId,
                             VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
+                        FriendCamList[FriendCamList.Count - 1].UserName = _videoSample.playerdict[(int)uid];
                     }
 
                     _videoSample.remoteUid = uid;
