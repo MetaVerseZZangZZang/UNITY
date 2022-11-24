@@ -61,7 +61,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
 
             playerObjectID = (int)UnityEngine.Random.Range(3000,5000);
-            ScreenShareWhileVideoCall.Instance.Uid1 = (uint)playerwebID;
+            ScreenShareWhileVideoCall.Instance.Uid1 = (uint)playerObjectID;
 
             //ScreenShareWhileVideoCall.Instance.aig.Add(playerUID);
 

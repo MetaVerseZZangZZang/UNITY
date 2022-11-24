@@ -152,22 +152,17 @@ public class UI_MainPanel : MonoBehaviour
         Debug.Log(ScreenShareWhileVideoCall.Instance.playerdict);
         if (ScreenShareWhileVideoCall.FriendCamList.Count >= 1)
         {
-            int index = PhotonManager.Instance.playerItemList.IndexOf(playerItem);
-            vs = ScreenShareWhileVideoCall.FriendCamList[index];
 
-            /*
-            foreach(VideoSurface s in ScreenShareWhileVideoCall.FriendCamList)
+            foreach (VideoSurface s in ScreenShareWhileVideoCall.FriendCamList)
             {
                 Debug.Log("s.UserName" + s.UserName);
                 Debug.Log("playerItem.idUint " + playerItem.Nickname);
-                //if (FriendCams.transform.GetChild(i).GetComponent<VideoSurface>().UserName ==playerItem.name + "(user)")
+                if (s.Uid ==playerItem.playerObjectID)
                 {
                     vs = s;
                     break;
                 }
-            }*/
-
-
+            }
         }
 
         return vs;
