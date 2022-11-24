@@ -398,88 +398,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         RtcEngine.Initialize(context);
         RtcEngine.InitEventHandler(new UserEventHandler(this));
     }
-
-    //private void PrepareScreenCapture()
-    //{
-    //    _winIdSelect = GameObject.Find("winIdSelect").GetComponent<Dropdown>();
-
-    //    if (_winIdSelect == null || RtcEngine == null) return;
-
-    //    _winIdSelect.ClearOptions();
-
-    //    SIZE t = new SIZE();
-    //    t.width = 360;
-    //    t.height = 240;
-    //    SIZE s = new SIZE();
-    //    s.width = 360;
-    //    s.height = 240;
-    //    var info = RtcEngine.GetScreenCaptureSources(t, s, true);
-
-    //    _winIdSelect.AddOptions(info.Select(w =>
-    //            new Dropdown.OptionData(
-    //                string.Format("{0}: {1}-{2} | {3}", w.type, w.sourceName, w.sourceTitle, w.sourceId)))
-    //        .ToList());
-    //}
-
-    //private void EnableUI()
-    //{
-    //    _startShareBtn = GameObject.Find("startShareBtn").GetComponent<Button>();
-    //    _stopShareBtn = GameObject.Find("stopShareBtn").GetComponent<Button>();
-    //    if (_startShareBtn != null) _startShareBtn.onClick.AddListener(OnStartShareBtnClick);
-    //    if (_stopShareBtn != null)
-    //    {
-    //        _stopShareBtn.onClick.AddListener(OnStopShareBtnClick);
-    //        _stopShareBtn.gameObject.SetActive(false);
-    //    }
-    //}
-
-//    private void OnStartShareBtnClick()
-//    {
-//        if (RtcEngine == null) return;
-
-//        if (_startShareBtn != null) _startShareBtn.gameObject.SetActive(false);
-//        if (_stopShareBtn != null) _stopShareBtn.gameObject.SetActive(true);
-
-//#if UNITY_ANDROID || UNITY_IPHONE
-//            var parameters2 = new ScreenCaptureParameters2();
-//            parameters2.captureAudio = true;
-//            parameters2.captureVideo = true;
-//            var nRet = RtcEngine.StartScreenCapture(parameters2);
-//            this.Log.UpdateLog("StartScreenCapture :" + nRet);
-//#else
-//        RtcEngine.StopScreenCapture();
-//        if (_winIdSelect == null) return;
-//        var option = _winIdSelect.options[_winIdSelect.value].text;
-//        if (string.IsNullOrEmpty(option)) return;
-
-//        if (option.Contains("ScreenCaptureSourceType_Window"))
-//        {
-//            var windowId = option.Split("|".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)[1];
-//            Log.UpdateLog(string.Format(">>>>> Start sharing {0}", windowId));
-//            var nRet = RtcEngine.StartScreenCaptureByWindowId(ulong.Parse(windowId), default(Rectangle),
-//                    default(ScreenCaptureParameters));
-//            this.Log.UpdateLog("StartScreenCaptureByWindowId:" + nRet);
-//        }
-//        else
-//        {
-//            var dispId = uint.Parse(option.Split("|".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)[1]);
-//            Log.UpdateLog(string.Format(">>>>> Start sharing display {0}", dispId));
-//            var nRet = RtcEngine.StartScreenCaptureByDisplayId(dispId, default(Rectangle),
-//                new ScreenCaptureParameters { captureMouseCursor = true, frameRate = 30 });
-//            this.Log.UpdateLog("StartScreenCaptureByDisplayId:" + nRet);
-//        }
-//#endif
-
-//        //ScreenShareJoinChannel();
-//    }
-
-    //private void OnStopShareBtnClick()
-    //{
-    //    ScreenShareLeaveChannel();
-    //    if (_startShareBtn != null) _startShareBtn.gameObject.SetActive(true);
-    //    if (_stopShareBtn != null) _stopShareBtn.gameObject.SetActive(false);
-    //    RtcEngine.StopScreenCapture();
-    //}
+    
 
     private void OnDestroy()
     {
@@ -497,99 +416,6 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
 
     #region -- Video Render UI Logic ---
 
-    //internal static void MakeVideoView(uint uid, string channelId = "", VIDEO_SOURCE_TYPE videoSourceType = VIDEO_SOURCE_TYPE.VIDEO_SOURCE_CAMERA)
-    //{
-    //    var go = GameObject.Find(uid.ToString());
-    //    if (!ReferenceEquals(go, null))
-    //    {
-    //        return; // reuse
-    //    }
-
-    //    // create a GameObject and assign to this new user
-    //    VideoSurface videoSurface = new VideoSurface();
-
-    //    if (videoSourceType == VIDEO_SOURCE_TYPE.VIDEO_SOURCE_CAMERA)
-    //    {
-    //        videoSurface = MakeImageSurface("MainCameraView");
-    //    }
-    //    else if (videoSourceType == VIDEO_SOURCE_TYPE.VIDEO_SOURCE_SCREEN)
-    //    {
-    //        videoSurface = MakeImageSurface("ScreenShareView");
-    //    }
-    //    else
-    //    {
-    //        videoSurface = MakeImageSurface(uid.ToString());
-    //    }
-    //    if (ReferenceEquals(videoSurface, null)) return;
-    //    // configure videoSurface
-    //    videoSurface.SetForUser(uid, channelId, videoSourceType);
-    //    videoSurface.SetEnable(true);
-
-    //    videoSurface.OnTextureSizeModify += (width, height) =>
-    //    {
-    //        float scale = (float)height / (float)width;
-    //        videoSurface.transform.localScale = new Vector3(5, 5 * scale, 1);
-    //        Debug.Log("OnTextureSizeModify: " + width + "  " + height);
-    //    };
-
-    //}
-
-    //// VIDEO TYPE 1: 3D Object
-    //private static VideoSurface MakePlaneSurface(string goName)
-    //{
-    //    var go = GameObject.CreatePrimitive(PrimitiveType.Plane);
-
-    //    if (go == null)
-    //    {
-    //        return null;
-    //    }
-
-    //    go.name = goName;
-    //    // set up transform
-    //    go.transform.Rotate(0f, 0.0f, 0.0f);
-    //    go.transform.position = Vector3.zero;
-    //    go.transform.localScale = new Vector3(1f, 1f, 1f);
-
-    //    // configure videoSurface
-    //    var videoSurface = go.AddComponent<VideoSurface>();
-    //    return videoSurface;
-    //}
-
-    // Video TYPE 2: RawImage
-    //private static VideoSurface MakeImageSurface(string goName)
-    //{
-    //    var go = new GameObject();
-
-    //    if (go == null)
-    //    {
-    //        return null;
-    //    }
-
-    //    go.name = goName;
-    //    // to be renderered onto
-    //    go.AddComponent<RawImage>();
-    //    // make the object draggable
-    //    go.AddComponent<UIElementDrag>();
-    //    var canvas = GameObject.Find("VideoCanvas");
-    //    if (canvas != null)
-    //    {
-    //        go.transform.parent = canvas.transform;
-    //        Debug.Log("add video view");
-    //    }
-    //    else
-    //    {
-    //        Debug.Log("Canvas is null video view");
-    //    }
-
-    //    // set up transform
-    //    go.transform.Rotate(0f, 0.0f, 0f);
-    //    go.transform.localPosition = Vector3.zero;
-    //    go.transform.localScale = new Vector3(3f, 4f, 1f);
-
-    //    // configure videoSurface
-    //    var videoSurface = go.AddComponent<VideoSurface>();
-    //    return videoSurface;
-    //}
 
     internal static void DestroyVideoView(string name)
     {
@@ -644,12 +470,8 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                     PlayerItem playerScript = player.GetComponent<PlayerItem>();
                     if (playerScript.webviewStart == true)
                     {
-                        //GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
                         VideoSurface vs = player.transform.GetChild(1).GetChild(0).GetComponent<VideoSurface>();
-                        //newFriendCam.transform.SetParent(player.transform.GetChild(1));
-                        //newFriendCam.transform.position = new Vector2(0,0);
-                        //newFriendCam.transform.localScale = new Vector3(1, 1, 1);
-                        //FriendCamList.Add(newFriendCam.GetComponent<VideoSurface>());
+
                         vs.SetEnable(true);
                         vs.SetForUser(uid, connection.channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
 
@@ -671,6 +493,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                             FriendCamList.Add(newFriendCam.GetComponent<VideoSurface>());
                             FriendCamList[FriendCamList.Count - 1].SetEnable(true);
                             FriendCamList[FriendCamList.Count - 1].SetForUser(uid, connection.channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
+                            Debug.Log("1 " +FriendCamList[FriendCamList.Count - 1].UserName);
                         }
 
                         _videoSample.remoteUid = uid;
@@ -694,6 +517,8 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                         FriendCamList[FriendCamList.Count - 1].SetEnable(true);
                         FriendCamList[FriendCamList.Count - 1].SetForUser(uid, connection.channelId,
                             VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
+                        
+                        Debug.Log("2 "+FriendCamList[FriendCamList.Count - 1].UserName);
                     }
 
                     _videoSample.remoteUid = uid;
