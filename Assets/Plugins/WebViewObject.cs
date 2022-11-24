@@ -495,7 +495,7 @@ public class WebViewObject : MonoBehaviour
                 return id;
             };
         })()");
-        rect = new Rect(0, 0, Screen.width/2, Screen.height/2);
+        rect = new Rect(0, 0, Screen.width, Screen.height);
         //Debug.LogError(444444);
         OnApplicationFocus(true);
 #elif UNITY_IPHONE
@@ -693,8 +693,8 @@ public class WebViewObject : MonoBehaviour
 #elif UNITY_WEBGL && !UNITY_EDITOR
         _gree_unity_webview_setMargins(name, (int)ml, (int)mt, (int)mr, (int)mb);
 #elif UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
-        int width = (int)(Screen.width/2 - (ml + mr));
-        int height = (int)(Screen.height/2 - (mb + mt));
+        int width = (int)(Screen.width - (ml + mr));
+        int height = (int)(Screen.height - (mb + mt));
         _CWebViewPlugin_SetRect(webView, width, height);
         rect = new Rect(left, bottom, width, height);
 #elif UNITY_IPHONE
@@ -1374,20 +1374,23 @@ public class WebViewObject : MonoBehaviour
                 Vector3 p = Vector3.zero;
                 p.x = Input.mousePosition.x - rect.x;
                 p.y = Input.mousePosition.y - rect.y;
-
-               
+                    Debug.DrawLine(new Vector2(p.x,p.y), new Vector3(1, 0, 0), Color.red);
 
                     {
-                        int mouseState = 0;
-                    if (Input.GetButtonDown("Fire1")) {
+                    int mouseState = 0;
+                    if (Input.GetButtonDown("Fire1"))
+                    {
                         mouseState = 1;
-                    } else if (Input.GetButton("Fire1")) {
+                    }
+                    else if (Input.GetButton("Fire1"))
+                    {
                         mouseState = 2;
-                    } else if (Input.GetButtonUp("Fire1")) {
+                    }
+                    else if (Input.GetButtonUp("Fire1"))
+                    {
                         mouseState = 3;
                     }
-                    //_CWebViewPlugin_SendMouseEvent(webView, (int)p.x, (int)p.y, Input.GetAxis("Mouse ScrollWheel"), mouseState);
-                    _CWebViewPlugin_SendMouseEvent(webView, (int)p.x, (int)p.y, Input.mouseScrollDelta.y, mouseState);
+                _CWebViewPlugin_SendMouseEvent(webView, (int)p.x, (int)p.y, Input.mouseScrollDelta.y, mouseState);
                 }
             }
             break;

@@ -142,14 +142,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
 
     public void NoteStart()
     {
-        if (note.activeSelf)
-        {
-            note.SetActive(false);
-        }
-        else
-        {
-            note.SetActive(true);            
-        }
+        note.SetActive(true);
     }
 
     public void NoteStop()
