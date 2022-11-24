@@ -70,7 +70,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
 
     public Dictionary<int, string> playerdict = new Dictionary<int, string>();
     public bool camFlag = true;
-
+    public bool voiceFlag = true;
 
     private void Awake()
     {
@@ -93,7 +93,12 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         }
         // Stops rendering the local video.
         LocalView.SetEnable(false);
-        UI_PlayerSlot.Instance.DelPlayerSlot(UI_StartPanel.Instance.name);
+
+        foreach (UI_PlayerSlotItem psi in UI_PlayerSlot.Instance.PlayerSlotList)
+        {
+            psi.Destory();
+            
+        }
         FriendCamList.Clear();
     }
     

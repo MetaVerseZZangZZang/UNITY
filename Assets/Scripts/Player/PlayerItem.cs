@@ -33,7 +33,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     //public int playerUID;
     public int playerwebID;
     public int playerObjectID;
-
+    public bool camFlag = true;
 
     public Dictionary<int, string> idUint = new Dictionary<int, string>();
     public Vector2 drawPosition;
@@ -175,7 +175,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             stream.SendNext(CharCustomManager.Instance.selectedShoesIndex);
             stream.SendNext(CharCustomManager.Instance.selectedHatIndex);
             stream.SendNext(talking);
-            stream.SendNext(ScreenShareWhileVideoCall.Instance.camFlag);
+            stream.SendNext(camFlag);
         }
         else
         {
@@ -209,8 +209,6 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
             if (!(bool)stream.ReceiveNext())
             {
-                Debug.Log("켜라");
-                Debug.Log(this.Nickname);
                 UI_MainPanel.Instance.friendCamON(this);
             }
             else

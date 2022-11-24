@@ -9,8 +9,8 @@ public class UI_PlayerSlotItem : MonoBehaviour
 {
     // Start is called before the first frame update
     public TextMeshProUGUI name;
-    public Toggle camToggle;
-    public Toggle voiceToggle;
+    public Image cam;
+    public Image voice;
     void Start()
     {
     }
@@ -22,13 +22,26 @@ public class UI_PlayerSlotItem : MonoBehaviour
 
         if (playerName == PhotonNetwork.LocalPlayer.NickName)
         {
-            camToggle.gameObject.SetActive(false);
-            voiceToggle.gameObject.SetActive(false);
+            cam.gameObject.SetActive(false);
+            voice.gameObject.SetActive(false);
         }
     }
 
     public void Destory()
     {
-        Destroy(this);        
+        Destroy(this);
+        UI_PlayerSlot.Instance.PlayerSlotList.Remove(this);
+    }
+
+    public void camControl(bool camFlag)
+    {
+        if (camFlag)  //켜라
+        {
+            cam.transform.GetChild(3).gameObject.SetActive(false);
+        }
+        else
+        {
+            cam.transform.GetChild(3).gameObject.SetActive(true);
+        }
     }
 }
