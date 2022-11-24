@@ -66,8 +66,8 @@ public class UI_LobbyPanel : MonoBehaviour
         camTexture = new WebCamTexture(device.name);
         myCam.texture = camTexture;
         camTexture.Play();
-        
-        
+        ScreenShareWhileVideoCall.Instance.camFlag = true;
+
     }
     
     public void StopCam()
@@ -76,6 +76,7 @@ public class UI_LobbyPanel : MonoBehaviour
         {
             myCam.texture = null;
             camTexture.Stop();
+            ScreenShareWhileVideoCall.Instance.camFlag = false;
         }
     }
     

@@ -38,7 +38,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
     public bool talking = false;
     public GameObject talkingImage;
-    public bool camFlag = true;
+    public bool camFlag;
     
     void Awake()
     {
