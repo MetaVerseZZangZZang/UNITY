@@ -15,6 +15,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Agora.Rtc;
+using Photon.Pun;
 
 //namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.ScreenShareWhileVideoCall
 
@@ -226,6 +227,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         //go = GameObject.Find("RemoteView");
         LocalView.SetForUser(0, "", VIDEO_SOURCE_TYPE.VIDEO_SOURCE_CAMERA);
         // Start rendering local video.
+        LocalView.UserName = PhotonNetwork.LocalPlayer.NickName;
         LocalView.SetEnable(true);
     }
 
