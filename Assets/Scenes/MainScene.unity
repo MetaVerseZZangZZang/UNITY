@@ -1918,6 +1918,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 914473944423208392, guid: 127c4be1af7b2f642a087557a527ae27,
+        type: 3}
+      propertyPath: MaleGameObject
+      value: 
+      objectReference: {fileID: 1587586367}
+    - target: {fileID: 914473944423208392, guid: 127c4be1af7b2f642a087557a527ae27,
+        type: 3}
+      propertyPath: FemaleGameObject
+      value: 
+      objectReference: {fileID: 7620671048525788065}
     - target: {fileID: 914473944428611560, guid: 127c4be1af7b2f642a087557a527ae27,
         type: 3}
       propertyPath: m_AnchorMax.y

@@ -182,8 +182,9 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             curRot = (Vector3)stream.ReceiveNext();
             curPos = (Vector3)stream.ReceiveNext();
             playerwebID = (int)stream.ReceiveNext();
-            webviewStart = (bool)stream.ReceiveNext();
             playerObjectID = (int)stream.ReceiveNext();
+            
+            webviewStart = (bool)stream.ReceiveNext();
             ScreenShareWhileVideoCall.Instance.playerdict = (Dictionary<int, string>)stream.ReceiveNext();
 
 

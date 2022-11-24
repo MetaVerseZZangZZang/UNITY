@@ -3300,7 +3300,8 @@ MonoBehaviour:
   Nickname: 
   webviewStart: 0
   noteStart: 0
-  playerUID: 0
+  playerwebID: 0
+  playerObjectID: 0
   drawPosition: {x: 0, y: 0}
   talking: 0
   talkingImage: {fileID: 1782298310}
