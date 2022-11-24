@@ -69,7 +69,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     public GameObject note;
 
     public Dictionary<int, string> playerdict = new Dictionary<int, string>();
-
+    public bool camFlag = true;
 
 
     private void Awake()
@@ -205,7 +205,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     IEnumerator BringWebTexture(RawImage webImageTexture)
     {
         yield return new WaitForSeconds(1f);
-        webImageTexture.texture = WebViewObject.Instance.texture;
+        //webImageTexture.texture = WebViewObject.Instance.texture;
 
     }
     
@@ -717,32 +717,6 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                 }
             }
         }
-
-        
-        
-        public override void OnRemoteVideoStateChanged(RtcConnection connection, uint remoteUid,
-            REMOTE_VIDEO_STATE state, REMOTE_VIDEO_STATE_REASON reason, int elapsed)
-        {
-            
-            foreach (VideoSurface RemoteView in FriendCamList)
-            {
-                Debug.Log("RemoteView.UserName "+RemoteView.UserName);
-                if (RemoteView.Uid == remoteUid)
-                {
-                    Debug.Log("IINN");
-                    if (state == 0)
-                    {
-                        UI_MainPanel.Instance.friendCamOff(RemoteView);
-                    }
-                    else if (state == REMOTE_VIDEO_STATE.REMOTE_VIDEO_STATE_STARTING)
-                    {
-                        UI_MainPanel.Instance.friendCamON(RemoteView);
-                    }
-                }
-            }
-
-        }
-        
 
     }
 
