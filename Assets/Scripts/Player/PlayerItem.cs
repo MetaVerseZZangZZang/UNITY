@@ -34,7 +34,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
     public Dictionary<int, string> idUint = new Dictionary<int, string>();
     public Vector2 drawPosition;
-
+    
 
     public bool talking = false;
     public GameObject talkingImage;
