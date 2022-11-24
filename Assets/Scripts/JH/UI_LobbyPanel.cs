@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class UI_LobbyPanel : MonoBehaviour
@@ -17,7 +18,6 @@ public class UI_LobbyPanel : MonoBehaviour
     public Sprite cameraOff;
     
     private WebCamTexture camTexture;
-
 
     // Start is called before the first frame update
     //public void Connect() => PhotonNetwork.ConnectUsingSettings();
@@ -67,6 +67,8 @@ public class UI_LobbyPanel : MonoBehaviour
         camTexture = new WebCamTexture(device.name);
         myCam.texture = camTexture;
         camTexture.Play();
+        ScreenShareWhileVideoCall.Instance.camFlag = true;
+
     }
     
     public void StopCam()
@@ -75,6 +77,7 @@ public class UI_LobbyPanel : MonoBehaviour
         {
             myCam.texture = null;
             camTexture.Stop();
+            ScreenShareWhileVideoCall.Instance.camFlag = false;
         }
     }
     

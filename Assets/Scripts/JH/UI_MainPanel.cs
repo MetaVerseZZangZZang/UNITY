@@ -31,7 +31,6 @@ public class UI_MainPanel : MonoBehaviour
     public int count = 0;
     public int chatCount = 0;
     public Button chatStartBtn;
-    
     private void Awake()
     {
         Instance = this;
@@ -101,18 +100,19 @@ public class UI_MainPanel : MonoBehaviour
     public void CamToggle(Toggle toggle)
     {
 
-        //AgoraManager.camFlag = !toggle.isOn;
-        if (!toggle.isOn)
+        ScreenShareWhileVideoCall.Instance.camFlag = !toggle.isOn;
+        if (ScreenShareWhileVideoCall.Instance.camFlag)  //끄고
         {
+            Debug.Log("끄고");
             myCam.transform.GetChild(0).gameObject.SetActive(false);
-            ScreenShareWhileVideoCall.Instance.RtcEngine.EnableLocalVideo(true);
-
+            ScreenShareWhileVideoCall.Instance.camFlag = false;
+            
         }
-        else
+        else      //켜기
         {
-            ScreenShareWhileVideoCall.Instance.RtcEngine.EnableLocalVideo(false);
+            Debug.Log("켜고");
             myCam.transform.GetChild(0).gameObject.SetActive(true);
-
+            ScreenShareWhileVideoCall.Instance.camFlag = true;
         }
     }
     
@@ -131,16 +131,47 @@ public class UI_MainPanel : MonoBehaviour
         */
     }
 
-    public void friendCamOff(VideoSurface RemoteView)
+    public void friendCamOff(PlayerItem playerItem)
     {
-        RemoteView.transform.GetChild(0).gameObject.SetActive(true);
+        VideoSurface RemoteView = getVSByPlayerItem(playerItem);
+        if(getVSByPlayerItem(playerItem)!=null)
+            RemoteView.transform.GetChild(0).gameObject.SetActive(true);
     }
 
-    public void friendCamON(VideoSurface RemoteView)
+    public void friendCamON(PlayerItem playerItem)
     {
-        RemoteView.transform.GetChild(0).gameObject.SetActive(false);
+        VideoSurface RemoteView = getVSByPlayerItem(playerItem);
+        if(getVSByPlayerItem(playerItem)!=null)
+            RemoteView.transform.GetChild(0).gameObject.SetActive(false);
     }
-    
+
+    public VideoSurface getVSByPlayerItem(PlayerItem playerItem)
+    {
+        VideoSurface vs = null;
+
+        Debug.Log(ScreenShareWhileVideoCall.Instance.playerdict);
+        if (ScreenShareWhileVideoCall.FriendCamList.Count >= 1)
+        {
+            int index = PhotonManager.Instance.playerItemList.IndexOf(playerItem);
+            vs = ScreenShareWhileVideoCall.FriendCamList[index];
+
+            /*
+            foreach(VideoSurface s in ScreenShareWhileVideoCall.FriendCamList)
+            {
+                Debug.Log("s.UserName" + s.UserName);
+                Debug.Log("playerItem.idUint " + playerItem.Nickname);
+                //if (FriendCams.transform.GetChild(i).GetComponent<VideoSurface>().UserName ==playerItem.name + "(user)")
+                {
+                    vs = s;
+                    break;
+                }
+            }*/
+
+
+        }
+
+        return vs;
+    }
     
     public void PlayerSlotBtnClick()
     {
