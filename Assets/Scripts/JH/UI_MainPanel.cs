@@ -101,18 +101,15 @@ public class UI_MainPanel : MonoBehaviour
     public void CamToggle(Toggle toggle)
     {
 
-        //AgoraManager.camFlag = !toggle.isOn;
+        ScreenShareWhileVideoCall.Instance.camFlag = !toggle.isOn;
         if (!toggle.isOn)
         {
             myCam.transform.GetChild(0).gameObject.SetActive(false);
-            ScreenShareWhileVideoCall.Instance.RtcEngine.EnableLocalVideo(true);
-
         }
         else
         {
-            ScreenShareWhileVideoCall.Instance.RtcEngine.EnableLocalVideo(false);
+            //ScreenShareWhileVideoCall.Instance.RtcEngine.EnableLocalVideo(false);
             myCam.transform.GetChild(0).gameObject.SetActive(true);
-
         }
     }
     
@@ -134,11 +131,13 @@ public class UI_MainPanel : MonoBehaviour
     public void friendCamOff(VideoSurface RemoteView)
     {
         RemoteView.transform.GetChild(0).gameObject.SetActive(true);
+        Debug.Log("OFF");
     }
 
     public void friendCamON(VideoSurface RemoteView)
     {
         RemoteView.transform.GetChild(0).gameObject.SetActive(false);
+        Debug.Log("ON");
     }
     
     
