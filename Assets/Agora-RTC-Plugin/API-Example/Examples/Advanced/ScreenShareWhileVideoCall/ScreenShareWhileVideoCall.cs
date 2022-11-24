@@ -493,6 +493,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                             FriendCamList.Add(newFriendCam.GetComponent<VideoSurface>());
                             FriendCamList[FriendCamList.Count - 1].SetEnable(true);
                             FriendCamList[FriendCamList.Count - 1].SetForUser(uid, connection.channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
+                            Debug.Log("1 " +FriendCamList[FriendCamList.Count - 1].UserName);
                         }
 
                         _videoSample.remoteUid = uid;
@@ -517,6 +518,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                         FriendCamList[FriendCamList.Count - 1].SetForUser(uid, connection.channelId,
                             VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
                         
+                        Debug.Log("2 "+FriendCamList[FriendCamList.Count - 1].UserName);
                     }
 
                     _videoSample.remoteUid = uid;
@@ -525,11 +527,6 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                     _videoSample.idList.Add(uid);
                 }
 
-
-                foreach (VideoSurface f in FriendCamList)
-                {
-                    Debug.LogError("SDFakfjd;lskjf;lksjdf;lakjdfslka   "+f);
-                }
             }
 
         }
