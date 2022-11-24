@@ -80,6 +80,109 @@ public class WebViewObject : MonoBehaviour
     byte[] textureDataBuffer;
     string inputString = "";
     bool hasFocus;
+    InputField userInputURL;
+    public List<string> surfingList = new List<string>();
+    public int currentURL;
+
+    public bool nextOrBack;
+    //////////
+
+
+    public void ExpendBTN()
+    {
+
+    }
+
+
+    public void ResetBtn()
+    {
+        nextOrBack = true;
+        LoadURL(surfingList[currentURL]);
+        StartCoroutine(TurnUp());
+
+    }
+
+    public void SurfURL()
+    {
+        if (userInputURL.text.Contains("http://") == true && userInputURL.text.Contains("www.") == true)
+        {
+            if (userInputURL.text.Contains("www.") == true)
+            {
+                LoadURL(userInputURL.text);
+            }
+        }
+
+        if (userInputURL.text.Contains("www.") == true)
+        {
+            LoadURL("http://" + userInputURL.text);
+        }
+
+        else if (userInputURL.text.Contains("www.") == false)
+        {
+            LoadURL("http://www." + userInputURL.text);
+        }
+    }
+
+    public void CallOnLoaded(string url)
+    {
+        if (nextOrBack == false)
+        {
+            surfingList.Add(url);
+            userInputURL.text = url;
+            currentURL = surfingList.Count;
+        }
+        if (onLoaded != null)
+        {
+            onLoaded(url);
+        }
+    }
+
+    public void BackURL()
+    {
+        if (currentURL - 1 == 0)
+        {
+            return;
+        }
+        else
+        {
+            currentURL = currentURL - 1;
+            string backURL = surfingList[currentURL - 1];
+            LoadURL(backURL);
+            userInputURL.text = backURL;
+            nextOrBack = true;
+            StartCoroutine(TurnUp());
+        }
+        
+
+    }
+
+    public void NextURL()
+    {
+        if (currentURL + 1 > surfingList.Count)
+        {
+            return;
+        }
+        else
+        {
+            currentURL = currentURL + 1;
+            string frontURL = surfingList[currentURL - 1];
+            LoadURL(frontURL);
+            userInputURL.text = frontURL;
+            nextOrBack = true;
+            StartCoroutine(TurnUp());
+        }
+        
+    }
+    /// <summary>
+    /// /
+    /// </summary>
+    ///
+
+    IEnumerator TurnUp()
+    {
+        yield return new WaitForSeconds(1.3f);
+        nextOrBack = false;
+    }
 
 
 #elif UNITY_IPHONE
@@ -212,11 +315,26 @@ public class WebViewObject : MonoBehaviour
     }
 
     Camera m_2DCamera;
+    Button safariFrontBTN;
+    Button safariBackBTN;
+    Button resetBTN;
+    Button expendBTN;
     private void Start()
     {
-        tx = GameObject.Find("TVPanel").GetComponent<RawImage>();
-        print(tx);
+        userInputURL = GameObject.Find("SafariInputField").GetComponent<InputField>();
+        safariFrontBTN = GameObject.Find("SafariFront").GetComponent<Button>();
+        safariBackBTN = GameObject.Find("SafariBack").GetComponent<Button>();
+        resetBTN = GameObject.Find("reset").GetComponent<Button>();
+        expendBTN = GameObject.Find("expend").GetComponent<Button>();
+
+        resetBTN.onClick.AddListener(ResetBtn);
+        safariFrontBTN.onClick.AddListener(NextURL);
+        safariBackBTN.onClick.AddListener(BackURL);
+        userInputURL.onSubmit.AddListener(delegate{SurfURL();});
+
         Instance = this;
+        //tx = GameObject.Find("TVPanel").GetComponent<RawImage>();
+        //print(tx);
         //tx = GameObject.Find("TVPanel").GetComponent<RawImage>();
         //print(tx);
         //m_2DCamera = GameObject.Find("2DCamera").GetComponent<Camera>();
@@ -474,8 +592,8 @@ public class WebViewObject : MonoBehaviour
             name,
             transparent,
             zoom,
-            Screen.width,
-            Screen.height,
+            1148,
+            700,
             ua
 #if UNITY_EDITOR
             , separated
@@ -495,7 +613,7 @@ public class WebViewObject : MonoBehaviour
                 return id;
             };
         })()");
-        rect = new Rect(0, 0, Screen.width, Screen.height);
+        rect = new Rect(0, 0, 1148, 700);
         //Debug.LogError(444444);
         OnApplicationFocus(true);
 #elif UNITY_IPHONE
@@ -865,6 +983,7 @@ public class WebViewObject : MonoBehaviour
 
     public void LoadURL(string url)
     {
+        //Debug.LogError("1 "+url);
         if (string.IsNullOrEmpty(url))
             return;
 #if UNITY_WEBGL
@@ -1054,19 +1173,27 @@ public class WebViewObject : MonoBehaviour
 
     public void CallOnStarted(string url)
     {
+        //Debug.LogError("2"+url);
         if (onStarted != null)
         {
             onStarted(url);
         }
     }
 
-    public void CallOnLoaded(string url)
-    {
-        if (onLoaded != null)
-        {
-            onLoaded(url);
-        }
-    }
+    //public void CallOnLoaded(string url)
+    //{
+    //    Debug.LogError("3" + url);
+        
+    //    surfingList.Add(url);
+
+    //    userInputURL.text = url;
+
+    //    currentURL = surfingList.Count;
+    //    if (onLoaded != null)
+    //    {
+    //        onLoaded(url);
+    //    }
+    //}
 
     public void CallFromJS(string message)
     {
@@ -1205,6 +1332,7 @@ public class WebViewObject : MonoBehaviour
 
     public string GetCookies(string url)
     {
+        //Debug.LogError("4"+url);
 #if UNITY_WEBPLAYER || UNITY_WEBGL
         //TODO: UNSUPPORTED
         return "";
@@ -1288,8 +1416,8 @@ public class WebViewObject : MonoBehaviour
 
     public float x;
     public float y;
-    public float sizex = 1200;
-    public float sizey = 800;
+    public float sizex = 1148;
+    public float sizey = 700;
 
     void Update()
     {
@@ -1370,10 +1498,13 @@ public class WebViewObject : MonoBehaviour
         case EventType.MouseDrag:
         case EventType.MouseUp:
         case EventType.ScrollWheel:
-            if (hasFocus) {
-                Vector3 p = Vector3.zero;
-                p.x = Input.mousePosition.x - rect.x;
-                p.y = Input.mousePosition.y - rect.y;
+            if (hasFocus)
+                {
+                    Vector3 p = Vector3.zero;
+                    p.x = (Input.mousePosition.x);
+                    p.y = (Input.mousePosition.y);
+                    //Debug.Log("x"+p.x);
+                    //Debug.Log("y"+p.y);
                     Debug.DrawLine(new Vector2(p.x,p.y), new Vector3(1, 0, 0), Color.red);
 
                     {
@@ -1390,9 +1521,9 @@ public class WebViewObject : MonoBehaviour
                     {
                         mouseState = 3;
                     }
-                _CWebViewPlugin_SendMouseEvent(webView, (int)p.x, (int)p.y, Input.mouseScrollDelta.y, mouseState);
+                    _CWebViewPlugin_SendMouseEvent(webView, (int)p.x, (int)p.y, Input.mouseScrollDelta.y, mouseState);
+                    }
                 }
-            }
             break;
         case EventType.Repaint:
             while (!string.IsNullOrEmpty(inputString)) {

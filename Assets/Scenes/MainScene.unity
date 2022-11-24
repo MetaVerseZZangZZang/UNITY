@@ -1912,6 +1912,7 @@ MonoBehaviour:
   count: 1
   idList: 
   userCount: 0
+  testList: []
 --- !u!1 &103136282
 GameObject:
   m_ObjectHideFlags: 0
@@ -14478,11 +14479,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Safari
       objectReference: {fileID: 0}
-    - target: {fileID: 323748391658456348, guid: a09c55de95665457690f512b21f6c103,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 323748391658456349, guid: a09c55de95665457690f512b21f6c103,
         type: 3}
       propertyPath: m_Pivot.x
@@ -14501,17 +14497,17 @@ PrefabInstance:
     - target: {fileID: 323748391658456349, guid: a09c55de95665457690f512b21f6c103,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 323748391658456349, guid: a09c55de95665457690f512b21f6c103,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 323748391658456349, guid: a09c55de95665457690f512b21f6c103,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 323748391658456349, guid: a09c55de95665457690f512b21f6c103,
         type: 3}
@@ -14521,12 +14517,12 @@ PrefabInstance:
     - target: {fileID: 323748391658456349, guid: a09c55de95665457690f512b21f6c103,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1244.42
+      value: 1200
       objectReference: {fileID: 0}
     - target: {fileID: 323748391658456349, guid: a09c55de95665457690f512b21f6c103,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: -256.66
+      value: 823.33997
       objectReference: {fileID: 0}
     - target: {fileID: 323748391658456349, guid: a09c55de95665457690f512b21f6c103,
         type: 3}
@@ -14566,12 +14562,12 @@ PrefabInstance:
     - target: {fileID: 323748391658456349, guid: a09c55de95665457690f512b21f6c103,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -700.67
+      value: 1180
       objectReference: {fileID: 0}
     - target: {fileID: 323748391658456349, guid: a09c55de95665457690f512b21f6c103,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -186.19
+      value: 380
       objectReference: {fileID: 0}
     - target: {fileID: 323748391658456349, guid: a09c55de95665457690f512b21f6c103,
         type: 3}
@@ -14590,49 +14586,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8667045872183280609, guid: a09c55de95665457690f512b21f6c103,
         type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667045872183280609, guid: a09c55de95665457690f512b21f6c103,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667045872183280609, guid: a09c55de95665457690f512b21f6c103,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667045872183280609, guid: a09c55de95665457690f512b21f6c103,
-        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 99675126}
-    - target: {fileID: 8667045872183280609, guid: a09c55de95665457690f512b21f6c103,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667045872183280609, guid: a09c55de95665457690f512b21f6c103,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667045872183280609, guid: a09c55de95665457690f512b21f6c103,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: WebviewStop
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667045872183280609, guid: a09c55de95665457690f512b21f6c103,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: ScreenShareWhileVideoCall, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667045872183280609, guid: a09c55de95665457690f512b21f6c103,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a09c55de95665457690f512b21f6c103, type: 3}
 --- !u!224 &644573187 stripped
