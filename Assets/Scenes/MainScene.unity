@@ -1899,6 +1899,7 @@ MonoBehaviour:
   myCam: {fileID: 2055122013}
   startWebview: 0
   note: {fileID: 1469265910}
+  camFlag: 1
   moveX: 0
   moveY: 0
   rect:
@@ -48155,7 +48156,6 @@ MonoBehaviour:
   Enable: 1
   Uid: 0
   UserName: 
-  ChannelId: 
   SourceType: 0
 --- !u!1 &2057957375
 GameObject:
@@ -48600,6 +48600,7 @@ MonoBehaviour:
   count: 0
   chatCount: 0
   chatStartBtn: {fileID: 1940939333}
+  FriendCams: {fileID: 167813667}
 --- !u!1 &2069482544
 GameObject:
   m_ObjectHideFlags: 0

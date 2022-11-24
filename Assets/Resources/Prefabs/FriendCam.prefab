@@ -91,7 +91,6 @@ MonoBehaviour:
   Enable: 1
   Uid: 0
   UserName: 
-  ChannelId: 
   SourceType: 0
 --- !u!1 &2540673339598710851
 GameObject:
@@ -110,7 +109,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &282427934020379003
 RectTransform:
   m_ObjectHideFlags: 0

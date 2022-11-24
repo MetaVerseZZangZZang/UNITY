@@ -1306,7 +1306,6 @@ MonoBehaviour:
   Enable: 1
   Uid: 0
   UserName: 
-  ChannelId: 
   SourceType: 0
 --- !u!1 &622865720194236949
 GameObject:
@@ -3305,7 +3304,6 @@ MonoBehaviour:
   drawPosition: {x: 0, y: 0}
   talking: 0
   talkingImage: {fileID: 1782298310}
-  camFlag: 1
   speed: 1
   rotationSpeed: 2
 --- !u!54 &8461957992028094475

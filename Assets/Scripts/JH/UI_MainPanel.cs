@@ -148,10 +148,15 @@ public class UI_MainPanel : MonoBehaviour
     public VideoSurface getVSByPlayerItem(PlayerItem playerItem)
     {
         VideoSurface vs = null;
+        Debug.Log("FriendCams.transform.childCount "+FriendCams.transform.childCount);
         for (int i = 0; i < FriendCams.transform.childCount; i++)
         {
+            Debug.Log("FriendCams.transform.GetChild(i).GetComponent<VideoSurface>().UserName "+FriendCams.transform.GetChild(i).GetComponent<VideoSurface>().UserName);
+            Debug.Log("playerItem.name "+playerItem.name);
             if (FriendCams.transform.GetChild(i).GetComponent<VideoSurface>().UserName==playerItem.name+"(user)")
             {
+                
+                
                 vs = FriendCams.transform.GetChild(i).GetComponent<VideoSurface>();
                 break;
             }

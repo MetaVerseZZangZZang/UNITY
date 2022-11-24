@@ -181,29 +181,32 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             int pantsIndex = (int)stream.ReceiveNext();
             int shoesIndex = (int)stream.ReceiveNext();
             int hatIndex = (int)stream.ReceiveNext();
-            
-            transform.rotation=Quaternion.Euler(curRot);
+
+            transform.rotation = Quaternion.Euler(curRot);
             transform.position = curPos;
             //GetComponent<CharacterCustomization>().SwitchCharacterSettings(gender);
-            GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,hairIndex );
-            GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Shirt,shirtsIndex );
-            GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Pants,pantsIndex );
-            GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Shoes,shoesIndex );
-            GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hat,hatIndex );
+            GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair, hairIndex);
+            GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Shirt, shirtsIndex);
+            GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Pants, pantsIndex);
+            GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Shoes, shoesIndex);
+            GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hat, hatIndex);
 
             //drawPosition = (Vector2)stream.ReceiveNext();
             //DrawStream(drawPosition);
             talking = (bool)stream.ReceiveNext();
 
-            if (!(bool)stream.ReceiveNext())
+            if (!pv.IsMine)
             {
-                Debug.Log("켜라");
-                UI_MainPanel.Instance.friendCamON(this);
+                if (!(bool)stream.ReceiveNext())
+                {
+                    Debug.Log("켜라");
+                    UI_MainPanel.Instance.friendCamON(this);
+                }
+                else
+                    UI_MainPanel.Instance.friendCamOff(this);
             }
-            else
-                UI_MainPanel.Instance.friendCamOff(this);
-
         }
+    
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
