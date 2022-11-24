@@ -3303,7 +3303,6 @@ MonoBehaviour:
   noteStart: 0
   playerUID: 0
   drawPosition: {x: 0, y: 0}
-  camFlag: 1
   talking: 0
   talkingImage: {fileID: 1782298310}
   speed: 1
