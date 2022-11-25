@@ -94,11 +94,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         // Stops rendering the local video.
         LocalView.SetEnable(false);
 
-        foreach (UI_PlayerSlotItem psi in UI_PlayerSlot.Instance.PlayerSlotList)
-        {
-            psi.Destory();
-            
-        }
+        UI_PlayerSlot.Instance.DelAll();
         FriendCamList.Clear();
     }
     

@@ -36,9 +36,12 @@ public class UI_PlayerSlot : MonoBehaviour
     {
         foreach (UI_PlayerSlotItem psi in PlayerSlotList)
         {
+            Debug.Log(psi.name);
             if (psi.name.text == playerName)
             {
                 psi.Destory();
+                PlayerSlotList.Remove(psi);
+                break;
             }
         }
 
@@ -50,5 +53,7 @@ public class UI_PlayerSlot : MonoBehaviour
         {
             psi.Destory();
         }
+
+        PlayerSlotList.Clear();
     }
 }
