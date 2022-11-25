@@ -164,6 +164,30 @@ public class UI_MainPanel : MonoBehaviour
             }
         }
     }
+    
+    public void friendVoiceOff(PlayerItem playerItem)
+    {
+        VideoSurface RemoteView = getVSByPlayerItem(playerItem);
+        foreach (UI_PlayerSlotItem item in UI_PlayerSlot.Instance.PlayerSlotList)
+        {
+            if (item.name.text == playerItem.Nickname)
+            {
+                item.voiceControl(true);
+            }
+        }
+    }
+
+    public void friendVoiceOn(PlayerItem playerItem)
+    {
+        VideoSurface RemoteView = getVSByPlayerItem(playerItem);
+        foreach (UI_PlayerSlotItem item in UI_PlayerSlot.Instance.PlayerSlotList)
+        {
+            if (item.name.text == playerItem.Nickname)
+            {
+                item.voiceControl(false);
+            }
+        }
+    }
 
     public VideoSurface getVSByPlayerItem(PlayerItem playerItem)
     {
