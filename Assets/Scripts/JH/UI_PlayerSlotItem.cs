@@ -57,15 +57,5 @@ public class UI_PlayerSlotItem : MonoBehaviour
         }
     }
     
-    public void voiceControl(bool voiceFlag)
-    {
-        if (voiceFlag)  //켜라
-        {
-            voice.transform.GetChild(3).gameObject.SetActive(false);
-        }
-        else
-        {
-            voice.transform.GetChild(3).gameObject.SetActive(true);
-        }
-    }
+    
 }
