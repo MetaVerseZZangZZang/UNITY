@@ -70,6 +70,7 @@ public class UI_MainPanel : MonoBehaviour
             AudioLoudnessDetection.Instance.joined = true;
             Server.Instance.AIFlag = true;
             chatStartBtn.GetComponentInChildren<Text>().text = "End";
+            Server.Instance.ChatStartEmit();
         }
 
         else
@@ -103,14 +104,12 @@ public class UI_MainPanel : MonoBehaviour
         ScreenShareWhileVideoCall.Instance.camFlag = !toggle.isOn;
         if (ScreenShareWhileVideoCall.Instance.camFlag)  //끄고
         {
-            Debug.Log("끄고");
             myCam.transform.GetChild(0).gameObject.SetActive(false);
             ScreenShareWhileVideoCall.Instance.camFlag = false;
             
         }
         else      //켜기
         {
-            Debug.Log("켜고");
             myCam.transform.GetChild(0).gameObject.SetActive(true);
             ScreenShareWhileVideoCall.Instance.camFlag = true;
         }
@@ -118,17 +117,15 @@ public class UI_MainPanel : MonoBehaviour
     
     public void VoiceToggle(Toggle toggle)
     {
-        /*
-        AgoraManager.voiceFlag = !toggle.isOn;
-        if (AgoraManager.voiceFlag)
+        ScreenShareWhileVideoCall.Instance.voiceFlag = toggle.isOn;
+        if (ScreenShareWhileVideoCall.Instance.voiceFlag)  //켜고
         {
-            AgoraManager.Instance.RtcEngine.EnableLocalAudio(true);
+            ScreenShareWhileVideoCall.Instance.voiceFlag = true;
         }
-        else
+        else      //끄기
         {
-            AgoraManager.Instance.RtcEngine.EnableLocalAudio(false);
+            ScreenShareWhileVideoCall.Instance.voiceFlag = false;
         }
-        */
     }
 
     public void friendCamOff(PlayerItem playerItem)
@@ -136,7 +133,6 @@ public class UI_MainPanel : MonoBehaviour
         VideoSurface RemoteView = getVSByPlayerItem(playerItem);
         if(getVSByPlayerItem(playerItem)!=null)
             RemoteView.transform.GetChild(0).gameObject.SetActive(true);
-        Debug.Log("playerItem.Nickname "+playerItem.Nickname);
         foreach (UI_PlayerSlotItem item in UI_PlayerSlot.Instance.PlayerSlotList)
         {
             if (item.name.text == playerItem.Nickname)
@@ -158,6 +154,34 @@ public class UI_MainPanel : MonoBehaviour
             if (item.name.text == playerItem.Nickname)
             {
                 item.camControl(true);
+            }
+        }
+    }
+
+    public void friendVoiceOn(PlayerItem playerItem)
+    {
+        VideoSurface RemoteView = getVSByPlayerItem(playerItem);
+        //if(getVSByPlayerItem(playerItem)!=null)
+        //    RemoteView.transform.GetChild(0).gameObject.SetActive(true);
+        foreach (UI_PlayerSlotItem item in UI_PlayerSlot.Instance.PlayerSlotList)
+        {
+            if (item.name.text == playerItem.Nickname)
+            {
+                item.voiceControl(true);
+            }
+        }
+    }
+
+    public void friendVoiceOff(PlayerItem playerItem)
+    {
+        VideoSurface RemoteView = getVSByPlayerItem(playerItem);
+        //if(getVSByPlayerItem(playerItem)!=null)
+        //    RemoteView.transform.GetChild(0).gameObject.SetActive(true);
+        foreach (UI_PlayerSlotItem item in UI_PlayerSlot.Instance.PlayerSlotList)
+        {
+            if (item.name.text == playerItem.Nickname)
+            {
+                item.voiceControl(false);
             }
         }
     }

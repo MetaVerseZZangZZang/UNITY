@@ -41,6 +41,5 @@ public class UI_PlayerSlot : MonoBehaviour
                 psi.Destory();
             }
         }
-
     }
 }
