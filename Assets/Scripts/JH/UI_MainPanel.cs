@@ -133,7 +133,7 @@ public class UI_MainPanel : MonoBehaviour
         
     }
 
-    public void friendCamOff(PlayerItem playerItem)
+    public void friendCamON(PlayerItem playerItem)
     {
         VideoSurface RemoteView = getVSByPlayerItem(playerItem);
         if(getVSByPlayerItem(playerItem)!=null)
@@ -148,7 +148,7 @@ public class UI_MainPanel : MonoBehaviour
         }
     }
 
-    public void friendCamON(PlayerItem playerItem)
+    public void friendCamOff(PlayerItem playerItem)
     {
         VideoSurface RemoteView = getVSByPlayerItem(playerItem);
         if(getVSByPlayerItem(playerItem)!=null)
@@ -163,7 +163,7 @@ public class UI_MainPanel : MonoBehaviour
         }
     }
     
-    public void friendVoiceOff(PlayerItem playerItem)
+    public void friendVoiceOn(PlayerItem playerItem)
     {
         VideoSurface RemoteView = getVSByPlayerItem(playerItem);
         foreach (UI_PlayerSlotItem item in UI_PlayerSlot.Instance.PlayerSlotList)
@@ -175,7 +175,7 @@ public class UI_MainPanel : MonoBehaviour
         }
     }
 
-    public void friendVoiceOn(PlayerItem playerItem)
+    public void friendVoiceOff(PlayerItem playerItem)
     {
         VideoSurface RemoteView = getVSByPlayerItem(playerItem);
         foreach (UI_PlayerSlotItem item in UI_PlayerSlot.Instance.PlayerSlotList)
