@@ -31,7 +31,6 @@ public class UI_MainPanel : MonoBehaviour
     public int count = 0;
     public int chatCount = 0;
     public Button chatStartBtn;
-    
     private void Awake()
     {
         Instance = this;
@@ -71,6 +70,7 @@ public class UI_MainPanel : MonoBehaviour
             AudioLoudnessDetection.Instance.joined = true;
             Server.Instance.AIFlag = true;
             chatStartBtn.GetComponentInChildren<Text>().text = "End";
+            Server.Instance.ChatStartEmit();
         }
 
         else
@@ -101,46 +101,113 @@ public class UI_MainPanel : MonoBehaviour
     public void CamToggle(Toggle toggle)
     {
 
-        //AgoraManager.camFlag = !toggle.isOn;
-        if (!toggle.isOn)
+        ScreenShareWhileVideoCall.Instance.camFlag = !toggle.isOn;
+        if (ScreenShareWhileVideoCall.Instance.camFlag)  //끄고
         {
             myCam.transform.GetChild(0).gameObject.SetActive(false);
-            ScreenShareWhileVideoCall.Instance.RtcEngine.EnableLocalVideo(true);
-
+            ScreenShareWhileVideoCall.Instance.camFlag = false;
+            
         }
-        else
+        else      //켜기
         {
-            ScreenShareWhileVideoCall.Instance.RtcEngine.EnableLocalVideo(false);
             myCam.transform.GetChild(0).gameObject.SetActive(true);
-
+            ScreenShareWhileVideoCall.Instance.camFlag = true;
         }
     }
     
     public void VoiceToggle(Toggle toggle)
     {
-        /*
-        AgoraManager.voiceFlag = !toggle.isOn;
-        if (AgoraManager.voiceFlag)
+        ScreenShareWhileVideoCall.Instance.voiceFlag = toggle.isOn;
+        if (ScreenShareWhileVideoCall.Instance.voiceFlag)  //켜고
         {
-            AgoraManager.Instance.RtcEngine.EnableLocalAudio(true);
+            ScreenShareWhileVideoCall.Instance.voiceFlag = true;
         }
-        else
+        else      //끄기
         {
-            AgoraManager.Instance.RtcEngine.EnableLocalAudio(false);
+            ScreenShareWhileVideoCall.Instance.voiceFlag = false;
         }
-        */
     }
 
-    public void friendCamOff(VideoSurface RemoteView)
+    public void friendCamOff(PlayerItem playerItem)
     {
-        RemoteView.transform.GetChild(0).gameObject.SetActive(true);
+        VideoSurface RemoteView = getVSByPlayerItem(playerItem);
+        if(getVSByPlayerItem(playerItem)!=null)
+            RemoteView.transform.GetChild(0).gameObject.SetActive(true);
+        foreach (UI_PlayerSlotItem item in UI_PlayerSlot.Instance.PlayerSlotList)
+        {
+            if (item.name.text == playerItem.Nickname)
+            {
+                Debug.Log("item.name.text "+item.name.text);
+                item.camControl(false);
+            }
+        }
     }
 
-    public void friendCamON(VideoSurface RemoteView)
+    public void friendCamON(PlayerItem playerItem)
     {
-        RemoteView.transform.GetChild(0).gameObject.SetActive(false);
+        VideoSurface RemoteView = getVSByPlayerItem(playerItem);
+        if(getVSByPlayerItem(playerItem)!=null)
+            RemoteView.transform.GetChild(0).gameObject.SetActive(false);
+        
+        foreach (UI_PlayerSlotItem item in UI_PlayerSlot.Instance.PlayerSlotList)
+        {
+            if (item.name.text == playerItem.Nickname)
+            {
+                item.camControl(true);
+            }
+        }
     }
-    
+
+    public void friendVoiceOn(PlayerItem playerItem)
+    {
+        VideoSurface RemoteView = getVSByPlayerItem(playerItem);
+        //if(getVSByPlayerItem(playerItem)!=null)
+        //    RemoteView.transform.GetChild(0).gameObject.SetActive(true);
+        foreach (UI_PlayerSlotItem item in UI_PlayerSlot.Instance.PlayerSlotList)
+        {
+            if (item.name.text == playerItem.Nickname)
+            {
+                item.voiceControl(true);
+            }
+        }
+    }
+
+    public void friendVoiceOff(PlayerItem playerItem)
+    {
+        VideoSurface RemoteView = getVSByPlayerItem(playerItem);
+        //if(getVSByPlayerItem(playerItem)!=null)
+        //    RemoteView.transform.GetChild(0).gameObject.SetActive(true);
+        foreach (UI_PlayerSlotItem item in UI_PlayerSlot.Instance.PlayerSlotList)
+        {
+            if (item.name.text == playerItem.Nickname)
+            {
+                item.voiceControl(false);
+            }
+        }
+    }
+
+    public VideoSurface getVSByPlayerItem(PlayerItem playerItem)
+    {
+        VideoSurface vs = null;
+
+        Debug.Log(ScreenShareWhileVideoCall.Instance.playerdict);
+        if (ScreenShareWhileVideoCall.FriendCamList.Count >= 1)
+        {
+
+            foreach (VideoSurface s in ScreenShareWhileVideoCall.FriendCamList)
+            {
+                Debug.Log("s.UserName" + s.UserName);
+                Debug.Log("playerItem.idUint " + playerItem.Nickname);
+                if (s.Uid ==playerItem.playerObjectID)
+                {
+                    vs = s;
+                    break;
+                }
+            }
+        }
+
+        return vs;
+    }
     
     public void PlayerSlotBtnClick()
     {

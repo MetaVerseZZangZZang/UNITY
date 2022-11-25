@@ -30,25 +30,23 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     public bool webviewStart = false;
     public bool noteStart = false;
 
-    public int playerUID;
+    //public int playerUID;
+    public int playerwebID;
+    public int playerObjectID;
+    public bool camFlag = true;
 
     public Dictionary<int, string> idUint = new Dictionary<int, string>();
     public Vector2 drawPosition;
-
+    
 
     public bool talking = false;
     public GameObject talkingImage;
-
-    void Awake()
-    {
-        //playerName.text = pv.IsMine ? PhotonNetwork.NickName : pv.Owner.NickName;
-        //playerName.color = pv.IsMine ? Color.green : Color.red;
-    }
 
     void Start()
     {
 
         gameObject.name = pv.IsMine ? PhotonNetwork.NickName + "(user)" : pv.Owner.NickName + "(user)";
+        Nickname=pv.IsMine ? PhotonNetwork.NickName: pv.Owner.NickName;
         /*
         animsList.Add(ShirtsAnim);
 
@@ -57,10 +55,14 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         if (pv.IsMine)
         {
 
-            playerUID = (int)UnityEngine.Random.Range(1000, 2000);
-            ScreenShareWhileVideoCall.Instance.Uid2 = (uint)playerUID;
+            playerwebID = (int)UnityEngine.Random.Range(1000, 2000);
+            ScreenShareWhileVideoCall.Instance.Uid2 = (uint)playerwebID;
 
-            idUint.Add(playerUID, PhotonNetwork.NickName);
+            idUint.Add(playerwebID, PhotonNetwork.NickName);
+
+
+            playerObjectID = (int)UnityEngine.Random.Range(3000,5000);
+            ScreenShareWhileVideoCall.Instance.Uid1 = (uint)playerObjectID;
 
             //ScreenShareWhileVideoCall.Instance.aig.Add(playerUID);
 
@@ -164,7 +166,8 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         {
             stream.SendNext(transform.rotation.eulerAngles);
             stream.SendNext(transform.position);
-            stream.SendNext(playerUID);
+            stream.SendNext(playerwebID);
+            stream.SendNext(playerObjectID);
             stream.SendNext(webviewStart);
             stream.SendNext(idUint);
             stream.SendNext(CharCustomManager.Instance.selectedHairIndex);
@@ -173,35 +176,54 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             stream.SendNext(CharCustomManager.Instance.selectedShoesIndex);
             stream.SendNext(CharCustomManager.Instance.selectedHatIndex);
             stream.SendNext(talking);
+            stream.SendNext(ScreenShareWhileVideoCall.Instance.camFlag);
+            stream.SendNext(ScreenShareWhileVideoCall.Instance.voiceFlag);
         }
         else
         {
             curRot = (Vector3)stream.ReceiveNext();
             curPos = (Vector3)stream.ReceiveNext();
-            playerUID = (int)stream.ReceiveNext();
+            playerwebID = (int)stream.ReceiveNext();
+            playerObjectID = (int)stream.ReceiveNext();
+            
             webviewStart = (bool)stream.ReceiveNext();
             ScreenShareWhileVideoCall.Instance.playerdict = (Dictionary<int, string>)stream.ReceiveNext();
+
+
             int hairIndex = (int)stream.ReceiveNext();
             int shirtsIndex = (int)stream.ReceiveNext();
             int pantsIndex = (int)stream.ReceiveNext();
             int shoesIndex = (int)stream.ReceiveNext();
             int hatIndex = (int)stream.ReceiveNext();
-            
-            transform.rotation=Quaternion.Euler(curRot);
+
+            transform.rotation = Quaternion.Euler(curRot);
             transform.position = curPos;
             //GetComponent<CharacterCustomization>().SwitchCharacterSettings(gender);
-            GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,hairIndex );
-            GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Shirt,shirtsIndex );
-            GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Pants,pantsIndex );
-            GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Shoes,shoesIndex );
-            GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hat,hatIndex );
+            GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair, hairIndex);
+            GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Shirt, shirtsIndex);
+            GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Pants, pantsIndex);
+            GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Shoes, shoesIndex);
+            GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hat, hatIndex);
 
             //drawPosition = (Vector2)stream.ReceiveNext();
             //DrawStream(drawPosition);
             talking = (bool)stream.ReceiveNext();
 
-
+            if (!(bool)stream.ReceiveNext())
+            {
+                UI_MainPanel.Instance.friendCamON(this);
+            }
+            else
+                UI_MainPanel.Instance.friendCamOff(this);
+            
+            if (!(bool)stream.ReceiveNext())
+            {
+                UI_MainPanel.Instance.friendVoiceOn(this);
+            }
+            else
+                UI_MainPanel.Instance.friendVoiceOff(this);
         }
+    
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

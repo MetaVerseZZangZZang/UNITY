@@ -89,18 +89,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Shoes,CharCustomManager.Instance.selectedShoesIndex );
         player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hat,CharCustomManager.Instance.selectedHatIndex );
         
-        
-        //m_PlayerItem.Sethair()
-        /*
-        int selectedHairIndex = CharacterManager.Instance.selectedHairIndex;
-        
-        player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,selectedHairIndex);
-        
-        Hashtable playerCP=new Hashtable { { "hair", selectedHairIndex } };
-        PhotonNetwork.LocalPlayer.SetCustomProperties(playerCP);
-        */
-        //player.GetComponent<PlayerItem>().SetPlayerInfo(PhotonNetwork.LocalPlayer);
-        
         foreach (Player p in PhotonNetwork.PlayerList)
         {
             UI_PlayerSlot.Instance.AddPlayerSlot(p.NickName);
@@ -109,6 +97,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         Hashtable CP = PhotonNetwork.CurrentRoom.CustomProperties;
         UI_MainPanel.Instance.Show();
         //UI_MainPanel.Instance.Show((int)CP["Map"]);
+        
+        playerItemList.Add(player.GetComponent<PlayerItem>());
     }
 
     public void LeaveRoom()

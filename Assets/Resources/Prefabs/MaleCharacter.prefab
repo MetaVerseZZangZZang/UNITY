@@ -1306,7 +1306,6 @@ MonoBehaviour:
   Enable: 1
   Uid: 0
   UserName: 
-  ChannelId: 
   SourceType: 0
 --- !u!1 &622865720194236949
 GameObject:
@@ -3301,7 +3300,9 @@ MonoBehaviour:
   Nickname: 
   webviewStart: 0
   noteStart: 0
-  playerUID: 0
+  playerwebID: 0
+  playerObjectID: 0
+  camFlag: 1
   drawPosition: {x: 0, y: 0}
   talking: 0
   talkingImage: {fileID: 1782298310}

@@ -69,8 +69,8 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     public GameObject note;
 
     public Dictionary<int, string> playerdict = new Dictionary<int, string>();
-
-
+    public bool camFlag = true;
+    public bool voiceFlag = true;
 
     private void Awake()
     {
@@ -93,14 +93,19 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         }
         // Stops rendering the local video.
         LocalView.SetEnable(false);
-        UI_PlayerSlot.Instance.DelPlayerSlot(UI_StartPanel.Instance.name);
+
+        foreach (UI_PlayerSlotItem psi in UI_PlayerSlot.Instance.PlayerSlotList)
+        {
+            psi.Destory();
+            
+        }
         FriendCamList.Clear();
     }
     
     // Use this for initialization
     public void AgoraStart()
     {
-        
+        //Uid1 = (uint)UnityEngine.Random.Range(1000, 2000);
         Safari.SetActive(false);
         LoadAssetData();
         if (CheckAppId())
@@ -205,7 +210,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     IEnumerator BringWebTexture(RawImage webImageTexture)
     {
         yield return new WaitForSeconds(1f);
-        webImageTexture.texture = WebViewObject.Instance.tx.texture;
+        //webImageTexture.texture = WebViewObject.Instance.texture;
 
     }
     
@@ -236,7 +241,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         options1.publishScreenTrack.SetValue(false);
         options1.enableAudioRecordingOrPlayout.SetValue(true);
         options1.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
-        Uid1 = (uint)UnityEngine.Random.Range(1000,2000);
+        
         
         var ret = RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, Uid1), options1);
     }
@@ -595,6 +600,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     public int count = 1;
     public List<uint> idList;
     public int userCount;
+    public List<VideoSurface> testList = new List<VideoSurface>(); 
     #endregion
 
     internal class UserEventHandler : IRtcEngineEventHandler
@@ -660,14 +666,19 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                         if (!FriendCamList.Contains(newFriendCam.GetComponent<VideoSurface>()))
                         {
                             FriendCamList.Add(newFriendCam.GetComponent<VideoSurface>());
+                            _videoSample.testList.Add(newFriendCam.GetComponent<VideoSurface>());
                             FriendCamList[FriendCamList.Count - 1].SetEnable(true);
                             FriendCamList[FriendCamList.Count - 1].SetForUser(uid, connection.channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
+                            _videoSample.testList.Add(newFriendCam.GetComponent<VideoSurface>());
+                            Debug.LogError(_videoSample.testList[0]);
+
                         }
 
                         _videoSample.remoteUid = uid;
                         _videoSample.FriendList[Math.Min(_videoSample.count, _videoSample.FriendList.Count - 1)].SetActive(true);
                         _videoSample.count += 1;
                         _videoSample.idList.Add(uid);
+
                     }
                 }
                 else
@@ -678,7 +689,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                     newFriendCam.transform.SetParent(_videoSample.FriendCams.transform);
                     newFriendCam.transform.localScale = new Vector3(1, 1, 1);
 
-
+                    _videoSample.testList.Add(newFriendCam.GetComponent<VideoSurface>());
                     if (!FriendCamList.Contains(newFriendCam.GetComponent<VideoSurface>()))
                     {
                         FriendCamList.Add(newFriendCam.GetComponent<VideoSurface>());
@@ -711,32 +722,6 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                 }
             }
         }
-
-        
-        
-        public override void OnRemoteVideoStateChanged(RtcConnection connection, uint remoteUid,
-            REMOTE_VIDEO_STATE state, REMOTE_VIDEO_STATE_REASON reason, int elapsed)
-        {
-            
-            foreach (VideoSurface RemoteView in FriendCamList)
-            {
-                Debug.Log("RemoteView.UserName "+RemoteView.UserName);
-                if (RemoteView.Uid == remoteUid)
-                {
-                    Debug.Log("IINN");
-                    if (state == 0)
-                    {
-                        UI_MainPanel.Instance.friendCamOff(RemoteView);
-                    }
-                    else if (state == REMOTE_VIDEO_STATE.REMOTE_VIDEO_STATE_STARTING)
-                    {
-                        UI_MainPanel.Instance.friendCamON(RemoteView);
-                    }
-                }
-            }
-
-        }
-        
 
     }
 

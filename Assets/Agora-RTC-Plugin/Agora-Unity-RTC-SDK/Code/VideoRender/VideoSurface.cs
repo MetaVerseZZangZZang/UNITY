@@ -18,9 +18,9 @@ namespace Agora.Rtc
         [SerializeField] private VideoSurfaceType VideoSurfaceType = VideoSurfaceType.Renderer;
         [SerializeField] public bool Enable = true;
    
-        [SerializeField] public uint Uid = 0;
-        [SerializeField] public string UserName = "";
-        [SerializeField] private string ChannelId = "";
+        public uint Uid = 0;
+        public string UserName = "";
+        private string ChannelId = "";
         [SerializeField] private VIDEO_SOURCE_TYPE SourceType = VIDEO_SOURCE_TYPE.VIDEO_SOURCE_CAMERA_PRIMARY;
 
         private Component _renderer;

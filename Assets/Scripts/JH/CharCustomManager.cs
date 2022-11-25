@@ -8,11 +8,11 @@ public class CharCustomManager : MonoBehaviour
     public static CharCustomManager Instance;
 
     public string selectedGender;
-    public int selectedHairIndex;
-    public int selectedShirtsIndex;
-    public int selectedPantsIndex;
-    public int selectedShoesIndex;
-    public int selectedHatIndex;
+    public int selectedHairIndex=0;
+    public int selectedShirtsIndex=0;
+    public int selectedPantsIndex=0;
+    public int selectedShoesIndex=0;
+    public int selectedHatIndex=-1;
     
     
     private void Awake()
