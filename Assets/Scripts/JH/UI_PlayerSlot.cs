@@ -43,4 +43,12 @@ public class UI_PlayerSlot : MonoBehaviour
         }
 
     }
+
+    public void DelAll()
+    {
+        foreach (UI_PlayerSlotItem psi in PlayerSlotList)
+        {
+            psi.Destory();
+        }
+    }
 }

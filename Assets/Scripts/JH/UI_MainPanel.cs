@@ -101,16 +101,16 @@ public class UI_MainPanel : MonoBehaviour
     {
 
         ScreenShareWhileVideoCall.Instance.camFlag = !toggle.isOn;
-        if (ScreenShareWhileVideoCall.Instance.camFlag)  //켜고
+        if (ScreenShareWhileVideoCall.Instance.camFlag)  
         {
             myCam.transform.GetChild(0).gameObject.SetActive(false);
-            ScreenShareWhileVideoCall.Instance.camFlag = true;
+            ScreenShareWhileVideoCall.Instance.camFlag = false;
             
         }
         else      //끄기
         {
             myCam.transform.GetChild(0).gameObject.SetActive(true);
-            ScreenShareWhileVideoCall.Instance.camFlag = false;
+            ScreenShareWhileVideoCall.Instance.camFlag = true;
         }
     }
     
@@ -118,16 +118,14 @@ public class UI_MainPanel : MonoBehaviour
     {
 
         ScreenShareWhileVideoCall.Instance.voiceFlag = !toggle.isOn;
-        if (!ScreenShareWhileVideoCall.Instance.voiceFlag)  
+        if (ScreenShareWhileVideoCall.Instance.voiceFlag)  
         {
-            Debug.Log("끄고");
             ScreenShareWhileVideoCall.Instance.voiceFlag = false;
             ScreenShareWhileVideoCall.Instance.voiceControl(false);
             AudioLoudnessDetection.Instance.joined = false;
         }
         else
         {
-            Debug.Log("켜고");
             ScreenShareWhileVideoCall.Instance.voiceFlag = true;
             ScreenShareWhileVideoCall.Instance.voiceControl(true);
             AudioLoudnessDetection.Instance.joined = true;

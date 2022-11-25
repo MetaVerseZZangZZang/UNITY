@@ -157,7 +157,7 @@ public class AgoraManager : MonoBehaviour
         }
         // Stops rendering the local video.
         LocalView.SetEnable(false);
-        UI_PlayerSlot.Instance.DelPlayerSlot(UI_StartPanel.Instance.name);
+        UI_PlayerSlot.Instance.DelAll();
         FriendCamList.Clear();
     }
     
