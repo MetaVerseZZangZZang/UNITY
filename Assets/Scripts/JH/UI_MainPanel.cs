@@ -100,17 +100,15 @@ public class UI_MainPanel : MonoBehaviour
     public void CamToggle(Toggle toggle)
     {
 
-        ScreenShareWhileVideoCall.Instance.camFlag = toggle.isOn;
+        ScreenShareWhileVideoCall.Instance.camFlag = !toggle.isOn;
         if (ScreenShareWhileVideoCall.Instance.camFlag)  //켜고
         {
-            Debug.Log("켜고");
             myCam.transform.GetChild(0).gameObject.SetActive(false);
             ScreenShareWhileVideoCall.Instance.camFlag = true;
             
         }
         else      //끄기
         {
-            Debug.Log("끄고");
             myCam.transform.GetChild(0).gameObject.SetActive(true);
             ScreenShareWhileVideoCall.Instance.camFlag = false;
         }
@@ -118,17 +116,23 @@ public class UI_MainPanel : MonoBehaviour
     
     public void VoiceToggle(Toggle toggle)
     {
-        /*
-        AgoraManager.voiceFlag = !toggle.isOn;
-        if (AgoraManager.voiceFlag)
+
+        ScreenShareWhileVideoCall.Instance.voiceFlag = !toggle.isOn;
+        if (!ScreenShareWhileVideoCall.Instance.voiceFlag)  
         {
-            AgoraManager.Instance.RtcEngine.EnableLocalAudio(true);
+            Debug.Log("끄고");
+            ScreenShareWhileVideoCall.Instance.voiceFlag = false;
+            ScreenShareWhileVideoCall.Instance.voiceControl(false);
+            AudioLoudnessDetection.Instance.joined = false;
         }
         else
         {
-            AgoraManager.Instance.RtcEngine.EnableLocalAudio(false);
+            Debug.Log("켜고");
+            ScreenShareWhileVideoCall.Instance.voiceFlag = true;
+            ScreenShareWhileVideoCall.Instance.voiceControl(true);
+            AudioLoudnessDetection.Instance.joined = true;
         }
-        */
+        
     }
 
     public void friendCamOff(PlayerItem playerItem)
