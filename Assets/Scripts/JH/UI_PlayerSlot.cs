@@ -34,16 +34,19 @@ public class UI_PlayerSlot : MonoBehaviour
     
     public void DelPlayerSlot(string playerName)
     {
+        UI_PlayerSlotItem toDelete = null;
         foreach (UI_PlayerSlotItem psi in PlayerSlotList)
         {
             Debug.Log(psi.name);
             if (psi.name.text == playerName)
             {
-                psi.Destory();
+                toDelete = psi;
                 PlayerSlotList.Remove(psi);
                 break;
             }
         }
+        
+        Destroy(toDelete.gameObject);
 
     }
 
@@ -51,7 +54,7 @@ public class UI_PlayerSlot : MonoBehaviour
     {
         foreach (UI_PlayerSlotItem psi in PlayerSlotList)
         {
-            psi.Destory();
+            Destroy(psi.gameObject);
         }
 
         PlayerSlotList.Clear();

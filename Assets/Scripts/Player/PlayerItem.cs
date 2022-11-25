@@ -47,11 +47,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
         gameObject.name = pv.IsMine ? PhotonNetwork.NickName + "(user)" : pv.Owner.NickName + "(user)";
         Nickname=pv.IsMine ? PhotonNetwork.NickName: pv.Owner.NickName;
-        /*
-        animsList.Add(ShirtsAnim);
 
-        Debug.Log(UI_Character.Instance.SelectedShirts);
-        */
         if (pv.IsMine)
         {
 
