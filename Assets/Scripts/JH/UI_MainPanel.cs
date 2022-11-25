@@ -136,12 +136,13 @@ public class UI_MainPanel : MonoBehaviour
         VideoSurface RemoteView = getVSByPlayerItem(playerItem);
         if(getVSByPlayerItem(playerItem)!=null)
             RemoteView.transform.GetChild(0).gameObject.SetActive(true);
-
+        Debug.Log("playerItem.Nickname "+playerItem.Nickname);
         foreach (UI_PlayerSlotItem item in UI_PlayerSlot.Instance.PlayerSlotList)
         {
             if (item.name.text == playerItem.Nickname)
             {
-                item.camControl(true);
+                Debug.Log("item.name.text "+item.name.text);
+                item.camControl(false);
             }
         }
     }
@@ -156,7 +157,7 @@ public class UI_MainPanel : MonoBehaviour
         {
             if (item.name.text == playerItem.Nickname)
             {
-                item.camControl(false);
+                item.camControl(true);
             }
         }
     }

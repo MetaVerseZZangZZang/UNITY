@@ -385,8 +385,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: {fileID: 2490254760507854886}
-  cam: {fileID: 0}
-  voice: {fileID: 0}
+  cam: {fileID: 2490254760045666689}
+  voice: {fileID: 2490254759651812351}
 --- !u!1 &2490254760045666716
 GameObject:
   m_ObjectHideFlags: 0

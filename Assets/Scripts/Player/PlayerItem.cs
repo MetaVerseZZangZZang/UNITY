@@ -46,6 +46,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     {
 
         gameObject.name = pv.IsMine ? PhotonNetwork.NickName + "(user)" : pv.Owner.NickName + "(user)";
+        Nickname=pv.IsMine ? PhotonNetwork.NickName: pv.Owner.NickName;
         /*
         animsList.Add(ShirtsAnim);
 
@@ -175,7 +176,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             stream.SendNext(CharCustomManager.Instance.selectedShoesIndex);
             stream.SendNext(CharCustomManager.Instance.selectedHatIndex);
             stream.SendNext(talking);
-            stream.SendNext(camFlag);
+            stream.SendNext(ScreenShareWhileVideoCall.Instance.camFlag);
         }
         else
         {
