@@ -52,6 +52,8 @@ public class UnitySendMessageDispatcher
 public class WebViewObject : MonoBehaviour
 {
     public static WebViewObject Instance;
+    public int testx = 1148;
+    public int testy = 700;
     Callback onJS;
     Callback onError;
     Callback onHttpError;
@@ -85,6 +87,7 @@ public class WebViewObject : MonoBehaviour
     public int currentURL;
 
     public bool nextOrBack;
+
     //////////
 
 
@@ -320,8 +323,7 @@ public class WebViewObject : MonoBehaviour
     Button resetBTN;
     Button expendBTN;
     private void Start()
-    {
-        /*
+    {   
         userInputURL = GameObject.Find("SafariInputField").GetComponent<InputField>();
         safariFrontBTN = GameObject.Find("SafariFront").GetComponent<Button>();
         safariBackBTN = GameObject.Find("SafariBack").GetComponent<Button>();
@@ -332,7 +334,7 @@ public class WebViewObject : MonoBehaviour
         safariFrontBTN.onClick.AddListener(NextURL);
         safariBackBTN.onClick.AddListener(BackURL);
         userInputURL.onSubmit.AddListener(delegate{SurfURL();});
-*/
+
         Instance = this;
         //tx = GameObject.Find("TVPanel").GetComponent<RawImage>();
         //print(tx);
@@ -536,7 +538,9 @@ public class WebViewObject : MonoBehaviour
 #endif
     }
 
+    
     public void Init(
+        int value1,int value2,
         Callback cb = null,
         Callback err = null,
         Callback httpErr = null,
@@ -593,8 +597,8 @@ public class WebViewObject : MonoBehaviour
             name,
             transparent,
             zoom,
-            1148,
-            700,
+            value1,
+            value2,
             ua
 #if UNITY_EDITOR
             , separated
@@ -1423,7 +1427,8 @@ public class WebViewObject : MonoBehaviour
     void Update()
     {
         //rect = new Rect(x, y, sizex, sizey);
-        if (hasFocus) {
+        if (hasFocus)
+        {
             inputString += Input.inputString;
         }
         for (;;) {
@@ -1504,10 +1509,7 @@ public class WebViewObject : MonoBehaviour
                     Vector3 p = Vector3.zero;
                     p.x = (Input.mousePosition.x);
                     p.y = (Input.mousePosition.y);
-                    //Debug.Log("x"+p.x);
-                    //Debug.Log("y"+p.y);
                     Debug.DrawLine(new Vector2(p.x,p.y), new Vector3(1, 0, 0), Color.red);
-
                     {
                     int mouseState = 0;
                     if (Input.GetButtonDown("Fire1"))

@@ -24,7 +24,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     public static ScreenShareWhileVideoCall Instance;
 
     private Texture2D _texture;
-    private Rect _rect;
+    public Rect _rect;
     private int i = 0;
     private WebCamTexture _webCameraTexture;
     //public RawImage RawImage;
@@ -205,7 +205,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     IEnumerator BringWebTexture(RawImage webImageTexture)
     {
         yield return new WaitForSeconds(1f);
-        //webImageTexture.texture = WebViewObject.Instance.texture;
+        webImageTexture.texture = WebViewObject.Instance.texture;
 
     }
     
@@ -255,7 +255,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     }
     private void InitTexture()
     {
-        _rect = new Rect(0f, 0f, 1400f, 640f);
+        _rect = new Rect(0f, 0f, 1148, 700);
         _texture = new Texture2D((int)_rect.width, (int)_rect.height, TextureFormat.RGBA32, false);
     }
     private void Update()
@@ -266,9 +266,6 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
             StartCoroutine(ShareScreen());
         }
     }
-    public int moveX;
-    public int moveY;
-    public Rect rect;
 
     private IEnumerator ShareScreen()
     {
