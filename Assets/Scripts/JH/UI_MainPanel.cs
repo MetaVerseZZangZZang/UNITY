@@ -141,8 +141,7 @@ public class UI_MainPanel : MonoBehaviour
         {
             if (item.name.text == playerItem.Nickname)
             {
-                Debug.Log("item.name.text "+item.name.text);
-                item.camControl(false);
+                item.camControl(true);
             }
         }
     }
@@ -157,7 +156,7 @@ public class UI_MainPanel : MonoBehaviour
         {
             if (item.name.text == playerItem.Nickname)
             {
-                item.camControl(true);
+                item.camControl(false);
             }
         }
     }
