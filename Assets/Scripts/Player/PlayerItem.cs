@@ -30,6 +30,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     public bool webviewStart = false;
     public bool noteStart = false;
 
+
     //public int playerUID;
     public int playerwebID;
     public int playerObjectID;
@@ -52,14 +53,14 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
             playerwebID = (int)UnityEngine.Random.Range(1000, 2000);
             ScreenShareWhileVideoCall.Instance.Uid2 = (uint)playerwebID;
-
             idUint.Add(playerwebID, PhotonNetwork.NickName);
-
+            ScreenShareWhileVideoCall.Instance.playerdict.Add(playerwebID,PhotonNetwork.NickName);
 
             playerObjectID = (int)UnityEngine.Random.Range(3000,5000);
             ScreenShareWhileVideoCall.Instance.Uid1 = (uint)playerObjectID;
-
+            transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
             //ScreenShareWhileVideoCall.Instance.aig.Add(playerUID);
+            //ScreenShareWhileVideoCall.Instance.playerdict = idUint;
 
         }
     }
@@ -70,6 +71,13 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
     void Update()
     {
+
+        ///
+        //GameObject player = GameObject.Find(ScreenShareWhileVideoCall.Instance.playerdict[(int)ScreenShareWhileVideoCall.Instance.Uid2] + "(user)");
+        //PlayerItem playerScript = player.GetComponent<PlayerItem>();
+        //playerScript.webviewStart = false;
+        //player.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
+        ///`435
         if (noteStart == true)
         {
             //drawPosition = Drawable.Instance.sendPositionValue;

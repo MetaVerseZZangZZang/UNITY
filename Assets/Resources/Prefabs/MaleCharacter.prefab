@@ -3302,7 +3302,6 @@ MonoBehaviour:
   noteStart: 0
   playerwebID: 0
   playerObjectID: 0
-  camFlag: 1
   drawPosition: {x: 0, y: 0}
   talking: 0
   talkingImage: {fileID: 1782298310}

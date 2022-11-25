@@ -52,19 +52,42 @@ public class WebViewScript : MonoBehaviour
 
     public void XBtn()
     {
-        Destroy(webViewObject);
-        Destroy(webViewObject.gameObject);
-        safariPanel.SetActive(false);
-    }
-
-    public void _BTN()
-    {
         shutDown = true;
         surfSaveList = WebViewObject.Instance.surfingList;
         saveURLCount = WebViewObject.Instance.currentURL;
         webViewObject.gameObject.SetActive(false);
         safariIcon.SetActive(true);
         safariPanel.SetActive(false);
+
+
+        ///
+        //GameObject player = GameObject.Find(ScreenShareWhileVideoCall.Instance.playerdict[(int)ScreenShareWhileVideoCall.Instance.Uid2] + "(user)");
+        //PlayerItem playerScript = player.GetComponent<PlayerItem>();
+        //playerScript.webviewStart = false;
+        //player.transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
+        //Debug.LogError(player);
+        ///
+    }
+
+    public void _BTN()
+    {
+
+        shutDown = true;
+        surfSaveList = WebViewObject.Instance.surfingList;
+        saveURLCount = WebViewObject.Instance.currentURL;
+        webViewObject.gameObject.SetActive(false);
+        safariIcon.SetActive(true);
+        safariPanel.SetActive(false);
+
+
+        ///
+        //GameObject player = GameObject.Find(ScreenShareWhileVideoCall.Instance.playerdict[(int)ScreenShareWhileVideoCall.Instance.Uid2] + "(user)");
+        //PlayerItem playerScript = player.GetComponent<PlayerItem>();
+        //playerScript.webviewStart = false;
+        //player.transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
+        //Debug.LogError(player);
+
+        ///
     }
 
     public void safariBTN()
@@ -75,6 +98,15 @@ public class WebViewScript : MonoBehaviour
             safariIcon.SetActive(false);
             webViewObject.gameObject.SetActive(true);
             safariPanel.SetActive(true);
+
+            ///
+            //GameObject player = GameObject.Find(ScreenShareWhileVideoCall.Instance.playerdict[(int)ScreenShareWhileVideoCall.Instance.Uid2] + "(user)");
+            //PlayerItem playerScript = player.GetComponent<PlayerItem>();
+            //playerScript.webviewStart = true;
+            //player.transform.GetChild(1).GetChild(0).gameObject.SetActive(true);
+            //Debug.LogError(player);
+
+            ///
         }
     }
 
@@ -111,7 +143,7 @@ public class WebViewScript : MonoBehaviour
 
 
             //sharescreen area
-            ScreenShareWhileVideoCall.Instance._rect = new Rect(0, 0, 1920, 1000);
+            //ScreenShareWhileVideoCall.Instance._rect = new Rect(0, 0, 1920, 1000);
 
         }
         else
@@ -132,7 +164,7 @@ public class WebViewScript : MonoBehaviour
             webViewObject.rect = new Rect(0, 0, 1148, 700);
             RectTransform safariPanelRect = safariPanel.GetComponent<RectTransform>();
             safariPanelRect.sizeDelta = new Vector2(1148, 780);
-            ScreenShareWhileVideoCall.Instance._rect = new Rect(0, 0, 1148, 780);
+            //ScreenShareWhileVideoCall.Instance._rect = new Rect(0, 0, 1148, 700);
         }
         
     }
