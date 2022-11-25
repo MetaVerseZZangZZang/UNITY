@@ -33,7 +33,6 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     //public int playerUID;
     public int playerwebID;
     public int playerObjectID;
-    public bool camFlag = true;
 
     public Dictionary<int, string> idUint = new Dictionary<int, string>();
     public Vector2 drawPosition;
@@ -47,11 +46,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
         gameObject.name = pv.IsMine ? PhotonNetwork.NickName + "(user)" : pv.Owner.NickName + "(user)";
         Nickname=pv.IsMine ? PhotonNetwork.NickName: pv.Owner.NickName;
-        /*
-        animsList.Add(ShirtsAnim);
 
-        Debug.Log(UI_Character.Instance.SelectedShirts);
-        */
         if (pv.IsMine)
         {
 
@@ -209,14 +204,14 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             //DrawStream(drawPosition);
             talking = (bool)stream.ReceiveNext();
 
-            if (!(bool)stream.ReceiveNext())
+            if ((bool)stream.ReceiveNext())
             {
                 UI_MainPanel.Instance.friendCamON(this);
             }
             else
                 UI_MainPanel.Instance.friendCamOff(this);
             
-            if (!(bool)stream.ReceiveNext())
+            if ((bool)stream.ReceiveNext())
             {
                 UI_MainPanel.Instance.friendVoiceOn(this);
             }
