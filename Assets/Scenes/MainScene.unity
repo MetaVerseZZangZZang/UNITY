@@ -509,6 +509,7 @@ MonoBehaviour:
   startWebview: 0
   note: {fileID: 1469265910}
   camFlag: 1
+  voiceFlag: 1
   moveX: 0
   moveY: 0
   rect:
@@ -9340,10 +9341,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 493d303ca007b904d98363d762471324, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PlayerSlotPrefab: {fileID: 2490254759800364008, guid: 83b969a02c70eab4fbf8a6b753c47e9a,
+  m_PlayerSlotPrefab: {fileID: -5795659959753146703, guid: 83b969a02c70eab4fbf8a6b753c47e9a,
     type: 3}
+  playerSlotParent: {fileID: 1991909212}
   roomName: {fileID: 1003671871}
-  PlayerSlotParent: {fileID: 1991909211}
+  PlayerSlotList: []
 --- !u!111 &983919557
 Animation:
   m_ObjectHideFlags: 0

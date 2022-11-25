@@ -99,43 +99,41 @@ public class UI_MainPanel : MonoBehaviour
 
     public void CamToggle(Toggle toggle)
     {
-
         ScreenShareWhileVideoCall.Instance.camFlag = !toggle.isOn;
-        if (ScreenShareWhileVideoCall.Instance.camFlag)  //끄고
+        if (ScreenShareWhileVideoCall.Instance.camFlag)  
         {
-            Debug.Log("끄고");
             myCam.transform.GetChild(0).gameObject.SetActive(false);
-            ScreenShareWhileVideoCall.Instance.camFlag = false;
+            ScreenShareWhileVideoCall.Instance.camFlag = true;
             
         }
-        else      //켜기
+        else      //끄기
         {
-            Debug.Log("켜고");
             myCam.transform.GetChild(0).gameObject.SetActive(true);
-            ScreenShareWhileVideoCall.Instance.camFlag = true;
+            ScreenShareWhileVideoCall.Instance.camFlag = false;
         }
+        
+        Debug.Log("ScreenShareWhileVideoCall.Instance.camFlag "+ScreenShareWhileVideoCall.Instance.camFlag);
     }
     
     public void VoiceToggle(Toggle toggle)
     {
-        /*
-        AgoraManager.voiceFlag = !toggle.isOn;
-        if (AgoraManager.voiceFlag)
+
+        ScreenShareWhileVideoCall.Instance.voiceFlag = !toggle.isOn;
+        if (ScreenShareWhileVideoCall.Instance.voiceFlag)  
         {
-            AgoraManager.Instance.RtcEngine.EnableLocalAudio(true);
+            ScreenShareWhileVideoCall.Instance.voiceControl(true);
+            AudioLoudnessDetection.Instance.joined = true;
+            
+            ScreenShareWhileVideoCall.Instance.voiceFlag = true;
         }
         else
         {
-            AgoraManager.Instance.RtcEngine.EnableLocalAudio(false);
+            ScreenShareWhileVideoCall.Instance.voiceControl(false);
+            AudioLoudnessDetection.Instance.joined = false;
+            
+            ScreenShareWhileVideoCall.Instance.voiceFlag = false;
         }
-        */
-    }
-
-    public void friendCamOff(PlayerItem playerItem)
-    {
-        VideoSurface RemoteView = getVSByPlayerItem(playerItem);
-        if(getVSByPlayerItem(playerItem)!=null)
-            RemoteView.transform.GetChild(0).gameObject.SetActive(true);
+        
     }
 
     public void friendCamON(PlayerItem playerItem)
@@ -143,6 +141,52 @@ public class UI_MainPanel : MonoBehaviour
         VideoSurface RemoteView = getVSByPlayerItem(playerItem);
         if(getVSByPlayerItem(playerItem)!=null)
             RemoteView.transform.GetChild(0).gameObject.SetActive(false);
+        foreach (UI_PlayerSlotItem item in UI_PlayerSlot.Instance.PlayerSlotList)
+        {
+            if (item.name.text == playerItem.Nickname)
+            {
+                item.camControl(true);
+            }
+        }
+    }
+
+    public void friendCamOff(PlayerItem playerItem)
+    {
+        VideoSurface RemoteView = getVSByPlayerItem(playerItem);
+        if(getVSByPlayerItem(playerItem)!=null)
+            RemoteView.transform.GetChild(0).gameObject.SetActive(true);
+        
+        foreach (UI_PlayerSlotItem item in UI_PlayerSlot.Instance.PlayerSlotList)
+        {
+            if (item.name.text == playerItem.Nickname)
+            {
+                item.camControl(false);
+            }
+        }
+    }
+    
+    public void friendVoiceOn(PlayerItem playerItem)
+    {
+        VideoSurface RemoteView = getVSByPlayerItem(playerItem);
+        foreach (UI_PlayerSlotItem item in UI_PlayerSlot.Instance.PlayerSlotList)
+        {
+            if (item.name.text == playerItem.Nickname)
+            {
+                item.voiceControl(true);
+            }
+        }
+    }
+
+    public void friendVoiceOff(PlayerItem playerItem)
+    {
+        VideoSurface RemoteView = getVSByPlayerItem(playerItem);
+        foreach (UI_PlayerSlotItem item in UI_PlayerSlot.Instance.PlayerSlotList)
+        {
+            if (item.name.text == playerItem.Nickname)
+            {
+                item.voiceControl(false);
+            }
+        }
     }
 
     public VideoSurface getVSByPlayerItem(PlayerItem playerItem)
@@ -155,8 +199,6 @@ public class UI_MainPanel : MonoBehaviour
 
             foreach (VideoSurface s in ScreenShareWhileVideoCall.FriendCamList)
             {
-                Debug.Log("s.UserName" + s.UserName);
-                Debug.Log("playerItem.idUint " + playerItem.Nickname);
                 if (s.Uid ==playerItem.playerObjectID)
                 {
                     vs = s;

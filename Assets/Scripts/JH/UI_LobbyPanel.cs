@@ -67,7 +67,6 @@ public class UI_LobbyPanel : MonoBehaviour
         camTexture = new WebCamTexture(device.name);
         myCam.texture = camTexture;
         camTexture.Play();
-        ScreenShareWhileVideoCall.Instance.camFlag = true;
 
     }
     
@@ -77,7 +76,6 @@ public class UI_LobbyPanel : MonoBehaviour
         {
             myCam.texture = null;
             camTexture.Stop();
-            ScreenShareWhileVideoCall.Instance.camFlag = false;
         }
     }
     
@@ -103,11 +101,9 @@ public class UI_LobbyPanel : MonoBehaviour
             myCam.texture = cameraOff.texture;
         }
         
-        AgoraManager.camFlag = !toggle.isOn;
     }
 
     public void VoiceToggle(Toggle toggle)
     {
-        AgoraManager.voiceFlag = !toggle.isOn;
     }
 }

@@ -78,7 +78,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         UI_JoinRoom.Instance.Refresh();
     }
 
-    private PlayerItem m_PlayerItem;
     public override void OnJoinedRoom()
     {
         GameObject player=PhotonNetwork.Instantiate("Prefabs/"+CharCustomManager.Instance.selectedGender+"Character", Vector3.zero, Quaternion.Euler(new Vector3(0,180,0)));
@@ -114,11 +113,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             return;
         }
         
-        foreach (Player p in PhotonNetwork.PlayerList)
-        {
-            //nameList.Remove(p.NickName);
-            UI_PlayerSlot.Instance.DelPlayerSlot(p.NickName);
-        }
+        UI_PlayerSlot.Instance.DelAll();
     }
     
     public void roomSelect(RoomInfo room)
@@ -136,6 +131,16 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         //nameList.Remove(otherPlayer.NickName);
         //UpdatePlayerList();
+        PlayerItem toRemove = null;
+        for (int i = 0; i < playerItemList.Count; i++)
+        {
+            if (playerItemList[i].Nickname == otherPlayer.NickName)
+            {
+                toRemove = playerItemList[i];
+            }
+        }
+
+        playerItemList.Remove(toRemove);
         UI_PlayerSlot.Instance.DelPlayerSlot(otherPlayer.NickName);
     }
 

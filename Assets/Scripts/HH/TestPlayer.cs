@@ -7,17 +7,19 @@ public class TestPlayer : MonoBehaviour
     Vector3 curPos;
     Vector3 curRot;
     
-    public int speed = 1;
-    public int rotationSpeed = 2;
-    
+    public int speed = 3;
+    public int rotationSpeed = 10;
+
+    private Animator anim;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         // jihyun 2022-11-23 -------- 캐릭터 이동, 회전, 애니메이션 --------------------------
         float axis_X = Input.GetAxisRaw("Horizontal");
@@ -28,10 +30,15 @@ public class TestPlayer : MonoBehaviour
             Rotate(axis_X, axis_Z);
             Walk();
         }
+        else
+        {
+            anim.SetBool("IsWalking", false);
+        }
     }
     
     void Walk()
     {
+        anim.SetBool("IsWalking", true);
         // Rotate() 에서 방향을 바꿔주기 때문에 그 방향대로만 가게 해주면 된다
         transform.Translate(Vector3.forward * speed * Time.smoothDeltaTime);
     }
@@ -40,11 +47,12 @@ public class TestPlayer : MonoBehaviour
     {
         Vector3 dir = new Vector3(h, 0, v).normalized;
 
-        Quaternion rot = Quaternion.identity; // Quaternion 값을 저장할 변수 선언 및 초기화
+        float currentRot = transform.eulerAngles.y;
 
-        rot.eulerAngles =
-            new Vector3(0, Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg, 0); // 역시 eulerAngles를 이용한 오일러 각도를 Quaternion으로 저장
+        currentRot = Mathf.LerpAngle(currentRot, Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg, rotationSpeed * Time.deltaTime);
+        
+        Quaternion currentRotation = Quaternion.Euler(0, currentRot, 0);
 
-        transform.rotation = rot; // 그 각도로 회전
+        transform.rotation = currentRotation; // 그 각도로 회전
     }
 }

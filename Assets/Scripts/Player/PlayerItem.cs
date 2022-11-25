@@ -34,7 +34,6 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     public int playerwebID;
     public int playerObjectID;
 
-
     public Dictionary<int, string> idUint = new Dictionary<int, string>();
     public Vector2 drawPosition;
     
@@ -46,11 +45,8 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     {
 
         gameObject.name = pv.IsMine ? PhotonNetwork.NickName + "(user)" : pv.Owner.NickName + "(user)";
-        /*
-        animsList.Add(ShirtsAnim);
+        Nickname=pv.IsMine ? PhotonNetwork.NickName: pv.Owner.NickName;
 
-        Debug.Log(UI_Character.Instance.SelectedShirts);
-        */
         if (pv.IsMine)
         {
 
@@ -176,6 +172,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             stream.SendNext(CharCustomManager.Instance.selectedHatIndex);
             stream.SendNext(talking);
             stream.SendNext(ScreenShareWhileVideoCall.Instance.camFlag);
+            stream.SendNext(ScreenShareWhileVideoCall.Instance.voiceFlag);
         }
         else
         {
@@ -207,14 +204,19 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             //DrawStream(drawPosition);
             talking = (bool)stream.ReceiveNext();
 
-            if (!(bool)stream.ReceiveNext())
+            if ((bool)stream.ReceiveNext())
             {
-                Debug.Log("켜라");
-                Debug.Log(this.Nickname);
                 UI_MainPanel.Instance.friendCamON(this);
             }
             else
                 UI_MainPanel.Instance.friendCamOff(this);
+            
+            if ((bool)stream.ReceiveNext())
+            {
+                UI_MainPanel.Instance.friendVoiceOn(this);
+            }
+            else
+                UI_MainPanel.Instance.friendVoiceOff(this);
         }
     
     }

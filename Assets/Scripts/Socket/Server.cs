@@ -101,39 +101,40 @@ public class Server : MonoBehaviour
                     }
                         
                 });  
-                m_Socket.On("receiveFile", (response) =>
-                {
-                    string test1 = response.GetValue<string>();
-                    //UI_Chat.Instance.AddFile(data);
-
-                    var list = JsonConvert.DeserializeObject<Dictionary<string, string>>(test1); 
-                    //var data = JsonConvert.DeserializeObject(test1);
-                    m_keyActions.Add(() =>
-                    {
-                        UI_Chat.Instance.AddFile(list["url"], list["fileName"], list["extension"]);
-                    });
                 
-                });
-            
-            
-                m_Socket.On("receiveReply", (response) =>
+            });
+            m_Socket.On("receiveFile", (response) =>
+            {
+                string test1 = response.GetValue<string>();
+                //UI_Chat.Instance.AddFile(data);
+
+                var list = JsonConvert.DeserializeObject<Dictionary<string, string>>(test1); 
+                //var data = JsonConvert.DeserializeObject(test1);
+                m_keyActions.Add(() =>
                 {
-                    m_ReplyActions.Add(() =>
-                    {
-                        string text = response.GetValue<string>();
-                        var spilttedText = text.Split("/|*^"); 
-                        if (spilttedText.Length >=3)
-                        {
-                            string receive_id=spilttedText[0];
-                            string receive_Name = spilttedText[1];
-                            string receieve_Word = spilttedText.Length > 2 ? spilttedText[2] : string.Empty;
-                            Debug.Log($"{receive_id}:{receive_Name}: {receieve_Word}");
-                            UI_Chat.Instance.AddReplyText($"{receive_id}:{receive_Name}: {receieve_Word}");
-
-                        }
-                    });  
-
+                    UI_Chat.Instance.AddFile(list["url"], list["fileName"], list["extension"]);
                 });
+                
+            });
+            
+            
+            m_Socket.On("receiveReply", (response) =>
+            {
+                m_ReplyActions.Add(() =>
+                {
+                    string text = response.GetValue<string>();
+                    var spilttedText = text.Split("/|*^"); 
+                    if (spilttedText.Length >=3)
+                    {
+                        string receive_id=spilttedText[0];
+                        string receive_Name = spilttedText[1];
+                        string receieve_Word = spilttedText.Length > 2 ? spilttedText[2] : string.Empty;
+                        Debug.Log($"{receive_id}:{receive_Name}: {receieve_Word}");
+                        UI_Chat.Instance.AddReplyText($"{receive_id}:{receive_Name}: {receieve_Word}");
+
+                    }
+                });  
+
             });
         
             /*
@@ -147,7 +148,7 @@ public class Server : MonoBehaviour
             {
                 m_Socket.On("getImglist", (response) =>
                 {
-                    //Debug.Log(response.GetValue());
+                    Debug.Log(response.GetValue());
                     string jsonText = response.GetValue<string>();
                     List<KeywordDict> data = JsonConvert.DeserializeObject<List<KeywordDict>>(jsonText);
                     m_Actions.Add(() => { UI_Chat.Instance.AddAIImage(data); });
@@ -236,6 +237,11 @@ public class Server : MonoBehaviour
     public void ReplyFieldEmit(string text)
     {
         m_Socket.Emit("getReplyInputField",text);
+    }
+    
+    public void ChatStartEmit()
+    {
+        m_Socket.Emit("chatStart","chatStart");
     }
     
     public void AIResultEmit()
