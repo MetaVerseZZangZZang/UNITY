@@ -59,12 +59,14 @@ public class WebViewScript : MonoBehaviour
 
     public void _BTN()
     {
+        /*
         shutDown = true;
         surfSaveList = WebViewObject.Instance.surfingList;
         saveURLCount = WebViewObject.Instance.currentURL;
         webViewObject.gameObject.SetActive(false);
         safariIcon.SetActive(true);
         safariPanel.SetActive(false);
+        */
     }
 
     public void safariBTN()
@@ -80,6 +82,7 @@ public class WebViewScript : MonoBehaviour
 
     public void ExtendSize()
     {
+        /*
         if (extend == false)
         {
             extend = true;
@@ -134,6 +137,7 @@ public class WebViewScript : MonoBehaviour
             safariPanelRect.sizeDelta = new Vector2(1148, 780);
             ScreenShareWhileVideoCall.Instance._rect = new Rect(0, 0, 1148, 780);
         }
+        */
         
     }
 

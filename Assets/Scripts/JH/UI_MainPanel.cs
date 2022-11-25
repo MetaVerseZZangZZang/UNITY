@@ -31,6 +31,9 @@ public class UI_MainPanel : MonoBehaviour
     public int count = 0;
     public int chatCount = 0;
     public Button chatStartBtn;
+
+    
+    
     private void Awake()
     {
         Instance = this;
@@ -44,7 +47,6 @@ public class UI_MainPanel : MonoBehaviour
 
     public void Show()
     {
-        
         Server.Instance.ChatStart();
         UI_LobbyPanel.Instance.StopCam();
         ScreenShareWhileVideoCall.Instance.AgoraStart();
