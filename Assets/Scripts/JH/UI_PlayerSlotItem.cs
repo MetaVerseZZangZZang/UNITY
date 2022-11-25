@@ -47,11 +47,11 @@ public class UI_PlayerSlotItem : MonoBehaviour
     
     public void voiceControl(bool voiceFlag)
     {
-        if (!voiceFlag)  //켜라
+        if (!voiceFlag)  //꺼라
         {
             voice.transform.GetChild(3).gameObject.SetActive(false);
         }
-        else
+        else  //켜라
         {
             voice.transform.GetChild(3).gameObject.SetActive(true);
         }
