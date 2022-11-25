@@ -121,15 +121,17 @@ public class UI_MainPanel : MonoBehaviour
         ScreenShareWhileVideoCall.Instance.voiceFlag = !toggle.isOn;
         if (ScreenShareWhileVideoCall.Instance.voiceFlag)  
         {
-            ScreenShareWhileVideoCall.Instance.voiceFlag = false;
-            ScreenShareWhileVideoCall.Instance.voiceControl(false);
-            AudioLoudnessDetection.Instance.joined = false;
+            ScreenShareWhileVideoCall.Instance.voiceControl(true);
+            AudioLoudnessDetection.Instance.joined = true;
+            
+            ScreenShareWhileVideoCall.Instance.voiceFlag = true;
         }
         else
         {
-            ScreenShareWhileVideoCall.Instance.voiceFlag = true;
-            ScreenShareWhileVideoCall.Instance.voiceControl(true);
-            AudioLoudnessDetection.Instance.joined = true;
+            ScreenShareWhileVideoCall.Instance.voiceControl(false);
+            AudioLoudnessDetection.Instance.joined = false;
+            
+            ScreenShareWhileVideoCall.Instance.voiceFlag = false;
         }
         
     }
