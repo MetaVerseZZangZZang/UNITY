@@ -17,12 +17,14 @@ public class UI_MainPanel : MonoBehaviour
 {
     //public Text m_Text;
     public static UI_MainPanel Instance;
-   
+    public Button camButton;
+    private QuarterViewCam quarter;
+    private ThirdPersonCam third;
     public RawImage myCam;
     // sm이 수정했다 선언
     //public GameObject keyWord;
     //public GameObject keywordPanel;
-    //public GameObject BackGround;
+    public GameObject BackGround;
     public Text roomName;
     public GameObject PlayerSlot;
     public GameObject PlayerSlotBtn;
@@ -31,7 +33,7 @@ public class UI_MainPanel : MonoBehaviour
     public int count = 0;
     public int chatCount = 0;
     public Button chatStartBtn;
-
+    public Camera cam;
     
     
     private void Awake()
@@ -54,17 +56,40 @@ public class UI_MainPanel : MonoBehaviour
         //BackGround.transform.GetChild(mapnum).gameObject.SetActive(true);
         myCam.transform.GetChild(0).gameObject.SetActive(false);
         
-        /*
-        for (int i = 0; i < 4; i++)
+        
+        for (int i = 0; i < 2; i++)
         {
-            if (i == mapnum)
+            if (i == UI_CreateMapPanel.Instance.mapNum)
                 continue;
             BackGround.transform.GetChild(i).gameObject.SetActive(false);
         }
-        */
+        
         roomName.text = PhotonManager.Instance.roomname;
+        
+        quarter = cam.GetComponent<QuarterViewCam>();
+        third = cam.GetComponent<ThirdPersonCam>();
+        
+        quarter.enabled = true;
+        third.enabled = false;
     }
-
+    
+    public void CamButtonClick()
+    {
+        string camText = camButton.GetComponentInChildren<Text>().text;
+        if (camText.Contains("쿼터뷰"))
+        {
+            quarter.enabled = false;
+            third.enabled = true;
+            camButton.GetComponentInChildren<Text>().text = "3인칭";
+        }
+        else
+        {
+            quarter.enabled = true;
+            third.enabled = false;
+            camButton.GetComponentInChildren<Text>().text = "쿼터뷰";
+        }
+    }
+    
     public void ChatStartBtn()
     {
         if (Server.Instance.AIFlag == false)

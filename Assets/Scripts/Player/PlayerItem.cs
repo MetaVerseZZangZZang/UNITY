@@ -65,8 +65,8 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     }
 
     //public GameObject sayingObject;
-    public int speed = 1;
-    public int rotationSpeed = 2;
+    public int speed = 3;
+    public int rotationSpeed = 10;
 
     void Update()
     {
