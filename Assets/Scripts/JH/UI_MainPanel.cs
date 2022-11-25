@@ -99,19 +99,20 @@ public class UI_MainPanel : MonoBehaviour
 
     public void CamToggle(Toggle toggle)
     {
-
         ScreenShareWhileVideoCall.Instance.camFlag = !toggle.isOn;
         if (ScreenShareWhileVideoCall.Instance.camFlag)  
         {
             myCam.transform.GetChild(0).gameObject.SetActive(false);
-            ScreenShareWhileVideoCall.Instance.camFlag = false;
+            ScreenShareWhileVideoCall.Instance.camFlag = true;
             
         }
         else      //끄기
         {
             myCam.transform.GetChild(0).gameObject.SetActive(true);
-            ScreenShareWhileVideoCall.Instance.camFlag = true;
+            ScreenShareWhileVideoCall.Instance.camFlag = false;
         }
+        
+        Debug.Log("ScreenShareWhileVideoCall.Instance.camFlag "+ScreenShareWhileVideoCall.Instance.camFlag);
     }
     
     public void VoiceToggle(Toggle toggle)
