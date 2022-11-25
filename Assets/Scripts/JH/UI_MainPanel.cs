@@ -100,19 +100,19 @@ public class UI_MainPanel : MonoBehaviour
     public void CamToggle(Toggle toggle)
     {
 
-        ScreenShareWhileVideoCall.Instance.camFlag = !toggle.isOn;
-        if (ScreenShareWhileVideoCall.Instance.camFlag)  //끄고
-        {
-            Debug.Log("끄고");
-            myCam.transform.GetChild(0).gameObject.SetActive(false);
-            ScreenShareWhileVideoCall.Instance.camFlag = false;
-            
-        }
-        else      //켜기
+        ScreenShareWhileVideoCall.Instance.camFlag = toggle.isOn;
+        if (ScreenShareWhileVideoCall.Instance.camFlag)  //켜고
         {
             Debug.Log("켜고");
-            myCam.transform.GetChild(0).gameObject.SetActive(true);
+            myCam.transform.GetChild(0).gameObject.SetActive(false);
             ScreenShareWhileVideoCall.Instance.camFlag = true;
+            
+        }
+        else      //끄기
+        {
+            Debug.Log("끄고");
+            myCam.transform.GetChild(0).gameObject.SetActive(true);
+            ScreenShareWhileVideoCall.Instance.camFlag = false;
         }
     }
     
@@ -172,8 +172,6 @@ public class UI_MainPanel : MonoBehaviour
 
             foreach (VideoSurface s in ScreenShareWhileVideoCall.FriendCamList)
             {
-                Debug.Log("s.UserName" + s.UserName);
-                Debug.Log("playerItem.idUint " + playerItem.Nickname);
                 if (s.Uid ==playerItem.playerObjectID)
                 {
                     vs = s;
