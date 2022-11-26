@@ -3312,11 +3312,6 @@ MonoBehaviour:
   drawPosition: {x: 0, y: 0}
   talking: 0
   talkingImage: {fileID: 1782298310}
-  stance: idle
-  isCollide: 0
-  chairPos: {x: 0, y: 0, z: 0}
-  chairRot: {x: 0, y: 0, z: 0, w: 1}
-  chairCollider: {fileID: 0}
   speed: 3
   rotationSpeed: 10
 --- !u!54 &8461957992028094475

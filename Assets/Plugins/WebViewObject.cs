@@ -51,7 +51,7 @@ public class UnitySendMessageDispatcher
 
 public class WebViewObject : MonoBehaviour
 {
-    /*
+    
     public static WebViewObject Instance;
     public int testx = 1148;
     public int testy = 700;
@@ -1558,6 +1558,5 @@ public class WebViewObject : MonoBehaviour
     }
 #endif
 
-*/
 }
 

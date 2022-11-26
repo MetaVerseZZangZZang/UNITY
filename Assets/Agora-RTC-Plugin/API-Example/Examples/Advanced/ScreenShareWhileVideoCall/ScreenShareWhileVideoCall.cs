@@ -9,12 +9,7 @@ using Logger = Agora.Util.Logger;
 using System.Collections;
 using Unity.Collections;
 using System.Collections.Generic;
-using UnityEngine.EventSystems;
 
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Agora.Rtc;
 
 //namespace Agora_RTC_Plugin.API_Example.Examples.Advanced.ScreenShareWhileVideoCall
 
@@ -189,14 +184,13 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                 SetExternalVideoSource();
                 JoinChannel();
             }
-            
         }
     }
 
     IEnumerator BringWebTexture(RawImage webImageTexture)
     {
         yield return new WaitForSeconds(1f);
-        //webImageTexture.texture = WebViewObject.Instance.texture;
+        webImageTexture.texture = WebViewObject.Instance.texture;
 
     }
     
@@ -235,7 +229,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     private void SetExternalVideoSource()
     {
         var ret = RtcEngine.SetExternalVideoSource(true, false, EXTERNAL_VIDEO_SOURCE_TYPE.VIDEO_FRAME, new SenderOptions());
-        this.Log.UpdateLog("SetExternalVideoSource returns:" + ret);
+        //this.Log.UpdateLog("SetExternalVideoSource returns:" + ret);
     }
 
     private void InitCameraDevice()
@@ -264,6 +258,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         IRtcEngine rtc = Agora.Rtc.RtcEngine.Instance;
         if (rtc != null)
         {
+            _texture = new Texture2D((int)_rect.width, (int)_rect.height, TextureFormat.RGBA32, false);
 
             _texture.ReadPixels(_rect, 0, 0);
             _texture.Apply();

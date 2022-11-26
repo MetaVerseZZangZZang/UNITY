@@ -9613,6 +9613,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 644573186}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &644573189 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1560725942, guid: a09c55de95665457690f512b21f6c103,
+    type: 3}
+  m_PrefabInstance: {fileID: 644573186}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 644573188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd7a06e2474d740bcaebc79c0a004b5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &651599486
 GameObject:
   m_ObjectHideFlags: 0
@@ -12676,6 +12688,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SafariBtn
+      objectReference: {fileID: 0}
+    - target: {fileID: 3565184811741462798, guid: c109aa4cc060f4bd7ae46a6e084f60ff,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 644573189}
+    - target: {fileID: 3565184811741462798, guid: c109aa4cc060f4bd7ae46a6e084f60ff,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: safariBTN
       objectReference: {fileID: 0}
     - target: {fileID: 3565184811741462799, guid: c109aa4cc060f4bd7ae46a6e084f60ff,
         type: 3}
@@ -22637,6 +22659,7 @@ MonoBehaviour:
     type: 3}
   m_ReplyTextPrefab: {fileID: 3099277011160681397, guid: 212429808e7a8334f8a517fc0c44ae89,
     type: 3}
+  safari: {fileID: 644573188}
   AIParent: {fileID: 2409413151979296846}
   fileImage: {fileID: 8049015782105354840, guid: 743826f80851e459faad0abe0393c266,
     type: 3}
