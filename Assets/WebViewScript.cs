@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 public class WebViewScript : MonoBehaviour
 {
+
+    public static WebViewScript Instance;
     public WebViewObject webViewObject;
     public GameObject safariPanel;
 
@@ -22,11 +24,38 @@ public class WebViewScript : MonoBehaviour
     public bool shutDown = false;
 
 
-    void Start()
+    private void Awake()
     {
-        
-        StartWebView();
+        Instance = this;
     }
+
+    //void Start()
+    //{
+           
+    //    StartWebView();
+    //}
+
+    public void ChatWebview(string url)
+    {
+        webViewObject =
+        (new GameObject("WebViewObject")).AddComponent<WebViewObject>();
+
+        webViewObject.Init(1148, 720);
+        //webViewObject.Init((msg) =>
+        //{
+        //    Debug.Log(string.Format("CallFromJS[{0}]", msg));
+        //});
+
+        webViewObject.LoadURL(url);
+        webViewObject.SetVisibility(true);
+        //webViewObject.SetMargins(3, 3, 3, 3);
+    }
+
+    public void OnSafariGetURL(string url)
+    {
+        webViewObject.LoadURL(url);
+    }
+
 
     // Update is called once per frame
     string url = "http://www.naver.com";
@@ -48,6 +77,7 @@ public class WebViewScript : MonoBehaviour
 
         }
     }
+ 
 
 
     public void XBtn()

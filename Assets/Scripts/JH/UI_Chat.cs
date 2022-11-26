@@ -13,6 +13,8 @@ public class UI_Chat : MonoBehaviour
     public GameObject m_AIGraphPrefab;
     public GameObject m_AITextPrefab;
     public GameObject m_ReplyTextPrefab;
+    public GameObject safari;
+
     
     public GameObject AIParent;
     public static UI_Chat Instance;
@@ -36,10 +38,26 @@ public class UI_Chat : MonoBehaviour
         AIParent.SetActive(false);
         AIParent.SetActive(true);
     }
-    
+    public void TxtBtn(string url)
+    {
+        Debug.LogError("txtBtnClick");
+        Debug.LogError(url);
+        if (safari.activeSelf == true)
+        {
+            WebViewScript.Instance.OnSafariGetURL(url);
+        }
+        else
+        {
+            safari.SetActive(true);
+            WebViewScript.Instance.ChatWebview(url);
+        }
+        
+    }
+
+
     public void AddChatText(string msg)
     {
-        string[] words = msg.Split(':');
+        string[] words = msg.Split(":::");
         
         GameObject newText=Instantiate<GameObject>(m_ChatTextPrefab);
         newText.transform.SetParent(AIParent.transform);
@@ -55,7 +73,20 @@ public class UI_Chat : MonoBehaviour
             }
             else if (txtComponent.name == "MessageText")
             {
-                txtComponent.text = words[2];
+                if (words[2].Contains("http://www.") || words[2].Contains("https://www."))
+                {
+                    txtComponent.text = words[2];
+                    Debug.LogError("DetectString");
+                    txtComponent.fontStyle = FontStyles.Underline;
+                    txtComponent.color = Color.blue;
+                    Button txtBtn = txtComponent.gameObject.AddComponent<Button>();
+                    txtBtn.onClick.AddListener(delegate { TxtBtn(txtComponent.text); });
+
+                }
+                else
+                {
+                    txtComponent.text = words[2];
+                }
             }
             else if (txtComponent.name == "FilteringText")
             {

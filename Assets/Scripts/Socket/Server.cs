@@ -84,7 +84,7 @@ public class Server : MonoBehaviour
                             string receieveSTT_Word = spilttedText.Length > 2 ? spilttedText[2] : string.Empty;
                             string receieve_filtering = spilttedText[3];
                             UI_Chat.Instance.AddChatText(
-                                $"{receive_id}:{receive_Name}:{receieveSTT_Word}:{receieve_filtering}");
+                                $"{receive_id}:::{receive_Name}:::{receieveSTT_Word}:::{receieve_filtering}");
                         }
                     }
 
@@ -96,7 +96,7 @@ public class Server : MonoBehaviour
                             string receive_Name = spilttedText[1];
                             string receieveSTT_Word = spilttedText.Length > 2 ? spilttedText[2] : string.Empty;
                             UI_Chat.Instance.AddChatText(
-                                $"{receive_id}:{receive_Name}:{receieveSTT_Word}:{string.Empty}");
+                                $"{receive_id}:::{receive_Name}:::{receieveSTT_Word}:::{string.Empty}");
                         }
                     }
                         

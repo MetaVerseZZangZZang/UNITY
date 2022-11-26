@@ -153,24 +153,37 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         //Safari.SetActive(true);
         if (CheckAppId())
         {
+            if (Safari.activeSelf == false)
+            {
+                GameObject playerID = GameObject.Find(UI_StartPanel.Instance.userName + "(user)");
 
-            GameObject playerID = GameObject.Find(UI_StartPanel.Instance.userName + "(user)");
+                PlayerItem playerScript = playerID.GetComponent<PlayerItem>();
 
-            PlayerItem playerScript = playerID.GetComponent<PlayerItem>();
+                playerScript.webviewStart = true;
+                Safari.SetActive(true);
+                WebViewScript.Instance.ChatWebview("http://www.youtube.com");
 
-            playerScript.webviewStart = true;
-            Safari.SetActive(true);
-            InitCameraDevice();
-            InitTexture();
-            InitEngine();
-            SetExternalVideoSource();
-            JoinChannel();
-            startWebview = true;
+                InitCameraDevice();
+                InitTexture();
+                InitEngine();
+                SetExternalVideoSource();
+                JoinChannel();
+                startWebview = true;
 
-            Transform playerCanvas = playerID.transform.GetChild(1).GetChild(0);
-            playerCanvas.gameObject.SetActive(true);
-            RawImage playerWebImage = playerCanvas.GetComponent<RawImage>();
-            StartCoroutine(BringWebTexture(playerWebImage));
+                Transform playerCanvas = playerID.transform.GetChild(1).GetChild(0);
+                playerCanvas.gameObject.SetActive(true);
+                RawImage playerWebImage = playerCanvas.GetComponent<RawImage>();
+                StartCoroutine(BringWebTexture(playerWebImage));
+            }
+            else
+            {
+                InitCameraDevice();
+                //InitTexture();
+                //InitEngine();
+                SetExternalVideoSource();
+                JoinChannel();
+            }
+            
             
         }
     }
