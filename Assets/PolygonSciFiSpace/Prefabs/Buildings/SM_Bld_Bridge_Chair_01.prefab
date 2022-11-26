@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 4667200337864036}
   - component: {fileID: 33289192255743148}
   - component: {fileID: 23397198541421936}
-  - component: {fileID: 964399850191412460}
-  - component: {fileID: 4141839750624603643}
+  - component: {fileID: 764702280872216303}
+  - component: {fileID: 895607620949713273}
   m_Layer: 0
   m_Name: SM_Bld_Bridge_Chair_01
-  m_TagString: Untagged
+  m_TagString: Chair
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31,7 +31,8 @@ Transform:
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 865235053608068593}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -85,7 +86,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &964399850191412460
+--- !u!136 &764702280872216303
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1515749898787118}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.7075975
+  m_Height: 1.5511568
+  m_Direction: 1
+  m_Center: {x: 0.040939808, y: 0.76518023, z: -0.044962406}
+--- !u!65 &895607620949713273
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,18 +111,36 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.9010376, y: 0.5281437, z: 0.8321841}
-  m_Center: {x: -3.31406e-11, y: 0.2536737, z: -0.03457758}
---- !u!65 &4141839750624603643
-BoxCollider:
+  m_Size: {x: 0.83038855, y: 0.5506373, z: 0.89508736}
+  m_Center: {x: 0.035324242, y: 0.2649205, z: -0.06602937}
+--- !u!1 &6391500009901073855
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1515749898787118}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.9010376, y: 1.4217408, z: 0.25351727}
-  m_Center: {x: 0.00000005017992, y: 0.70047224, z: -0.38681442}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 865235053608068593}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &865235053608068593
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6391500009901073855}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4667200337864036}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

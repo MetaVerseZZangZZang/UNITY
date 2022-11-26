@@ -8,6 +8,7 @@ TagManager:
   - Shirts
   - Pants
   - Canvas
+  - Chair
   layers:
   - Default
   - TransparentFX
