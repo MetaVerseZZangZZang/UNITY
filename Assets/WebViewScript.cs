@@ -21,7 +21,7 @@ public class WebViewScript : MonoBehaviour
 
     public bool shutDown = false;
 
-
+/*
     void Start()
     {
         
@@ -156,4 +156,6 @@ public class WebViewScript : MonoBehaviour
         //webViewObject.SetMargins(3, 3, 3, 3);
 
     }
+
+*/
 }
