@@ -2838,7 +2838,7 @@ MonoBehaviour:
     - {fileID: 6791931087251776183}
     - {fileID: 3195732119377324750}
   prefabPath: Assets/AdvancedPeopleSystem2/Prefabs/CustomizableCharacter.prefab
-  instanceStatus: 5
+  instanceStatus: 6
   originHip: {fileID: 1231293355673010347}
   headHip: {fileID: 8473455122907128234}
   clothesAnchors:
@@ -3305,8 +3305,8 @@ MonoBehaviour:
   drawPosition: {x: 0, y: 0}
   talking: 0
   talkingImage: {fileID: 1782298310}
-  speed: 3
-  rotationSpeed: 10
+  speed: 1
+  rotationSpeed: 2
 --- !u!54 &8461957992028094475
 Rigidbody:
   m_ObjectHideFlags: 0
