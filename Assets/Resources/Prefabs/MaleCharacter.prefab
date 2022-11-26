@@ -2730,7 +2730,7 @@ Transform:
   m_GameObject: {fileID: 1705496087617365778}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3490969944762089007}
@@ -2839,7 +2839,7 @@ MonoBehaviour:
     - {fileID: 6791931087251776183}
     - {fileID: 3195732119377324750}
   prefabPath: Assets/AdvancedPeopleSystem2/Prefabs/CustomizableCharacter.prefab
-  instanceStatus: 6
+  instanceStatus: 5
   originHip: {fileID: 1231293355673010347}
   headHip: {fileID: 8473455122907128234}
   clothesAnchors:
@@ -3333,7 +3333,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &9220516865472278287
 MonoBehaviour:
@@ -3378,9 +3378,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.22503832
-  m_Height: 1.9638227
+  m_Height: 1.8654646
   m_Direction: 1
-  m_Center: {x: -0.020505063, y: 0.8799477, z: 0}
+  m_Center: {x: -0.02050506, y: 0.9291273, z: 0}
 --- !u!1 &1856924670619042996
 GameObject:
   m_ObjectHideFlags: 0

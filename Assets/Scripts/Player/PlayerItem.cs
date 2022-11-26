@@ -192,6 +192,12 @@ public class PlayerItem : MonoBehaviour, IPunObservable
                         playerAnim.SetBool("Sit", false); 
                         playerAnim.SetBool("IsWalking", false);
                     }
+                    else
+                    {
+                        Vector3 tempPos = transform.position;
+                        tempPos.y = 0f;
+                        transform.position = tempPos;
+                    }
                 }
             }
 
