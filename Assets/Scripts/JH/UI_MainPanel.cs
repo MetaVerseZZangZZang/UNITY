@@ -22,7 +22,7 @@ public class UI_MainPanel : MonoBehaviour
     // sm이 수정했다 선언
     //public GameObject keyWord;
     //public GameObject keywordPanel;
-    //public GameObject BackGround;
+    public GameObject BackGround;
     public Text roomName;
     public GameObject PlayerSlot;
     public GameObject PlayerSlotBtn;
@@ -31,6 +31,12 @@ public class UI_MainPanel : MonoBehaviour
     public int count = 0;
     public int chatCount = 0;
     public Button chatStartBtn;
+    public bool conferenceStart = false;
+    private QuarterViewCam quarter;
+    private ThirdPersonCam third;
+    public Camera cam;
+    public Button camButton;
+    
     private void Awake()
     {
         Instance = this;
@@ -40,29 +46,55 @@ public class UI_MainPanel : MonoBehaviour
     public void Hide()
     {
         gameObject.SetActive(false);
+        conferenceStart = false;
     }
 
-    public void Show()
+    public void Show(int mapnum)
     {
         
         Server.Instance.ChatStart();
         UI_LobbyPanel.Instance.StopCam();
         ScreenShareWhileVideoCall.Instance.AgoraStart();
         gameObject.SetActive(true);
-        //BackGround.transform.GetChild(mapnum).gameObject.SetActive(true);
         myCam.transform.GetChild(0).gameObject.SetActive(false);
+        conferenceStart = true;
         
-        /*
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 2; i++)
         {
             if (i == mapnum)
+            {
+                BackGround.transform.GetChild(mapnum).gameObject.SetActive(true);
                 continue;
+            }
             BackGround.transform.GetChild(i).gameObject.SetActive(false);
         }
-        */
+        
+        
         roomName.text = PhotonManager.Instance.roomname;
+        
+        quarter = cam.GetComponent<QuarterViewCam>();
+        third = cam.GetComponent<ThirdPersonCam>();
+        
+        quarter.enabled = true;
+        third.enabled = false;
     }
-
+    
+    public void CamButtonClick()
+    {
+        string camText = camButton.GetComponentInChildren<Text>().text;
+        if (camText.Contains("쿼터뷰"))
+        {
+            quarter.enabled = false;
+            third.enabled = true;
+            camButton.GetComponentInChildren<Text>().text = "3인칭";
+        }
+        else
+        {
+            quarter.enabled = true;
+            third.enabled = false;
+            camButton.GetComponentInChildren<Text>().text = "쿼터뷰";
+        }
+    }
     public void ChatStartBtn()
     {
         if (Server.Instance.AIFlag == false)
@@ -112,7 +144,6 @@ public class UI_MainPanel : MonoBehaviour
             ScreenShareWhileVideoCall.Instance.camFlag = false;
         }
         
-        Debug.Log("ScreenShareWhileVideoCall.Instance.camFlag "+ScreenShareWhileVideoCall.Instance.camFlag);
     }
     
     public void VoiceToggle(Toggle toggle)
@@ -123,14 +154,12 @@ public class UI_MainPanel : MonoBehaviour
         {
             ScreenShareWhileVideoCall.Instance.voiceControl(true);
             AudioLoudnessDetection.Instance.joined = true;
-            
             ScreenShareWhileVideoCall.Instance.voiceFlag = true;
         }
         else
         {
             ScreenShareWhileVideoCall.Instance.voiceControl(false);
             AudioLoudnessDetection.Instance.joined = false;
-            
             ScreenShareWhileVideoCall.Instance.voiceFlag = false;
         }
         

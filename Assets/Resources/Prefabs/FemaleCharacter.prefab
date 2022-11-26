@@ -2717,8 +2717,8 @@ MonoBehaviour:
   ShowParameterInspector: 1
   m_SynchronizeParameters:
   - Type: 4
-    SynchronizeType: 1
-    Name: walk
+    SynchronizeType: 0
+    Name: IsWalking
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
@@ -2741,12 +2741,13 @@ MonoBehaviour:
   Nickname: 
   webviewStart: 0
   noteStart: 0
-  playerUID: 0
+  playerwebID: 0
+  playerObjectID: 0
   drawPosition: {x: 0, y: 0}
   talking: 0
   talkingImage: {fileID: 4604997921933885919}
-  speed: 1
-  rotationSpeed: 2
+  speed: 3
+  rotationSpeed: 10
 --- !u!54 &8461957992028094475
 Rigidbody:
   m_ObjectHideFlags: 0

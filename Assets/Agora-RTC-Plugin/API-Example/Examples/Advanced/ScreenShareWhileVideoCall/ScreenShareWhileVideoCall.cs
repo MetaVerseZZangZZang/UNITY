@@ -134,15 +134,21 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
 
         PlayerItem playerScript = playerID.GetComponent<PlayerItem>();
         playerScript.webviewStart = false;
-        //Safari.SetActive(false);
+        Safari.SetActive(false);
         playerCanvas.gameObject.SetActive(false);
-        RtcEngine.StopSecondaryCameraCapture();
-        var ret = RtcEngine.LeaveChannelEx(new RtcConnection(_channelName, Uid2));
-        Debug.Log("SecondCameraLeaveChannel returns: " + ret);
+
         //ScreenShareLeaveChannel();
-        //RtcEngine.LeaveChannel();
-        //RtcEngine.DisableVideo();
-        //RtcEngine.DisableAudio();
+        RtcEngine.LeaveChannelEx(new RtcConnection(_channelName, Uid2));
+    }
+
+    public void NoteStart()
+    {
+        note.SetActive(true);
+    }
+
+    public void NoteStop()
+    {
+        note.SetActive(false);
     }
 
 
@@ -184,14 +190,13 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                 JoinChannel();
             }
             
-            
         }
     }
 
     IEnumerator BringWebTexture(RawImage webImageTexture)
     {
         yield return new WaitForSeconds(1f);
-        webImageTexture.texture = WebViewObject.Instance.texture;
+        //webImageTexture.texture = WebViewObject.Instance.texture;
 
     }
     
@@ -222,6 +227,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         options1.publishScreenTrack.SetValue(false);
         options1.enableAudioRecordingOrPlayout.SetValue(true);
         options1.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
+        
         
         var ret = RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, Uid1), options1);
     }
@@ -258,7 +264,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         IRtcEngine rtc = Agora.Rtc.RtcEngine.Instance;
         if (rtc != null)
         {
-            _texture = new Texture2D((int)_rect.width, (int)_rect.height, TextureFormat.RGBA32, false);
+
             _texture.ReadPixels(_rect, 0, 0);
             _texture.Apply();
 
