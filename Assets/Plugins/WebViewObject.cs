@@ -324,6 +324,7 @@ public class WebViewObject : MonoBehaviour
     Button expendBTN;
     private void Start()
     {   
+        /*
         userInputURL = GameObject.Find("SafariInputField").GetComponent<InputField>();
         safariFrontBTN = GameObject.Find("SafariFront").GetComponent<Button>();
         safariBackBTN = GameObject.Find("SafariBack").GetComponent<Button>();
@@ -334,7 +335,7 @@ public class WebViewObject : MonoBehaviour
         safariFrontBTN.onClick.AddListener(NextURL);
         safariBackBTN.onClick.AddListener(BackURL);
         userInputURL.onSubmit.AddListener(delegate{SurfURL();});
-
+*/
         Instance = this;
         //tx = GameObject.Find("TVPanel").GetComponent<RawImage>();
         //print(tx);

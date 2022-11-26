@@ -13,9 +13,7 @@ public class UI_CreateMapPanel : MonoBehaviour
 
     public Toggle map_0;
     public Toggle map_1;
-    public Toggle map_2;
-    public Toggle map_3;
-    
+
     public int mapNum;
 
     
@@ -35,13 +33,9 @@ public class UI_CreateMapPanel : MonoBehaviour
     {
         map_0.isOn = true;
         map_1.isOn = false;
-        map_2.isOn = false;
-        map_3.isOn = false;
         
         map_0.graphic.transform.GetChild(0).gameObject.SetActive(true);
         map_1.graphic.transform.GetChild(0).gameObject.SetActive(false);
-        map_2.graphic.transform.GetChild(0).gameObject.SetActive(false);
-        map_3.graphic.transform.GetChild(0).gameObject.SetActive(false);
         
         RoomNameInputField.text = "";
         gameObject.SetActive(true);
@@ -55,32 +49,12 @@ public class UI_CreateMapPanel : MonoBehaviour
             mapNum = 0;
             map_0.graphic.transform.GetChild(0).gameObject.SetActive(true);
             map_1.graphic.transform.GetChild(0).gameObject.SetActive(false);
-            map_2.graphic.transform.GetChild(0).gameObject.SetActive(false);
-            map_3.graphic.transform.GetChild(0).gameObject.SetActive(false);
         }
         else if (map_1.isOn)
         {
             mapNum = 1;
             map_0.graphic.transform.GetChild(0).gameObject.SetActive(false);
             map_1.graphic.transform.GetChild(0).gameObject.SetActive(true);
-            map_2.graphic.transform.GetChild(0).gameObject.SetActive(false);
-            map_3.graphic.transform.GetChild(0).gameObject.SetActive(false);
-        }
-        else if (map_2.isOn)
-        {
-            mapNum = 2;
-            map_0.graphic.transform.GetChild(0).gameObject.SetActive(false);
-            map_1.graphic.transform.GetChild(0).gameObject.SetActive(false);
-            map_2.graphic.transform.GetChild(0).gameObject.SetActive(true);
-            map_3.graphic.transform.GetChild(0).gameObject.SetActive(false);
-        }
-        else if (map_3.isOn)
-        {
-            mapNum = 3;
-            map_0.graphic.transform.GetChild(0).gameObject.SetActive(false);
-            map_1.graphic.transform.GetChild(0).gameObject.SetActive(false);
-            map_2.graphic.transform.GetChild(0).gameObject.SetActive(false);
-            map_3.graphic.transform.GetChild(0).gameObject.SetActive(true);
         }
     }
     
