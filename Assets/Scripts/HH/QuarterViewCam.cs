@@ -53,38 +53,43 @@ public class QuarterViewCam : MonoBehaviour
 
     void LateUpdate()
     {
-        // 타겟이 없으면
-        if (!target)
-            return;
+        if (UI_MainPanel.Instance.conferenceStart)
+        {
+            target = PhotonManager.Instance.player.transform;
 
-        // 타겟의 오일러 앵글값을 할당
-        float wantedRotationAngle = target.eulerAngles.y;
-        float wantedHeight = target.position.y + height;
+            // 타겟이 없으면
+            if (!target)
+                return;
 
-        float currentRotationAngle = transform.eulerAngles.y;
-        float currentHeight = transform.position.y;
+            // 타겟의 오일러 앵글값을 할당
+            float wantedRotationAngle = target.eulerAngles.y;
+            float wantedHeight = target.position.y + height;
 
-        // 원하는 회전값으로 자연스럽게
-        // 마지막 인자는 1이 100%이며 0이 0%
-       //currentRotationAngle = Mathf.LerpAngle(currentRotationAngle, wantedRotationAngle, rotationDamping * Time.deltaTime);
+            float currentRotationAngle = transform.eulerAngles.y;
+            float currentHeight = transform.position.y;
 
-        currentHeight = Mathf.Lerp(currentHeight, wantedHeight, heightDamping * Time.deltaTime);
+            // 원하는 회전값으로 자연스럽게
+            // 마지막 인자는 1이 100%이며 0이 0%
+            //currentRotationAngle = Mathf.LerpAngle(currentRotationAngle, wantedRotationAngle, rotationDamping * Time.deltaTime);
 
-        //Quaternion currentRotation = Quaternion.Euler(0, currentRotationAngle, 0);
+            currentHeight = Mathf.Lerp(currentHeight, wantedHeight, heightDamping * Time.deltaTime);
 
-        Vector3 tempDis = target.position;
-        //tempDis -= currentRotation * Vector3.forward * distance;
+            //Quaternion currentRotation = Quaternion.Euler(0, currentRotationAngle, 0);
 
-        tempDis.y = currentHeight;
-        transform.position = tempDis;
+            Vector3 tempDis = target.position;
+            //tempDis -= currentRotation * Vector3.forward * distance;
 
-        transform.position = target.position + CamPosition;
+            tempDis.y = currentHeight;
+            transform.position = tempDis;
 
-        //transform.LookAt(target);
+            transform.position = target.position + CamPosition;
 
-        transform.rotation = Quaternion.Euler(CamRot);
+            //transform.LookAt(target);
+
+            transform.rotation = Quaternion.Euler(CamRot);
 
 
+        }
 
     }
 

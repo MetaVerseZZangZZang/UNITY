@@ -20,20 +20,24 @@ public class ThirdPersonCam : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        // 타겟의 x, y, z 좌표에 카메라의 좌표를 더하여 카메라의 위치를 결정
-        TargetPos = new Vector3(
-            Target.transform.position.x + offsetX,
-            Target.transform.position.y + offsetY,
-            Target.transform.position.z + offsetZ
-        );
+        if (UI_MainPanel.Instance.conferenceStart)
+        {
+            Target = PhotonManager.Instance.player;
+            // 타겟의 x, y, z 좌표에 카메라의 좌표를 더하여 카메라의 위치를 결정
+            TargetPos = new Vector3(
+                Target.transform.position.x + offsetX,
+                Target.transform.position.y + offsetY,
+                Target.transform.position.z + offsetZ
+            );
 
-        // 카메라의 움직임을 부드럽게 하는 함수(Lerp)
-        transform.position = Vector3.Lerp(transform.position, TargetPos, Time.deltaTime * CameraSpeed);
+            // 카메라의 움직임을 부드럽게 하는 함수(Lerp)
+            transform.position = Vector3.Lerp(transform.position, TargetPos, Time.deltaTime * CameraSpeed);
 
-        Quaternion currentRot = transform.rotation;
+            Quaternion currentRot = transform.rotation;
 
-        currentRot = Quaternion.Lerp(currentRot, Quaternion.Euler(angleX, angleY, angleZ), 3.0f * Time.deltaTime);
+            currentRot = Quaternion.Lerp(currentRot, Quaternion.Euler(angleX, angleY, angleZ), 3.0f * Time.deltaTime);
 
-        transform.rotation = currentRot;
+            transform.rotation = currentRot;
+        }
     }
 }

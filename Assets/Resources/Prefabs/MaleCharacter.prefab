@@ -3302,12 +3302,11 @@ MonoBehaviour:
   noteStart: 0
   playerwebID: 0
   playerObjectID: 0
-  camFlag: 1
   drawPosition: {x: 0, y: 0}
   talking: 0
   talkingImage: {fileID: 1782298310}
-  speed: 1
-  rotationSpeed: 2
+  speed: 3
+  rotationSpeed: 10
 --- !u!54 &8461957992028094475
 Rigidbody:
   m_ObjectHideFlags: 0

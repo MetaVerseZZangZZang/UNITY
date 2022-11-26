@@ -81,7 +81,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
 
-        player=PhotonNetwork.Instantiate("Prefabs/"+CharCustomManager.Instance.selectedGender+"Character", Vector3.zero, Quaternion.Euler(new Vector3(0,180,0)));
+        player=PhotonNetwork.Instantiate("Prefabs/"+CharCustomManager.Instance.selectedGender+"Character", new Vector3(1,0,35), Quaternion.Euler(new Vector3(0,180,0)));
         player.GetComponent<PlayerItem>().Nickname = PhotonNetwork.LocalPlayer.NickName;
         player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,CharCustomManager.Instance.selectedHairIndex );
         player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Shirt,CharCustomManager.Instance.selectedShirtsIndex );
@@ -95,8 +95,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         }
         
         Hashtable CP = PhotonNetwork.CurrentRoom.CustomProperties;
-        UI_MainPanel.Instance.Show();
-        //UI_MainPanel.Instance.Show((int)CP["Map"]);
+        UI_MainPanel.Instance.Show((int)CP["Map"]);
         
         playerItemList.Add(player.GetComponent<PlayerItem>());
     }
