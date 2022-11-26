@@ -2972,7 +2972,7 @@ MonoBehaviour:
   nameList: []
   playerItemList: []
   roomname: 
-  twice_Cam: {fileID: 0}
+  player: {fileID: 0}
 --- !u!114 &99675123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3014,7 +3014,6 @@ MonoBehaviour:
   saveOpenedFileButton: {fileID: 0}
   fileBytes: 
   sid: UNKNOWN
-  url: http://192.168.0.100:5100/uploadfiles
 --- !u!114 &99675126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3027,6 +3026,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66152178a0c484a70bc11063a14e7097, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
   CameraSize: {x: 1280, y: 960}
   CameraFPS: 15
   Safari: {fileID: 644573188}
@@ -3041,19 +3046,14 @@ MonoBehaviour:
   myCam: {fileID: 2055122013}
   startWebview: 0
   note: {fileID: 1469265910}
-  moveX: 0
-  moveY: 0
-  rect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
+  camFlag: 1
+  voiceFlag: 1
   remoteUid: 0
   FriendList: []
   count: 1
   idList: 
   userCount: 0
+  testList: []
 --- !u!1 &103136282
 GameObject:
   m_ObjectHideFlags: 0
@@ -16675,6 +16675,7 @@ MonoBehaviour:
   proto1: 
   proto2: 
   sid: 
+  AIFlag: 0
   calling: 0
   test: 
   test1: 
@@ -30651,8 +30652,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PlayerSlotPrefab: {fileID: 2490254759800364008, guid: 83b969a02c70eab4fbf8a6b753c47e9a,
     type: 3}
+  playerSlotParent: {fileID: 0}
   roomName: {fileID: 1003671871}
-  PlayerSlotParent: {fileID: 1991909211}
+  PlayerSlotList: []
 --- !u!111 &983919557
 Animation:
   m_ObjectHideFlags: 0
@@ -33822,7 +33824,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23e70792e69c8304e8c144612f67d6ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterCustomization: {fileID: 1705496087961800838}
+  MaleGameObject: {fileID: 0}
+  FemaleGameObject: {fileID: 0}
   lod_text: {fileID: 0}
   panelNameText: {fileID: 0}
   HairPanel: {fileID: 1929624904}
@@ -33830,6 +33833,11 @@ MonoBehaviour:
   PantsPanel: {fileID: 1178082787}
   ShoesPanel: {fileID: 2043482566}
   HatPanel: {fileID: 375371803}
+  m_HairOnObject: {fileID: 0}
+  m_HatOnObject: {fileID: 0}
+  m_ShirtOnObject: {fileID: 0}
+  m_PantsOnObject: {fileID: 0}
+  m_ShoesOnObject: {fileID: 0}
   FaceEditPanel: {fileID: 0}
   BaseEditPanel: {fileID: 0}
   HairColorPanel: {fileID: 0}
@@ -33843,6 +33851,7 @@ MonoBehaviour:
   Camera: {fileID: 0}
   maleUI: {fileID: 1514167095}
   femaleUI: {fileID: 1084389753}
+  aaa: 0
 --- !u!114 &1084389755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45604,7 +45613,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23e70792e69c8304e8c144612f67d6ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterCustomization: {fileID: 1705496087961800838}
+  MaleGameObject: {fileID: 0}
+  FemaleGameObject: {fileID: 0}
   lod_text: {fileID: 0}
   panelNameText: {fileID: 0}
   HairPanel: {fileID: 1809191915}
@@ -45612,6 +45622,11 @@ MonoBehaviour:
   PantsPanel: {fileID: 350333271}
   ShoesPanel: {fileID: 1887610333}
   HatPanel: {fileID: 1770240443}
+  m_HairOnObject: {fileID: 0}
+  m_HatOnObject: {fileID: 0}
+  m_ShirtOnObject: {fileID: 0}
+  m_PantsOnObject: {fileID: 0}
+  m_ShoesOnObject: {fileID: 0}
   FaceEditPanel: {fileID: 0}
   BaseEditPanel: {fileID: 0}
   HairColorPanel: {fileID: 0}
@@ -45625,6 +45640,7 @@ MonoBehaviour:
   Camera: {fileID: 0}
   maleUI: {fileID: 1514167095}
   femaleUI: {fileID: 1084389753}
+  aaa: 0
 --- !u!1 &1516653988
 GameObject:
   m_ObjectHideFlags: 0
@@ -61392,6 +61408,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myCam: {fileID: 2055122015}
+  BackGround: {fileID: 0}
   roomName: {fileID: 1679354802}
   PlayerSlot: {fileID: 983919552}
   PlayerSlotBtn: {fileID: 836315970}
@@ -61399,6 +61416,10 @@ MonoBehaviour:
   ChatBox: {fileID: 2409413152277800715}
   count: 0
   chatCount: 0
+  chatStartBtn: {fileID: 0}
+  conferenceStart: 0
+  cam: {fileID: 0}
+  camButton: {fileID: 0}
 --- !u!1 &2065913567
 GameObject:
   m_ObjectHideFlags: 0
@@ -64224,8 +64245,6 @@ MonoBehaviour:
   RoomNameInputField: {fileID: 916016164}
   map_0: {fileID: 626087014}
   map_1: {fileID: 491527028}
-  map_2: {fileID: 136546547}
-  map_3: {fileID: 1214408446}
   mapNum: 0
 --- !u!114 &1765847301261956180
 MonoBehaviour:
