@@ -134,15 +134,21 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
 
         PlayerItem playerScript = playerID.GetComponent<PlayerItem>();
         playerScript.webviewStart = false;
-        //Safari.SetActive(false);
+        Safari.SetActive(false);
         playerCanvas.gameObject.SetActive(false);
-        RtcEngine.StopSecondaryCameraCapture();
-        var ret = RtcEngine.LeaveChannelEx(new RtcConnection(_channelName, Uid2));
-        Debug.Log("SecondCameraLeaveChannel returns: " + ret);
+
         //ScreenShareLeaveChannel();
-        //RtcEngine.LeaveChannel();
-        //RtcEngine.DisableVideo();
-        //RtcEngine.DisableAudio();
+        RtcEngine.LeaveChannelEx(new RtcConnection(_channelName, Uid2));
+    }
+
+    public void NoteStart()
+    {
+        note.SetActive(true);
+    }
+
+    public void NoteStop()
+    {
+        note.SetActive(false);
     }
 
 
@@ -153,25 +159,47 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         //Safari.SetActive(true);
         if (CheckAppId())
         {
+            if (EventSystem.current.currentSelectedGameObject != null)
+            {
+                GameObject clickObject = EventSystem.current.currentSelectedGameObject;
+                Debug.LogError(clickObject.name);
 
-            GameObject playerID = GameObject.Find(UI_StartPanel.Instance.userName + "(user)");
+                GameObject playerID = GameObject.Find(UI_StartPanel.Instance.userName + "(user)");
 
-            PlayerItem playerScript = playerID.GetComponent<PlayerItem>();
+                PlayerItem playerScript = playerID.GetComponent<PlayerItem>();
 
-            playerScript.webviewStart = true;
-            Safari.SetActive(true);
-            InitCameraDevice();
-            InitTexture();
-            InitEngine();
-            SetExternalVideoSource();
-            JoinChannel();
-            startWebview = true;
 
-            Transform playerCanvas = playerID.transform.GetChild(1).GetChild(0);
-            playerCanvas.gameObject.SetActive(true);
-            RawImage playerWebImage = playerCanvas.GetComponent<RawImage>();
-            StartCoroutine(BringWebTexture(playerWebImage));
-            
+                if (clickObject.name == "ShareNote")
+                {
+                    playerScript.noteStart = true;
+                    note.SetActive(true);
+                    InitCameraDevice();
+                    InitTexture();
+                    InitEngine();
+                    SetExternalVideoSource();
+                    JoinChannel();
+                    Transform playerCanvas = playerID.transform.GetChild(1).GetChild(0);
+                    playerCanvas.gameObject.SetActive(true);
+                    
+                    //RawImage playerWebImage = playerCanvas.GetComponent<RawImage>();
+                }
+                else if (clickObject.name == "ShareScreen")
+                {
+                    playerScript.webviewStart = true;
+                    Safari.SetActive(true);
+                    InitCameraDevice();
+                    InitTexture();
+                    InitEngine();
+                    SetExternalVideoSource();
+                    JoinChannel();
+                    startWebview = true;
+                    Transform playerCanvas = playerID.transform.GetChild(1).GetChild(0);
+                    Debug.Log(playerCanvas);
+                    playerCanvas.gameObject.SetActive(true);
+                    RawImage playerWebImage = playerCanvas.GetComponent<RawImage>();
+                    StartCoroutine(BringWebTexture(playerWebImage));
+                }
+            }
         }
     }
 
@@ -210,6 +238,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         options1.enableAudioRecordingOrPlayout.SetValue(true);
         options1.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
         
+        
         var ret = RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, Uid1), options1);
     }
 
@@ -245,7 +274,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         IRtcEngine rtc = Agora.Rtc.RtcEngine.Instance;
         if (rtc != null)
         {
-            _texture = new Texture2D((int)_rect.width, (int)_rect.height, TextureFormat.RGBA32, false);
+
             _texture.ReadPixels(_rect, 0, 0);
             _texture.Apply();
 
