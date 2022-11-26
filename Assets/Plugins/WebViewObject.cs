@@ -51,6 +51,7 @@ public class UnitySendMessageDispatcher
 
 public class WebViewObject : MonoBehaviour
 {
+    /*
     public static WebViewObject Instance;
     public int testx = 1148;
     public int testy = 700;
@@ -324,7 +325,6 @@ public class WebViewObject : MonoBehaviour
     Button expendBTN;
     private void Start()
     {   
-        /*
         userInputURL = GameObject.Find("SafariInputField").GetComponent<InputField>();
         safariFrontBTN = GameObject.Find("SafariFront").GetComponent<Button>();
         safariBackBTN = GameObject.Find("SafariBack").GetComponent<Button>();
@@ -335,7 +335,7 @@ public class WebViewObject : MonoBehaviour
         safariFrontBTN.onClick.AddListener(NextURL);
         safariBackBTN.onClick.AddListener(BackURL);
         userInputURL.onSubmit.AddListener(delegate{SurfURL();});
-            */
+
         Instance = this;
         //tx = GameObject.Find("TVPanel").GetComponent<RawImage>();
         //print(tx);
@@ -1557,4 +1557,7 @@ public class WebViewObject : MonoBehaviour
         }
     }
 #endif
+
+*/
 }
+
