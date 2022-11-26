@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using AdvancedPeopleSystem;
+using Newtonsoft.Json.Serialization;
 using Photon.Pun;
 using Photon.Pun.Demo.PunBasics;
 using Photon.Realtime;
@@ -40,6 +41,12 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
     public bool talking = false;
     public GameObject talkingImage;
+
+    public string stance = "idle";
+    public bool isCollide = false;
+    public Vector3 chairPos = Vector3.zero;
+    public Quaternion chairRot = Quaternion.identity;
+    public BoxCollider chairCollider = new BoxCollider();
 
     void Start()
     {
@@ -117,23 +124,90 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
             if (axis_X != 0 || axis_Z != 0)
             {
-                Rotate(axis_X, axis_Z);
-                Walk(playerAnim);
+                if (stance == "sitting")
+                {
+                    playerAnim.SetBool("Sit", false);
+                    stance = "idle";
+                    playerAnim.Play("SitToStand");
+                }
+                else
+                {
+                    if (talking)
+                    {
+                        playerAnim.SetBool("Talk", false);                            
+                    }
+                    
+                    if (!playerAnim.GetCurrentAnimatorStateInfo(0).IsName("SitToStand"))
+                    {
+                        Rotate(axis_X, axis_Z);
+                        Walk(playerAnim);
+                    }
+                }
             }
             else
             {
-                playerAnim.SetBool("IsWalking", false);
+                if (Input.GetKeyDown(KeyCode.C) && stance != "sitting")
+                {
+                    // 의자와 닿아있고 사람들이 사용중이지 않으면 앉기
+                    if (isCollide && chairCollider.enabled)
+                    {
+                        transform.position = chairPos;
+                        transform.rotation = chairRot;
+                        chairCollider.enabled = false;
+                        playerAnim.SetBool("Sit", true);
+                        stance = "sitting";
+                    }
+                }
+                else if (Input.GetKeyDown(KeyCode.C) && stance == "sitting")
+                {
+                    playerAnim.SetBool("Sit", false);
+                    stance = "idle";
+                }
+                else
+                {
+                    if (talking)
+                    {
+                        playerAnim.SetBool("Talk", true);
+
+                        if (stance == "sitting")
+                        {
+                            playerAnim.Play("SittingTalking");                            
+                        }
+                        else
+                        {
+                            if (stance != "walking")
+                            {
+                                playerAnim.Play("StandTalking");    
+                            }
+                        }
+                    }
+                    else
+                    {
+                        playerAnim.SetBool("Talk", false);
+                    }
+                    
+                    if (stance != "sitting")
+                    {
+                        stance = "idle";
+                        playerAnim.SetBool("Sit", false); 
+                        playerAnim.SetBool("IsWalking", false);
+                    }
+                }
             }
-            // jihyun 2022-11-23 -------- 캐릭터 이동, 회전, 애니메이션 --------------------------
 
+            // 의자에서 일어나는 애니메이션 끝날 때 의자의 collider 다시 켜주기
+            if (playerAnim.GetCurrentAnimatorStateInfo(0).IsName("SitToStand") &&
+                playerAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.7f)
+            {
+                chairCollider.enabled = true;
+            }
         }
-
     }
 
-    // jihyun 2022-11-23 -------- 캐릭터 이동, 회전, 애니메이션, speed 변수는 프리팹에서 나중에 바꿔주삼 --------------------------
     void Walk(Animator anim)
     {
         anim.SetBool("IsWalking", true);
+        stance = "walking";
         // Rotate() 에서 방향을 바꿔주기 때문에 그 방향대로만 가게 해주면 된다
         transform.Translate(Vector3.forward * speed * Time.smoothDeltaTime);
     }
@@ -149,9 +223,27 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
         transform.rotation = rot; // 그 각도로 회전
     }
-    // jihyun 2022-11-23 -------- 캐릭터 이동, 회전, 애니메이션 --------------------------
 
- 
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "Chair")
+        {
+            chairCollider = other.gameObject.GetComponent<BoxCollider>();
+            isCollide = true;
+            chairPos = other.transform.GetChild(0).transform.position;
+            chairRot = other.transform.GetChild(0).transform.rotation;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Chair")
+        {
+            isCollide = false;
+        }
+    }
+
+
     public void DrawStream(Vector2 position)
     {
         //Drawable.Instance.PenBrush(position);
