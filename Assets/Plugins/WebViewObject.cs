@@ -1489,8 +1489,6 @@ public class WebViewObject : MonoBehaviour
     }
     void OnGUI()
     {
-        
-
         if (webView == IntPtr.Zero || !visibility)
             return;
         switch (Event.current.type) {

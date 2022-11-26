@@ -168,12 +168,16 @@ public class WebViewScript : MonoBehaviour
             }
             RectTransform safariPanelRect = safariPanel.GetComponent<RectTransform>();
             webViewObject.SetVisibility(true);
+
+
             webViewObject.rect = new Rect(0, 0, 1920, 1000);
-            safariPanelRect.sizeDelta = new Vector2(1920, 1080);
+            //safariPanelRect.sizeDelta = new Vector2(1920, 1080);
 
 
+            safariPanel.GetComponent<Animation>().Play("SafariSizeUp");
             //sharescreen area
             ScreenShareWhileVideoCall.Instance._rect = new Rect(0, 0, 1920, 1000);
+
 
         }
         else
@@ -194,6 +198,7 @@ public class WebViewScript : MonoBehaviour
             webViewObject.rect = new Rect(0, 0, 1148, 700);
             RectTransform safariPanelRect = safariPanel.GetComponent<RectTransform>();
             safariPanelRect.sizeDelta = new Vector2(1148, 780);
+            //safariPanel.GetComponent<Animation>().Play("SafariSizeDown");
             ScreenShareWhileVideoCall.Instance._rect = new Rect(0, 0, 1148, 700);
         }
 
