@@ -136,9 +136,14 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         RtcEngine.LeaveChannelEx(new RtcConnection(_channelName, Uid2));
     }
 
-    public void NoteStart()
+    public void NoteClick()
     {
-        note.SetActive(true);
+        if(!note.activeSelf)
+            note.SetActive(true);
+        else
+        {
+            NoteStop();
+        }
     }
 
     public void NoteStop()
