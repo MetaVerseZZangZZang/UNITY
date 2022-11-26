@@ -54,15 +54,9 @@ public class QuarterViewCam : MonoBehaviour
     void LateUpdate()
     {
         // 타겟이 없으면
-        if (PhotonManager.Instance.joinedRoom)
-        {
-            target = PhotonManager.Instance.player.transform;
-
-        }
-
         if (!target)
             return;
-        
+
         // 타겟의 오일러 앵글값을 할당
         float wantedRotationAngle = target.eulerAngles.y;
         float wantedHeight = target.position.y + height;
