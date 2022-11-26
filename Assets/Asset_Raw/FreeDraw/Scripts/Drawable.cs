@@ -1,7 +1,11 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-
+using System.Text;
+using UnityEngine.UI;
+using Photon;
+using Photon.Pun;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Collider2D))]  // REQUIRES A COLLIDER2D to function
@@ -26,7 +30,7 @@ public class Drawable : MonoBehaviour
 
     public Vector2 mouse_world_position;
 
-    public delegate void Brush_Function(Vector2 world_position);
+    public delegate void Brush_Function(Vector2 world_position, int width, int color_index);
     // This is the function called when a left click happens
     // Pass in your own custom one to change the brush type
     // Set the default function in the Awake method
@@ -50,8 +54,11 @@ public class Drawable : MonoBehaviour
     Color32[] cur_colors;
     bool mouse_was_previously_held_down = false;
     bool no_drawing_on_current_drag = false;
+    
+    private PhotonView pv = null;
 
-
+    private Color[] color_array = new Color[4];
+    public static int color_index = 0;
 
     //////////////////////////////////////////////////////////////////////////////
     // BRUSH TYPES. Implement your own here
@@ -106,8 +113,10 @@ public class Drawable : MonoBehaviour
     // Default brush type. Has width and colour.
     // Pass in a point in WORLD coordinates
     // Changes the surrounding pixels of the world_point to the static pen_colour
-    public void PenBrush(Vector2 world_point)
+    public void PenBrush(Vector2 world_point, int width, int color_index)
     {
+        Color pen_color = new Color();
+        pen_color = color_array[color_index];
         Vector2 pixel_pos = WorldToPixelCoordinates(world_point);
 
         sendPositionValue = pixel_pos;
@@ -118,12 +127,12 @@ public class Drawable : MonoBehaviour
         if (previous_drag_position == Vector2.zero)
         {
             // If this is the first time we've ever dragged on this image, simply colour the pixels at our mouse position
-            MarkPixelsToColour(pixel_pos, Pen_Width, Pen_Colour);
+            MarkPixelsToColour(pixel_pos, width, pen_color);
         }
         else
         {
             // Colour in a line from where we were on the last update call
-            ColourBetween(previous_drag_position, pixel_pos, Pen_Width, Pen_Colour);
+            ColourBetween(previous_drag_position, pixel_pos, width, pen_color);
         }
         ApplyMarkedPixelChanges();
 
@@ -150,8 +159,8 @@ public class Drawable : MonoBehaviour
     // Detects when user is left clicking, which then call the appropriate function
     void Update()
     {
-        // Is the user holding down the left mouse button?
         bool mouse_held_down = Input.GetMouseButton(1);
+
         if (Input.GetMouseButton(1))
         {
             drawing = true;
@@ -172,10 +181,10 @@ public class Drawable : MonoBehaviour
             {
                 // We're over the texture we're drawing on!
                 // Use whatever function the current brush is
-                current_brush(mouse_world_position);
+                pv.RPC("PvDraw", RpcTarget.AllBuffered, mouse_world_position, Pen_Width, color_index);
+
                 //Debug.LogError(mouse_world_position);
             }
-
             else
             {
                 // We're not over our destination texture
@@ -195,10 +204,33 @@ public class Drawable : MonoBehaviour
             no_drawing_on_current_drag = false;
         }
         mouse_was_previously_held_down = mouse_held_down;
+        
+        
+
     }
 
+    [PunRPC]
+    public void PvDraw(Vector2 pos, int width, int color_index)
+    {
+        current_brush(pos, width, color_index);
+    }
 
+    [PunRPC]
+    public void PvClean()
+    {
+        clean_colours_array = new Color[(int)drawable_sprite.rect.width * (int)drawable_sprite.rect.height];
+        for (int x = 0; x < clean_colours_array.Length; x++)
+            clean_colours_array[x] = Reset_Colour;
 
+        ResetCanvas();
+    }
+
+    public void CleanCanvas()
+    {
+        pv.RPC("PvClean", RpcTarget.AllBuffered);
+    }
+    
+    
     // Set the colour of pixels in a straight line from start_point all the way to end_point, to ensure everything inbetween is coloured
     public void ColourBetween(Vector2 start_point, Vector2 end_point, int width, Color color)
     {
@@ -227,6 +259,7 @@ public class Drawable : MonoBehaviour
         // Figure out how many pixels we need to colour in each direction (x and y)
         int center_x = (int)center_pixel.x;
         int center_y = (int)center_pixel.y;
+
         //int extra_radius = Mathf.Min(0, pen_thickness - 2);
 
         for (int x = center_x - pen_thickness; x <= center_x + pen_thickness; x++)
@@ -328,5 +361,23 @@ public class Drawable : MonoBehaviour
         // Should we reset our canvas image when we hit play in the editor?
         if (Reset_Canvas_On_Play)
             ResetCanvas();
+        
+        pv = GetComponent<PhotonView>();
+        color_array[0] = Color.black;
+        color_array[1] = Color.blue;
+        color_array[2] = Color.red;
+        color_array[3] = Color.white;
+    }
+    
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            
+        }
+        else
+        {
+           
+        }
     }
 }
