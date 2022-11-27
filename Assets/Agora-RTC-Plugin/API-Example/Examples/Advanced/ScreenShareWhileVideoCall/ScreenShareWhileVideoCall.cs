@@ -396,6 +396,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         
     }
     
+    
     public void playbackSpeaker(bool value)
     {
         RtcEngine.SetDefaultAudioRouteToSpeakerphone(value); // Disables the default audio route.
