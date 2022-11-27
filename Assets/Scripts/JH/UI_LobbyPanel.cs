@@ -113,5 +113,13 @@ public class UI_LobbyPanel : MonoBehaviour
 
     public void VoiceToggle(Toggle toggle)
     {
+        if (!toggle.isOn)
+        {
+            ScreenShareWhileVideoCall.Instance.voiceFlag = true;
+        }
+        else
+        {
+            ScreenShareWhileVideoCall.Instance.voiceFlag = false;
+        }
     }
 }
