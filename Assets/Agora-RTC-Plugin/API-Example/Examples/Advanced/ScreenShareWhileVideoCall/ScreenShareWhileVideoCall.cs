@@ -213,34 +213,20 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     }
     private void JoinChannelWebview()
     {
-        RtcEngine.EnableAudio();
-        RtcEngine.EnableVideo();
         RtcEngine.SetClientRole(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
-        //SetupUI();
-
-        ChannelMediaOptions options = new ChannelMediaOptions();
-        options.autoSubscribeAudio.SetValue(false);
-        options.autoSubscribeVideo.SetValue(true);
-
-        options.publishCameraTrack.SetValue(true);
-        options.publishScreenTrack.SetValue(false);
-        options.enableAudioRecordingOrPlayout.SetValue(true);
-        options.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
-
-
-        RtcEngine.JoinChannel(_token, _channelName, Uid2, options);
-
-        //myCam.AddComponent<VideoSurface>();
-        //LocalView = myCam.GetComponent<VideoSurface>();
-        //LocalView.SetForUser(0, "", VIDEO_SOURCE_TYPE.VIDEO_SOURCE_CAMERA);
-        //LocalView.SetEnable(true);
+        //options.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
+        RtcEngine.JoinChannel(_token,_channelName);
+        //var ret = RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, Uid2), options);
     }
+
     private void JoinChannelCamera()
     {
         RtcEngine.EnableAudio();
         RtcEngine.EnableVideo();
         RtcEngine.SetClientRole(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
+
         SetupUI();
+
         ChannelMediaOptions options1 = new ChannelMediaOptions();
         options1.autoSubscribeAudio.SetValue(true);
         options1.autoSubscribeVideo.SetValue(true);
