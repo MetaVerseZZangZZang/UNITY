@@ -962,7 +962,6 @@ MonoBehaviour:
   startWebview: 0
   note: {fileID: 1293392553}
   camFlag: 1
-  voiceFlag: 1
   remoteUid: 0
   FriendList: []
   count: 1
@@ -5641,6 +5640,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LobbyPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 4562145964500525692, guid: 127c4be1af7b2f642a087557a527ae27,
+        type: 3}
+      propertyPath: myCamToggle
+      value: 
+      objectReference: {fileID: 483466755}
     - target: {fileID: 4830830159216816811, guid: 127c4be1af7b2f642a087557a527ae27,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -8078,6 +8082,18 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 0
+--- !u!114 &483466755 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 914473944947797673, guid: 127c4be1af7b2f642a087557a527ae27,
+    type: 3}
+  m_PrefabInstance: {fileID: 241224757}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &491149665
 GameObject:
   m_ObjectHideFlags: 0
@@ -22259,6 +22275,7 @@ MonoBehaviour:
   conferenceStart: 0
   cam: {fileID: 519420031}
   camButton: {fileID: 222599169}
+  MyCamToggle: {fileID: 1560379045}
 --- !u!1001 &2067599023
 PrefabInstance:
   m_ObjectHideFlags: 0
