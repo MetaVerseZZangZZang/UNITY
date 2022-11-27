@@ -226,6 +226,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         LocalView.SetForUser(0, "", VIDEO_SOURCE_TYPE.VIDEO_SOURCE_CAMERA);
         // Start rendering local video.
         LocalView.SetEnable(true);
+        
     }
 
     private void JoinChannel3()
@@ -394,12 +395,13 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         
         
     }
-
-    public void voiceControl(bool flag)
+    
+    public void playbackSpeaker(bool value)
     {
-        RtcEngine.SetDefaultAudioRouteToSpeakerphone(flag); // Disables the default audio route.
-        RtcEngine.SetEnableSpeakerphone(flag);
+        RtcEngine.SetDefaultAudioRouteToSpeakerphone(value); // Disables the default audio route.
+        RtcEngine.SetEnableSpeakerphone(value); // Enables or disables the speakerphone temporarily.
     }
+
 
     private void OnDestroy()
     {

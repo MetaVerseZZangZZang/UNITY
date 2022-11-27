@@ -36,6 +36,8 @@ public class UI_MainPanel : MonoBehaviour
     private ThirdPersonCam third;
     public Camera cam;
     public Button camButton;
+    public Toggle MyCamToggle;
+    public Toggle MyVoiceToggle;
     
     private void Awake()
     {
@@ -56,7 +58,6 @@ public class UI_MainPanel : MonoBehaviour
         UI_LobbyPanel.Instance.StopCam();
         ScreenShareWhileVideoCall.Instance.AgoraStart();
         gameObject.SetActive(true);
-        myCam.transform.GetChild(0).gameObject.SetActive(false);
         conferenceStart = true;
         
         for (int i = 0; i < 2; i++)
@@ -77,6 +78,9 @@ public class UI_MainPanel : MonoBehaviour
         
         quarter.enabled = true;
         third.enabled = false;
+
+        MyCamToggle.isOn = !ScreenShareWhileVideoCall.Instance.camFlag;
+        MyVoiceToggle.isOn = !ScreenShareWhileVideoCall.Instance.voiceFlag;
     }
     
     public void CamButtonClick()
@@ -125,46 +129,49 @@ public class UI_MainPanel : MonoBehaviour
         UI_LobbyPanel.Instance.Show();
         Server.Instance.MeetingEnd();
         AudioLoudnessDetection.Instance.joined = false;
-
+        
     }
 
 
     public void CamToggle(Toggle toggle)
     {
-        ScreenShareWhileVideoCall.Instance.camFlag = !toggle.isOn;
-        if (ScreenShareWhileVideoCall.Instance.camFlag)  
-        {
-            myCam.transform.GetChild(0).gameObject.SetActive(false);
-            ScreenShareWhileVideoCall.Instance.camFlag = true;
-            
-        }
-        else      //끄기
-        {
-            myCam.transform.GetChild(0).gameObject.SetActive(true);
-            ScreenShareWhileVideoCall.Instance.camFlag = false;
-        }
-        
+        MyCamControl(ScreenShareWhileVideoCall.Instance.camFlag);
+        ScreenShareWhileVideoCall.Instance.camFlag = !ScreenShareWhileVideoCall.Instance.camFlag;
     }
     
     public void VoiceToggle(Toggle toggle)
     {
-
-        ScreenShareWhileVideoCall.Instance.voiceFlag = !toggle.isOn;
-        if (ScreenShareWhileVideoCall.Instance.voiceFlag)  
-        {
-            ScreenShareWhileVideoCall.Instance.voiceControl(true);
-            AudioLoudnessDetection.Instance.joined = true;
-            ScreenShareWhileVideoCall.Instance.voiceFlag = true;
-        }
-        else
-        {
-            ScreenShareWhileVideoCall.Instance.voiceControl(false);
-            AudioLoudnessDetection.Instance.joined = false;
-            ScreenShareWhileVideoCall.Instance.voiceFlag = false;
-        }
-        
+        myVoiceControl(ScreenShareWhileVideoCall.Instance.voiceFlag);
+        ScreenShareWhileVideoCall.Instance.voiceFlag = !ScreenShareWhileVideoCall.Instance.voiceFlag;
     }
 
+
+    public void MyCamControl(bool flag)
+    {
+        if (flag)  
+        {
+            myCam.transform.GetChild(0).gameObject.SetActive(false);
+        }
+        else      //끄기
+        {
+            myCam.transform.GetChild(0).gameObject.SetActive(true);
+        }
+    }
+    
+    public void myVoiceControl(bool flag)
+    {
+        if (flag)  //켜기
+        {
+            ScreenShareWhileVideoCall.Instance.playbackSpeaker(true);
+            AudioLoudnessDetection.Instance.joined = true;
+        }
+        else      //끄기
+        {
+            ScreenShareWhileVideoCall.Instance.playbackSpeaker(false);
+            AudioLoudnessDetection.Instance.joined = false;
+        }
+    }
+    
     public void friendCamON(PlayerItem playerItem)
     {
         VideoSurface RemoteView = getVSByPlayerItem(playerItem);
