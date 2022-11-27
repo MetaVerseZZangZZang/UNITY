@@ -118,6 +118,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         JoinChannel3();
+        UpdateChannelMediaOptions();
     }
 
 
@@ -171,7 +172,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
 
                 InitCameraDevice();
                 InitTexture();
-                //InitEngine();
+                InitEngine();
                 SetExternalVideoSource();
                 JoinChannel();
                 startWebview = true;
@@ -218,7 +219,6 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         RtcEngine.EnableVideo();
         RtcEngine.SetClientRole(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
         SetupUI();
-        
         ChannelMediaOptions options1 = new ChannelMediaOptions();
         options1.autoSubscribeAudio.SetValue(true);
         options1.autoSubscribeVideo.SetValue(true);
@@ -229,10 +229,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         options1.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
 
 
-        Debug.LogError("video: " + Uid1);
-        int result = RtcEngine.JoinChannel(_token, _channelName, Uid1, options1);
-       Debug.LogError(result);
-        //  var ret = RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, Uid1), options1);
+        var ret = RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, Uid1), options1);
     }
 
     private void SetExternalVideoSource()
@@ -337,11 +334,8 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         options.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
 
 
-        Debug.LogError("web view: " + Uid2);
+        RtcEngine.JoinChannel(_token, _channelName, Uid2, options);
 
-        int result = RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, Uid2), options);
-
-        Debug.LogError(result);
         //myCam.AddComponent<VideoSurface>();
         //LocalView = myCam.GetComponent<VideoSurface>();
         //LocalView.SetForUser(0, "", VIDEO_SOURCE_TYPE.VIDEO_SOURCE_CAMERA);
@@ -357,11 +351,11 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     private void UpdateChannelMediaOptions()
     {
         ChannelMediaOptions options = new ChannelMediaOptions();
-        options.autoSubscribeAudio.SetValue(false);
-        options.autoSubscribeVideo.SetValue(false);
+        options.autoSubscribeAudio.SetValue(true);
+        //options.autoSubscribeVideo.SetValue(false);
 
-        options.publishCameraTrack.SetValue(false);
-        options.publishScreenTrack.SetValue(true);
+        //options.publishCameraTrack.SetValue(false);
+        //options.publishScreenTrack.SetValue(true);
 
 #if UNITY_ANDROID || UNITY_IPHONE
             options.publishScreenCaptureAudio.SetValue(true);
