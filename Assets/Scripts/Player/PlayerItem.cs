@@ -44,7 +44,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
     void Start()
     {
-
+        //m_Camera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>(); 
         gameObject.name = pv.IsMine ? PhotonNetwork.NickName + "(user)" : pv.Owner.NickName + "(user)";
         Nickname = pv.IsMine ? PhotonNetwork.NickName : pv.Owner.NickName;
 
@@ -69,9 +69,11 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     public int speed = 1;
     public int rotationSpeed = 2;
 
+    //
+
+    
     void Update()
     {
-
         ///
         //GameObject player = GameObject.Find(ScreenShareWhileVideoCall.Instance.playerdict[(int)ScreenShareWhileVideoCall.Instance.Uid2] + "(user)");
         //PlayerItem playerScript = player.GetComponent<PlayerItem>();
@@ -246,5 +248,8 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             col.isTrigger = false;
         }
     }
+
+
+
 
 }
