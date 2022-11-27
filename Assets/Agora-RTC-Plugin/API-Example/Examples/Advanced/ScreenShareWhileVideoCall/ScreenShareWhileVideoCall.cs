@@ -226,8 +226,8 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         options1.enableAudioRecordingOrPlayout.SetValue(true);
         options1.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
         
-        
-        var ret = RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, Uid1), options1);
+        RtcEngine.JoinChannel(_token, _channelName, Uid1, options1);
+        //var ret = RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, Uid1), options1);
     }
 
     private void SetExternalVideoSource()
@@ -333,8 +333,8 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         options.enableAudioRecordingOrPlayout.SetValue(false);
         options.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
 
-
-        RtcEngine.JoinChannel(_token, _channelName, Uid2, options);
+        RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, Uid2), options);
+        //RtcEngine.JoinChannel(_token, _channelName, Uid2, options);
 
         //myCam.AddComponent<VideoSurface>();
         //LocalView = myCam.GetComponent<VideoSurface>();
