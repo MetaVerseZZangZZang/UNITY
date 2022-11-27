@@ -94,11 +94,13 @@ public class UI_LobbyPanel : MonoBehaviour
         if (!toggle.isOn)
         {
             ShowCam();
+            ScreenShareWhileVideoCall.Instance.camFlag = true;
         }
         else
         {
             StopCam();
             myCam.texture = cameraOff.texture;
+            ScreenShareWhileVideoCall.Instance.camFlag = false;
         }
         
     }

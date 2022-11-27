@@ -69,8 +69,8 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     public GameObject note;
 
     public Dictionary<int, string> playerdict = new Dictionary<int, string>();
-    public bool camFlag = true;
-    public bool voiceFlag = true;
+    public bool camFlag;
+    public bool voiceFlag;
 
     private void Awake()
     {
@@ -550,7 +550,6 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                     RemoteView.SetEnable(false);
                     Destroy(RemoteView.gameObject);
                     FriendCamList.Remove(RemoteView);
-                    Debug.Log("RemoteView.UserName "+RemoteView.UserName);
                 }
             }
         }
