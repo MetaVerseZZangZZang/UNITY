@@ -149,6 +149,7 @@ public class UI_MainPanel : MonoBehaviour
     public void VoiceToggle(Toggle toggle)
     {
 
+        /*
         ScreenShareWhileVideoCall.Instance.voiceFlag = !toggle.isOn;
         if (ScreenShareWhileVideoCall.Instance.voiceFlag)  
         {
@@ -162,6 +163,7 @@ public class UI_MainPanel : MonoBehaviour
             AudioLoudnessDetection.Instance.joined = false;
             ScreenShareWhileVideoCall.Instance.voiceFlag = false;
         }
+        */
         
     }
 
