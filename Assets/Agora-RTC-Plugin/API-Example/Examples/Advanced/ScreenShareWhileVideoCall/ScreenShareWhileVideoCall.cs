@@ -250,9 +250,11 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     }
     private void Update()
     {
+        PermissionHelper.RequestMicrophontPermission();
         if (startWebview == true)
         {
-            PermissionHelper.RequestMicrophontPermission();
+
+            //PermissionHelper.RequestMicrophontPermission();
             StartCoroutine(ShareScreen());
         }
     }
