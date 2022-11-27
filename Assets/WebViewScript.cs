@@ -79,7 +79,7 @@ public class WebViewScript : MonoBehaviour
     }
 
 
-/*
+
     public void XBtn()
     {
         shutDown = true;
@@ -223,5 +223,5 @@ public class WebViewScript : MonoBehaviour
         //webViewObject.SetMargins(3, 3, 3, 3);
 
     }
-    */
+    
 }

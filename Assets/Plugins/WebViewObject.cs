@@ -325,34 +325,19 @@ public class WebViewObject : MonoBehaviour
     Button expendBTN;
     private void Start()
     {   
-        //userInputURL = GameObject.Find("SafariInputField").GetComponent<InputField>();
+        userInputURL = GameObject.Find("SafariInputField").GetComponent<InputField>();
         safariFrontBTN = GameObject.Find("SafariFront").GetComponent<Button>();
         safariBackBTN = GameObject.Find("SafariBack").GetComponent<Button>();
         resetBTN = GameObject.Find("reset").GetComponent<Button>();
         expendBTN = GameObject.Find("expend").GetComponent<Button>();
 
-        /*
+        
         resetBTN.onClick.AddListener(ResetBtn);
         safariFrontBTN.onClick.AddListener(NextURL);
         safariBackBTN.onClick.AddListener(BackURL);
         userInputURL.onSubmit.AddListener(delegate{SurfURL();});
-*/
+
         Instance = this;
-        //tx = GameObject.Find("TVPanel").GetComponent<RawImage>();
-        //print(tx);
-        //tx = GameObject.Find("TVPanel").GetComponent<RawImage>();
-        //print(tx);
-        //m_2DCamera = GameObject.Find("2DCamera").GetComponent<Camera>();
-        //rect = new Rect(28,-370,1145,675f);
-        //rect = new Rect(0, 0, 1920/2, 1080/2);
-        //rect = new Rect(0, 0, 1920 / 2, 1080 / 2);
-
-        //rect = new Rect(0, 0, Screen.width, Screen.height);
-
-        Debug.LogError(33333);
-
-        //rect.ro
-        //OnGUI();
 
     }
 
