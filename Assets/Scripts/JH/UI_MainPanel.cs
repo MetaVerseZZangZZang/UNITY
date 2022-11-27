@@ -37,6 +37,8 @@ public class UI_MainPanel : MonoBehaviour
     public Camera cam;
     public Button camButton;
     
+    public Toggle MyCamToggle;
+    
     private void Awake()
     {
         Instance = this;
@@ -56,7 +58,6 @@ public class UI_MainPanel : MonoBehaviour
         UI_LobbyPanel.Instance.StopCam();
         ScreenShareWhileVideoCall.Instance.AgoraStart();
         gameObject.SetActive(true);
-        myCam.transform.GetChild(0).gameObject.SetActive(false);
         conferenceStart = true;
         
         for (int i = 0; i < 2; i++)
@@ -77,6 +78,8 @@ public class UI_MainPanel : MonoBehaviour
         
         quarter.enabled = true;
         third.enabled = false;
+        
+        MyCamToggle.isOn = !ScreenShareWhileVideoCall.Instance.camFlag;
     }
     
     public void CamButtonClick()
@@ -129,26 +132,30 @@ public class UI_MainPanel : MonoBehaviour
     }
 
 
+    
     public void CamToggle(Toggle toggle)
     {
+        MyCamControl(!toggle.isOn);
         ScreenShareWhileVideoCall.Instance.camFlag = !toggle.isOn;
-        if (ScreenShareWhileVideoCall.Instance.camFlag)  
+    }
+    
+    public void MyCamControl(bool flag)
+    {
+        if (flag)  //켜기
         {
             myCam.transform.GetChild(0).gameObject.SetActive(false);
-            ScreenShareWhileVideoCall.Instance.camFlag = true;
-            
         }
         else      //끄기
         {
             myCam.transform.GetChild(0).gameObject.SetActive(true);
-            ScreenShareWhileVideoCall.Instance.camFlag = false;
         }
-        
     }
+
     
     public void VoiceToggle(Toggle toggle)
     {
 
+        /*
         ScreenShareWhileVideoCall.Instance.voiceFlag = !toggle.isOn;
         if (ScreenShareWhileVideoCall.Instance.voiceFlag)  
         {
@@ -162,6 +169,7 @@ public class UI_MainPanel : MonoBehaviour
             AudioLoudnessDetection.Instance.joined = false;
             ScreenShareWhileVideoCall.Instance.voiceFlag = false;
         }
+        */
         
     }
 
@@ -193,6 +201,7 @@ public class UI_MainPanel : MonoBehaviour
             }
         }
     }
+
     
     public void friendVoiceOn(PlayerItem playerItem)
     {

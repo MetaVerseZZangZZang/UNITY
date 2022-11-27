@@ -50,9 +50,9 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     internal Logger Log;
     internal IRtcEngineEx RtcEngine = null;
 
-    public uint Uid1=123;
-    public uint Uid2=345;
-    
+    public uint Uid1 = 123;
+    public uint Uid2 = 345;
+
     public static List<VideoSurface> FriendCamList = new List<VideoSurface>();
 
     public GameObject FriendCams;
@@ -70,7 +70,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        
+
     }
 
     public void Leave()
@@ -81,7 +81,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         RtcEngine.DisableVideo();
         RtcEngine.DisableAudio();
         // Stops rendering the remote video.
-        PhotonManager.Instance.LeaveRoom();         
+        PhotonManager.Instance.LeaveRoom();
         for (int i = 0; i < FriendCams.transform.childCount; i++)
         {
             Destroy(FriendCams.transform.GetChild(i).gameObject);
@@ -92,7 +92,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         UI_PlayerSlot.Instance.DelAll();
         FriendCamList.Clear();
     }
-    
+
     // Use this for initialization
     public void AgoraStart()
     {
@@ -117,7 +117,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     IEnumerator GetUID()
     {
         yield return new WaitForSeconds(1f);
-        JoinChannel3();
+        JoinChannelCamera();
     }
 
 
@@ -138,7 +138,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
 
     public void NoteClick()
     {
-        if(!note.activeSelf)
+        if (!note.activeSelf)
             note.SetActive(true);
         else
         {
@@ -173,7 +173,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                 InitTexture();
                 InitEngine();
                 SetExternalVideoSource();
-                JoinChannel();
+                JoinChannelWebview();
                 startWebview = true;
 
                 Transform playerCanvas = playerID.transform.GetChild(1).GetChild(0);
@@ -187,7 +187,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                 //InitTexture();
                 //InitEngine();
                 SetExternalVideoSource();
-                JoinChannel();
+                JoinChannelWebview();
             }
         }
     }
@@ -198,12 +198,12 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         webImageTexture.texture = WebViewObject.Instance.texture;
 
     }
-    
+
     private void SetupUI()
     {
         //GameObject go = GameObject.Find("LocalView");
-        
-        myCam.AddComponent<VideoSurface>();
+
+        //myCam.AddComponent<VideoSurface>();
         LocalView = myCam.GetComponent<VideoSurface>();
         LocalView.transform.Rotate(0.0f, 0.0f, 0);
         //go = GameObject.Find("RemoteView");
@@ -211,13 +211,31 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         // Start rendering local video.
         LocalView.SetEnable(true);
     }
+    private void JoinChannelWebview()
+    {
+        //RtcEngine.SetClientRole(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
+        ChannelMediaOptions options1 = new ChannelMediaOptions();
+        options1.autoSubscribeAudio.SetValue(false);
+        options1.autoSubscribeVideo.SetValue(false);
 
-    private void JoinChannel3()
+        options1.publishCameraTrack.SetValue(false);
+        options1.publishScreenTrack.SetValue(true);
+        options1.enableAudioRecordingOrPlayout.SetValue(false);
+        options1.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
+        options1.publishMicrophoneTrack.SetValue(false);
+        //options.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
+        RtcEngine.JoinChannel(_token,_channelName,Uid2,options1);
+        //var ret = RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, Uid2), options);
+    }
+
+    private void JoinChannelCamera()
     {
         RtcEngine.EnableAudio();
         RtcEngine.EnableVideo();
         RtcEngine.SetClientRole(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
+
         SetupUI();
+
         ChannelMediaOptions options1 = new ChannelMediaOptions();
         options1.autoSubscribeAudio.SetValue(true);
         options1.autoSubscribeVideo.SetValue(true);
@@ -225,10 +243,11 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         options1.publishCameraTrack.SetValue(true);
         options1.publishScreenTrack.SetValue(false);
         options1.enableAudioRecordingOrPlayout.SetValue(true);
+        options1.publishMicrophoneTrack.SetValue(true);
         options1.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
-        
-        
-        var ret = RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, Uid1), options1);
+
+
+        RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, Uid1), options1);
     }
 
     private void SetExternalVideoSource()
@@ -316,30 +335,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         _channelName = _appIdInput.channelName;
     }
 
-    private void JoinChannel()
-    {
-        RtcEngine.EnableAudio();
-        RtcEngine.EnableVideo();
-        RtcEngine.SetClientRole(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
-        //SetupUI();
-        
-        ChannelMediaOptions options = new ChannelMediaOptions();
-        options.autoSubscribeAudio.SetValue(false);
-        options.autoSubscribeVideo.SetValue(true);
-
-        options.publishCameraTrack.SetValue(true);
-        options.publishScreenTrack.SetValue(false);
-        options.enableAudioRecordingOrPlayout.SetValue(true);
-        options.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
-
-
-        RtcEngine.JoinChannel(_token, _channelName, Uid2, options);
-
-        //myCam.AddComponent<VideoSurface>();
-        //LocalView = myCam.GetComponent<VideoSurface>();
-        //LocalView.SetForUser(0, "", VIDEO_SOURCE_TYPE.VIDEO_SOURCE_CAMERA);
-        //LocalView.SetEnable(true);
-    }
+    
 
 
     private void ScreenShareLeaveChannel()
@@ -376,8 +372,8 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                                     AUDIO_SCENARIO_TYPE.AUDIO_SCENARIO_DEFAULT);
         RtcEngine.Initialize(context);
         RtcEngine.InitEventHandler(new UserEventHandler(this));
-        
-        
+
+
     }
 
     public void voiceControl(bool flag)
@@ -415,7 +411,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     public int count = 1;
     public List<uint> idList;
     public int userCount;
-    public List<VideoSurface> testList = new List<VideoSurface>(); 
+    public List<VideoSurface> testList = new List<VideoSurface>();
     #endregion
 
     internal class UserEventHandler : IRtcEngineEventHandler
@@ -430,10 +426,10 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         public override void OnJoinChannelSuccess(RtcConnection connection, int elapsed)
         {
             Debug.Log("You joined channel: " + connection.channelId);
-           
+
         }
-        
-        
+
+
         public override void OnUserJoined(RtcConnection connection, uint uid, int elapsed)
         {
 
@@ -446,14 +442,14 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                 _videoSample.idList.Add(uid);
 
             }
-            
-            if (uid != _videoSample.Uid1 && uid != _videoSample.Uid2 )
+
+            if (uid != _videoSample.Uid1 && uid != _videoSample.Uid2)
             {
 
                 if (_videoSample.playerdict.ContainsKey((int)uid))
                 {
                     Debug.LogError("asdfasdfasdfasdfasdf" + _videoSample.playerdict[(int)uid]);
-                    GameObject player = GameObject.Find(_videoSample.playerdict[(int)uid]+"(user)");
+                    GameObject player = GameObject.Find(_videoSample.playerdict[(int)uid] + "(user)");
                     PlayerItem playerScript = player.GetComponent<PlayerItem>();
                     if (playerScript.webviewStart == true)
                     {
@@ -535,14 +531,14 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                     RemoteView.SetEnable(false);
                     Destroy(RemoteView.gameObject);
                     FriendCamList.Remove(RemoteView);
-                    Debug.Log("RemoteView.UserName "+RemoteView.UserName);
+                    Debug.Log("RemoteView.UserName " + RemoteView.UserName);
                 }
             }
         }
-        
+
 
     }
-    
+
 
     void OnApplicationQuit()
     {

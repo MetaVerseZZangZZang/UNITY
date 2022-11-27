@@ -18,7 +18,7 @@ public class UI_LobbyPanel : MonoBehaviour
     public Sprite cameraOff;
     
     private WebCamTexture camTexture;
-
+    public Toggle myCamToggle;
     // Start is called before the first frame update
     //public void Connect() => PhotonNetwork.ConnectUsingSettings();
     //public override void OnConnectedToMaster() => PhotonNetwork.JoinLobby();
@@ -59,6 +59,9 @@ public class UI_LobbyPanel : MonoBehaviour
         this.gameObject.SetActive(true);
         //Name.text = UI_StartPanel.Instance.userName;
         ShowCam();
+        myCamToggle.isOn = false;
+        ScreenShareWhileVideoCall.Instance.camFlag = true;
+        //ScreenShareWhileVideoCall.Instance.voiceFlag = true;
     }
 
     private void ShowCam()
@@ -69,6 +72,7 @@ public class UI_LobbyPanel : MonoBehaviour
         camTexture.Play();
 
     }
+
     
     public void StopCam()
     {
@@ -77,6 +81,8 @@ public class UI_LobbyPanel : MonoBehaviour
             myCam.texture = null;
             camTexture.Stop();
         }
+        myCam.texture = cameraOff.texture;
+
     }
     
     public void CreateBtn()
@@ -94,14 +100,16 @@ public class UI_LobbyPanel : MonoBehaviour
         if (!toggle.isOn)
         {
             ShowCam();
+            ScreenShareWhileVideoCall.Instance.camFlag = true;
         }
         else
         {
             StopCam();
-            myCam.texture = cameraOff.texture;
+            ScreenShareWhileVideoCall.Instance.camFlag = false;
         }
         
     }
+
 
     public void VoiceToggle(Toggle toggle)
     {

@@ -962,7 +962,6 @@ MonoBehaviour:
   startWebview: 0
   note: {fileID: 781020058}
   camFlag: 1
-  voiceFlag: 1
   remoteUid: 0
   FriendList: []
   count: 1
@@ -23302,6 +23301,7 @@ MonoBehaviour:
     type: 3}
   m_ReplyTextPrefab: {fileID: 3099277011160681397, guid: 212429808e7a8334f8a517fc0c44ae89,
     type: 3}
+  safari: {fileID: 0}
   AIParent: {fileID: 2409413151979296846}
   fileImage: {fileID: 8049015782105354840, guid: 743826f80851e459faad0abe0393c266,
     type: 3}
