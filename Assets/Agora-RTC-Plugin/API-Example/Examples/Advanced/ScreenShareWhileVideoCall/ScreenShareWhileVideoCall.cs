@@ -509,7 +509,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                         }
 
                         _videoSample.remoteUid = uid;
-                        //_videoSample.FriendList[Math.Min(_videoSample.count, _videoSample.FriendList.Count - 1)].SetActive(true);
+                        _videoSample.FriendList[Math.Min(_videoSample.count, _videoSample.FriendList.Count - 1)].SetActive(true);
                         _videoSample.count += 1;
                         _videoSample.idList.Add(uid);
 
@@ -533,7 +533,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                     }
 
                     _videoSample.remoteUid = uid;
-                    //_videoSample.FriendList[Math.Min(_videoSample.count, _videoSample.FriendList.Count - 1)].SetActive(true);
+                    _videoSample.FriendList[Math.Min(_videoSample.count, _videoSample.FriendList.Count - 1)].SetActive(true);
                     _videoSample.count += 1;
                     _videoSample.idList.Add(uid);
                 }
@@ -546,6 +546,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         public override void OnUserOffline(RtcConnection connection, uint uid, USER_OFFLINE_REASON_TYPE reason)
         {
 
+            Debug.Log("ONUSEROFFLINE");
             VideoSurface offline = null;
             foreach (VideoSurface RemoteView in FriendCamList)
             {
