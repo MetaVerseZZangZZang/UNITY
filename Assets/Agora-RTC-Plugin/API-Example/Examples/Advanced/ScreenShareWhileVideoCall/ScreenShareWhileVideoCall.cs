@@ -508,7 +508,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                         }
 
                         _videoSample.remoteUid = uid;
-                        _videoSample.FriendList[Math.Min(_videoSample.count, _videoSample.FriendList.Count - 1)].SetActive(true);
+                        //_videoSample.FriendList[Math.Min(_videoSample.count, _videoSample.FriendList.Count - 1)].SetActive(true);
                         _videoSample.count += 1;
                         _videoSample.idList.Add(uid);
 

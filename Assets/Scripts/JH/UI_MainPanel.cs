@@ -37,7 +37,7 @@ public class UI_MainPanel : MonoBehaviour
     public Camera cam;
     public Button camButton;
     public Toggle MyCamToggle;
-    public Toggle MyVoiceToggle;
+    //public Toggle MyVoiceToggle;
     
     private void Awake()
     {
@@ -80,7 +80,7 @@ public class UI_MainPanel : MonoBehaviour
         third.enabled = false;
 
         MyCamToggle.isOn = !ScreenShareWhileVideoCall.Instance.camFlag;
-        MyVoiceToggle.isOn = !ScreenShareWhileVideoCall.Instance.voiceFlag;
+        //MyVoiceToggle.isOn = !ScreenShareWhileVideoCall.Instance.voiceFlag;
     }
     
     public void CamButtonClick()
