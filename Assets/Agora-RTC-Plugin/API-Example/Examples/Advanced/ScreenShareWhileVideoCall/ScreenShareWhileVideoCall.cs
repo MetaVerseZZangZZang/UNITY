@@ -169,7 +169,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                 Safari.SetActive(true);
                 WebViewScript.Instance.ChatWebview("http://www.youtube.com");
 
-                InitCameraDevice();
+                //InitCameraDevice();
                 InitTexture();
                 InitEngine();
                 SetExternalVideoSource();
@@ -211,11 +211,12 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         // Start rendering local video.
         LocalView.SetEnable(true);
     }
+
     private void JoinChannelWebview()
     {
         RtcEngine.SetClientRole(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
         //options.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
-        RtcEngine.JoinChannel(_token,_channelName);
+        RtcEngine.JoinChannel(_token,_channelName,"",Uid2);
         //var ret = RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, Uid2), options);
     }
 
