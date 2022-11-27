@@ -63,7 +63,7 @@ public class UI_LobbyPanel : MonoBehaviour
         ShowCam();
         myCamToggle.isOn = false;
         ScreenShareWhileVideoCall.Instance.camFlag = true;
-        ScreenShareWhileVideoCall.Instance.voiceFlag = true;
+        //ScreenShareWhileVideoCall.Instance.voiceFlag = true;
     }
 
     private void ShowCam()
@@ -111,6 +111,7 @@ public class UI_LobbyPanel : MonoBehaviour
         
     }
 
+    /*
     public void VoiceToggle(Toggle toggle)
     {
         if (!toggle.isOn)
@@ -122,4 +123,5 @@ public class UI_LobbyPanel : MonoBehaviour
             ScreenShareWhileVideoCall.Instance.voiceFlag = false;
         }
     }
+    */
 }
