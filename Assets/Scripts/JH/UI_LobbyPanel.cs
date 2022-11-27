@@ -62,6 +62,7 @@ public class UI_LobbyPanel : MonoBehaviour
         //Name.text = UI_StartPanel.Instance.userName;
         ShowCam();
         myCamToggle.isOn = false;
+        ScreenShareWhileVideoCall.Instance.camFlag = true;
         ScreenShareWhileVideoCall.Instance.voiceFlag = true;
     }
 
@@ -83,7 +84,6 @@ public class UI_LobbyPanel : MonoBehaviour
         }
         
         myCam.texture = cameraOff.texture;
-        ScreenShareWhileVideoCall.Instance.camFlag = false;
     }
     
     public void CreateBtn()
@@ -101,10 +101,12 @@ public class UI_LobbyPanel : MonoBehaviour
         if (!toggle.isOn)
         {
             ShowCam();
+            ScreenShareWhileVideoCall.Instance.camFlag = true;
         }
         else
         {
             StopCam();
+            ScreenShareWhileVideoCall.Instance.camFlag = false;
         }
         
     }

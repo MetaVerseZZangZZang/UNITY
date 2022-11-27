@@ -141,8 +141,8 @@ public class UI_MainPanel : MonoBehaviour
     
     public void VoiceToggle(Toggle toggle)
     {
-        MyVoiceControl(ScreenShareWhileVideoCall.Instance.voiceFlag);
         ScreenShareWhileVideoCall.Instance.voiceFlag = !ScreenShareWhileVideoCall.Instance.voiceFlag;
+        MyVoiceControl(ScreenShareWhileVideoCall.Instance.voiceFlag);
     }
 
 
@@ -150,11 +150,11 @@ public class UI_MainPanel : MonoBehaviour
     {
         if (flag)  
         {
-            myCam.transform.GetChild(0).gameObject.SetActive(false);
+            myCam.transform.GetChild(0).gameObject.SetActive(true);
         }
         else      //끄기
         {
-            myCam.transform.GetChild(0).gameObject.SetActive(true);
+            myCam.transform.GetChild(0).gameObject.SetActive(false);
         }
     }
     
