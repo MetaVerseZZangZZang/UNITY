@@ -553,9 +553,14 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                     offline = RemoteView;
                 }
             }
-            offline.SetEnable(false);
-            Destroy(offline.gameObject);
-            FriendCamList.Remove(offline);
+
+            if (offline != null)
+            {
+
+                offline.SetEnable(false);
+                Destroy(offline.gameObject);
+                FriendCamList.Remove(offline);
+            }
         }
         
 
