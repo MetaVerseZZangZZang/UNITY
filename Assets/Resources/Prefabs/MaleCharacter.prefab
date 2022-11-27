@@ -1227,6 +1227,7 @@ GameObject:
   - component: {fileID: 2488306635694635647}
   - component: {fileID: 3490546503905915661}
   - component: {fileID: 670113089}
+  - component: {fileID: 4909554248226768648}
   m_Layer: 0
   m_Name: WebviewIMG
   m_TagString: Untagged
@@ -1289,6 +1290,23 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &4909554248226768648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 582112120891085564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: feaea3b4d52b0450882006a237f9d782, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VideoSurfaceType: 0
+  Enable: 1
+  Uid: 0
+  UserName: 
+  SourceType: 0
 --- !u!1 &622865720194236949
 GameObject:
   m_ObjectHideFlags: 0

@@ -962,7 +962,6 @@ MonoBehaviour:
   startWebview: 0
   note: {fileID: 1293392553}
   camFlag: 1
-  voiceFlag: 1
   remoteUid: 0
   FriendList: []
   count: 1
