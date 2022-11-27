@@ -213,9 +213,18 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     }
     private void JoinChannelWebview()
     {
-        RtcEngine.SetClientRole(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
+        //RtcEngine.SetClientRole(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
+        ChannelMediaOptions options1 = new ChannelMediaOptions();
+        options1.autoSubscribeAudio.SetValue(false);
+        options1.autoSubscribeVideo.SetValue(false);
+
+        options1.publishCameraTrack.SetValue(false);
+        options1.publishScreenTrack.SetValue(true);
+        options1.enableAudioRecordingOrPlayout.SetValue(false);
+        options1.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
+        options1.publishMicrophoneTrack.SetValue(false);
         //options.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
-        RtcEngine.JoinChannel(_token,_channelName);
+        RtcEngine.JoinChannel(_token,_channelName,Uid2,options1);
         //var ret = RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, Uid2), options);
     }
 
@@ -234,6 +243,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         options1.publishCameraTrack.SetValue(true);
         options1.publishScreenTrack.SetValue(false);
         options1.enableAudioRecordingOrPlayout.SetValue(true);
+        options1.publishMicrophoneTrack.SetValue(true);
         options1.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
 
 
