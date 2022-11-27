@@ -141,7 +141,7 @@ public class UI_MainPanel : MonoBehaviour
     
     public void VoiceToggle(Toggle toggle)
     {
-        myVoiceControl(ScreenShareWhileVideoCall.Instance.voiceFlag);
+        MyVoiceControl(ScreenShareWhileVideoCall.Instance.voiceFlag);
         ScreenShareWhileVideoCall.Instance.voiceFlag = !ScreenShareWhileVideoCall.Instance.voiceFlag;
     }
 
@@ -158,7 +158,7 @@ public class UI_MainPanel : MonoBehaviour
         }
     }
     
-    public void myVoiceControl(bool flag)
+    public void MyVoiceControl(bool flag)
     {
         if (flag)  //켜기
         {

@@ -308,14 +308,14 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             //DrawStream(drawPosition);
             talking = (bool)stream.ReceiveNext();
 
-            if ((bool)stream.ReceiveNext())
+            if (!(bool)stream.ReceiveNext())
             {
                 UI_MainPanel.Instance.friendCamON(this);
             }
             else
                 UI_MainPanel.Instance.friendCamOff(this);
             
-            if ((bool)stream.ReceiveNext())
+            if (!(bool)stream.ReceiveNext())
             {
                 UI_MainPanel.Instance.friendVoiceOn(this);
             }
