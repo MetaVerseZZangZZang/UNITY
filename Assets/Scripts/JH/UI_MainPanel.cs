@@ -148,7 +148,7 @@ public class UI_MainPanel : MonoBehaviour
 
     public void MyCamControl(bool flag)
     {
-        if (flag)  
+        if (flag)  //켜기
         {
             myCam.transform.GetChild(0).gameObject.SetActive(false);
         }
@@ -229,7 +229,6 @@ public class UI_MainPanel : MonoBehaviour
     {
         VideoSurface vs = null;
 
-        Debug.Log(ScreenShareWhileVideoCall.Instance.playerdict);
         if (ScreenShareWhileVideoCall.FriendCamList.Count >= 1)
         {
 
