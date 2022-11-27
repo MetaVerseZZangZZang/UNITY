@@ -201,6 +201,7 @@ public class UI_MainPanel : MonoBehaviour
         }
     }
     
+    /*
     public void friendVoiceOn(PlayerItem playerItem)
     {
         VideoSurface RemoteView = getVSByPlayerItem(playerItem);
@@ -224,7 +225,7 @@ public class UI_MainPanel : MonoBehaviour
             }
         }
     }
-
+*/
     public VideoSurface getVSByPlayerItem(PlayerItem playerItem)
     {
         VideoSurface vs = null;
