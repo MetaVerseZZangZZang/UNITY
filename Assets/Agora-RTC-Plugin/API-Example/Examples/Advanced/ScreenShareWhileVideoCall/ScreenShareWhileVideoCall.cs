@@ -319,18 +319,18 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
 
     private void JoinChannel()
     {
-        RtcEngine.EnableAudio();
+        //RtcEngine.EnableAudio();
         RtcEngine.EnableVideo();
         RtcEngine.SetClientRole(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
         //SetupUI();
         
         ChannelMediaOptions options = new ChannelMediaOptions();
-        options.autoSubscribeAudio.SetValue(true);
+        options.autoSubscribeAudio.SetValue(false);
         options.autoSubscribeVideo.SetValue(true);
 
         options.publishCameraTrack.SetValue(true);
         options.publishScreenTrack.SetValue(false);
-        options.enableAudioRecordingOrPlayout.SetValue(true);
+        options.enableAudioRecordingOrPlayout.SetValue(false);
         options.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
 
 
