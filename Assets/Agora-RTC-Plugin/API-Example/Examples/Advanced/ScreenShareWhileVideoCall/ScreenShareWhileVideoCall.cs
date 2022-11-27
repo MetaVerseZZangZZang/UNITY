@@ -324,7 +324,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         //SetupUI();
         
         ChannelMediaOptions options = new ChannelMediaOptions();
-        options.autoSubscribeAudio.SetValue(true);
+        options.autoSubscribeAudio.SetValue(false);
         options.autoSubscribeVideo.SetValue(true);
 
         options.publishCameraTrack.SetValue(true);
