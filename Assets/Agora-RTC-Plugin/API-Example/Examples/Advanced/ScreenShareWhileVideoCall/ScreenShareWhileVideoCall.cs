@@ -203,7 +203,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     {
         //GameObject go = GameObject.Find("LocalView");
 
-        myCam.AddComponent<VideoSurface>();
+        //myCam.AddComponent<VideoSurface>();
         LocalView = myCam.GetComponent<VideoSurface>();
         LocalView.transform.Rotate(0.0f, 0.0f, 0);
         //go = GameObject.Find("RemoteView");
