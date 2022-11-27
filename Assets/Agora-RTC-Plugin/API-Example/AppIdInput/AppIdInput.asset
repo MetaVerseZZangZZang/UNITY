@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 310468f085ef24732beac714c9bb64fd, type: 3}
   m_Name: AppIdInput
   m_EditorClassIdentifier: 
-  appID: 88a3697b8dcd499f8f01fdcb6cdb6db9
-  token: 007eJxTYOif+Pv7vHL1rfrXF9u8Xi+355nK9J1mYo0mJ9bv1lywoatOgcHCItHYzNI8ySIlOcXE0jLNIs3AMC0lOcksOSXJLCXJMky5PrkhkJEhcHEJMyMDBIL4rAxVVYl56QwMAB3QIeU=
+  appID: 81762d6192cc483bbf232317f286169f
+  token: 007eJxTYJAvalS6fvBPhMzvfrXmn5v0dzd0lLJ4Ftnx/z94WyzjjYgCg4WhuZlRipmhpVFysomFcVJSmpGxkbGheZqRhZmhmWVaNl9zckMgI8OfrbtZGBkgEMRnZaiqSsxLZ2AAAFQZH5g=
   channelName: zzang
