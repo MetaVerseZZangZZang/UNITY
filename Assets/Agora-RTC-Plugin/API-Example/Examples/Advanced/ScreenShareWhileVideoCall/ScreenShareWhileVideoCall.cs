@@ -195,7 +195,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     IEnumerator BringWebTexture(RawImage webImageTexture)
     {
         yield return new WaitForSeconds(1f);
-        webImageTexture.texture = WebViewObject.Instance.texture;
+        //webImageTexture.texture = WebViewObject.Instance.texture;
 
     }
     
