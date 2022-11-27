@@ -35,7 +35,7 @@ public class UI_PlayerSlotItem : MonoBehaviour
 
     public void camControl(bool camFlag)
     {
-        if (!camFlag)  //꺼라
+        if (camFlag)  //꺼라
         {
             cam.transform.GetChild(3).gameObject.SetActive(false);  //꺼라
         }
