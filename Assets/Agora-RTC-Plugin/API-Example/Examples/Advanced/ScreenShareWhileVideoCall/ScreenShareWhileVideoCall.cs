@@ -433,7 +433,6 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     public int count = 1;
     public List<uint> idList;
     public int userCount;
-    public List<VideoSurface> testList = new List<VideoSurface>(); 
     #endregion
 
     internal class UserEventHandler : IRtcEngineEventHandler
@@ -500,11 +499,9 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                         if (!FriendCamList.Contains(newFriendCam.GetComponent<VideoSurface>()))
                         {
                             FriendCamList.Add(newFriendCam.GetComponent<VideoSurface>());
-                            _videoSample.testList.Add(newFriendCam.GetComponent<VideoSurface>());
                             FriendCamList[FriendCamList.Count - 1].SetEnable(true);
                             FriendCamList[FriendCamList.Count - 1].SetForUser(uid, connection.channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
-                            _videoSample.testList.Add(newFriendCam.GetComponent<VideoSurface>());
-                            Debug.LogError(_videoSample.testList[0]);
+
 
                         }
 
@@ -523,7 +520,6 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                     newFriendCam.transform.SetParent(_videoSample.FriendCams.transform);
                     newFriendCam.transform.localScale = new Vector3(1, 1, 1);
 
-                    _videoSample.testList.Add(newFriendCam.GetComponent<VideoSurface>());
                     if (!FriendCamList.Contains(newFriendCam.GetComponent<VideoSurface>()))
                     {
                         FriendCamList.Add(newFriendCam.GetComponent<VideoSurface>());
