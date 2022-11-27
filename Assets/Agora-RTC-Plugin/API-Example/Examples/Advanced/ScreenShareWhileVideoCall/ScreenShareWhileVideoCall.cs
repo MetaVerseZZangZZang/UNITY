@@ -117,8 +117,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     IEnumerator GetUID()
     {
         yield return new WaitForSeconds(1f);
-        JoinChannel3();
-        UpdateChannelMediaOptions();
+        JoinChannelCamera();
     }
 
 
@@ -174,7 +173,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                 InitTexture();
                 InitEngine();
                 SetExternalVideoSource();
-                JoinChannel();
+                JoinChannelWebview();
                 startWebview = true;
 
                 Transform playerCanvas = playerID.transform.GetChild(1).GetChild(0);
@@ -188,7 +187,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                 //InitTexture();
                 //InitEngine();
                 SetExternalVideoSource();
-                JoinChannel();
+                JoinChannelWebview();
             }
         }
     }
@@ -212,8 +211,31 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         // Start rendering local video.
         LocalView.SetEnable(true);
     }
+    private void JoinChannelWebview()
+    {
+        RtcEngine.EnableAudio();
+        RtcEngine.EnableVideo();
+        RtcEngine.SetClientRole(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
+        //SetupUI();
 
-    private void JoinChannel3()
+        ChannelMediaOptions options = new ChannelMediaOptions();
+        options.autoSubscribeAudio.SetValue(false);
+        options.autoSubscribeVideo.SetValue(true);
+
+        options.publishCameraTrack.SetValue(true);
+        options.publishScreenTrack.SetValue(false);
+        options.enableAudioRecordingOrPlayout.SetValue(true);
+        options.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
+
+
+        RtcEngine.JoinChannel(_token, _channelName, Uid2, options);
+
+        //myCam.AddComponent<VideoSurface>();
+        //LocalView = myCam.GetComponent<VideoSurface>();
+        //LocalView.SetForUser(0, "", VIDEO_SOURCE_TYPE.VIDEO_SOURCE_CAMERA);
+        //LocalView.SetEnable(true);
+    }
+    private void JoinChannelCamera()
     {
         RtcEngine.EnableAudio();
         RtcEngine.EnableVideo();
@@ -229,7 +251,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         options1.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
 
 
-        var ret = RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, Uid1), options1);
+        RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, Uid1), options1);
     }
 
     private void SetExternalVideoSource()
@@ -317,30 +339,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         _channelName = _appIdInput.channelName;
     }
 
-    private void JoinChannel()
-    {
-        RtcEngine.EnableAudio();
-        RtcEngine.EnableVideo();
-        RtcEngine.SetClientRole(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
-        //SetupUI();
-
-        ChannelMediaOptions options = new ChannelMediaOptions();
-        options.autoSubscribeAudio.SetValue(false);
-        options.autoSubscribeVideo.SetValue(true);
-
-        options.publishCameraTrack.SetValue(true);
-        options.publishScreenTrack.SetValue(false);
-        options.enableAudioRecordingOrPlayout.SetValue(true);
-        options.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
-
-
-        RtcEngine.JoinChannel(_token, _channelName, Uid2, options);
-
-        //myCam.AddComponent<VideoSurface>();
-        //LocalView = myCam.GetComponent<VideoSurface>();
-        //LocalView.SetForUser(0, "", VIDEO_SOURCE_TYPE.VIDEO_SOURCE_CAMERA);
-        //LocalView.SetEnable(true);
-    }
+    
 
 
     private void ScreenShareLeaveChannel()
@@ -351,11 +350,11 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     private void UpdateChannelMediaOptions()
     {
         ChannelMediaOptions options = new ChannelMediaOptions();
-        options.autoSubscribeAudio.SetValue(true);
-        //options.autoSubscribeVideo.SetValue(false);
+        options.autoSubscribeAudio.SetValue(false);
+        options.autoSubscribeVideo.SetValue(false);
 
-        //options.publishCameraTrack.SetValue(false);
-        //options.publishScreenTrack.SetValue(true);
+        options.publishCameraTrack.SetValue(false);
+        options.publishScreenTrack.SetValue(true);
 
 #if UNITY_ANDROID || UNITY_IPHONE
             options.publishScreenCaptureAudio.SetValue(true);
