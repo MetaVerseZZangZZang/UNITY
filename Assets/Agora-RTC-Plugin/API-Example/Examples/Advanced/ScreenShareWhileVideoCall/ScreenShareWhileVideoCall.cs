@@ -218,6 +218,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         RtcEngine.EnableVideo();
         RtcEngine.SetClientRole(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
         SetupUI();
+        
         ChannelMediaOptions options1 = new ChannelMediaOptions();
         options1.autoSubscribeAudio.SetValue(true);
         options1.autoSubscribeVideo.SetValue(true);
@@ -228,7 +229,10 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         options1.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
 
 
-        var ret = RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, Uid1), options1);
+        Debug.LogError("video: " + Uid1);
+        int result = RtcEngine.JoinChannel(_token, _channelName, Uid1, options1);
+       Debug.LogError(result);
+        //  var ret = RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, Uid1), options1);
     }
 
     private void SetExternalVideoSource()
@@ -333,8 +337,11 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         options.clientRoleType.SetValue(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
 
 
-        RtcEngine.JoinChannel(_token, _channelName, Uid2, options);
+        Debug.LogError("web view: " + Uid2);
 
+        int result = RtcEngine.JoinChannelEx(_token, new RtcConnection(_channelName, Uid2), options);
+
+        Debug.LogError(result);
         //myCam.AddComponent<VideoSurface>();
         //LocalView = myCam.GetComponent<VideoSurface>();
         //LocalView.SetForUser(0, "", VIDEO_SOURCE_TYPE.VIDEO_SOURCE_CAMERA);
