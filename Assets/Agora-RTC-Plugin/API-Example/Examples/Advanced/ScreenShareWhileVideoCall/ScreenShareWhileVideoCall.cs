@@ -70,7 +70,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
 
     public Dictionary<int, string> playerdict = new Dictionary<int, string>();
     public bool camFlag;
-    public bool voiceFlag;
+    //public bool voiceFlag;
 
     private void Awake()
     {
@@ -396,13 +396,13 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         
     }
     
-    
+    /*
     public void playbackSpeaker(bool value)
     {
         RtcEngine.SetDefaultAudioRouteToSpeakerphone(value); // Disables the default audio route.
         RtcEngine.SetEnableSpeakerphone(value); // Enables or disables the speakerphone temporarily.
     }
-
+*/
 
     private void OnDestroy()
     {

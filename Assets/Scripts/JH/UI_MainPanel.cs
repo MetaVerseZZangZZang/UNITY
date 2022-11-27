@@ -82,7 +82,7 @@ public class UI_MainPanel : MonoBehaviour
         MyCamToggle.isOn = !ScreenShareWhileVideoCall.Instance.camFlag;
         //MyVoiceToggle.isOn = !ScreenShareWhileVideoCall.Instance.voiceFlag;
 
-        MyVoiceControl(true);
+        //MyVoiceControl(true);
     }
     
     public void CamButtonClick()
@@ -161,23 +161,23 @@ public class UI_MainPanel : MonoBehaviour
         }
     }
     
-    
+    /*
     public void MyVoiceControl(bool flag)
     {
-        //if (flag)  //켜기
+        if (flag)  //켜기
         {
             ScreenShareWhileVideoCall.Instance.playbackSpeaker(true);
             AudioLoudnessDetection.Instance.joined = true;
         }
-        /*
+        
         else      //끄기
         {
             ScreenShareWhileVideoCall.Instance.playbackSpeaker(false);
             AudioLoudnessDetection.Instance.joined = false;
         }
-        */
+        
     }
-    
+    */
     
     public void friendCamON(PlayerItem playerItem)
     {
