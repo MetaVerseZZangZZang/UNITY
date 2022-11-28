@@ -63,7 +63,9 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
 
     public GameObject note;
 
-    public Dictionary<int, string> playerdict = new Dictionary<int, string>();
+    //public Dictionary<int, string> playerdict = new Dictionary<int, string>();
+
+
     public bool camFlag = true;
     public bool voiceFlag = true;
 
@@ -448,8 +450,17 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
 
             if (uid != _videoSample.Uid1 && uid != _videoSample.Uid2)
             {
-
-                if (_videoSample.playerdict.ContainsKey((int)uid))
+                List<PlayerItem> playerItemList = PhotonManager.Instance.playerItemList;
+                bool flag = false;
+                foreach(PlayerItem pi in playerItemList)
+                {
+                    Debug.Log(pi.playerwebID);
+                    if(pi.playerwebID==(int)uid)
+                    {
+                        flag = true;
+                    }
+                }
+                if (flag)
                 {
                     Debug.LogError("asdfasdfasdfasdfasdf" + _videoSample.playerdict[(int)uid]);
                     GameObject player = GameObject.Find(_videoSample.playerdict[(int)uid] + "(user)");

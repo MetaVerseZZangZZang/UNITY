@@ -29,13 +29,13 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
     public bool webviewStart = false;
     public bool noteStart = false;
-
+    
 
     //public int playerUID;
     public int playerwebID;
     public int playerObjectID;
 
-    public Dictionary<int, string> idUint = new Dictionary<int, string>();
+    //public Dictionary<int, string> idUint = new Dictionary<int, string>();
     public Vector2 drawPosition;
 
 
@@ -56,13 +56,13 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         Nickname.text = pv.IsMine ? PhotonNetwork.NickName : pv.Owner.NickName;
 
 
-        ScreenShareWhileVideoCall.Instance.playerdict = idUint;
+        //ScreenShareWhileVideoCall.Instance.playerdict = idUint;
 
         if (pv.IsMine)
         {
             playerwebID = (int)UnityEngine.Random.Range(1000, 2000);
             ScreenShareWhileVideoCall.Instance.Uid2 = (uint)playerwebID;
-            idUint.Add(playerwebID, PhotonNetwork.NickName);
+            //idUint.Add(playerwebID, PhotonNetwork.NickName);
             //ScreenShareWhileVideoCall.Instance.playerdict.Add(playerwebID, PhotonNetwork.NickName);
 
             playerObjectID = (int)UnityEngine.Random.Range(3000, 5000);
