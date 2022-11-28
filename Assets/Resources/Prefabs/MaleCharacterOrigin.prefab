@@ -1252,7 +1252,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 180}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 2.460022}
+  m_AnchoredPosition: {x: -0.007019043, y: 2.421997}
   m_SizeDelta: {x: 0.96, y: 0.54}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3490546503905915661
@@ -2715,7 +2715,7 @@ GameObject:
   - component: {fileID: 4338413693397323449}
   - component: {fileID: -9223164323131136553}
   m_Layer: 0
-  m_Name: MaleCharacter
+  m_Name: MaleCharacterOrigin
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2839,7 +2839,7 @@ MonoBehaviour:
     - {fileID: 6791931087251776183}
     - {fileID: 3195732119377324750}
   prefabPath: Assets/AdvancedPeopleSystem2/Prefabs/CustomizableCharacter.prefab
-  instanceStatus: 6
+  instanceStatus: 5
   originHip: {fileID: 1231293355673010347}
   headHip: {fileID: 8473455122907128234}
   clothesAnchors:
@@ -11448,7 +11448,6 @@ GameObject:
   - component: {fileID: 4717192828313532526}
   - component: {fileID: 845988463677302139}
   - component: {fileID: 8232133642638563663}
-  - component: {fileID: 1769337595692106935}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -11540,20 +11539,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &1769337595692106935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7777108399765445617}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b45f05e5e4871384490bb17a5a183e1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ImageTr: {fileID: 2488306635694635647}
-  NameTr: {fileID: 2776866039533185533}
 --- !u!1 &7849817549249119551
 GameObject:
   m_ObjectHideFlags: 0
