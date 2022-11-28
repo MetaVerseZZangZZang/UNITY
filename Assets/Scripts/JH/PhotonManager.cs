@@ -110,13 +110,10 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         
         foreach (Player p in PhotonNetwork.PlayerList)
         {
-            UI_PlayerSlot.Instance.AddPlayerSlot(p.NickName);
-        }
-
-        foreach (Player p in PhotonNetwork.PlayerList)
-        {
+            //UI_PlayerSlot.Instance.AddPlayerSlot(p.NickName);
             StartCoroutine(FindObject(p));
         }
+        
     }
 
     public void LeaveRoom()
