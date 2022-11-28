@@ -6,47 +6,70 @@ public class TestRaycast : MonoBehaviour
 {
     public Camera detectCam;
     public Transform mainCanvas;
+
+    public Transform panel;
     Ray ray;
     RaycastHit hit;
 
+    public RectTransform elementRect;
+    public Transform playerCanvas;
+
+    public Vector2 elmentSize;
+    public Vector3 elmentPosition;
+
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (UI_MainPanel.Instance.conferenceStart)
         {
-            ray = detectCam.ScreenPointToRay(Input.mousePosition);
-            Debug.LogError("1111111111");
-
-            if (Physics.Raycast(ray, out hit))
+            if (Input.GetMouseButtonDown(0))
             {
-                Debug.LogError("222222222");
-                if (hit.transform.GetChild(1).GetChild(0).gameObject.activeSelf == true)
+                ray = detectCam.ScreenPointToRay(Input.mousePosition);
+
+                if (Physics.Raycast(ray, out hit))
                 {
-                    Debug.LogError("3333333");
-                    Quaternion tempRot = new Quaternion(180,0,0,0);
-                    //hit.transform.GetChild(1).GetChild(0).GetComponent<Transform>();
-                    Transform panel = hit.transform.GetChild(1).GetChild(0);
-                    panel.SetParent(mainCanvas);
-                    panel.transform.rotation = tempRot;
-                    RectTransform panelRect = panel.GetComponent<RectTransform>();
-                    panelRect.sizeDelta = new Vector2(1920,980);
-                    panelRect.transform.position = new Vector3(960, 490, 0);
+                    if (hit.transform.GetChild(1).GetChild(0).gameObject.activeSelf == true && hit.transform.gameObject.name.Contains("(user)"))
+                    {
+                        elementRect = hit.transform.GetChild(1).GetComponent<RectTransform>();
+                        playerCanvas = hit.transform.GetChild(1);
+                        Debug.LogError("elmentRect" + elementRect.transform.position);
 
-                    //panelRect.
+                        Quaternion tempRot = new Quaternion(180, 0, 0, 0);
 
-                    //Transform change = hit.transform.GetChild(1).GetChild(0).GetComponent<Transform>();
-                    //RectTransform rect = hit.transform.GetChild(1).GetChild(0).GetComponent<RectTransform>();
+                        //hit.transform.GetChild(1).GetChild(0).GetComponent<Transform>();
+                        panel = hit.transform.GetChild(1).GetChild(0);
+                        panel.SetParent(mainCanvas);
+                        panel.transform.rotation = tempRot;
 
-                    //change.transform.SetParent(mainCanvas);
-                    //change.transform.position = new Vector3(0,0,0);
-                    //change.transform.rotation = tempRot;
+                        RectTransform panelRect = panel.GetComponent<RectTransform>();
 
+                        elmentSize = panelRect.sizeDelta;
+                        elmentPosition = panelRect.transform.position;
 
-                    //rect.transform.position = new Vector3(960, 500, 0);
-                    //rect.sizeDelta = new Vector2(1400, 870);
+                        panelRect.sizeDelta = new Vector2(1600, 980);
+                        panelRect.transform.position = new Vector3(960, 490, 0);
+
+                    }
 
                 }
+            }
 
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                ReduceSize();
             }
         }
+    }
+
+
+    public void ReduceSize()
+    {
+        Debug.LogError("111111");
+        panel.SetParent(playerCanvas);
+        panel.SetAsFirstSibling();
+
+        RectTransform changePanel = panel.GetComponent<RectTransform>();
+
+        changePanel.sizeDelta = elmentSize;
+        changePanel.transform.position = elmentPosition;
     }
 }
