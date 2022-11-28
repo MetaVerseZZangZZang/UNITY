@@ -27,7 +27,8 @@ public class TestRaycast : MonoBehaviour
 
                 if (Physics.Raycast(ray, out hit))
                 {
-                    if (hit.transform.gameObject.tag=="Player")
+
+                    if (hit.transform.gameObject.tag == "Player")
                     {
                         if (hit.transform.GetChild(1).GetChild(0).gameObject.activeSelf == true &&
                             hit.transform.gameObject.name.Contains("(user)"))
@@ -43,8 +44,8 @@ public class TestRaycast : MonoBehaviour
                             panel.SetParent(mainCanvas);
 
                             RectTransform panelRect = panel.GetComponent<RectTransform>();
-                            panelRect.transform.rotation = Quaternion.identity;
-                            panelRect.transform.localScale = new Vector3(0, 0, 0);
+                            //panelRect.transform.rotation = Quaternion.identity;
+                            panelRect.transform.localScale = new Vector3(-1, -1, -1);
 
                             elmentSize = panelRect.sizeDelta;
                             elmentPosition = panelRect.transform.position;
@@ -54,8 +55,8 @@ public class TestRaycast : MonoBehaviour
 
                         }
                     }
-
                 }
+
             }
 
             if (Input.GetKeyDown(KeyCode.Tab))
