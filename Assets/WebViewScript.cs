@@ -93,8 +93,8 @@ public class WebViewScript : MonoBehaviour
         safariPanel.SetActive(false);
 
 
-        
-        GameObject player = GameObject.Find(ScreenShareWhileVideoCall.Instance.playerdict[(int)ScreenShareWhileVideoCall.Instance.Uid2] + "(user)");
+        PlayerItem m_playerItem=PhotonManager.Instance.findPlayerItemByID((int)ScreenShareWhileVideoCall.Instance.Uid2);
+        GameObject player = GameObject.Find(m_playerItem .Nickname+ "(user)");
         PlayerItem playerScript = player.GetComponent<PlayerItem>();
         playerScript.webviewStart = false;
         player.transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
@@ -113,14 +113,15 @@ public class WebViewScript : MonoBehaviour
         safariPanel.SetActive(false);
 
 
-        
-        GameObject player = GameObject.Find(ScreenShareWhileVideoCall.Instance.playerdict[(int)ScreenShareWhileVideoCall.Instance.Uid2] + "(user)");
+
+        PlayerItem m_playerItem = PhotonManager.Instance.findPlayerItemByID((int)ScreenShareWhileVideoCall.Instance.Uid2);
+        GameObject player = GameObject.Find(m_playerItem.Nickname + "(user)");
         PlayerItem playerScript = player.GetComponent<PlayerItem>();
         playerScript.webviewStart = false;
         player.transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
         Debug.LogError(player);
 
-        
+
     }
 
     public void safariBTN()
@@ -132,8 +133,9 @@ public class WebViewScript : MonoBehaviour
             webViewObject.gameObject.SetActive(true);
             safariPanel.SetActive(true);
 
-            
-            GameObject player = GameObject.Find(ScreenShareWhileVideoCall.Instance.playerdict[(int)ScreenShareWhileVideoCall.Instance.Uid2] + "(user)");
+
+            PlayerItem m_playerItem = PhotonManager.Instance.findPlayerItemByID((int)ScreenShareWhileVideoCall.Instance.Uid2);
+            GameObject player = GameObject.Find(m_playerItem.Nickname + "(user)");
             PlayerItem playerScript = player.GetComponent<PlayerItem>();
             playerScript.webviewStart = true;
             player.transform.GetChild(1).GetChild(0).gameObject.SetActive(true);

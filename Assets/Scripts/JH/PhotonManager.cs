@@ -34,7 +34,17 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         
 
     }
-    
+
+    public PlayerItem findPlayerItemByID(int id)
+    {
+        PlayerItem item = null;
+        foreach(PlayerItem pi in playerItemList)
+        {
+            if (pi.playerwebID == id)
+                item = pi;
+        }
+        return item;
+    }
     public void Connect()
     {
         PhotonNetwork.ConnectUsingSettings();

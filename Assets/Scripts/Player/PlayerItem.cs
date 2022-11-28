@@ -299,7 +299,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             stream.SendNext(playerwebID);
             stream.SendNext(playerObjectID);
             stream.SendNext(webviewStart);
-            stream.SendNext(idUint);
+//            stream.SendNext(idUint);
             stream.SendNext(CharCustomManager.Instance.selectedHairIndex);
             stream.SendNext(CharCustomManager.Instance.selectedShirtsIndex);
             stream.SendNext(CharCustomManager.Instance.selectedPantsIndex);
@@ -317,7 +317,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             playerObjectID = (int)stream.ReceiveNext();
 
             webviewStart = (bool)stream.ReceiveNext();
-            ScreenShareWhileVideoCall.Instance.playerdict = (Dictionary<int, string>)stream.ReceiveNext();
+            //ScreenShareWhileVideoCall.Instance.playerdict = (Dictionary<int, string>)stream.ReceiveNext();
             
             int hairIndex = (int)stream.ReceiveNext();
             int shirtsIndex = (int)stream.ReceiveNext();
