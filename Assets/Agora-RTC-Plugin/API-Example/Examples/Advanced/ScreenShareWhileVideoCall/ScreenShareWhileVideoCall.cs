@@ -63,7 +63,9 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
 
     public GameObject note;
 
-    public Dictionary<int, string> playerdict = new Dictionary<int, string>();
+    //public Dictionary<int, string> playerdict = new Dictionary<int, string>();
+
+
     public bool camFlag = true;
     public bool voiceFlag = true;
 
@@ -448,52 +450,66 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
 
             if (uid != _videoSample.Uid1 && uid != _videoSample.Uid2)
             {
-
-                if (_videoSample.playerdict.ContainsKey((int)uid))
+                List<PlayerItem> playerItemList = PhotonManager.Instance.playerItemList;
+                bool flag = false;
+                foreach (PlayerItem pi in playerItemList)
                 {
-                    Debug.LogError("asdfasdfasdfasdfasdf" + _videoSample.playerdict[(int)uid]);
-                    GameObject player = GameObject.Find(_videoSample.playerdict[(int)uid] + "(user)");
-                    PlayerItem playerScript = player.GetComponent<PlayerItem>();
-                    if (playerScript.webviewStart == true)
+                    Debug.Log(pi.playerwebID);
+                    if (pi.playerwebID == (int)uid)
                     {
-                        //GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
-                        VideoSurface vs = player.transform.GetChild(1).GetChild(0).GetComponent<VideoSurface>();
-                        //newFriendCam.transform.SetParent(player.transform.GetChild(1));
-                        //newFriendCam.transform.position = new Vector2(0,0);
-                        //newFriendCam.transform.localScale = new Vector3(1, 1, 1);
-                        //FriendCamList.Add(newFriendCam.GetComponent<VideoSurface>());
-                        vs.SetEnable(true);
-                        vs.SetForUser(uid, connection.channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
+                        GameObject player = GameObject.Find(pi.Nickname + "(user)");
 
-                        _videoSample.remoteUid = uid;
-                        //_videoSample.FriendList[Math.Min(_videoSample.count, _videoSample.FriendList.Count - 1)].SetActive(true);
-                        _videoSample.count += 1;
-                        _videoSample.idList.Add(uid);
-                    }
-                    else
-                    {
-                        _videoSample.userCount = FriendCamList.Count();
-
-                        GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
-                        newFriendCam.transform.SetParent(_videoSample.FriendCams.transform);
-                        newFriendCam.transform.localScale = new Vector3(1, 1, 1);
-
-                        if (!FriendCamList.Contains(newFriendCam.GetComponent<VideoSurface>()))
+                        PlayerItem playerScript = player.GetComponent<PlayerItem>();
+                        if (playerScript.webviewStart == true)
                         {
-                            FriendCamList.Add(newFriendCam.GetComponent<VideoSurface>());
-                            FriendCamList[FriendCamList.Count - 1].SetEnable(true);
-                            FriendCamList[FriendCamList.Count - 1].SetForUser(uid, connection.channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
+                            //GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
+                            VideoSurface vs = player.transform.GetChild(1).GetChild(0).GetComponent<VideoSurface>();
+                            //newFriendCam.transform.SetParent(player.transform.GetChild(1));
+                            //newFriendCam.transform.position = new Vector2(0,0);
+                            //newFriendCam.transform.localScale = new Vector3(1, 1, 1);
+                            //FriendCamList.Add(newFriendCam.GetComponent<VideoSurface>());
+                            vs.SetEnable(true);
+                            vs.SetForUser(uid, connection.channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
+
+                            _videoSample.remoteUid = uid;
+                            //_videoSample.FriendList[Math.Min(_videoSample.count, _videoSample.FriendList.Count - 1)].SetActive(true);
+                            _videoSample.count += 1;
+                            _videoSample.idList.Add(uid);
+
+                            flag = true;
 
                         }
 
-                        _videoSample.remoteUid = uid;
-                        _videoSample.FriendList[Math.Min(_videoSample.count, _videoSample.FriendList.Count - 1)].SetActive(true);
-                        _videoSample.count += 1;
-                        _videoSample.idList.Add(uid);
+                        else
+                        {
+                            _videoSample.userCount = FriendCamList.Count();
+
+                            GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
+                            newFriendCam.transform.SetParent(_videoSample.FriendCams.transform);
+                            newFriendCam.transform.localScale = new Vector3(1, 1, 1);
+
+                            if (!FriendCamList.Contains(newFriendCam.GetComponent<VideoSurface>()))
+                            {
+                                FriendCamList.Add(newFriendCam.GetComponent<VideoSurface>());
+                                FriendCamList[FriendCamList.Count - 1].SetEnable(true);
+                                FriendCamList[FriendCamList.Count - 1].SetForUser(uid, connection.channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
+
+                            }
+
+                            _videoSample.remoteUid = uid;
+                            _videoSample.FriendList[Math.Min(_videoSample.count, _videoSample.FriendList.Count - 1)].SetActive(true);
+                            _videoSample.count += 1;
+                            _videoSample.idList.Add(uid);
+
+                            flag = true;
+                        }
 
                     }
+
+
                 }
-                else
+
+                if (!flag)
                 {
                     _videoSample.userCount = FriendCamList.Count();
 
@@ -514,7 +530,6 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                     _videoSample.count += 1;
                     _videoSample.idList.Add(uid);
                 }
-
             }
 
         }

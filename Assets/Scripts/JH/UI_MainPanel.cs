@@ -217,7 +217,6 @@ public class UI_MainPanel : MonoBehaviour
     {
         VideoSurface vs = null;
 
-        Debug.Log(ScreenShareWhileVideoCall.Instance.playerdict);
         if (ScreenShareWhileVideoCall.FriendCamList.Count >= 1)
         {
 

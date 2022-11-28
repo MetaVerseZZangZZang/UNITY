@@ -34,7 +34,17 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         
 
     }
-    
+
+    public PlayerItem findPlayerItemByID(int id)
+    {
+        PlayerItem item = null;
+        foreach(PlayerItem pi in playerItemList)
+        {
+            if (pi.playerwebID == id)
+                item = pi;
+        }
+        return item;
+    }
     public void Connect()
     {
         PhotonNetwork.ConnectUsingSettings();
@@ -131,6 +141,16 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
+        Debug.Log("newPlayer.NickName " + newPlayer.NickName);
+        StartCoroutine(FindObject(newPlayer));
+    }
+
+    IEnumerator FindObject(Player newPlayer)
+    {
+        yield return new WaitForSeconds(0.4f);
+        GameObject player = GameObject.Find(newPlayer.NickName + "(user)");
+        Debug.Log("Player " + player);
+        playerItemList.Add(player.GetComponent<PlayerItem>());
         UI_PlayerSlot.Instance.AddPlayerSlot(newPlayer.NickName);
     }
 
