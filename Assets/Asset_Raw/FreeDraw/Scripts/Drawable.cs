@@ -181,7 +181,7 @@ public class Drawable : MonoBehaviour
             {
                 // We're over the texture we're drawing on!
                 // Use whatever function the current brush is
-                pv.RPC("PvDraw", RpcTarget.AllBuffered, mouse_world_position, Pen_Width, color_index);
+                pv.RPC("PvDraw", RpcTarget.AllBufferedViaServer, mouse_world_position, Pen_Width, color_index);
 
                 //Debug.LogError(mouse_world_position);
             }

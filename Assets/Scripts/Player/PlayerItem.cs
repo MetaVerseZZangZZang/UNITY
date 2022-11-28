@@ -296,8 +296,6 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     {
         if (stream.IsWriting)
         {
-            stream.SendNext(transform.rotation.eulerAngles);
-            stream.SendNext(transform.position);
             stream.SendNext(playerwebID);
             stream.SendNext(playerObjectID);
             stream.SendNext(webviewStart);
@@ -313,8 +311,6 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         }
         else
         {
-            curRot = (Vector3)stream.ReceiveNext();
-            curPos = (Vector3)stream.ReceiveNext();
             playerwebID = (int)stream.ReceiveNext();
             playerObjectID = (int)stream.ReceiveNext();
 
@@ -326,9 +322,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             int pantsIndex = (int)stream.ReceiveNext();
             int shoesIndex = (int)stream.ReceiveNext();
             int hatIndex = (int)stream.ReceiveNext();
-
-            transform.rotation = Quaternion.Euler(curRot);
-            transform.position = curPos;
+            
             //GetComponent<CharacterCustomization>().SwitchCharacterSettings(gender);
             GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair, hairIndex);
             GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Shirt, shirtsIndex);

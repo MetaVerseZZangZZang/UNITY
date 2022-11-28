@@ -6929,8 +6929,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Target: {fileID: 0}
   offsetX: 0
-  offsetY: 3
-  offsetZ: -3
+  offsetY: 4
+  offsetZ: -4
   CameraSpeed: 20
   angleX: 35
   angleY: 0
@@ -8335,7 +8335,7 @@ PrefabInstance:
     - target: {fileID: 323748391658456349, guid: a09c55de95665457690f512b21f6c103,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 323748391658456349, guid: a09c55de95665457690f512b21f6c103,
         type: 3}
@@ -10475,7 +10475,7 @@ PrefabInstance:
     - target: {fileID: 3565184811741462799, guid: c109aa4cc060f4bd7ae46a6e084f60ff,
         type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3565184811741462799, guid: c109aa4cc060f4bd7ae46a6e084f60ff,
         type: 3}
