@@ -195,7 +195,9 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     IEnumerator BringWebTexture(RawImage webImageTexture)
     {
         yield return new WaitForSeconds(1f);
+#if UNITY_EDITOR_OSX
         webImageTexture.texture = WebViewObject.Instance.texture;
+#endif
 
     }
 
