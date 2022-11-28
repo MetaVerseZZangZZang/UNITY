@@ -10,7 +10,7 @@ public class ThirdPersonCam : MonoBehaviour
     public float offsetY = 2.0f;           // 카메라의 y좌표
     public float offsetZ = -3.0f;          // 카메라의 z좌표
 
-    public float CameraSpeed = 10.0f;       // 카메라의 속도
+    public float CameraSpeed = 2.0f;       // 카메라의 속도
     Vector3 TargetPos;                      // 타겟의 위치
     
     public float angleX = 35.0f;
@@ -18,7 +18,7 @@ public class ThirdPersonCam : MonoBehaviour
     public float angleZ = 0.0f;
 
     // Update is called once per frame
-    void LateUpdate()
+    void FixedUpdate()
     {
         if (UI_MainPanel.Instance.conferenceStart)
         {

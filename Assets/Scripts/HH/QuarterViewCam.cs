@@ -51,7 +51,7 @@ public class QuarterViewCam : MonoBehaviour
         transform.rotation = Quaternion.Euler(CamRot);
     }
 
-    void LateUpdate()
+    void FixedUpdate()
     {
         if (UI_MainPanel.Instance.conferenceStart)
         {

@@ -89,7 +89,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         }
         else
         {
-            player=PhotonNetwork.Instantiate("Prefabs/"+CharCustomManager.Instance.selectedGender+"Character", new Vector3(-1.09f,0,2.8f), Quaternion.Euler(new Vector3(0,0,0)));
+            player=PhotonNetwork.Instantiate("Prefabs/"+CharCustomManager.Instance.selectedGender+"Character", new Vector3(-1.09f,0,72.8f), Quaternion.Euler(new Vector3(0,0,0)));
         }
         
         player.GetComponent<PlayerItem>().Nickname.text = PhotonNetwork.LocalPlayer.NickName;

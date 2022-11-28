@@ -6722,7 +6722,7 @@ MonoBehaviour:
   offsetX: 0
   offsetY: 3
   offsetZ: -3
-  CameraSpeed: 10
+  CameraSpeed: 20
   angleX: 35
   angleY: 0
   angleZ: 0
@@ -14433,7 +14433,7 @@ PrefabInstance:
     - target: {fileID: 7721126529250047700, guid: 157952cfee4949348875cc1aaa08e1d1,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 7721126529250047700, guid: 157952cfee4949348875cc1aaa08e1d1,
         type: 3}
