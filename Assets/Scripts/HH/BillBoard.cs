@@ -21,7 +21,7 @@ public class BillBoard : MonoBehaviour
     
     private void LateUpdate()   
     {
-        if (quarter.enabled)
+        if (quarter.enabled && ImageTr.parent.gameObject.tag == "Player")
         {
             //ImageTr.position = new Vector3(0f, 2.460022f, 0.24f);
             ImageTr.rotation = Quaternion.Euler(200,316,1.5f);
