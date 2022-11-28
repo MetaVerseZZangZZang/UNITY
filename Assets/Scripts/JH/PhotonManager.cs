@@ -113,7 +113,10 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             UI_PlayerSlot.Instance.AddPlayerSlot(p.NickName);
         }
 
-        playerItemList.Add(player.GetComponent<PlayerItem>());
+        foreach (Player p in PhotonNetwork.PlayerList)
+        {
+            StartCoroutine(FindObject(p));
+        }
     }
 
     public void LeaveRoom()
@@ -148,7 +151,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         yield return new WaitForSeconds(0.4f);
         GameObject player = GameObject.Find(newPlayer.NickName + "(user)");
-        Debug.Log("Player " + player);
         playerItemList.Add(player.GetComponent<PlayerItem>());
         UI_PlayerSlot.Instance.AddPlayerSlot(newPlayer.NickName);
     }
@@ -166,8 +168,12 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             }
         }
 
-        playerItemList.Remove(toRemove);
-        UI_PlayerSlot.Instance.DelPlayerSlot(otherPlayer.NickName);
+        if (toRemove != null)
+        {
+            playerItemList.Remove(toRemove);
+            UI_PlayerSlot.Instance.DelPlayerSlot(otherPlayer.NickName);
+        }
+        
     }
 
     
