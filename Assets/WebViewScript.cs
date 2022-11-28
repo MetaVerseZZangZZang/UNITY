@@ -2,6 +2,7 @@ using UnityEngine;
 
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class WebViewScript : MonoBehaviour
 {
@@ -184,6 +185,15 @@ public class WebViewScript : MonoBehaviour
             ScreenShareWhileVideoCall.Instance._rect = new Rect(0, 0, 1920, 1000);
 
 
+
+            GameObject playerID = GameObject.Find(UI_StartPanel.Instance.userName + "(user)");
+
+            PlayerItem playerScript = playerID.GetComponent<PlayerItem>();
+            Transform playerCanvas = playerID.transform.GetChild(1).GetChild(0);
+            playerCanvas.gameObject.SetActive(true);
+            RawImage playerWebImage = playerCanvas.GetComponent<RawImage>();
+            StartCoroutine(BringWebTexture(playerWebImage));
+
         }
         else
         {
@@ -205,7 +215,24 @@ public class WebViewScript : MonoBehaviour
             safariPanelRect.sizeDelta = new Vector2(1148, 780);
             //safariPanel.GetComponent<Animation>().Play("SafariSizeDown");
             ScreenShareWhileVideoCall.Instance._rect = new Rect(0, 0, 1148, 700);
+
+            GameObject playerID = GameObject.Find(UI_StartPanel.Instance.userName + "(user)");
+
+            PlayerItem playerScript = playerID.GetComponent<PlayerItem>();
+            Transform playerCanvas = playerID.transform.GetChild(1).GetChild(0);
+            playerCanvas.gameObject.SetActive(true);
+            RawImage playerWebImage = playerCanvas.GetComponent<RawImage>();
+            StartCoroutine(BringWebTexture(playerWebImage));
         }
+
+    }
+
+    IEnumerator BringWebTexture(RawImage webImageTexture)
+    {
+        yield return new WaitForSeconds(1f);
+#if UNITY_EDITOR_OSX
+        webImageTexture.texture = WebViewObject.Instance.texture;
+#endif
 
     }
 
