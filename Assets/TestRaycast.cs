@@ -33,14 +33,15 @@ public class TestRaycast : MonoBehaviour
                         playerCanvas = hit.transform.GetChild(1);
                         Debug.LogError("elmentRect" + elementRect.transform.position);
 
-                        Quaternion tempRot = new Quaternion(180, 180, 0, 0);
+                        //Quaternion tempRot = new Quaternion(0, 0, 0, 0);
 
                         //hit.transform.GetChild(1).GetChild(0).GetComponent<Transform>();
                         panel = hit.transform.GetChild(1).GetChild(0);
                         panel.SetParent(mainCanvas);
-                        panel.transform.rotation = tempRot;
 
                         RectTransform panelRect = panel.GetComponent<RectTransform>();
+                        panelRect.transform.rotation = Quaternion.identity;
+                        panelRect.transform.localScale = new Vector3(0, 0, 0);
 
                         elmentSize = panelRect.sizeDelta;
                         elmentPosition = panelRect.transform.position;
