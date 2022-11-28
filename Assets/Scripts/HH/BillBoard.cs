@@ -21,21 +21,31 @@ public class BillBoard : MonoBehaviour
     
     private void LateUpdate()   
     {
-        if (quarter.enabled && ImageTr.parent.gameObject.tag == "Player")
+        Debug.LogError(ImageTr.parent.tag);
+        if (quarter.enabled && ImageTr.parent.gameObject.tag == "PlayerCanvas")
         {
+            //Debug.LogError("!!!!!!!!!!!!!!!");
             //ImageTr.position = new Vector3(0f, 2.460022f, 0.24f);
-            ImageTr.rotation = Quaternion.Euler(200,316,1.5f);
+            ImageTr.rotation = Quaternion.Euler(200, 316, 1.5f);
             //ImageTr.anchoredPosition = new Vector2(-1f, 2.460022f);
             //NameTr.position = new Vector3(0f, 2.460022f, 0.15f);
-            NameTr.rotation = Quaternion.Euler(45f,-45f,0f);
+            NameTr.rotation = Quaternion.Euler(45f, -45f, 0f);
             //ImageTr.anchoredPosition = new Vector2(0f, 2.460022f);
             //NameTr.localPosition = new Vector3(NameTr.localPosition.x, NameTr.localPosition.y, 0.15f);
         }
-        else
+
+        else if (quarter.enabled == false && ImageTr.parent.gameObject.tag == "PlayerCanvas")
         {
+            //Debug.LogError("@@@@@@@@@@@@@@@");
             ImageTr.LookAt(ImageTr.position + camTransform.forward);
             NameTr.LookAt(NameTr.position + camTransform.forward);
-            ImageTr.rotation = Quaternion.Euler(ImageTr.rotation.x,ImageTr.rotation.y,180f);
+            ImageTr.rotation = Quaternion.Euler(ImageTr.rotation.x, ImageTr.rotation.y, 180f);
+        }
+
+        else if (ImageTr.parent.gameObject.tag == "MainCanvas")
+        {
+            //Debug.LogError("############");
+            return;
         }
     }
 }

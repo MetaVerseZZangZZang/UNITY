@@ -45,8 +45,10 @@ public class TestRaycast : MonoBehaviour
 
                             RectTransform panelRect = panel.GetComponent<RectTransform>();
                             //panelRect.transform.rotation = Quaternion.identity;
-                            panelRect.transform.localScale = new Vector3(-1, -1, -1);
 
+                            panelRect.transform.rotation = Quaternion.Euler(180,0,180);
+                            panelRect.transform.localScale = new Vector3(-1, -1, -1);
+                            panelRect.transform.position = new Vector3(0,0,0);
                             elmentSize = panelRect.sizeDelta;
                             elmentPosition = panelRect.transform.position;
 

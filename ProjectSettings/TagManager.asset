@@ -9,6 +9,9 @@ TagManager:
   - Pants
   - Canvas
   - Chair
+  - parent
+  - MainCanvas
+  - PlayerCanvas
   layers:
   - Default
   - TransparentFX
