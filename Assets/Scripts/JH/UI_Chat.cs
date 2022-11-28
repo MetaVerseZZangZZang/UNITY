@@ -15,6 +15,7 @@ public class UI_Chat : MonoBehaviour
     public GameObject m_ReplyTextPrefab;
     public GameObject safari;
 
+    public ScrollRect m_ScrollRect;
     
     public GameObject AIParent;
     public static UI_Chat Instance;
@@ -33,11 +34,21 @@ public class UI_Chat : MonoBehaviour
 
     private void scrollUpdate()
     {
-        AIParent.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, AIParent.GetComponent<RectTransform>().anchoredPosition.y + 100);
+       // AIParent.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, AIParent.GetComponent<RectTransform>().anchoredPosition.y + 100);
+
+       StartCoroutine(ScrollUpdate_Coroutine());
+    }
+
+    private IEnumerator ScrollUpdate_Coroutine()
+    {
+        yield return new WaitForEndOfFrame();
+        
+        m_ScrollRect.verticalNormalizedPosition = 0f;
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)AIParent.transform);
         AIParent.SetActive(false);
         AIParent.SetActive(true);
     }
+    
     public void TxtBtn(string url)
     {
         Debug.LogError("txtBtnClick");

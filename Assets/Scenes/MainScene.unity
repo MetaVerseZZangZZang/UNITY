@@ -4822,7 +4822,7 @@ MonoBehaviour:
     m_Left: 0
     m_Right: 0
     m_Top: 0
-    m_Bottom: 0
+    m_Bottom: 8
   m_ChildAlignment: 0
   m_Spacing: 12
   m_ChildForceExpandWidth: 1
@@ -18781,7 +18781,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -60}
+  m_AnchoredPosition: {x: 750, y: -60}
   m_SizeDelta: {x: 720, y: -100}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!1 &2409413152277800715
@@ -18827,6 +18827,7 @@ MonoBehaviour:
   m_ReplyTextPrefab: {fileID: 3099277011160681397, guid: 212429808e7a8334f8a517fc0c44ae89,
     type: 3}
   safari: {fileID: 644573188}
+  m_ScrollRect: {fileID: 2409413153610672582}
   AIParent: {fileID: 2409413151979296846}
   fileImage: {fileID: 8049015782105354840, guid: 743826f80851e459faad0abe0393c266,
     type: 3}
@@ -18967,8 +18968,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 40}
-  m_SizeDelta: {x: -44, y: -80}
+  m_AnchoredPosition: {x: 0, y: 16}
+  m_SizeDelta: {x: -44, y: -32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2415745482181497202
 GameObject:
@@ -19062,7 +19063,7 @@ RectTransform:
   m_Children:
   - {fileID: 3443789015490091724}
   m_Father: {fileID: 9155909390434288906}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -20245,7 +20246,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9155909390434288906}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -20336,7 +20337,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 1
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 3.114746, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -20879,8 +20880,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2457451034264318575}
   - {fileID: 8866666143861503130}
+  - {fileID: 2457451034264318575}
   m_Father: {fileID: 2409413152277800714}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
