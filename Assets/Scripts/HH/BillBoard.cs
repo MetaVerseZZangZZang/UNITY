@@ -21,7 +21,7 @@ public class BillBoard : MonoBehaviour
     
     private void LateUpdate()   
     {
-        Debug.LogError(ImageTr.parent.tag);
+        //Debug.LogError(ImageTr.parent.tag);
         if (quarter.enabled && ImageTr.parent.gameObject.tag == "PlayerCanvas")
         {
             //Debug.LogError("!!!!!!!!!!!!!!!");
