@@ -87,8 +87,6 @@ public class QuarterViewCam : MonoBehaviour
             //transform.LookAt(target);
 
             transform.rotation = Quaternion.Euler(CamRot);
-
-
         }
 
     }
