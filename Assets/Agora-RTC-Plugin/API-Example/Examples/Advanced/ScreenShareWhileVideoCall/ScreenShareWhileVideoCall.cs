@@ -454,12 +454,13 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                 bool flag = false;
                 foreach (PlayerItem pi in playerItemList)
                 {
-                    Debug.Log(pi.playerwebID);
+                    Debug.LogError("pi.playerwebID "+pi.playerwebID);
                     if (pi.playerwebID == (int)uid)
                     {
-                        GameObject player = GameObject.Find(pi.Nickname + "(user)");
+                        GameObject player = GameObject.Find(pi.Nickname.text + "(user)");
 
                         PlayerItem playerScript = player.GetComponent<PlayerItem>();
+                        Debug.Log("playerScript "+playerScript);
                         if (playerScript.webviewStart == true)
                         {
                             //GameObject newFriendCam = Instantiate(Resources.Load<GameObject>("Prefabs/FriendCam"));
