@@ -14,14 +14,11 @@ public class TestRaycast : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             ray = detectCam.ScreenPointToRay(Input.mousePosition);
-            Debug.LogError("1111111111");
 
             if (Physics.Raycast(ray, out hit))
             {
-                Debug.LogError("222222222");
                 if (hit.transform.GetChild(1).GetChild(0).gameObject.activeSelf == true)
                 {
-                    Debug.LogError("3333333");
                     Quaternion tempRot = new Quaternion(180,0,0,0);
                     //hit.transform.GetChild(1).GetChild(0).GetComponent<Transform>();
                     Transform panel = hit.transform.GetChild(1).GetChild(0);
