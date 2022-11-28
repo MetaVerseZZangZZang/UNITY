@@ -52,6 +52,12 @@ public class UI_Character : MonoBehaviour
     public RectTransform maleUI;
     public RectTransform femaleUI;
 
+    public UI_Character UIMaleCharacter;
+    public UI_Character UIFemaleCharacter;
+    
+    public GameObject m_MaleLineObject;
+    public GameObject m_FemaleLineObject;
+    
     public void Awake()
     {
         Instance = this;
@@ -87,6 +93,10 @@ public class UI_Character : MonoBehaviour
             femaleUI.gameObject.SetActive(false);
             CharacterCustomization = MaleGameObject.GetComponent<CharacterCustomization>();
             
+            m_MaleLineObject.SetActive(true);
+            m_FemaleLineObject.SetActive(false);
+            
+            
             HairPanel_Select();
         }
         if (name == "Female")
@@ -96,6 +106,9 @@ public class UI_Character : MonoBehaviour
             femaleUI.gameObject.SetActive(true);
             maleUI.gameObject.SetActive(false);
             CharacterCustomization = FemaleGameObject.GetComponent<CharacterCustomization>();
+            
+            m_MaleLineObject.SetActive(false);
+            m_FemaleLineObject.SetActive(true);
             
             HairPanel_Select();
 

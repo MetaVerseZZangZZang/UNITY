@@ -33,6 +33,7 @@ public class UI_LobbyPanel : MonoBehaviour
         PhotonNetwork.JoinLobby();
     }
     */
+    
     private void Awake()
     {
         Instance = this;
@@ -72,7 +73,6 @@ public class UI_LobbyPanel : MonoBehaviour
         camTexture = new WebCamTexture(device.name);
         myCam.texture = camTexture;
         camTexture.Play();
-
     }
 
     
