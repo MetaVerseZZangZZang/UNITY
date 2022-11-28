@@ -522,7 +522,6 @@ MonoBehaviour:
   count: 1
   idList: 
   userCount: 0
-  testList: []
 --- !u!1 &103136282
 GameObject:
   m_ObjectHideFlags: 0
@@ -15165,6 +15164,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detectCam: {fileID: 519420031}
   mainCanvas: {fileID: 3746751487539468822}
+  panel: {fileID: 0}
+  elementRect: {fileID: 0}
+  playerCanvas: {fileID: 0}
+  elmentSize: {x: 0, y: 0}
+  elmentPosition: {x: 0, y: 0, z: 0}
 --- !u!4 &1937429801
 Transform:
   m_ObjectHideFlags: 0

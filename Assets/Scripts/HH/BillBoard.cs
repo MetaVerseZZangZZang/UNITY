@@ -24,7 +24,7 @@ public class BillBoard : MonoBehaviour
         if (quarter.enabled)
         {
             //ImageTr.position = new Vector3(0f, 2.460022f, 0.24f);
-            ImageTr.rotation = Quaternion.Euler(45f,-45f,0f);
+            ImageTr.rotation = Quaternion.Euler(200,316,1.5f);
             //ImageTr.anchoredPosition = new Vector2(-1f, 2.460022f);
             //NameTr.position = new Vector3(0f, 2.460022f, 0.15f);
             NameTr.rotation = Quaternion.Euler(45f,-45f,0f);
@@ -34,7 +34,8 @@ public class BillBoard : MonoBehaviour
         else
         {
             ImageTr.LookAt(ImageTr.position + camTransform.forward);
-            NameTr.LookAt(NameTr.position + camTransform.forward); 
+            NameTr.LookAt(NameTr.position + camTransform.forward);
+            ImageTr.rotation = Quaternion.Euler(ImageTr.rotation.x,ImageTr.rotation.y,180f);
         }
     }
 }
