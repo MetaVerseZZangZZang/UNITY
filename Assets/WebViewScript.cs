@@ -83,8 +83,11 @@ public class WebViewScript : MonoBehaviour
     public void XBtn()
     {
         shutDown = true;
+#if UNITY_EDITOR_OSX        
         surfSaveList = WebViewObject.Instance.surfingList;
         saveURLCount = WebViewObject.Instance.currentURL;
+        
+#endif
         webViewObject.gameObject.SetActive(false);
         safariIcon.SetActive(true);
         safariPanel.SetActive(false);
@@ -98,7 +101,7 @@ public class WebViewScript : MonoBehaviour
         Debug.LogError(player);
         
     }
-
+#if UNITY_EDITOR_OSX
     public void _BTN()
     {
 
@@ -223,5 +226,5 @@ public class WebViewScript : MonoBehaviour
         //webViewObject.SetMargins(3, 3, 3, 3);
 
     }
-    
+#endif
 }

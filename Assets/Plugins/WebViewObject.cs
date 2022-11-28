@@ -316,7 +316,9 @@ public class WebViewObject : MonoBehaviour
     Button resetBTN;
     Button expendBTN;
     private void Start()
-    {   
+    {
+#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX || UNITY_EDITOR_LINUX
+        
         userInputURL = GameObject.Find("SafariInputField").GetComponent<InputField>();
         safariFrontBTN = GameObject.Find("SafariFront").GetComponent<Button>();
         safariBackBTN = GameObject.Find("SafariBack").GetComponent<Button>();
@@ -328,6 +330,8 @@ public class WebViewObject : MonoBehaviour
         safariFrontBTN.onClick.AddListener(NextURL);
         safariBackBTN.onClick.AddListener(BackURL);
         userInputURL.onSubmit.AddListener(delegate{SurfURL();});
+#endif
+        
 
         Instance = this;
 
