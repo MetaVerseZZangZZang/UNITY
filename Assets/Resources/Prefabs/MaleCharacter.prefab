@@ -3274,16 +3274,16 @@ MonoBehaviour:
   ShowParameterInspector: 1
   m_SynchronizeParameters:
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: IsWalking
   - Type: 1
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: speed
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Sit
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Talk
   m_SynchronizeLayers:
   - SynchronizeType: 0
