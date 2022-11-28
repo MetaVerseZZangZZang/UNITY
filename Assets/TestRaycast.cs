@@ -17,6 +17,12 @@ public class TestRaycast : MonoBehaviour
     public Vector2 elmentSize;
     public Vector3 elmentPosition;
 
+    public GameObject btn;
+
+
+
+
+
     void Update()
     {
         if (UI_MainPanel.Instance.conferenceStart)
@@ -37,6 +43,8 @@ public class TestRaycast : MonoBehaviour
                             playerCanvas = hit.transform.GetChild(1);
                             Debug.LogError("elmentRect" + elementRect.transform.position);
 
+
+
                             //Quaternion tempRot = new Quaternion(0, 0, 0, 0);
 
                             //hit.transform.GetChild(1).GetChild(0).GetComponent<Transform>();
@@ -47,13 +55,17 @@ public class TestRaycast : MonoBehaviour
                             //panelRect.transform.rotation = Quaternion.identity;
 
                             panelRect.transform.rotation = Quaternion.Euler(0,180,180);
-                            panelRect.transform.localScale = new Vector3(1, 1, 1);
+                            panelRect.transform.localScale = new Vector3(-1, 1, 1);
                             //panelRect.transform.position = new Vector3()
                             elmentSize = panelRect.sizeDelta;
                             elmentPosition = panelRect.transform.position;
 
                             panelRect.sizeDelta = new Vector2(1920, 980);
                             panelRect.transform.position = new Vector3(960, 490, 0);
+
+
+                            btn.SetActive(true);
+                            btn.transform.SetAsLastSibling();
 
                         }
                     }
@@ -79,5 +91,6 @@ public class TestRaycast : MonoBehaviour
 
         changePanel.sizeDelta = elmentSize;
         changePanel.transform.position = elmentPosition;
+        btn.SetActive(false);
     }
 }

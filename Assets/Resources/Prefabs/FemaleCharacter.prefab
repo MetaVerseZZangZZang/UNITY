@@ -12364,8 +12364,6 @@ GameObject:
   - component: {fileID: 5218587183808947740}
   - component: {fileID: 7493286979619540701}
   - component: {fileID: 1224709941320930856}
-  - component: {fileID: 7959460789043623311}
-  - component: {fileID: 5644792627314178184}
   m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
@@ -12472,37 +12470,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &7959460789043623311
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7963670090384779381}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c35647d4ef5fa4fbe946437964240001, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainCanvas: {fileID: 0}
-  extendBTN: {fileID: 0}
---- !u!114 &5644792627314178184
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7963670090384779381}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: feaea3b4d52b0450882006a237f9d782, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  VideoSurfaceType: 0
-  Enable: 1
-  Uid: 0
-  UserName: 
-  SourceType: 0
 --- !u!1 &7991333336222186501
 GameObject:
   m_ObjectHideFlags: 0
