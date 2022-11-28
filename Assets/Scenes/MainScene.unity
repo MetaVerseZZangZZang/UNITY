@@ -15190,6 +15190,7 @@ MonoBehaviour:
   playerCanvas: {fileID: 0}
   elmentSize: {x: 0, y: 0}
   elmentPosition: {x: 0, y: 0, z: 0}
+  reduce: {fileID: 0}
 --- !u!4 &1937429801
 Transform:
   m_ObjectHideFlags: 0
