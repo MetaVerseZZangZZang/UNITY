@@ -119,9 +119,18 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             //Debug.Log(Drawable.Instance.);
 
         }
+        if (webviewStart == true)
+        {
+            transform.GetChild(1).GetChild(0).gameObject.SetActive(true);
+        }
+        else if (webviewStart == false)
+        {
+            transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
+        }
 
         if (pv.IsMine)
         {
+            
             talking = AudioLoudnessDetection.Instance.recording;
             if (talking == true)
             {
