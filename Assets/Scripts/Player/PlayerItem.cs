@@ -55,6 +55,9 @@ public class PlayerItem : MonoBehaviour, IPunObservable
         gameObject.name = pv.IsMine ? PhotonNetwork.NickName + "(user)" : pv.Owner.NickName + "(user)";
         Nickname.text = pv.IsMine ? PhotonNetwork.NickName : pv.Owner.NickName;
 
+
+        ScreenShareWhileVideoCall.Instance.playerdict = idUint;
+
         if (pv.IsMine)
         {
             playerwebID = (int)UnityEngine.Random.Range(1000, 2000);
@@ -69,7 +72,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
 
 
-            ScreenShareWhileVideoCall.Instance.playerdict = idUint; 
+             
             //ScreenShareWhileVideoCall.Instance.playerdict = idUint;
 
             
