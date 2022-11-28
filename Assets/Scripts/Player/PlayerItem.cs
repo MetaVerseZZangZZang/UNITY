@@ -312,8 +312,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
 
             webviewStart = (bool)stream.ReceiveNext();
             ScreenShareWhileVideoCall.Instance.playerdict = (Dictionary<int, string>)stream.ReceiveNext();
-
-
+            
             int hairIndex = (int)stream.ReceiveNext();
             int shirtsIndex = (int)stream.ReceiveNext();
             int pantsIndex = (int)stream.ReceiveNext();
@@ -328,10 +327,11 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Pants, pantsIndex);
             GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Shoes, shoesIndex);
             GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hat, hatIndex);
-
+            
             //drawPosition = (Vector2)stream.ReceiveNext();
             //DrawStream(drawPosition);
             talking = (bool)stream.ReceiveNext();
+            transform.GetChild(1).GetChild(0).gameObject.SetActive(webviewStart);
 
             if ((bool)stream.ReceiveNext())
             {

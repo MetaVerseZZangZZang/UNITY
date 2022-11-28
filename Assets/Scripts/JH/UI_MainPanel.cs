@@ -134,8 +134,6 @@ public class UI_MainPanel : MonoBehaviour
         AudioLoudnessDetection.Instance.joined = false;
 
     }
-
-
     
     public void CamToggle(Toggle toggle)
     {
