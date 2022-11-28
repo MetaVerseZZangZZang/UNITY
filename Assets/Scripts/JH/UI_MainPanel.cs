@@ -38,6 +38,7 @@ public class UI_MainPanel : MonoBehaviour
     public Button camButton;
     
     public Toggle MyCamToggle;
+    public Toggle MyVoiceToggle;
     
     private void Awake()
     {
@@ -80,6 +81,7 @@ public class UI_MainPanel : MonoBehaviour
         third.enabled = false;
         
         MyCamToggle.isOn = !ScreenShareWhileVideoCall.Instance.camFlag;
+        MyVoiceToggle.isOn=!ScreenShareWhileVideoCall.Instance.voiceFlag;
     }
     
     public void CamButtonClick()
@@ -154,23 +156,9 @@ public class UI_MainPanel : MonoBehaviour
     
     public void VoiceToggle(Toggle toggle)
     {
-
-        /*
+        //MyCamControl(!toggle.isOn);
         ScreenShareWhileVideoCall.Instance.voiceFlag = !toggle.isOn;
-        if (ScreenShareWhileVideoCall.Instance.voiceFlag)  
-        {
-            ScreenShareWhileVideoCall.Instance.voiceControl(true);
-            AudioLoudnessDetection.Instance.joined = true;
-            ScreenShareWhileVideoCall.Instance.voiceFlag = true;
-        }
-        else
-        {
-            ScreenShareWhileVideoCall.Instance.voiceControl(false);
-            AudioLoudnessDetection.Instance.joined = false;
-            ScreenShareWhileVideoCall.Instance.voiceFlag = false;
-        }
-        */
-        
+        ScreenShareWhileVideoCall.Instance.voiceControl(ScreenShareWhileVideoCall.Instance.voiceFlag);
     }
 
     public void friendCamON(PlayerItem playerItem)
@@ -201,11 +189,9 @@ public class UI_MainPanel : MonoBehaviour
             }
         }
     }
-
     
-    public void friendVoiceOn(PlayerItem playerItem)
+    public void friendVoiceON(PlayerItem playerItem)
     {
-        VideoSurface RemoteView = getVSByPlayerItem(playerItem);
         foreach (UI_PlayerSlotItem item in UI_PlayerSlot.Instance.PlayerSlotList)
         {
             if (item.name.text == playerItem.Nickname)
@@ -217,7 +203,6 @@ public class UI_MainPanel : MonoBehaviour
 
     public void friendVoiceOff(PlayerItem playerItem)
     {
-        VideoSurface RemoteView = getVSByPlayerItem(playerItem);
         foreach (UI_PlayerSlotItem item in UI_PlayerSlot.Instance.PlayerSlotList)
         {
             if (item.name.text == playerItem.Nickname)
@@ -226,6 +211,7 @@ public class UI_MainPanel : MonoBehaviour
             }
         }
     }
+    
 
     public VideoSurface getVSByPlayerItem(PlayerItem playerItem)
     {

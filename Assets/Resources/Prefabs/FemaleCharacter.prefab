@@ -2167,6 +2167,7 @@ GameObject:
   - component: {fileID: 8461957992028094475}
   - component: {fileID: 9220516865472278287}
   - component: {fileID: 4338413693397323449}
+  - component: {fileID: 516021728076744261}
   m_Layer: 0
   m_Name: FemaleCharacter
   m_TagString: Player
@@ -2183,7 +2184,7 @@ Transform:
   m_GameObject: {fileID: 1705496087617365778}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9121796857373986868}
@@ -2286,7 +2287,7 @@ MonoBehaviour:
     - {fileID: 8057312869488707128}
     - {fileID: 7927747180201987904}
   prefabPath: Assets/AdvancedPeopleSystem2/Prefabs/CustomizableCharacter.prefab
-  instanceStatus: 1
+  instanceStatus: 5
   originHip: {fileID: 8970357574251447835}
   headHip: {fileID: 4641111449798277609}
   clothesAnchors:
@@ -2562,7 +2563,7 @@ Animator:
   m_GameObject: {fileID: 1705496087617365778}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 9c09c78ed1209974db369788b8305a24, type: 3}
-  m_Controller: {fileID: 9100000, guid: 084d8be3777e8b94c81323dd5fc42d88, type: 2}
+  m_Controller: {fileID: 9100000, guid: 8442f36b58c1f8f4fba2f514eefa3d27, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -2717,8 +2718,17 @@ MonoBehaviour:
   ShowParameterInspector: 1
   m_SynchronizeParameters:
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: IsWalking
+  - Type: 1
+    SynchronizeType: 1
+    Name: speed
+  - Type: 4
+    SynchronizeType: 1
+    Name: Sit
+  - Type: 4
+    SynchronizeType: 1
+    Name: Talk
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
@@ -2746,6 +2756,11 @@ MonoBehaviour:
   drawPosition: {x: 0, y: 0}
   talking: 0
   talkingImage: {fileID: 4604997921933885919}
+  stance: idle
+  isCollide: 0
+  chairPos: {x: 0, y: 0, z: 0}
+  chairRot: {x: 0, y: 0, z: 0, w: 1}
+  chairCollider: {fileID: 0}
   speed: 3
   rotationSpeed: 10
 --- !u!54 &8461957992028094475
@@ -2759,10 +2774,10 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 4
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &9220516865472278287
 MonoBehaviour:
@@ -2796,6 +2811,20 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!136 &516021728076744261
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705496087617365778}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.1616354
+  m_Height: 1.8393939
+  m_Direction: 1
+  m_Center: {x: -0.013415813, y: 0.9373249, z: 0.010357916}
 --- !u!1 &1752486102465752041
 GameObject:
   m_ObjectHideFlags: 0
@@ -5632,6 +5661,7 @@ GameObject:
   - component: {fileID: 2683026796197156658}
   - component: {fileID: 4411499655592620221}
   - component: {fileID: 1087353707439038136}
+  - component: {fileID: 3821442982607741377}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -5723,6 +5753,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &3821442982607741377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3534078580990406119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b45f05e5e4871384490bb17a5a183e1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ImageTr: {fileID: 5339762642510486640}
+  NameTr: {fileID: 4095958791149187441}
 --- !u!1 &3556843233769519139
 GameObject:
   m_ObjectHideFlags: 0
@@ -12346,7 +12390,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 180}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.007019043, y: 2.421997}
+  m_AnchoredPosition: {x: 0, y: 2.460022}
   m_SizeDelta: {x: 0.96, y: 0.54}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5218587183808947740

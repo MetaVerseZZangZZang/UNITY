@@ -378,6 +378,8 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
 
     public void voiceControl(bool flag)
     {
+        Debug.Log("voice Control flag " + flag);
+        AudioLoudnessDetection.Instance.joined = flag;
         RtcEngine.SetDefaultAudioRouteToSpeakerphone(flag); // Disables the default audio route.
         RtcEngine.SetEnableSpeakerphone(flag);
     }
@@ -411,7 +413,6 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     public int count = 1;
     public List<uint> idList;
     public int userCount;
-    public List<VideoSurface> testList = new List<VideoSurface>();
     #endregion
 
     internal class UserEventHandler : IRtcEngineEventHandler
@@ -478,11 +479,8 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                         if (!FriendCamList.Contains(newFriendCam.GetComponent<VideoSurface>()))
                         {
                             FriendCamList.Add(newFriendCam.GetComponent<VideoSurface>());
-                            _videoSample.testList.Add(newFriendCam.GetComponent<VideoSurface>());
                             FriendCamList[FriendCamList.Count - 1].SetEnable(true);
                             FriendCamList[FriendCamList.Count - 1].SetForUser(uid, connection.channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
-                            _videoSample.testList.Add(newFriendCam.GetComponent<VideoSurface>());
-                            Debug.LogError(_videoSample.testList[0]);
 
                         }
 
@@ -501,7 +499,6 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
                     newFriendCam.transform.SetParent(_videoSample.FriendCams.transform);
                     newFriendCam.transform.localScale = new Vector3(1, 1, 1);
 
-                    _videoSample.testList.Add(newFriendCam.GetComponent<VideoSurface>());
                     if (!FriendCamList.Contains(newFriendCam.GetComponent<VideoSurface>()))
                     {
                         FriendCamList.Add(newFriendCam.GetComponent<VideoSurface>());
@@ -524,20 +521,27 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
         public override void OnUserOffline(RtcConnection connection, uint uid, USER_OFFLINE_REASON_TYPE reason)
         {
 
+            VideoSurface Selected = null;
             foreach (VideoSurface RemoteView in FriendCamList)
             {
                 if (RemoteView.Uid == uid)
                 {
-                    RemoteView.SetEnable(false);
-                    Destroy(RemoteView.gameObject);
-                    FriendCamList.Remove(RemoteView);
-                    Debug.Log("RemoteView.UserName " + RemoteView.UserName);
+                    Selected = RemoteView;
+
                 }
             }
+
+            if (Selected != null)
+            {
+                Selected.SetEnable(false);
+                Destroy(Selected.gameObject);
+                FriendCamList.Remove(Selected);
+            }
+
         }
+    
 
-
-    }
+}
 
 
     void OnApplicationQuit()
