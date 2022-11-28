@@ -27,28 +27,32 @@ public class TestRaycast : MonoBehaviour
 
                 if (Physics.Raycast(ray, out hit))
                 {
-                    if (hit.transform.GetChild(1).GetChild(0).gameObject.activeSelf == true && hit.transform.gameObject.name.Contains("(user)"))
+                    if (hit.transform.gameObject.tag=="Player")
                     {
-                        elementRect = hit.transform.GetChild(1).GetComponent<RectTransform>();
-                        playerCanvas = hit.transform.GetChild(1);
-                        Debug.LogError("elmentRect" + elementRect.transform.position);
+                        if (hit.transform.GetChild(1).GetChild(0).gameObject.activeSelf == true &&
+                            hit.transform.gameObject.name.Contains("(user)"))
+                        {
+                            elementRect = hit.transform.GetChild(1).GetComponent<RectTransform>();
+                            playerCanvas = hit.transform.GetChild(1);
+                            Debug.LogError("elmentRect" + elementRect.transform.position);
 
-                        //Quaternion tempRot = new Quaternion(0, 0, 0, 0);
+                            //Quaternion tempRot = new Quaternion(0, 0, 0, 0);
 
-                        //hit.transform.GetChild(1).GetChild(0).GetComponent<Transform>();
-                        panel = hit.transform.GetChild(1).GetChild(0);
-                        panel.SetParent(mainCanvas);
+                            //hit.transform.GetChild(1).GetChild(0).GetComponent<Transform>();
+                            panel = hit.transform.GetChild(1).GetChild(0);
+                            panel.SetParent(mainCanvas);
 
-                        RectTransform panelRect = panel.GetComponent<RectTransform>();
-                        panelRect.transform.rotation = Quaternion.identity;
-                        panelRect.transform.localScale = new Vector3(0, 0, 0);
+                            RectTransform panelRect = panel.GetComponent<RectTransform>();
+                            panelRect.transform.rotation = Quaternion.identity;
+                            panelRect.transform.localScale = new Vector3(0, 0, 0);
 
-                        elmentSize = panelRect.sizeDelta;
-                        elmentPosition = panelRect.transform.position;
+                            elmentSize = panelRect.sizeDelta;
+                            elmentPosition = panelRect.transform.position;
 
-                        panelRect.sizeDelta = new Vector2(1920, 980);
-                        panelRect.transform.position = new Vector3(960, 490, 0);
+                            panelRect.sizeDelta = new Vector2(1920, 980);
+                            panelRect.transform.position = new Vector3(960, 490, 0);
 
+                        }
                     }
 
                 }
