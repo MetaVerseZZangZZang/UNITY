@@ -92,7 +92,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         Hashtable CP = PhotonNetwork.CurrentRoom.CustomProperties;
         UI_MainPanel.Instance.Show((int)CP["Map"]);
-
         if ((int)CP["Map"] == 0)
         {
             player=PhotonNetwork.Instantiate("Prefabs/"+CharCustomManager.Instance.selectedGender+"Character", new Vector3(1,0,35), Quaternion.Euler(new Vector3(0,0,0)));
