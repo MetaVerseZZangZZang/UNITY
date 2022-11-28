@@ -273,6 +273,14 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     }
     private void Update()
     {
+#if UNITY_EDITOR_OSX
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            Destroy(WebViewObject.Instance.gameObject);
+            WebviewStop();
+        }
+#endif
+
         if (startWebview == true)
         {
             PermissionHelper.RequestMicrophontPermission();
