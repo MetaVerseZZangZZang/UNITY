@@ -301,6 +301,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             stream.SendNext(CharCustomManager.Instance.selectedHatIndex);
             stream.SendNext(talking);
             stream.SendNext(ScreenShareWhileVideoCall.Instance.camFlag);
+            stream.SendNext(ScreenShareWhileVideoCall.Instance.voiceFlag);
         }
         else
         {
@@ -338,6 +339,13 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             }
             else
                 UI_MainPanel.Instance.friendCamOff(this);
+            
+            if ((bool)stream.ReceiveNext())
+            {
+                UI_MainPanel.Instance.friendVoiceON(this);
+            }
+            else
+                UI_MainPanel.Instance.friendVoiceOff(this);
 
         }
 
