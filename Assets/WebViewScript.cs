@@ -95,7 +95,7 @@ public class WebViewScript : MonoBehaviour
 
 
         PlayerItem m_playerItem=PhotonManager.Instance.findPlayerItemByID((int)ScreenShareWhileVideoCall.Instance.Uid2);
-        GameObject player = GameObject.Find(m_playerItem .Nickname+ "(user)");
+        GameObject player = GameObject.Find(m_playerItem .Nickname.text+ "(user)");
         PlayerItem playerScript = player.GetComponent<PlayerItem>();
         playerScript.webviewStart = false;
         player.transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
@@ -116,7 +116,7 @@ public class WebViewScript : MonoBehaviour
 
 
         PlayerItem m_playerItem = PhotonManager.Instance.findPlayerItemByID((int)ScreenShareWhileVideoCall.Instance.Uid2);
-        GameObject player = GameObject.Find(m_playerItem.Nickname + "(user)");
+        GameObject player = GameObject.Find(m_playerItem.Nickname.text + "(user)");
         PlayerItem playerScript = player.GetComponent<PlayerItem>();
         playerScript.webviewStart = false;
         player.transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
@@ -136,7 +136,7 @@ public class WebViewScript : MonoBehaviour
 
 
             PlayerItem m_playerItem = PhotonManager.Instance.findPlayerItemByID((int)ScreenShareWhileVideoCall.Instance.Uid2);
-            GameObject player = GameObject.Find(m_playerItem.Nickname + "(user)");
+            GameObject player = GameObject.Find(m_playerItem.Nickname.text + "(user)");
             PlayerItem playerScript = player.GetComponent<PlayerItem>();
             playerScript.webviewStart = true;
             player.transform.GetChild(1).GetChild(0).gameObject.SetActive(true);
