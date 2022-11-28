@@ -115,6 +115,8 @@ public class UI_MainPanel : MonoBehaviour
             Server.Instance.AIFlag = false;
             chatStartBtn.GetComponentInChildren<Text>().text = "Start";
         }
+        
+        Server.Instance.ChatStartEmit();
     }
 
     public void GiveMeAI()

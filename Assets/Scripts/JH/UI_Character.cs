@@ -105,11 +105,12 @@ public class UI_Character : MonoBehaviour
     public void HairPanel_Select()
     {
         HideAllPanels();
+        Debug.Log("HairPanel.gameObject.activeSelf b"+HairPanel.gameObject.activeSelf);
         if (HairPanel.gameObject.activeSelf)
             HairPanel.gameObject.SetActive(false);
         else
             HairPanel.gameObject.SetActive(true);
-        
+        Debug.Log("HairPanel.gameObject.activeSelf a"+HairPanel.gameObject.activeSelf);
         m_HairOnObject.SetActive(true);
     }
     

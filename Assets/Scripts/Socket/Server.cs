@@ -144,77 +144,66 @@ public class Server : MonoBehaviour
             });
             */
 
-            if (AIFlag)
+            
+            m_Socket.On("getImglist", (response) =>
             {
-                m_Socket.On("getImglist", (response) =>
+                string jsonText = response.GetValue<string>();
+                List<KeywordDict> data = JsonConvert.DeserializeObject<List<KeywordDict>>(jsonText);
+                m_Actions.Add(() => { UI_Chat.Instance.AddAIImage(data); });
+            });
+
+
+            m_Socket.On("getGraph", (response) =>
+            {
+                m_NetworkGraphDownload.Add(() =>
                 {
-                    Debug.Log(response.GetValue());
-                    string jsonText = response.GetValue<string>();
-                    List<KeywordDict> data = JsonConvert.DeserializeObject<List<KeywordDict>>(jsonText);
-                    m_Actions.Add(() => { UI_Chat.Instance.AddAIImage(data); });
+                    string url = HOST + response.GetValue<string>();
+                    UI_Chat.Instance.AddAIGraph(url);
+                });
+            });
+
+            m_Socket.On("getSummary",
+                (response) =>
+                {
+                    m_SummaryDownload.Add(() => { UI_Chat.Instance.AddAISummary(response.GetValue<string>()); });
                 });
 
+            m_Socket.On("getKeylist", (response) =>
+            {
+                string jsonText = response.GetValue<string>();
 
-                m_Socket.On("getGraph", (response) =>
+                List<ChatKeywordData2> data = JsonConvert.DeserializeObject<List<ChatKeywordData2>>(jsonText);
+
+                m_keyActions.Add(() => { UI_Chat.Instance.AddAIKeyword(data); });
+
+            });
+            
+            m_Socket.On("getOcr", (response) =>
+            {
+                m_OCRActions.Add(() =>
                 {
-                    m_NetworkGraphDownload.Add(() =>
+                    string ocr = response.GetValue<string>();
+                    UI_Chat.Instance.AddAISummary(ocr);
+                });
+            });
+
+            m_Socket.On("getVisionText", (response) =>
+            {
+                m_VisionActions.Add(() =>
+                {
+                    string getImgResult = response.GetValue<string>();
+                    var list = JsonConvert.DeserializeObject<fileResult>(getImgResult);
+                    UI_Chat.Instance.AddAIVisionImage(list.img);
+                    string text = "";
+                    for (int i = 0; i < 5; i++)
                     {
-                        string url = HOST + response.GetValue<string>();
-                        UI_Chat.Instance.AddAIGraph(url);
-                    });
-                });
+                        text += list.label[i] + " ";
+                    }
 
-                m_Socket.On("getSummary",
-                    (response) =>
-                    {
-                        m_SummaryDownload.Add(() => { UI_Chat.Instance.AddAISummary(response.GetValue<string>()); });
-                    });
-
-                m_Socket.On("getKeylist", (response) =>
-                {
-                    string jsonText = response.GetValue<string>();
-
-                    List<ChatKeywordData2> data = JsonConvert.DeserializeObject<List<ChatKeywordData2>>(jsonText);
-
-                    m_keyActions.Add(() => { UI_Chat.Instance.AddAIKeyword(data); });
+                    UI_Chat.Instance.AddAISummary(text);
 
                 });
-
-                /*
-                m_Socket.On("receiveVoice", (response) =>
-                {
-                    test1 = response.GetValue<byte[]>();
-                });
-                */
-
-                m_Socket.On("getOcr", (response) =>
-                {
-                    m_OCRActions.Add(() =>
-                    {
-                        string ocr = response.GetValue<string>();
-                        Debug.Log("getOcr " + ocr);
-                        UI_Chat.Instance.AddAISummary(ocr);
-                    });
-                });
-
-                m_Socket.On("getVisionText", (response) =>
-                {
-                    m_VisionActions.Add(() =>
-                    {
-                        string getImgResult = response.GetValue<string>();
-                        var list = JsonConvert.DeserializeObject<fileResult>(getImgResult);
-                        UI_Chat.Instance.AddAIVisionImage(list.img);
-                        string text = "";
-                        for (int i = 0; i < 5; i++)
-                        {
-                            text += list.label[i] + " ";
-                        }
-
-                        UI_Chat.Instance.AddAISummary(text);
-
-                    });
-                });
-            }
+            });
         });
     }
 

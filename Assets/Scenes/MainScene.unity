@@ -1862,6 +1862,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 914473944316131201, guid: 127c4be1af7b2f642a087557a527ae27,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 914473944316131210, guid: 127c4be1af7b2f642a087557a527ae27,
         type: 3}
       propertyPath: MaleGameObject
@@ -2057,6 +2062,16 @@ PrefabInstance:
       propertyPath: FemaleGameObject
       value: 
       objectReference: {fileID: 7620671048525788065}
+    - target: {fileID: 914473944423208393, guid: 127c4be1af7b2f642a087557a527ae27,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 914473944423208394, guid: 127c4be1af7b2f642a087557a527ae27,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 914473944428611560, guid: 127c4be1af7b2f642a087557a527ae27,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -2436,6 +2451,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 914473944676377293, guid: 127c4be1af7b2f642a087557a527ae27,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 914473944707344034, guid: 127c4be1af7b2f642a087557a527ae27,
         type: 3}
@@ -4577,7 +4597,8 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 914473944676377136, guid: 127c4be1af7b2f642a087557a527ae27, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 127c4be1af7b2f642a087557a527ae27, type: 3}
 --- !u!224 &241224758 stripped
 RectTransform:
@@ -6489,8 +6510,8 @@ Camera:
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.16037738, g: 0.16037738, b: 0.16037738, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -15149,7 +15170,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1937429800
 MonoBehaviour:
   m_ObjectHideFlags: 0

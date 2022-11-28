@@ -76,7 +76,6 @@ public class UI_Chat : MonoBehaviour
                 if (words[2].Contains("http://www.") || words[2].Contains("https://www."))
                 {
                     txtComponent.text = words[2];
-                    Debug.LogError("DetectString");
                     txtComponent.fontStyle = FontStyles.Underline;
                     txtComponent.color = Color.blue;
                     Button txtBtn = txtComponent.gameObject.AddComponent<Button>();
@@ -171,6 +170,7 @@ public class UI_Chat : MonoBehaviour
             {
                 int a = count;
                 StartCoroutine(ImageManager.Instance.GetTexture(rawImages[a], c));
+                rawImages[a].GetComponent<UI_AIImage>().url = c;
                 count += 1;
 
                 if (count >= 5)
@@ -187,7 +187,7 @@ public class UI_Chat : MonoBehaviour
         }
 
     }
-
+    
     public void AddAIVisionImage(List<string> data)
     {
         GameObject newObject =Instantiate<GameObject>(m_AIImagePrefab);
@@ -245,10 +245,13 @@ public class UI_Chat : MonoBehaviour
     public void AddAIGraph(string url)
     {
         GameObject newObject =Instantiate<GameObject>(m_AIGraphPrefab);
-            
+        string[] split_text;
+        split_text = url.Split('_');
+        //static/network/network_1_1.png
+        //HOST/network/1
         newObject.transform.SetParent(AIParent.transform);
         newObject.transform.localScale=new Vector3(1,1,1);
-        
+        newObject.GetComponent<UI_AIGraph>().url = Server.Instance.HOST +"/network/"+split_text[1];
         scrollUpdate();
 
         var rawImage = newObject.GetComponentInChildren<RawImage>();
