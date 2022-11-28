@@ -2287,7 +2287,7 @@ MonoBehaviour:
     - {fileID: 8057312869488707128}
     - {fileID: 7927747180201987904}
   prefabPath: Assets/AdvancedPeopleSystem2/Prefabs/CustomizableCharacter.prefab
-  instanceStatus: 1
+  instanceStatus: 5
   originHip: {fileID: 8970357574251447835}
   headHip: {fileID: 4641111449798277609}
   clothesAnchors:
@@ -2718,16 +2718,16 @@ MonoBehaviour:
   ShowParameterInspector: 1
   m_SynchronizeParameters:
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: IsWalking
   - Type: 1
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: speed
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Sit
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Talk
   m_SynchronizeLayers:
   - SynchronizeType: 0
