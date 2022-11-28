@@ -29,8 +29,8 @@ public class UI_JoinRoomItem : MonoBehaviour
             return;
         }
         m_roomNameText.text = m_Data.Name;
-        m_playerCountText.text = m_Data.PlayerCount.ToString();
-        m_maxCountText.text = "/"+m_Data.MaxPlayers;
+        //m_playerCountText.text = m_Data.PlayerCount.ToString();
+        m_maxCountText.text = m_Data.PlayerCount + "/"+m_Data.MaxPlayers;
         
     }
 
