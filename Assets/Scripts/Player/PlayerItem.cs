@@ -60,13 +60,16 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             playerwebID = (int)UnityEngine.Random.Range(1000, 2000);
             ScreenShareWhileVideoCall.Instance.Uid2 = (uint)playerwebID;
             idUint.Add(playerwebID, PhotonNetwork.NickName);
-            ScreenShareWhileVideoCall.Instance.playerdict.Add(playerwebID, PhotonNetwork.NickName);
+            //ScreenShareWhileVideoCall.Instance.playerdict.Add(playerwebID, PhotonNetwork.NickName);
 
             playerObjectID = (int)UnityEngine.Random.Range(3000, 5000);
             ScreenShareWhileVideoCall.Instance.Uid1 = (uint)playerObjectID;
             transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
             //ScreenShareWhileVideoCall.Instance.aig.Add(playerUID);
 
+
+
+            ScreenShareWhileVideoCall.Instance.playerdict = idUint; 
             //ScreenShareWhileVideoCall.Instance.playerdict = idUint;
 
             
