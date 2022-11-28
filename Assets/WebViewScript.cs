@@ -63,11 +63,7 @@ public class WebViewScript : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKey(KeyCode.Escape))
-        {
-            Destroy(webViewObject);
-            return;
-        }
+        
         if (Application.platform == RuntimePlatform.Android)
         {
             if (Input.GetKey(KeyCode.Escape))

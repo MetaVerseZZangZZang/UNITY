@@ -1227,7 +1227,6 @@ GameObject:
   - component: {fileID: 2488306635694635647}
   - component: {fileID: 3490546503905915661}
   - component: {fileID: 670113089}
-  - component: {fileID: 1358668017868086764}
   m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
@@ -1290,23 +1289,6 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!114 &1358668017868086764
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 582112120891085564}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: feaea3b4d52b0450882006a237f9d782, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  VideoSurfaceType: 0
-  Enable: 1
-  Uid: 0
-  UserName: 
-  SourceType: 0
 --- !u!1 &622865720194236949
 GameObject:
   m_ObjectHideFlags: 0
@@ -2839,7 +2821,7 @@ MonoBehaviour:
     - {fileID: 6791931087251776183}
     - {fileID: 3195732119377324750}
   prefabPath: Assets/AdvancedPeopleSystem2/Prefabs/CustomizableCharacter.prefab
-  instanceStatus: 6
+  instanceStatus: 1
   originHip: {fileID: 1231293355673010347}
   headHip: {fileID: 8473455122907128234}
   clothesAnchors:

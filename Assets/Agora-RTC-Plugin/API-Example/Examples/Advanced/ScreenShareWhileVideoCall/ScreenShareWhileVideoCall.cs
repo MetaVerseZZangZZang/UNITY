@@ -273,6 +273,12 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     }
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            Debug.LogError("asdfasdfasdfasdfsad");
+            Destroy(WebViewScript.Instance.gameObject);
+            WebviewStop();
+        }
         if (startWebview == true)
         {
             PermissionHelper.RequestMicrophontPermission();
