@@ -116,15 +116,7 @@ public class WebViewObject : MonoBehaviour
             }
         }
 
-        if (userInputURL.text.Contains("www.") == true)
-        {
-            LoadURL("http://" + userInputURL.text);
-        }
-
-        else if (userInputURL.text.Contains("www.") == false)
-        {
-            LoadURL("http://www." + userInputURL.text);
-        }
+        LoadURL(userInputURL.text);
     }
 
     public void CallOnLoaded(string url)

@@ -8,7 +8,7 @@ using Photon.Pun.Demo.PunBasics;
 using Photon.Realtime;
 using TreeEditor;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class PlayerItem : MonoBehaviour, IPunObservable
 {
@@ -25,7 +25,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     Vector3 curRot;
     private ExitGames.Client.Photon.Hashtable playerProperties = new ExitGames.Client.Photon.Hashtable();
     private Player player;
-    public string Nickname;
+    public  TextMeshProUGUI Nickname;
 
     public bool webviewStart = false;
     public bool noteStart = false;
@@ -53,7 +53,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
     void Start()
     {
         gameObject.name = pv.IsMine ? PhotonNetwork.NickName + "(user)" : pv.Owner.NickName + "(user)";
-        Nickname = pv.IsMine ? PhotonNetwork.NickName : pv.Owner.NickName;
+        Nickname.text = pv.IsMine ? PhotonNetwork.NickName : pv.Owner.NickName;
 
         if (pv.IsMine)
         {

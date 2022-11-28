@@ -82,7 +82,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
 
         player=PhotonNetwork.Instantiate("Prefabs/"+CharCustomManager.Instance.selectedGender+"Character", new Vector3(1,0,35), Quaternion.Euler(new Vector3(0,0,0)));
-        player.GetComponent<PlayerItem>().Nickname = PhotonNetwork.LocalPlayer.NickName;
+        player.GetComponent<PlayerItem>().Nickname.text = PhotonNetwork.LocalPlayer.NickName;
         player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Hair,CharCustomManager.Instance.selectedHairIndex );
         player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Shirt,CharCustomManager.Instance.selectedShirtsIndex );
         player.GetComponent<CharacterCustomization>().SetElementByIndex(CharacterElementType.Pants,CharCustomManager.Instance.selectedPantsIndex );
@@ -134,7 +134,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         PlayerItem toRemove = null;
         for (int i = 0; i < playerItemList.Count; i++)
         {
-            if (playerItemList[i].Nickname == otherPlayer.NickName)
+            if (playerItemList[i].Nickname.text == otherPlayer.NickName)
             {
                 toRemove = playerItemList[i];
             }

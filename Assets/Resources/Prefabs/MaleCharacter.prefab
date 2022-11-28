@@ -3304,7 +3304,7 @@ MonoBehaviour:
   playerAnim: {fileID: 7217555815998165618}
   pv: {fileID: 5776876361673224434}
   cc: {fileID: 1705496087617365781}
-  Nickname: 
+  Nickname: {fileID: 259414051501156731}
   webviewStart: 0
   noteStart: 0
   playerwebID: 0

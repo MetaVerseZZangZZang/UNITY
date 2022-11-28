@@ -73,7 +73,7 @@ public class UI_Chat : MonoBehaviour
             }
             else if (txtComponent.name == "MessageText")
             {
-                if (words[2].Contains("http://www.") || words[2].Contains("https://www."))
+                if (words[2].Contains("http://") || words[2].Contains("https://"))
                 {
                     txtComponent.text = words[2];
                     txtComponent.fontStyle = FontStyles.Underline;

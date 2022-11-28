@@ -168,7 +168,7 @@ public class UI_MainPanel : MonoBehaviour
             RemoteView.transform.GetChild(0).gameObject.SetActive(false);
         foreach (UI_PlayerSlotItem item in UI_PlayerSlot.Instance.PlayerSlotList)
         {
-            if (item.name.text == playerItem.Nickname)
+            if (item.name.text == playerItem.Nickname.text)
             {
                 item.camControl(true);
             }
@@ -183,7 +183,7 @@ public class UI_MainPanel : MonoBehaviour
         
         foreach (UI_PlayerSlotItem item in UI_PlayerSlot.Instance.PlayerSlotList)
         {
-            if (item.name.text == playerItem.Nickname)
+            if (item.name.text == playerItem.Nickname.text)
             {
                 item.camControl(false);
             }
@@ -194,7 +194,7 @@ public class UI_MainPanel : MonoBehaviour
     {
         foreach (UI_PlayerSlotItem item in UI_PlayerSlot.Instance.PlayerSlotList)
         {
-            if (item.name.text == playerItem.Nickname)
+            if (item.name.text == playerItem.Nickname.text)
             {
                 item.voiceControl(true);
             }
@@ -205,7 +205,7 @@ public class UI_MainPanel : MonoBehaviour
     {
         foreach (UI_PlayerSlotItem item in UI_PlayerSlot.Instance.PlayerSlotList)
         {
-            if (item.name.text == playerItem.Nickname)
+            if (item.name.text == playerItem.Nickname.text)
             {
                 item.voiceControl(false);
             }
