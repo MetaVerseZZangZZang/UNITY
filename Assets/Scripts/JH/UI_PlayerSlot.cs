@@ -46,7 +46,8 @@ public class UI_PlayerSlot : MonoBehaviour
             }
         }
         
-        Destroy(toDelete.gameObject);
+        if(toDelete!=null)
+            Destroy(toDelete.gameObject);
 
     }
 
