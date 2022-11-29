@@ -2839,7 +2839,7 @@ MonoBehaviour:
     - {fileID: 6791931087251776183}
     - {fileID: 3195732119377324750}
   prefabPath: Assets/AdvancedPeopleSystem2/Prefabs/CustomizableCharacter.prefab
-  instanceStatus: 1
+  instanceStatus: 6
   originHip: {fileID: 1231293355673010347}
   headHip: {fileID: 8473455122907128234}
   clothesAnchors:
@@ -3317,6 +3317,7 @@ MonoBehaviour:
   chairPos: {x: 0, y: 0, z: 0}
   chairRot: {x: 0, y: 0, z: 0, w: 1}
   chairCollider: {fileID: 0}
+  pvCollider: 0
   speed: 3
   rotationSpeed: 10
 --- !u!54 &8461957992028094475
