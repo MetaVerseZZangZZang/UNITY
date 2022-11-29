@@ -1297,7 +1297,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 582112120891085564}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: feaea3b4d52b0450882006a237f9d782, type: 3}
   m_Name: 
@@ -2839,7 +2839,7 @@ MonoBehaviour:
     - {fileID: 6791931087251776183}
     - {fileID: 3195732119377324750}
   prefabPath: Assets/AdvancedPeopleSystem2/Prefabs/CustomizableCharacter.prefab
-  instanceStatus: 6
+  instanceStatus: 1
   originHip: {fileID: 1231293355673010347}
   headHip: {fileID: 8473455122907128234}
   clothesAnchors:
