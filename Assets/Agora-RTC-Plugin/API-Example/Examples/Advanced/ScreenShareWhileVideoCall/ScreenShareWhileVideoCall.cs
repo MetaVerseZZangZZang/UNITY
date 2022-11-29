@@ -274,8 +274,9 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     private void Update()
     {
 #if UNITY_EDITOR_OSX
-        if (Input.GetKeyDown(KeyCode.M))
+        if (Input.GetKeyDown(KeyCode.Less))
         {
+            Debug.LogError("destroy all");
             Destroy(WebViewObject.Instance.gameObject);
             WebviewStop();
         }
