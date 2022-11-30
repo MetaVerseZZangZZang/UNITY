@@ -238,10 +238,7 @@ public class PlayerItem : MonoBehaviour, IPunObservable
                 }
             }
         }
-            
-
-            
-           
+        
     }
 
     // 캐릭터 움직임, 애니메이션 처리
