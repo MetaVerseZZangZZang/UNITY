@@ -10,7 +10,7 @@ public class UI_Chat : MonoBehaviour
     
     public GameObject m_ChatTextPrefab;  //stt 결과
     public GameObject m_AIImagePrefab;
-    public GameObject m_AIGraphPrefab;
+    public GameObject m_AIGraphPrefab; 
     public GameObject m_AITextPrefab;
     public GameObject m_ReplyTextPrefab;
     public GameObject safari;
@@ -20,6 +20,9 @@ public class UI_Chat : MonoBehaviour
     public GameObject AIParent;
     public static UI_Chat Instance;
     public GameObject fileImage;
+
+
+    public Sprite[] playerImage;
 
     private void Awake()
     {
@@ -70,7 +73,7 @@ public class UI_Chat : MonoBehaviour
     {
         string[] words = msg.Split(":::");
         
-        GameObject newText=Instantiate<GameObject>(m_ChatTextPrefab);
+        GameObject newText = Instantiate<GameObject>(m_ChatTextPrefab);
         newText.transform.SetParent(AIParent.transform);
         newText.transform.localScale=new Vector3(1,1,1);
         
@@ -81,6 +84,29 @@ public class UI_Chat : MonoBehaviour
             if (txtComponent.name == "NameText")
             {
                 txtComponent.text = words[1];
+
+                if (words[1] == "bong")
+                {
+                    newText.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = playerImage[0];
+                    
+                }
+                else if (words[1] == "LSM")
+                {
+                    newText.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = playerImage[1];
+                }
+                else if (words[1] == "mongil")
+                {
+                    newText.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = playerImage[2];
+                }
+                else if (words[1] == "cho")
+                {
+                    newText.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = playerImage[3];
+                }
+                else if (words[1] == "flipHyeon")
+                {
+                    newText.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = playerImage[4];
+                }
+
             }
             else if (txtComponent.name == "MessageText")
             {
