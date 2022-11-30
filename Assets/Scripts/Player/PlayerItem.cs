@@ -135,105 +135,113 @@ public class PlayerItem : MonoBehaviour, IPunObservable
             {
                 talkingImage.SetActive(false);
             }
-            
-            float axis_X = Input.GetAxisRaw("Horizontal");
-            float axis_Z = Input.GetAxisRaw("Vertical");
-
-            if (axis_X != 0 || axis_Z != 0)
+            if (webviewStart == false)
             {
-                // 앉아있는 중이면 일어서야 하므로 sit false함
-                if (stance == "sitting")
+                float axis_X = Input.GetAxisRaw("Horizontal");
+                float axis_Z = Input.GetAxisRaw("Vertical");
+                if (axis_X != 0 || axis_Z != 0)
                 {
-                    playerAnim.SetBool("Sit", false);
-                    stance = "idle";
-                    // playerAnim.Play("SitToStand");
+                    // 앉아있는 중이면 일어서야 하므로 sit false함
+                    if (stance == "sitting")
+                    {
+                        playerAnim.SetBool("Sit", false);
+                        stance = "idle";
+                        // playerAnim.Play("SitToStand");
+                    }
+                    else
+                    {
+                        // 움직일 때는 말해봐야 의미없죠? talk 애니메이션 false
+                        if (talking)
+                        {
+                            playerAnim.SetBool("Talk", false);
+                        }
+                    }
                 }
                 else
                 {
-                    // 움직일 때는 말해봐야 의미없죠? talk 애니메이션 false
-                    if (talking)
+                    if (Input.GetKeyDown(KeyCode.C) && stance != "sitting")
                     {
-                        playerAnim.SetBool("Talk", false);                            
+                        // 의자와 닿아있고 사람들이 현재 의자를 사용중이지 않으면 앉기
+                        if (isCollide && chairCollider.enabled)
+                        {
+                            transform.position = chairPos;
+                            transform.rotation = chairRot;
+                            chairCollider.enabled = false;
+                            playerAnim.SetBool("Sit", true);
+                            stance = "sitting";
+                            rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY |
+                                             RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionY;
+                        }
+                    }
+                    else if (Input.GetKeyDown(KeyCode.C) && stance == "sitting")
+                    {
+                        playerAnim.SetBool("Sit", false);
+                        stance = "idle";
+                    }
+                    else
+                    {
+                        if (talking)
+                        {
+                            playerAnim.SetBool("Talk", true);
+
+                            // if (stance == "sitting")
+                            // {
+                            //     playerAnim.Play("SittingTalking");                            
+                            // }
+                            // else
+                            // {
+                            //     if (stance != "walking")
+                            //     {
+                            //         playerAnim.Play("StandTalking");    
+                            //     }
+                            // }
+                        }
+                        else
+                        {
+                            playerAnim.SetBool("Talk", false);
+                        }
+
+                        if (stance != "sitting")
+                        {
+                            stance = "idle";
+                            playerAnim.SetBool("Sit", false);
+                            playerAnim.SetBool("IsWalking", false);
+                        }
+                    }
+                }
+
+                // 의자에서 일어나는 애니메이션 끝날 때 의자의 collider 다시 켜주기
+                if (playerAnim.GetCurrentAnimatorStateInfo(0).IsName("SitToStand"))
+                {
+                    if (playerAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.8f)
+                    {
+                        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY |
+                                         RigidbodyConstraints.FreezeRotationZ;
+                        chairCollider.enabled = true;
                     }
                 }
             }
             else
             {
-                if (Input.GetKeyDown(KeyCode.C) && stance != "sitting")
+                if (chairCollider != null)
                 {
-                    // 의자와 닿아있고 사람들이 현재 의자를 사용중이지 않으면 앉기
-                    if (isCollide && chairCollider.enabled)
+                    if (pvCollider)
                     {
-                        transform.position = chairPos;
-                        transform.rotation = chairRot;
+                        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionY;
                         chairCollider.enabled = false;
-                        playerAnim.SetBool("Sit", true);
-                        stance = "sitting";
-                        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY |
-                                         RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionY;
-                    }
-                }
-                else if (Input.GetKeyDown(KeyCode.C) && stance == "sitting")
-                {
-                    playerAnim.SetBool("Sit", false);
-                    stance = "idle";
-                }
-                else
-                {
-                    if (talking)
-                    {
-                        playerAnim.SetBool("Talk", true);
-
-                        // if (stance == "sitting")
-                        // {
-                        //     playerAnim.Play("SittingTalking");                            
-                        // }
-                        // else
-                        // {
-                        //     if (stance != "walking")
-                        //     {
-                        //         playerAnim.Play("StandTalking");    
-                        //     }
-                        // }
                     }
                     else
                     {
-                        playerAnim.SetBool("Talk", false);
+                        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+                        chairCollider.enabled = true;
                     }
-                    
-                    if (stance != "sitting")
-                    {
-                        stance = "idle";
-                        playerAnim.SetBool("Sit", false); 
-                        playerAnim.SetBool("IsWalking", false);
-                    }
-                }
-            }
-
-            // 의자에서 일어나는 애니메이션 끝날 때 의자의 collider 다시 켜주기
-            if (playerAnim.GetCurrentAnimatorStateInfo(0).IsName("SitToStand"))
-            {
-                if (playerAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.8f)
-                {
-                    rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY |
-                                     RigidbodyConstraints.FreezeRotationZ;
-                    chairCollider.enabled = true;
                 }
             }
         }
-        //else
-        //{
-        //    if (pvCollider)
-        //    {
-        //        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionY;
-        //        chairCollider.enabled = false;
-        //    }
-        //    else
-        //    {
-        //        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-        //        chairCollider.enabled = true;
-        //    }
-        //}
+            
+
+            
+           
     }
 
     // 캐릭터 움직임, 애니메이션 처리
