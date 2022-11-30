@@ -184,7 +184,7 @@ public class UI_Chat : MonoBehaviour
                 rawImages[a].GetComponent<UI_AIImage>().url = c;
                 count += 1;
 
-                if (count >= 5)
+                if (count >= 3)
                 {
                     isBreak = true;
                     break;
