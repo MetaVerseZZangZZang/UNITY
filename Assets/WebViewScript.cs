@@ -84,7 +84,7 @@ public class WebViewScript : MonoBehaviour
     public void XBtn()
     {
         shutDown = true;
-#if UNITY_EDITOR_OSX        
+#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX   
         surfSaveList = WebViewObject.Instance.surfingList;
         saveURLCount = WebViewObject.Instance.currentURL;
         
@@ -102,7 +102,7 @@ public class WebViewScript : MonoBehaviour
         Debug.LogError(player);
         
     }
-#if UNITY_EDITOR_OSX
+#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
     public void _BTN()
     {
 
@@ -230,7 +230,7 @@ public class WebViewScript : MonoBehaviour
     IEnumerator BringWebTexture(RawImage webImageTexture)
     {
         yield return new WaitForSeconds(1f);
-#if UNITY_EDITOR_OSX
+#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
         webImageTexture.texture = WebViewObject.Instance.texture;
 #endif
 

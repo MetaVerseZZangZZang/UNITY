@@ -197,7 +197,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     IEnumerator BringWebTexture(RawImage webImageTexture)
     {
         yield return new WaitForSeconds(1f);
-#if UNITY_EDITOR_OSX
+#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
         webImageTexture.texture = WebViewObject.Instance.texture;
 #endif
 
@@ -273,7 +273,7 @@ public class ScreenShareWhileVideoCall : MonoBehaviour
     }
     private void Update()
     {
-#if UNITY_EDITOR_OSX
+#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
         if (Input.GetKeyDown(KeyCode.F2))
         {
             Debug.LogError("destroy all");
