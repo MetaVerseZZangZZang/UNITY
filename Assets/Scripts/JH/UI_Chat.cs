@@ -88,7 +88,6 @@ public class UI_Chat : MonoBehaviour
                 if (words[1] == "bong")
                 {
                     newText.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = playerImage[0];
-                    
                 }
                 else if (words[1] == "LSM")
                 {
@@ -102,7 +101,7 @@ public class UI_Chat : MonoBehaviour
                 {
                     newText.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = playerImage[3];
                 }
-                else if (words[1] == "flipHyeon")
+                else if (words[1] == "Hyun")
                 {
                     newText.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = playerImage[4];
                 }
