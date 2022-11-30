@@ -41,6 +41,7 @@ public class WebViewScript : MonoBehaviour
         webViewObject =
         (new GameObject("WebViewObject")).AddComponent<WebViewObject>();
 
+        //webViewObject.Init(1148/10, 720/10);
         webViewObject.Init(1148, 720);
         //webViewObject.Init((msg) =>
         //{
@@ -84,7 +85,7 @@ public class WebViewScript : MonoBehaviour
     public void XBtn()
     {
         shutDown = true;
-#if UNITY_EDITOR_OSX        
+#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX || UNITY_IPHONE      
         surfSaveList = WebViewObject.Instance.surfingList;
         saveURLCount = WebViewObject.Instance.currentURL;
         
@@ -102,10 +103,10 @@ public class WebViewScript : MonoBehaviour
         Debug.LogError(player);
         
     }
-#if UNITY_EDITOR_OSX
+#if UNITY_EDITOR_|| UNITY_STANDALONE_OSX
     public void _BTN()
     {
-
+        Debug.LogError("__________btn");
         shutDown = true;
         surfSaveList = WebViewObject.Instance.surfingList;
         saveURLCount = WebViewObject.Instance.currentURL;
@@ -148,8 +149,10 @@ public class WebViewScript : MonoBehaviour
 
     public void ExtendSize()
     {
+        Debug.LogError("click");
         if (extend == false)
         {
+            Debug.LogError("EXTEND");
             extend = true;
             surfSaveList = WebViewObject.Instance.surfingList;
             saveURLCount = WebViewObject.Instance.currentURL;
@@ -197,6 +200,7 @@ public class WebViewScript : MonoBehaviour
         }
         else
         {
+            Debug.LogError("resize");
             extend = false;
             surfSaveList = WebViewObject.Instance.surfingList;
             saveURLCount = WebViewObject.Instance.currentURL;

@@ -8304,10 +8304,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2065408804}
     m_Modifications:
-    - target: {fileID: 1375668937, guid: a09c55de95665457690f512b21f6c103, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 11
-      objectReference: {fileID: 0}
     - target: {fileID: 1560725942, guid: a09c55de95665457690f512b21f6c103, type: 3}
       propertyPath: safariIcon
       value: 
@@ -8316,11 +8312,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Safari
-      objectReference: {fileID: 0}
-    - target: {fileID: 323748391658456348, guid: a09c55de95665457690f512b21f6c103,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 323748391658456349, guid: a09c55de95665457690f512b21f6c103,
         type: 3}
@@ -8427,6 +8418,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7805910435450150647, guid: a09c55de95665457690f512b21f6c103,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7805910435450150647, guid: a09c55de95665457690f512b21f6c103,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7805910435450150647, guid: a09c55de95665457690f512b21f6c103,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7805910435450150647, guid: a09c55de95665457690f512b21f6c103,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7805910435450150647, guid: a09c55de95665457690f512b21f6c103,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7805910435450150647, guid: a09c55de95665457690f512b21f6c103,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7805910435450150647, guid: a09c55de95665457690f512b21f6c103,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -61.12491
+      objectReference: {fileID: 0}
     - target: {fileID: 8667045872183280609, guid: a09c55de95665457690f512b21f6c103,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -8458,23 +8484,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd7a06e2474d740bcaebc79c0a004b5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!111 &644573191
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 644573188}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 6658ec9881ea64b04af926522664be93, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 6658ec9881ea64b04af926522664be93, type: 2}
-  - {fileID: 7400000, guid: f51974945985449349d79fa2d106c842, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 0
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!1 &651599486
 GameObject:
   m_ObjectHideFlags: 0
@@ -10451,6 +10460,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SafariBtn
+      objectReference: {fileID: 0}
+    - target: {fileID: 3565184811741462792, guid: c109aa4cc060f4bd7ae46a6e084f60ff,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3565184811741462798, guid: c109aa4cc060f4bd7ae46a6e084f60ff,
         type: 3}
