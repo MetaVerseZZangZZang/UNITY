@@ -146,7 +146,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     IEnumerator FindObject(Player newPlayer)
     {
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(1f);
         GameObject player = GameObject.Find(newPlayer.NickName + "(user)");
         playerItemList.Add(player.GetComponent<PlayerItem>());
         UI_PlayerSlot.Instance.AddPlayerSlot(newPlayer.NickName);

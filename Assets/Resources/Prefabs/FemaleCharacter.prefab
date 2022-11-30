@@ -2699,7 +2699,7 @@ MonoBehaviour:
   - {fileID: 5981644011129649013}
   - {fileID: 9220516865472278287}
   - {fileID: 4338413693397323449}
-  sceneViewId: 0
+  sceneViewId: 2
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &103247769117648114
@@ -2761,6 +2761,7 @@ MonoBehaviour:
   chairPos: {x: 0, y: 0, z: 0}
   chairRot: {x: 0, y: 0, z: 0, w: 1}
   chairCollider: {fileID: 0}
+  pvCollider: 0
   speed: 3
   rotationSpeed: 10
 --- !u!54 &8461957992028094475
@@ -12478,7 +12479,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7963670090384779381}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: feaea3b4d52b0450882006a237f9d782, type: 3}
   m_Name: 

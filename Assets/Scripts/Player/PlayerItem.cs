@@ -221,19 +221,19 @@ public class PlayerItem : MonoBehaviour, IPunObservable
                 }
             }
         }
-        else
-        {
-            if (pvCollider)
-            {
-                rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionY;
-                chairCollider.enabled = false;
-            }
-            else
-            {
-                rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-                chairCollider.enabled = true;
-            }
-        }
+        //else
+        //{
+        //    if (pvCollider)
+        //    {
+        //        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionY;
+        //        chairCollider.enabled = false;
+        //    }
+        //    else
+        //    {
+        //        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+        //        chairCollider.enabled = true;
+        //    }
+        //}
     }
 
     // 캐릭터 움직임, 애니메이션 처리
