@@ -93,7 +93,7 @@ public class UI_Chat : MonoBehaviour
                 {
                     newText.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = playerImage[1];
                 }
-                else if (words[1] == "mongil")
+                else if (words[1] == "mongil" || words[1] == "cowjean")
                 {
                     newText.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = playerImage[2];
                 }
@@ -105,6 +105,7 @@ public class UI_Chat : MonoBehaviour
                 {
                     newText.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = playerImage[4];
                 }
+                
 
             }
             else if (txtComponent.name == "MessageText")
@@ -270,8 +271,13 @@ public class UI_Chat : MonoBehaviour
         Button button = newObject.GetComponent<Button>();
         button.onClick.AddListener(()=>StartCoroutine(FileUpload.Instance.URLFileSave(Url,fileName,extension)));
         
-        //Text fileExtention = newObject.transform.GetChild(0).GetChild(0).GetComponent<Text>();
-        //fileExtention.text = extension.ToUpper();
+        Text fileExtention = newObject.transform.GetChild(0).GetChild(0).GetComponent<Text>();
+        fileExtention.text = "."+extension.ToUpper();
+
+
+        Text fileFullName = newObject.transform.GetChild(1).GetComponent<Text>();
+        fileFullName.text = $"{fileName}.{extension}";
+
         
         scrollUpdate();
         
