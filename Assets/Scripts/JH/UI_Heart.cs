@@ -18,6 +18,7 @@ public class UI_Heart : MonoBehaviour
             for (int i = 0; i < this.transform.childCount; ++i)
             {
                 this.transform.GetChild(i).GetComponent<Image>().sprite = Heart_unfilled;
+                
             }
             m_ChatPlayer.heart = 0;
         }
@@ -27,6 +28,11 @@ public class UI_Heart : MonoBehaviour
             for (int i = 0; i < num; ++i)
             {
                 this.transform.GetChild(i).GetComponent<Image>().sprite = Heart_filled;
+            }
+
+            if (num > 0)
+            {
+                this.transform.GetChild(num - 1).GetComponent<Animation>().Play();
             }
 
             for (int i = num; i < this.transform.childCount; ++i)
